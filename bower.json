@@ -14,8 +14,7 @@
     "handlebars": "~3.0.0",
     "firebase": "~2.2.3",
     "backbonefire": "~0.5.1",
-    "backbone.localStorage": "~1.1.16",
-    "jquery.cookie": "~1.4.1"
+    "backbone.localStorage": "~1.1.16"
   },
   "devDependencies": {
     "chai": "~1.8.1",

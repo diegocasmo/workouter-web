@@ -12,6 +12,10 @@ define({
     id: {
       required: 'Invalid id.'
     },
+    title: {
+      required: 'Please, enter a title.',
+      minLength: 'The title needs to be greater than 3 characters.'
+    },
     user: {
       required: 'Invalid user.'
     },
@@ -33,7 +37,7 @@ define({
     },
     title: {
       required: 'Please, enter a title.',
-      minLength: 'The title needs to be greater than 3 Characters.'
+      minLength: 'The title needs to be greater than 3 characters.'
     },
     reps: {
       required: 'Please, enter the number of repetitions.',

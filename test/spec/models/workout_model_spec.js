@@ -32,6 +32,7 @@ define([
 
       it('has correct defaults', function() {
         expect(this.workoutModel.get('id')).to.be.equal(0);
+        expect(this.workoutModel.get('title')).to.be.equal('');
         expect(this.workoutModel.get('user')).to.be.an.instanceOf(Object);
         expect(this.workoutModel.get('date')).to.be.an.instanceOf(Date);
         expect(this.workoutModel.get('exercises')).to.be.an.instanceOf(Array);
@@ -68,6 +69,7 @@ define([
 
         this.workoutModel.set({
           'id': 1,
+          'title': 'Leg Day',
           'user': this.userModel.toJSON(),
           'date': new Date(),
           'exercises': this.exercisesCollection.toJSON()
@@ -86,6 +88,17 @@ define([
 
         this.workoutModel.set({ 'id': '' });
         expect(this.workoutModel.isValid()).to.be.equal(false);
+      });
+
+      it('should have valid title', function() {
+        this.workoutModel.set({ 'title': '' });
+        expect(this.workoutModel.isValid()).to.be.equal(false);
+
+        this.workoutModel.set({ 'title': 'sh' });
+        expect(this.workoutModel.isValid()).to.be.equal(false);
+
+        this.workoutModel.set({ 'title': 'Leg Day' });
+        expect(this.workoutModel.isValid()).to.be.equal(true);
       });
 
       it('should have valid user', function() {

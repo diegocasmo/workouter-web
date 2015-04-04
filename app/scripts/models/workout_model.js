@@ -20,6 +20,7 @@ define([
 
     defaults: {
       id: 0,
+      title: '',
       user: new UserModel(),
       date: new Date(),
       exercises: []
@@ -30,6 +31,12 @@ define([
 
       if (typeof attrs.id !== 'number') {
         errors.push({ name: 'id', message: enLocale.workoutModel.id.required });
+      }
+
+      if (!attrs.title) {
+        errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
+      } else if (attrs.title.length <= 3) {
+        errors.push({ name: 'title', message: enLocale.workoutModel.title.minLength });
       }
 
       if(typeof attrs.user !== 'object') {
