@@ -94,9 +94,6 @@ define([
         this.workoutModel.set({ 'title': '' });
         expect(this.workoutModel.isValid()).to.be.equal(false);
 
-        this.workoutModel.set({ 'title': 'sh' });
-        expect(this.workoutModel.isValid()).to.be.equal(false);
-
         this.workoutModel.set({ 'title': 'Leg Day' });
         expect(this.workoutModel.isValid()).to.be.equal(true);
       });

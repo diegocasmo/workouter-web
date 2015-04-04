@@ -35,8 +35,6 @@ define([
 
       if (!attrs.title) {
         errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
-      } else if (attrs.title.length <= 3) {
-        errors.push({ name: 'title', message: enLocale.workoutModel.title.minLength });
       }
 
       if(typeof attrs.user !== 'object') {

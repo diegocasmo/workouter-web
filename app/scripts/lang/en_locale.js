@@ -13,8 +13,7 @@ define({
       required: 'Invalid id.'
     },
     title: {
-      required: 'Please, enter a title.',
-      minLength: 'The title needs to be greater than 3 characters.'
+      required: 'Please, enter a title.'
     },
     user: {
       required: 'Invalid user.'
@@ -36,8 +35,7 @@ define({
       required: 'Invalid workout_id.'
     },
     title: {
-      required: 'Please, enter a title.',
-      minLength: 'The title needs to be greater than 3 characters.'
+      required: 'Please, enter a title.'
     },
     reps: {
       required: 'Please, enter the number of repetitions.',

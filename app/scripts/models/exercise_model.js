@@ -38,8 +38,6 @@ define([
 
       if (!attrs.title) {
         errors.push({ name: 'title', message: enLocale.exerciseModel.title.required });
-      } else if (attrs.title.length <= 3) {
-        errors.push({ name: 'title', message: enLocale.exerciseModel.title.minLength });
       }
 
       if (!attrs.reps) {

@@ -74,9 +74,6 @@ define([
         this.exerciseModel.set({ 'title': '' });
         expect(this.exerciseModel.isValid()).to.be.equal(false);
 
-        this.exerciseModel.set({ 'title': 'sh' });
-        expect(this.exerciseModel.isValid()).to.be.equal(false);
-
         this.exerciseModel.set({ 'title': 'squads' });
         expect(this.exerciseModel.isValid()).to.be.equal(true);
       });
