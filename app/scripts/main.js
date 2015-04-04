@@ -4,8 +4,11 @@
  * Description: Main entry point and configuration
  *              of the application
  */
-/*global require, Firebase*/
+
+/*global require*/
+
 'use strict';
+
 require.config({
   paths: {
     jquery: '../bower_components/jquery/dist/jquery',
@@ -47,46 +50,21 @@ require.config({
 require([
   'jquery',
   'backbone',
-  'services/firebase_service',
-  'services/auth_service',
+  'routers/app_router',
+  'managers/login_manager',
+  'routers/base_router',
   'foundation'
-], function ($, Backbone, FirebaseService, AuthService) {
+], function ($, Backbone, AppRouter, LoginManager) {
 
   $(document).foundation();
 
-  Backbone.history.start({
-      pushState: false,
-      root: '/'
+  var appRouter = new AppRouter(),
+    loginManager = new LoginManager({
+      router: appRouter
     });
 
-  var ref = new Firebase(FirebaseService.url);
-
-  $('#log-out').click(function(e) {
-    e.preventDefault();
-    if(AuthService.isLoggedIn()) {
-      AuthService.logUserOut();
-      window.location.reload();
-    } else {
-      console.log('User is already logged out.\n');
-    }
+  Backbone.history.start({
+    pushState: false,
+    root: '/'
   });
-
-  $('#log-in').click(function(e) {
-    e.preventDefault();
-    if (AuthService.isLoggedIn()) {
-      console.log('User is logged in');
-    } else {
-      console.log('User is logged out.\n');
-      AuthService.attemptTologUserIn(function(data) {
-        if(!data.error) {
-          console.log('Authenticated successfully with payload:', data.authData);
-        } else {
-          console.log('Unable to authenticate.\n')
-        }
-      });
-    }
-  });
-
-  console.log('Current Auth Status: ' + AuthService.isLoggedIn());
-
 });

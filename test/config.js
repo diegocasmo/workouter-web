@@ -10,7 +10,7 @@ require.config({
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
     mocha: '../bower_components/mocha/mocha',
     chai: '../bower_components/chai/chai',
-    sinon: '../bower_components/sinonjs/sinon.js'
+    sinon: '../bower_components/sinonjs/sinon'
   },
   shim: {
     underscore: {
@@ -40,8 +40,9 @@ require.config({
 
 require([
   'chai',
-  'mocha'
-], function(chai, mocha) {
+  'mocha',
+  'sinon'
+], function(chai, mocha, sinon) {
   // set up
   expect = chai.expect;
   assert = chai.assert;
@@ -58,6 +59,12 @@ require([
   specs.push('../../test/spec/models/user_model_spec');
   specs.push('../../test/spec/models/workout_model_spec');
   specs.push('../../test/spec/models/exercise_model_spec');
+
+  // routers
+  specs.push('../../test/spec/routers/app_router_spec');
+
+  // managers
+  specs.push('../../test/spec/managers/login_manager_spec');
 
   require(specs, function() {
     mocha.run();

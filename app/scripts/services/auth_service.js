@@ -24,7 +24,7 @@ define([
      * returns true if current user is logged in,
      * false otherwise
      */
-    isLoggedIn: function() {
+    isUserLoggedIn: function() {
       return (this.ref.getAuth()) ? true : false;
     },
 
