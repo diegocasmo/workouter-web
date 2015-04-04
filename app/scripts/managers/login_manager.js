@@ -16,7 +16,7 @@ define([
 
     initialize: function(options) {
       this.router = options.router;
-      //this.listenTo(this.router, 'login_manager:show', this.buildLoginPage);
+      this.listenTo(this.router, 'login_manager:show', this.buildLoginPage);
     },
 
     buildLoginPage: function() {

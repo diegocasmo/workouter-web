@@ -8,6 +8,24 @@
 /*global define*/
 define({
   appName: 'Workouter',
+  userModel: {
+    uid: {
+      required: 'Invalid uid.',
+      validUidProvider: 'Invalid uid provider.'
+    },
+    provider: {
+      validProvider: 'Invalid provider.'
+    },
+    token: {
+      validToken: 'Invalid token.'
+    },
+    username: {
+      required: 'Invalid username.'
+    },
+    displayName: {
+      required: 'Invalid displayName.'
+    }
+  },
   workoutModel: {
     id: {
       required: 'Invalid id.'

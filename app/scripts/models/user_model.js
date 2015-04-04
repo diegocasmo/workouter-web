@@ -9,8 +9,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'services/firebase_service'
-], function($, _, Backbone, FirebaseService) {
+  'services/firebase_service',
+  'lang/en_locale'
+], function($, _, Backbone, FirebaseService, enLocale) {
 
   'use strict';
 
@@ -28,25 +29,25 @@ define([
       var errors = [];
 
       if (!attrs.uid || typeof attrs.uid !== 'string') {
-        errors.push({ name: 'uid', message: 'Invalid uid.' });
+        errors.push({ name: 'uid', message: enLocale.userModel.uid.required });
       } else if (attrs.uid.indexOf(FirebaseService.oAuthProvider) === -1) {
-        errors.push({ name: 'uid', message: 'Invalid uid provider.' });
+        errors.push({ name: 'uid', message: enLocale.userModel.uid.validUidProvider });
       }
 
       if (!attrs.provider || attrs.provider !== FirebaseService.oAuthProvider) {
-        errors.push({ name: 'provider', message: 'Invalid provider.' });
+        errors.push({ name: 'provider', message: enLocale.userModel.provider.validProvider });
       }
 
       if (!attrs.token || typeof attrs.token !== 'string') {
-        errors.push({ name: 'token', message: 'Invalid token.' });
+        errors.push({ name: 'token', message: enLocale.userModel.token.validToken });
       }
 
       if (!attrs.username || typeof attrs.username !== 'string') {
-        errors.push({ name: 'username', message: 'Invalid username.' });
+        errors.push({ name: 'username', message: enLocale.userModel.username.required });
       }
 
       if (!attrs.displayName || typeof attrs.displayName !== 'string') {
-        errors.push({ name: 'displayName', message: 'Invalid displayName.' });
+        errors.push({ name: 'displayName', message: enLocale.userModel.displayName.required });
       }
 
       return errors.length > 0 ? errors : false;

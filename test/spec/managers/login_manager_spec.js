@@ -4,7 +4,7 @@
  * Description: Tests for the LoginManager.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach, sinon*/
 define([
   'managers/login_manager'
 ],function(LoginManager) {
@@ -30,10 +30,11 @@ define([
         expect(this.loginManager).to.be.ok;
       });
 
-      xit('listens to correct event', sinon.test(function() {
-        // test manager listens to login_manager:show event
-        // from router correctly
-      }))
+      it('listens to correct event', sinon.test(function() {
+        var spy = sinon.spy(this.loginManager, 'buildLoginPage');
+        this.loginManager.router.trigger('login_manager:show');
+        expect(spy.called).to.be.true;
+      }));
     });
 
   });
