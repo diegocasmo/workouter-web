@@ -64,7 +64,7 @@ require([
   specs.push('../../test/spec/routers/app_router_spec');
 
   // managers
-  specs.push('../../test/spec/managers/login_manager_spec');
+  specs.push('../../test/spec/managers/base_manager_spec');
 
   require(specs, function() {
     mocha.run();

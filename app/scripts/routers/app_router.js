@@ -29,8 +29,7 @@ define([
      * and handle user authentication appropriately
      */
     before: function(route) {
-      var isUserLoggedIn = AuthService.isUserLoggedIn(),
-          isPrivate = true;
+      var isPrivate = true;
 
       route = $.trim(route);
 
@@ -38,9 +37,8 @@ define([
         isPrivate = false;
       }
 
-      if(!isUserLoggedIn && isPrivate) {
-        // if user is not logged in, then redirect to
-        // login page
+      if(!AuthService.isUserLoggedIn() && isPrivate) {
+        // if user is not logged in, then redirect to login page
         this.navigate('login', {trigger: true});
       }
     },
@@ -49,35 +47,40 @@ define([
      * show login page (public)
      */
     showLogin: function() {
-      this.trigger('login_manager:show');
+      var eventTrigger = 'goTo:login';
+      this.trigger(eventTrigger);
     },
 
     /**
      * show user all workouts view (private)
      */
     showWorkouts: function() {
-      this.trigger('workout_manager:show:all');
+      var eventTrigger = 'goTo:workouts';
+      this.trigger(eventTrigger);
     },
 
     /**
      * show user exercises perform on a single workout (private)
      */
     showWorkoutExercises: function(workoutId) {
-      this.trigger('workout_manager:show:exercises');
+      var eventTrigger = 'goTo:exercises';
+      this.trigger(eventTrigger);
     },
 
     /**
      * show single user exercise of a single workout (private)
      */
     showWorkoutExercise: function(workoutId, exerciseId) {
-      this.trigger('workout_manager:show:exercise');
+      var eventTrigger = 'goTo:exercise';
+      this.trigger(eventTrigger);
     },
 
     /**
      * show user profile (private)
      */
     showProfile: function() {
-      this.trigger('profile_manager:show');
+      var eventTrigger = 'goTo:profile';
+      this.trigger(eventTrigger);
     }
 
   });

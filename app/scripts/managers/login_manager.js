@@ -7,20 +7,16 @@
 define([
   'jquery',
   'underscore',
-  'backbone'
-], function($, _, Backbone) {
+  'backbone',
+  'managers/base_manager'
+], function($, _, Backbone, BaseManager) {
 
   'use strict';
 
-  var LoginManager = Backbone.View.extend({
+  var LoginManager = BaseManager.extend({
 
-    initialize: function(options) {
-      this.router = options.router;
-      this.listenTo(this.router, 'login_manager:show', this.buildLoginPage);
-    },
-
-    buildLoginPage: function() {
-      console.log('buildLoginPage');
+    render: function() {
+      console.log('render');
     }
 
   });

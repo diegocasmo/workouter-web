@@ -51,17 +51,13 @@ require([
   'jquery',
   'backbone',
   'routers/app_router',
-  'managers/login_manager',
   'routers/base_router',
   'foundation'
-], function ($, Backbone, AppRouter, LoginManager) {
+], function ($, Backbone, AppRouter) {
 
   $(document).foundation();
 
-  var appRouter = new AppRouter(),
-    loginManager = new LoginManager({
-      router: appRouter
-    });
+  var appRouter = new AppRouter();
 
   Backbone.history.start({
     pushState: false,

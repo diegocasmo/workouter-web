@@ -47,14 +47,14 @@ define([
 
     describe('Event Triggers', function() {
       it('triggers appropriate events', sinon.test(function() {
-        var showLoginSpy = sinon.spy();
+        var spy = sinon.spy();
 
         this.appRouter.on({
-          'login_manager:show': showLoginSpy
+          'goTo:login': spy
         });
 
         this.appRouter.showLogin();
-        expect(showLoginSpy.called).to.be.true;
+        expect(spy.called).to.be.true;
       }));
     });
 
