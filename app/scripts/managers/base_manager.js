@@ -20,7 +20,9 @@ define([
       this.listenTo(this.router, this.eventTrigger, this.render);
     },
 
-    destroy: function() {}
+    destroy: function() {},
+
+    render: function() {console.log('called render');}
 
   });
 

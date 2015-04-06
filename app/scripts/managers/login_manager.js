@@ -3,7 +3,7 @@
  * Company: Workouter
  * Description: View manager to render login view
  */
-
+/*
 define([
   'jquery',
   'underscore',
@@ -23,3 +23,4 @@ define([
 
   return LoginManager;
 });
+*/
