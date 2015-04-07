@@ -4,10 +4,13 @@
  * Description: Tests for the AppRouter.
  */
 
-/*global define, describe, it, afterEach, beforeEach, sinon*/
+/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
-  'routers/app_router'
-],function(AppRouter) {
+  'routers/app_router',
+  'services/auth_service',
+  'managers/base_manager',
+  'routers/base_router'
+],function(AppRouter, AuthService, BaseManager) {
 
   'use strict';
 
@@ -56,6 +59,50 @@ define([
         this.appRouter.showLogin();
         expect(spy.called).to.be.true;
       }));
+    });
+
+    describe('Layout Management', function() {
+      it('should be initially null', function() {
+        expect(this.appRouter.activeLayout).to.be.equal(null);
+      });
+    });
+
+    describe('Router Methods', function() {
+
+      beforeEach(function() {
+        this.baseManager = new BaseManager({
+              router: this.appRouter,
+              eventTrigger: 'foo'
+            });
+      });
+
+      afterEach(function() {
+        this.baseManager = null;
+      });
+
+      describe('Before Method', function() {
+        it('should set activeLayout to null', function() {
+          this.appRouter.activeLayout = this.baseManager;
+          this.appRouter.before('dummy');
+          expect(this.appRouter.activeLayout).to.be.equal(null);
+        });
+
+        it('should call activeLayout destroy and remove', function() {
+          var spyDestroy = sinon.spy(this.baseManager, 'destroy'),
+              spyRemove = sinon.spy(this.baseManager, 'remove');
+
+          this.appRouter.activeLayout = this.baseManager;
+          this.appRouter.before('dummy');
+          expect(spyDestroy.called).to.be.true;
+          expect(spyRemove.called).to.be.true;
+        });
+
+        xit('should redirect to login if user is unauthenticated', sinon.test(function() {
+        }));
+
+        xit('should not redirect to login if user is authenticated', sinon.test(function() {
+        }));
+      });
     });
 
   });

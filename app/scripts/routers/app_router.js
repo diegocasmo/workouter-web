@@ -15,6 +15,10 @@ define([
 
   var AppRouter = Backbone.Router.extend({
 
+    activeLayout: null,
+
+    publicRoutes: ['', 'login'],
+
     routes: {
       'login'                     : 'showLogin',
       'workouts'                  : 'showWorkouts',
@@ -26,20 +30,25 @@ define([
 
     /**
      * check wheter the current route is private or public
-     * and handle user authentication appropriately
+     * and handle user authentication appropriately. It also
+     * manages activeLayout state
      */
     before: function(route) {
+      if(this.activeLayout) {
+        this.activeLayout.destroy();
+        this.activeLayout.remove();
+        this.activeLayout = null;
+      }
+
       var isPrivate = true;
-
       route = $.trim(route);
-
-      if(route === '' || route === 'login') {
+      if(this.publicRoutes.indexOf(route) > 0) {
         isPrivate = false;
       }
 
       if(!AuthService.isUserLoggedIn() && isPrivate) {
         // if user is not logged in, then redirect to login page
-        this.navigate('login', {trigger: true});
+        //this.navigate('login', {trigger: true});
       }
     },
 

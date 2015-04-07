@@ -22,7 +22,11 @@ define([
 
     destroy: function() {},
 
-    render: function() {console.log('called render');}
+    remove: function() {
+      Backbone.View.prototype.remove.call(this);
+    },
+
+    render: function() {}
 
   });
 

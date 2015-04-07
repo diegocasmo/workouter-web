@@ -34,7 +34,7 @@ define([
       it('listens to correct event', sinon.test(function() {
         var spy = sinon.spy(this.baseManager, 'render');
         this.baseManager.router.on({
-          'foo': this.baseManager.render()
+          'foo': spy()
         });
         this.baseManager.router.trigger('foo');
         expect(spy.called).to.be.true;
