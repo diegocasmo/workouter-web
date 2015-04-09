@@ -48,7 +48,7 @@ define([
 
       if(!AuthService.isUserLoggedIn() && isPrivate) {
         // if user is not logged in, then redirect to login page
-        //this.navigate('login', {trigger: true});
+        this.navigate('login', {trigger: true});
       }
     },
 
