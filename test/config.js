@@ -8,7 +8,6 @@ require.config({
     localstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
-    mocha: '../bower_components/mocha/mocha',
     chai: '../bower_components/chai/chai',
     sinon: '../bower_components/sinonjs/sinon'
   },
@@ -29,20 +28,17 @@ require.config({
     backbonefire: {
       deps: ['firebase', 'backbone']
     },
-    mocha: {
-      exports: 'mocha'
-    },
     chai: {
       exports: 'chai'
     }
   }
 });
 
+/*global mocha*/
 require([
   'chai',
-  'mocha',
   'sinon'
-], function(chai, mocha, sinon) {
+], function(chai, sinon) {
   // set up
   expect = chai.expect;
   assert = chai.assert;

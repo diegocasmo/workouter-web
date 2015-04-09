@@ -123,6 +123,3 @@ bower_components/
 
 build/
 dist/
-
-### App Specifics ###
-app/scripts/services/firebase_service.js

@@ -25,7 +25,8 @@
     "connect-livereload": "~0.3.2",
     "time-grunt": "~0.2.8",
     "jshint-stylish": "~0.1.5",
-    "grunt-contrib-handlebars": "~0.9.3"
+    "grunt-contrib-handlebars": "~0.9.3",
+    "grunt-blanket-mocha": "~0.3.3"
   },
   "engines": {
     "node": ">=0.10.0"

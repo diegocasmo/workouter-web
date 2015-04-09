@@ -226,6 +226,12 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        blanket_mocha: {
+            all: ["test/**/*.html"],
+            options: {
+                threshold: 90
+            }
         }
     });
 
