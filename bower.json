@@ -12,7 +12,7 @@
     "foundation": "#5.4.3",
     "font-awesome": "4.3.0",
     "handlebars": "~3.0.0",
-    "firebase": "~2.2.3",
+    "firebase": "2.0.6",
     "backbonefire": "~0.5.1",
     "backbone.localStorage": "~1.1.16"
   },
