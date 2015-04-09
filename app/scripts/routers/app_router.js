@@ -8,8 +8,9 @@
 define([
   'jquery',
   'backbone',
-  'services/auth_service'
-], function($, Backbone, AuthService) {
+  'services/auth_service',
+  'managers/login_manager'
+], function($, Backbone, AuthService, LoginManager) {
 
   'use strict';
 
@@ -57,6 +58,10 @@ define([
      */
     showLogin: function() {
       var eventTrigger = 'goTo:login';
+      this.activeLayout = new LoginManager({
+        router: this,
+        eventTrigger: eventTrigger
+      });
       this.trigger(eventTrigger);
     },
 

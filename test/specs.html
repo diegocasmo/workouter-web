@@ -9,20 +9,7 @@
 
   <div id="mocha"></div>
 
-  <script src="../app/bower_components/mocha/mocha.js"></script>
-
   <script data-main="config" src="../app/bower_components/requirejs/require.js"></script>
-
-  <script src="../app/bower_components/blanket/dist/qunit/blanket.js" data-cover-only="spec"></script>
-
-  <script type="text/javascript" src="../node_modules/grunt-blanket-mocha/support/mocha-blanket.js"></script>
-
-  <script>
-    /* global blanket */
-    if (window.PHANTOMJS) {
-      blanket.options("reporter", "../node_modules/grunt-blanket-mocha/support/grunt-reporter.js");
-    }
-  </script>
 
 </body>
 </html>

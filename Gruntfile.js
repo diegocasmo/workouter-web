@@ -226,18 +226,8 @@ module.exports = function (grunt) {
                     ]
                 }
             }
-        },
-        blanket_mocha: {
-            all: ["test/**/*.html"],
-            options: {
-                threshold: 90
-            }
         }
     });
-
-    grunt.registerTask('test', [
-        'blanket_mocha'
-    ]);
 
     grunt.registerTask('createDefaultTemplate', function () {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');

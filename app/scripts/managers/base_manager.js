@@ -17,16 +17,18 @@ define([
     initialize: function(options) {
       this.router = options.router;
       this.eventTrigger = options.eventTrigger;
-      this.listenTo(this.router, this.eventTrigger, this.render);
+      this.listenTo(this.router, this.eventTrigger, this.buildChildViews);
     },
+
+    buildChildViews: function() {},
+
+    saveChildViews: function() {},
 
     destroy: function() {},
 
     remove: function() {
       Backbone.View.prototype.remove.call(this);
-    },
-
-    render: function() {}
+    }
 
   });
 

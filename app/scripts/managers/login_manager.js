@@ -3,7 +3,7 @@
  * Company: Workouter
  * Description: View manager to render login view
  */
-/*
+
 define([
   'jquery',
   'underscore',
@@ -15,12 +15,17 @@ define([
 
   var LoginManager = BaseManager.extend({
 
-    render: function() {
-      console.log('render');
-    }
+    /**
+     * build child views for this manager
+     */
+    buildChildViews: function() {},
+
+    /**
+     * save child views on array for later destroy
+     */
+    saveChildViews: function() {}
 
   });
 
   return LoginManager;
 });
-*/

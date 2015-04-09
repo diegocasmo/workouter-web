@@ -8,8 +8,10 @@ require.config({
     localstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
+    mocha: '../bower_components/mocha/mocha',
     chai: '../bower_components/chai/chai',
-    sinon: '../bower_components/sinonjs/sinon'
+    sinon: '../bower_components/sinonjs/sinon',
+    templates: '../../.tmp/scripts/templates'
   },
   shim: {
     underscore: {
@@ -28,6 +30,9 @@ require.config({
     backbonefire: {
       deps: ['firebase', 'backbone']
     },
+    mocha: {
+      exports: 'mocha'
+    },
     chai: {
       exports: 'chai'
     }
@@ -36,9 +41,10 @@ require.config({
 
 /*global mocha*/
 require([
+  'mocha',
   'chai',
   'sinon'
-], function(chai, sinon) {
+], function(mocha, chai, sinon) {
   // set up
   expect = chai.expect;
   assert = chai.assert;
@@ -61,6 +67,10 @@ require([
 
   // managers
   specs.push('../../test/spec/managers/base_manager_spec');
+  specs.push('../../test/spec/managers/login_manager_spec');
+
+  // views
+  specs.push('../../test/spec/views/login/login_main_view_spec');
 
   require(specs, function() {
     mocha.run();

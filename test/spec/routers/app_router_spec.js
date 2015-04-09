@@ -65,10 +65,16 @@ define([
       it('should be initially null', function() {
         expect(this.appRouter.activeLayout).to.be.equal(null);
       });
+
+      it('should initialize Managers on route callback', sinon.test(function() {
+        expect(this.appRouter.activeLayout).to.be.equal(null);
+        // simulate login route callback
+        this.appRouter.showLogin();
+        expect(this.appRouter.activeLayout).to.be.instanceOf(BaseManager);
+      }));
     });
 
     describe('Router Methods', function() {
-
       beforeEach(function() {
         this.baseManager = new BaseManager({
               router: this.appRouter,
@@ -106,5 +112,4 @@ define([
     });
 
   });
-
 });
