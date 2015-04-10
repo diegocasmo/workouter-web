@@ -73,9 +73,14 @@ require([
   specs.push('../../test/spec/managers/profile_manager_spec');
   specs.push('../../test/spec/managers/add_workout_manager_spec');
 
-  // views
+  // login views
   specs.push('../../test/spec/views/login/login_main_view_spec');
+
+  // profiles views
   specs.push('../../test/spec/views/profile/profile_main_view_spec');
+
+  // add workout views
+  specs.push('../../test/spec/views/add_workout/close_add_workout_view_spec');
 
   require(specs, function() {
     mocha.run();

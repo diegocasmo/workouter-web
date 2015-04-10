@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: A view for the main profile view.
+ * Description: A view for the main close add workout view.
  */
 
 /*global define*/
@@ -17,37 +17,35 @@ define([
 
   'use strict';
 
-  var ProfileMainView = Backbone.View.extend({
+  var CloseAddWorkoutView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/profile/profile_main_view_template.hbs'],
+    template: JST['app/scripts/templates/add_workout/close_add_workout_view.hbs'],
 
     tagName: 'div',
 
-    attributes: { id: 'profile-main-view' },
+    attributes: { id: 'close-add-workout-view' },
 
     events: {
-      'click .logout': 'logUserOut'
+      'click .close-add-workout-view-button': 'close'
     },
 
     initialize: function (options) {
       var that = this;
       this.router = options.router;
-      this.userModel = UserModel.getInstance();
     },
 
     render: function () {
-      this.$el.html(this.template(enLocale.profile.profileMainView));
+      this.$el.html(this.template(enLocale.addWorkout.closeAddWorkoutView));
       return this;
     },
 
-    logUserOut: function(event) {
+    close: function(event) {
       event.preventDefault();
-      AuthService.logUserOut();
-      this.router.navigate('login', { trigger: true });
+      this.router.navigate('workouts', { trigger: true });
     }
 
   });
 
-  return ProfileMainView;
+  return CloseAddWorkoutView;
 
 });

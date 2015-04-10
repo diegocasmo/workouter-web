@@ -32,9 +32,8 @@ define([
     initialize: function (options) {
       var that = this;
       this.router = options.router;
-
       this.userModel = UserModel.getInstance();
-
+      // events setup
       this.listenTo(this, 'login:error', this.redirectToLogin);
       this.listenTo(this, 'login:success', function(userData) {
         if(that.userModel.setTwitterUser(userData)) {

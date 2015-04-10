@@ -81,5 +81,12 @@ define({
         text: 'Logout'
       }
     }
+  },
+  addWorkout: {
+    closeAddWorkoutView: {
+      closeButton: {
+        text: 'Close'
+      }
+    }
   }
 });

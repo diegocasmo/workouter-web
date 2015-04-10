@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: Tests for the LoginManager.
+ * Description: Tests for the Add Workout Manager.
  */
 
 /*global define, describe, it, afterEach, beforeEach, sinon*/
