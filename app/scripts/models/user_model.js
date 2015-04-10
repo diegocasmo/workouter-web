@@ -68,10 +68,23 @@ define([
     },
 
     /**
-     * create a user
+     * creats an instance of twiter a user.
+     * returns true if successful, false otherwise
      */
-    createModel: function(attrs) {
-      this.set(attrs);
+    setTwitterUser: function(attrs) {
+      this.set({
+        uid: attrs.uid,
+        provider: attrs.provider,
+        token: attrs.token,
+        username: attrs.twitter.username,
+        displayName: attrs.twitter.displayName
+      });
+
+      if(this.isValid()) {
+        return true;
+      }
+
+      return false;
     }
 
   }, {

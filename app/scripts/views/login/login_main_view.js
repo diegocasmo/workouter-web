@@ -29,9 +29,15 @@ define([
       },
 
       initialize: function (options) {
+        var that = this;
         this.router = options.router;
         this.listenTo(this, 'login:error', this.redirectToLogin);
-        this.listenTo(this, 'login:success', this.redirectToWorkouts);
+        this.listenTo(this, 'login:success', function(userData) {
+          // set user model and redirect to workout if successful,
+          // redirect to login othwerwise
+          // console.log(userData);
+          that.redirectToWorkouts();
+        });
       },
 
       render: function () {
@@ -46,7 +52,7 @@ define([
           if(data.error) {
             that.trigger('login:error');
           } else {
-            that.trigger('login:success');
+            that.trigger('login:success', data.authData);
           }
         });
       },

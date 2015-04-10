@@ -64,6 +64,12 @@ define([
         expect(spy.called).to.be.true;
       }));
 
+      xit('listens to "login:error"', sinon.test(function() {
+      }));
+
+      xit('listens to "login:success"', sinon.test(function() {
+      }));
+
     });
 
     describe('Login Main View Methods', function() {
@@ -78,24 +84,11 @@ define([
           spy.restore();
         }));
 
-        xit('triggers login:error on user attempt cancel', sinon.test(function() {
-          // stub to simulate error on login
-          sinon.stub(AuthService, 'attemptTologUserIn').returns(false);
-          var spy = sinon.spy();
-          this.loginMainView.on({
-            'login:error': spy
-          });
-          //this.loginMainView.delegateEvents();
-          // simulate user event
-          this.loginMainView.$el.find('.twitter-login').trigger('click');
-          expect(spy).to.have.been.calledOnce;
-          //spy.restore();
-          //AuthService.attemptTologUserIn.restore();
+        xit('triggers "login:error" on user attempt cancel', sinon.test(function() {
         }));
 
-        xit('triggers login:success on user successful login', function() {
-
-        });
+        xit('triggers "login:success" on user successful login', sinon.test(function() {
+        }));
 
       });
 

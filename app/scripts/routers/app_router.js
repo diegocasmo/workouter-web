@@ -42,7 +42,7 @@ define([
         this.activeLayout.remove();
         this.activeLayout = null;
       }
-
+      //AuthService.logUserOut();
       var isPrivate = true;
       route = $.trim(route);
       if(this.publicRoutes.indexOf(route) > 0) {
@@ -51,12 +51,13 @@ define([
 
       if(!AuthService.isUserLoggedIn() && isPrivate) {
         // if user is not logged in, then redirect to login page
-        this.navigate('login', { trigger: true, replace: true });
+        // and reset user model JIC
+        this.navigate('login', { trigger: true });
         return false;
       } else if (AuthService.isUserLoggedIn() && !isPrivate) {
         // if user is already logged in, but attemps to navigate
         // a public route, redirect to workouts
-        this.navigate('workouts', { trigger: true, replace: true });
+        this.navigate('workouts', { trigger: true });
         return false;
       }
     },

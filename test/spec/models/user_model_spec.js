@@ -103,10 +103,58 @@ define([
     });
 
     describe('Model Functions', function() {
-      it('returns correct unique identifier', function() {
-        var uid = this.userModel.getUniqueIdentifier();
-        expect(uid).to.be.equal(this.userModel.get('uid'));
+
+      describe('getUniqueIdentifier Method', function() {
+
+        it('returns correct unique identifier', function() {
+          var uid = this.userModel.getUniqueIdentifier();
+          expect(uid).to.be.equal(this.userModel.get('uid'));
+        });
+
       });
+
+      describe('resetModel Method', function() {
+
+        it('it resets model appropriately', function() {
+          this.userModel.resetModel();
+          var userModelValues = JSON.stringify(this.userModel.toJSON()),
+              userModelDefaultValues = JSON.stringify(this.userModel.defaults);
+
+          expect(userModelValues).to.be.equal(userModelDefaultValues);
+        });
+
+      });
+
+      describe('setTwitterUser Method', function() {
+
+        it('returns true if user has valid attrs', function() {
+          var validAttrs = {
+            uid: FirebaseService.oAuthProvider + ':246134729',
+            provider: FirebaseService.oAuthProvider,
+            token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
+            twitter: {
+              username: 'username',
+              displayName: 'Some Name'
+            }
+          };
+          expect(this.userModel.setTwitterUser(validAttrs)).to.be.true;
+        });
+
+        it('returns false if user has invalid attrs', function() {
+          var invalidAttrs = {
+            uid: '246134729',
+            provider: FirebaseService.oAuthProvider,
+            token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
+            twitter: {
+              username: 'username',
+              displayName: 'Some Name'
+            }
+          };
+          expect(this.userModel.setTwitterUser(invalidAttrs)).to.be.false;
+        });
+
+      });
+
     });
   });
 
