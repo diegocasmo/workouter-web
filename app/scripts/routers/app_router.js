@@ -91,7 +91,7 @@ define([
     },
 
     /**
-     * show user all workouts view (private)
+     * show add workout form (private)
      */
     addWorkout: function() {
       var eventTrigger = 'goTo:addWorkout';
