@@ -6,8 +6,9 @@
 
 /*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
-  'views/login/login_main_view'
-],function(LoginMainView) {
+  'views/login/login_main_view',
+  'lang/en_locale'
+],function(LoginMainView, enLocale) {
 
   'use strict';
 
@@ -18,6 +19,7 @@ define([
       this.loginMainView = new LoginMainView({
         router: this.router
       });
+      this.loginMainView.render();
     });
 
     afterEach(function() {
@@ -33,6 +35,39 @@ define([
 
       it('knows about the app router', function() {
         expect(this.loginMainView.router).to.be.instanceOf(Backbone.Router);
+      });
+
+      it('has correct id', function() {
+        expect(this.loginMainView.attributes.id).to.equal('login-main-view');
+      })
+
+    });
+
+    describe('Login Main View DOM', function() {
+
+      it('has twitter login button', function() {
+        var twitterElement = this.loginMainView.$el.find('.twitter-login');
+        expect(twitterElement.length).to.be.equal(1);
+        expect(twitterElement.text()).to.be.equal(enLocale.login.loginMainView.twitterButton.text);
+      });
+
+    });
+
+    describe('Login Main View Events', function() {
+
+      it('listens to login with twitter button click', sinon.test(function() {
+        var spy = sinon.spy(this.loginMainView, 'loginWithTwitter');
+        this.loginMainView.delegateEvents();
+        this.loginMainView.$el.find('.twitter-login').trigger('click');
+        expect(spy.called).to.be.true;
+      }));
+
+    });
+
+    describe('Login Main View Methods', function() {
+
+      describe('loginWithTwitter Method', function() {
+
       });
 
     });

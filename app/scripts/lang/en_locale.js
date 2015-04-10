@@ -67,5 +67,12 @@ define({
       required: 'Please, enter a weight.',
       number: 'Weight needs to be a number.'
     }
+  },
+  login: {
+    loginMainView: {
+      twitterButton: {
+        text: 'Login with Twitter'
+      }
+    }
   }
 });

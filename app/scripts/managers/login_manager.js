@@ -16,12 +16,20 @@ define([
 
   var LoginManager = BaseManager.extend({
 
+    el: $('#app-wrapper'),
+
     /**
      * build child views for this manager
      */
     buildChildViews: function(options) {
       this.loginMainView = new LoginMainView(options);
       this.childViews.push(this.loginMainView);
+      this.render();
+    },
+
+    render: function() {
+      this.$el.append(this.loginMainView.render().el);
+      return this;
     }
 
   });

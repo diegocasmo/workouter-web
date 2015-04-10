@@ -62,6 +62,11 @@ define([
           expect(this.loginManager.childViews.length).to.be.equal(1);
         });
 
+        it('should call the render method', sinon.test(function() {
+          var spy = sinon.spy(this.loginManager, 'render');
+          this.loginManager.buildChildViews();
+          expect(spy.called).to.be.true;
+        }));
       });
 
       describe('destroy Method', function() {
