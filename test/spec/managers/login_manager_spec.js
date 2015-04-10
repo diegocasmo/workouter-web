@@ -69,9 +69,9 @@ define([
         }));
       });
 
-      describe('destroy Method', function() {
-        it('must have a destroy method', function() {
-          expect(this.loginManager.destroy).to.be.ok;
+      describe('destroyChildViews Method', function() {
+        it('must have a destroyChildViews method', function() {
+          expect(this.loginManager.destroyChildViews).to.be.ok;
         });
       });
     });

@@ -21,23 +21,22 @@ define([
       this.router = options.router;
       this.eventTrigger = options.eventTrigger;
       this.listenTo(this.router, this.eventTrigger, function() {
-        this.buildChildViews(options);
+        that.buildChildViews(options);
       });
     },
 
     buildChildViews: function(options) {},
 
-    destroy: function() {
-      if(this.childViews.length > 0) {
-        _.each(this.childViews, function(childView) {
-          childView.remove();
-        });
+    destroyChildViews: function() {
+      _.each(this.childViews, function(childView) {
+        childView.remove();
+      });
       this.childViews = [];
-      }
     },
 
     remove: function() {
-      Backbone.View.prototype.remove.call(this);
+      this.$el.html('');
+      this.undelegateEvents();
     }
 
   });

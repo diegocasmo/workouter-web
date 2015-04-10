@@ -9,7 +9,7 @@ define([
   'routers/app_router',
   'services/auth_service',
   'managers/base_manager',
-  'routers/base_router'
+  'routefilter'
 ],function(AppRouter, AuthService, BaseManager) {
 
   'use strict';
@@ -18,6 +18,7 @@ define([
 
     beforeEach(function() {
       this.appRouter = new AppRouter();
+      sinon.stub(window.location, 'replace').returns(true);
     });
 
     afterEach(function() {
@@ -93,8 +94,8 @@ define([
           expect(this.appRouter.activeLayout).to.be.equal(null);
         });
 
-        it('should call activeLayout destroy and remove', function() {
-          var spyDestroy = sinon.spy(this.baseManager, 'destroy'),
+        it('should call activeLayout destroyChildViews and remove', function() {
+          var spyDestroy = sinon.spy(this.baseManager, 'destroyChildViews'),
               spyRemove = sinon.spy(this.baseManager, 'remove');
 
           this.appRouter.activeLayout = this.baseManager;
@@ -108,6 +109,9 @@ define([
 
         xit('should not redirect to login if user is authenticated', sinon.test(function() {
         }));
+
+        xit('should redirect to workouts if user is logged in but attemps to go to public route', function() {
+        });
       });
     });
 

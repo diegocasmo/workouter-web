@@ -7,8 +7,9 @@
 /*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
   'views/login/login_main_view',
-  'lang/en_locale'
-],function(LoginMainView, enLocale) {
+  'lang/en_locale',
+  'services/auth_service'
+],function(LoginMainView, enLocale, AuthService) {
 
   'use strict';
 
@@ -58,6 +59,7 @@ define([
       it('listens to login with twitter button click', sinon.test(function() {
         var spy = sinon.spy(this.loginMainView, 'loginWithTwitter');
         this.loginMainView.delegateEvents();
+        // simulate user event
         this.loginMainView.$el.find('.twitter-login').trigger('click');
         expect(spy.called).to.be.true;
       }));
@@ -67,6 +69,33 @@ define([
     describe('Login Main View Methods', function() {
 
       describe('loginWithTwitter Method', function() {
+
+        it('calls attemptTologUserIn on auth service', sinon.test(function() {
+          var spy = sinon.spy(AuthService, 'attemptTologUserIn');
+          // simulate user event
+          this.loginMainView.$el.find('.twitter-login').trigger('click');
+          expect(spy.called).to.be.true;
+          spy.restore();
+        }));
+
+        xit('triggers login:error on user attempt cancel', sinon.test(function() {
+          // stub to simulate error on login
+          sinon.stub(AuthService, 'attemptTologUserIn').returns(false);
+          var spy = sinon.spy();
+          this.loginMainView.on({
+            'login:error': spy
+          });
+          //this.loginMainView.delegateEvents();
+          // simulate user event
+          this.loginMainView.$el.find('.twitter-login').trigger('click');
+          expect(spy).to.have.been.calledOnce;
+          //spy.restore();
+          //AuthService.attemptTologUserIn.restore();
+        }));
+
+        xit('triggers login:success on user successful login', function() {
+
+        });
 
       });
 

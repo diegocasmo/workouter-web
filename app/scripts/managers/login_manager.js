@@ -18,9 +18,6 @@ define([
 
     el: $('#app-wrapper'),
 
-    /**
-     * build child views for this manager
-     */
     buildChildViews: function(options) {
       this.loginMainView = new LoginMainView(options);
       this.childViews.push(this.loginMainView);

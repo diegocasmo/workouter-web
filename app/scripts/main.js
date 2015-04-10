@@ -19,7 +19,8 @@ require.config({
     localstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
-    'jquery.cookie': '../bower_components/jquery.cookie/jquery.cookie'
+    'jquery.cookie': '../bower_components/jquery.cookie/jquery.cookie',
+    routefilter: '../bower_components/routefilter/dist/backbone.routefilter.min'
   },
   shim: {
     underscore: {
@@ -51,7 +52,7 @@ require([
   'jquery',
   'backbone',
   'routers/app_router',
-  'routers/base_router',
+  'routefilter',
   'foundation'
 ], function ($, Backbone, AppRouter) {
 

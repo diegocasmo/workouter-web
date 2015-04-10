@@ -12,7 +12,8 @@ require.config({
     mocha: '../bower_components/mocha/mocha',
     chai: '../bower_components/chai/chai',
     sinon: '../bower_components/sinonjs/sinon',
-    templates: '../../.tmp/scripts/templates'
+    templates: '../../.tmp/scripts/templates',
+    routefilter: '../bower_components/routefilter/dist/backbone.routefilter.min'
   },
   shim: {
     underscore: {

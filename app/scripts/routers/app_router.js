@@ -14,6 +14,8 @@ define([
 
   'use strict';
 
+  var loginManager = null;
+
   var AppRouter = Backbone.Router.extend({
 
     activeLayout: null,
@@ -36,7 +38,7 @@ define([
      */
     before: function(route) {
       if(this.activeLayout) {
-        this.activeLayout.destroy();
+        this.activeLayout.destroyChildViews();
         this.activeLayout.remove();
         this.activeLayout = null;
       }
@@ -49,7 +51,15 @@ define([
 
       if(!AuthService.isUserLoggedIn() && isPrivate) {
         // if user is not logged in, then redirect to login page
-        this.navigate('login', {trigger: true});
+        this.navigate('login', { trigger: true, replace: true });
+        return false;
+        //window.location.replace('/#login');
+      } else if (AuthService.isUserLoggedIn() && !isPrivate) {
+        // if user is already logged in, but attemps to navigate
+        // a public route, redirect to workouts
+        //window.location.replace('/#workouts');
+        this.navigate('workouts', { trigger: true, replace: true });
+        return false;
       }
     },
 
@@ -58,10 +68,13 @@ define([
      */
     showLogin: function() {
       var eventTrigger = 'goTo:login';
-      this.activeLayout = new LoginManager({
-        router: this,
-        eventTrigger: eventTrigger
-      });
+      if(!loginManager) {
+        loginManager = new LoginManager({
+          router: this,
+          eventTrigger: eventTrigger
+        });
+      }
+      this.activeLayout = loginManager;
       this.trigger(eventTrigger);
     },
 

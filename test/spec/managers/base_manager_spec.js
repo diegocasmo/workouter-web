@@ -54,9 +54,9 @@ define([
         });
       });
 
-      describe('destroy Method', function() {
-        it('must have a destroy method', function() {
-          expect(this.baseManager.destroy).to.be.ok;
+      describe('destroyChildViews Method', function() {
+        it('must have a destroyChildViews method', function() {
+          expect(this.baseManager.destroyChildViews).to.be.ok;
         });
 
         it('should call remove on each child View', function() {
@@ -64,14 +64,14 @@ define([
           var dummyView = new Backbone.View(),
               spy = sinon.spy(dummyView, 'remove');
           this.baseManager.childViews.push(dummyView);
-          this.baseManager.destroy();
+          this.baseManager.destroyChildViews();
           expect(spy.called).to.be.true;
         });
 
         it('should reset the childViews property', function() {
           // simulate adding a child view
           this.baseManager.childViews.push(new Backbone.View());
-          this.baseManager.destroy();
+          this.baseManager.destroyChildViews();
           expect(this.baseManager.childViews.length).to.be.equal(0);
         });
       });

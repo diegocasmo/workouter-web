@@ -14,7 +14,8 @@
     "handlebars": "~3.0.0",
     "firebase": "2.0.6",
     "backbonefire": "~0.5.1",
-    "backbone.localStorage": "~1.1.16"
+    "backbone.localStorage": "~1.1.16",
+    "routefilter": "~0.2.1"
   },
   "devDependencies": {
     "chai": "~1.8.1",
