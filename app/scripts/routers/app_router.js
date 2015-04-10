@@ -42,7 +42,7 @@ define([
         this.activeLayout.remove();
         this.activeLayout = null;
       }
-      //AuthService.logUserOut();
+      // AuthService.logUserOut();
       var isPrivate = true;
       route = $.trim(route);
       if(this.publicRoutes.indexOf(route) > 0) {

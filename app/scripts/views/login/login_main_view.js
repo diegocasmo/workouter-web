@@ -11,8 +11,9 @@ define([
   'backbone',
   'templates',
   'lang/en_locale',
-  'services/auth_service'
-  ], function ($, _, Backbone, JST, enLocale, AuthService) {
+  'services/auth_service',
+  'models/user_model'
+  ], function ($, _, Backbone, JST, enLocale, AuthService, UserModel) {
 
     'use strict';
 
@@ -31,12 +32,18 @@ define([
       initialize: function (options) {
         var that = this;
         this.router = options.router;
+
+        this.userModel = UserModel.getInstance();
+
         this.listenTo(this, 'login:error', this.redirectToLogin);
         this.listenTo(this, 'login:success', function(userData) {
-          // set user model and redirect to workout if successful,
-          // redirect to login othwerwise
-          // console.log(userData);
-          that.redirectToWorkouts();
+          if(that.userModel.setTwitterUser(userData)) {
+            // if successful redirect to workouts
+            that.redirectToWorkouts();
+          } else {
+            // if error, then trigger "login:error"
+            that.trigger('login:error');
+          }
         });
       },
 
