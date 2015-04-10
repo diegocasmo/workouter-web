@@ -25,7 +25,7 @@ define([
      * false otherwise
      */
     isUserLoggedIn: function() {
-      var authData = this.ref.getAuth()
+      var authData = this.ref.getAuth();
       if(authData) {
         // user is logged in, attempt to set it on model
         if(this.userModel.setTwitterUser(authData)) {

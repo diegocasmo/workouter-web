@@ -9,18 +9,20 @@ define([
   'jquery',
   'backbone',
   'services/auth_service',
-  'managers/login_manager'
-], function($, Backbone, AuthService, LoginManager) {
+  'managers/login_manager',
+  'managers/profile_manager'
+], function($, Backbone, AuthService, LoginManager, ProfileManager) {
 
   'use strict';
 
-  var loginManager = null;
+  var loginManager = null,
+      profileManager = null;
 
   var AppRouter = Backbone.Router.extend({
 
     activeLayout: null,
 
-    publicRoutes: ['', 'login'],
+    publicRoutes: ['', 'login', '*actions'],
 
     routes: {
       'login'                     : 'showLogin',
@@ -42,7 +44,7 @@ define([
         this.activeLayout.remove();
         this.activeLayout = null;
       }
-      // AuthService.logUserOut();
+
       var isPrivate = true;
       route = $.trim(route);
       if(this.publicRoutes.indexOf(route) > 0) {
@@ -105,6 +107,13 @@ define([
      */
     showProfile: function() {
       var eventTrigger = 'goTo:profile';
+      if(!profileManager) {
+        profileManager = new ProfileManager({
+          router: this,
+          eventTrigger: eventTrigger
+        });
+      }
+      this.activeLayout = profileManager;
       this.trigger(eventTrigger);
     }
 

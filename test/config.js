@@ -70,9 +70,11 @@ require([
   // managers
   specs.push('../../test/spec/managers/base_manager_spec');
   specs.push('../../test/spec/managers/login_manager_spec');
+  specs.push('../../test/spec/managers/profile_manager_spec');
 
   // views
   specs.push('../../test/spec/views/login/login_main_view_spec');
+  specs.push('../../test/spec/views/profile/profile_main_view_spec');
 
   require(specs, function() {
     mocha.run();

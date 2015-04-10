@@ -42,4 +42,5 @@ define([
   });
 
   return BaseManager;
+
 });

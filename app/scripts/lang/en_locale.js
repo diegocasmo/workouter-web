@@ -74,5 +74,12 @@ define({
         text: 'Login with Twitter'
       }
     }
+  },
+  profile: {
+    profileMainView: {
+      logoutButton: {
+        text: 'Logout'
+      }
+    }
   }
 });
