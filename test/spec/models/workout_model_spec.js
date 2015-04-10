@@ -15,15 +15,15 @@ define([
 
   'use strict';
 
+  beforeEach(function() {
+    this.workoutModel = new WorkoutModel();
+  });
+
+  afterEach(function() {
+    this.workoutModel = null;
+  });
+
   describe('Workout Model', function() {
-
-    beforeEach(function() {
-      this.workoutModel = new WorkoutModel();
-    });
-
-    afterEach(function() {
-      this.workoutModel = null;
-    });
 
     describe('Model Initialization', function() {
       it('is defined', function() {
@@ -121,6 +121,40 @@ define([
         expect(this.workoutModel.isValid()).to.be.equal(true);
       });
     });
+  });
+
+  describe('Workout Model Methods', function() {
+
+    describe('setCurrentUser Method', function() {
+
+      it('should set the workout\'s user owner', function() {
+        var validAttrs = {
+          uid: FirebaseService.oAuthProvider + ':246134729',
+          provider: FirebaseService.oAuthProvider,
+          token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
+          username: 'username',
+          displayName: 'Some Name'
+        };
+
+        var success = this.workoutModel.setCurrentUser(validAttrs);
+        expect(success).to.be.true;
+      });
+
+      it('should return false if attrs are invalid', function() {
+        var invalidAttrs = {
+          uid: 'novalid246134729',
+          provider: 'invalid',
+          token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
+          username: 'username',
+          displayName: 'Some Name'
+        };
+
+        var success = this.workoutModel.setCurrentUser(invalidAttrs);
+        expect(success).to.be.false;
+      });
+
+    });
+
   });
 
 });

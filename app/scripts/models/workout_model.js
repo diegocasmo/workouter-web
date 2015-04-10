@@ -54,6 +54,20 @@ define([
       }
 
       return errors.length > 0 ? errors : false;
+    },
+
+    /**
+     * sets the user as the workout's owner.
+     * returns true if successful, false otherwise
+     */
+    setCurrentUser: function(userAttrs) {
+      var userModel = UserModel.getInstance();
+      userModel.set(userAttrs);
+      if(userModel.isValid()) {
+        this.set('user', userModel.toJSON());
+        return true;
+      }
+      return false;
     }
 
   });

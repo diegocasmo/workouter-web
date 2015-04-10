@@ -6,8 +6,10 @@
 
 /*global define, describe, it, afterEach, beforeEach, sinon*/
 define([
-  'managers/add_workout_manager'
-],function(AddWorkoutManager) {
+  'managers/add_workout_manager',
+  'services/firebase_service',
+  'models/user_model',
+],function(AddWorkoutManager, FirebaseService, UserModel) {
 
   'use strict';
 
@@ -77,6 +79,32 @@ define([
       describe('destroyChildViews Method', function() {
         it('must have a destroyChildViews method', function() {
           expect(this.addWorkoutManager.destroyChildViews).to.be.ok;
+        });
+      });
+
+      describe('addUserToWorkout Method', function() {
+        beforeEach(function() {
+          // create user
+          this.userModel = UserModel.getInstance();
+          this.userModel.set({
+            uid: FirebaseService.oAuthProvider + ':246134729',
+            provider: FirebaseService.oAuthProvider,
+            token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
+            username: 'username',
+            displayName: 'Some Name'
+          });
+        });
+
+        afterEach(function() {
+          this.userModel = null;
+        });
+
+        it('should set the property user on workout model', function() {
+          this.addWorkoutManager.addUserToWorkout();
+          console.log(this.userModel);
+          var userModelValues = JSON.stringify(this.userModel.toJSON()),
+              addWorkoutManagerUser = JSON.stringify(this.addWorkoutManager.workoutModel.get('user'));
+          expect(userModelValues).to.be.equal(addWorkoutManagerUser);
         });
       });
     });
