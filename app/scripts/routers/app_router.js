@@ -51,7 +51,6 @@ define([
 
       if(!AuthService.isUserLoggedIn() && isPrivate) {
         // if user is not logged in, then redirect to login page
-        // and reset user model JIC
         this.navigate('login', { trigger: true });
         return false;
       } else if (AuthService.isUserLoggedIn() && !isPrivate) {
