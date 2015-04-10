@@ -25,8 +25,8 @@ define([
     routes: {
       'login'                     : 'showLogin',
       'workouts'                  : 'showWorkouts',
-      'workouts/:id/exercises'    : 'showWorkoutExercises',
-      'workouts/:id/exercises/:id': 'showWorkoutExercise',
+      'workout/:id/exercises'    : 'showWorkoutExercises',
+      'workout/:id/exercises/:id': 'showWorkoutExercise',
       'me'                        : 'showProfile',
       '*actions'                  : 'showLogin'
     },
@@ -53,11 +53,9 @@ define([
         // if user is not logged in, then redirect to login page
         this.navigate('login', { trigger: true, replace: true });
         return false;
-        //window.location.replace('/#login');
       } else if (AuthService.isUserLoggedIn() && !isPrivate) {
         // if user is already logged in, but attemps to navigate
         // a public route, redirect to workouts
-        //window.location.replace('/#workouts');
         this.navigate('workouts', { trigger: true, replace: true });
         return false;
       }
