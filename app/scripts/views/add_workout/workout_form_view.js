@@ -29,8 +29,8 @@ define([
     },
 
     render: function () {
-      // this.$el.html(this.template(enLocale.addWorkout.closeAddWorkoutView));
-      // return this;
+      this.$el.html(this.template(enLocale.addWorkout.workoutFormView));
+      return this;
     }
 
   });

@@ -54,16 +54,17 @@ define([
           expect(this.addWorkoutManager.buildChildViews).to.be.ok;
         });
 
-        it('should initialize a close add workout view', function() {
+        it('should initialize subviews correctly', function() {
           this.addWorkoutManager.childViews = [];
           this.addWorkoutManager.buildChildViews();
           expect(this.addWorkoutManager.closeAddWorkoutView).to.be.instanceOf(Backbone.View);
+          expect(this.addWorkoutManager.workoutFormView).to.be.instanceOf(Backbone.View);
         });
 
-        it('should save close add workout on childViews property', function() {
+        it('should save childViews correctly', function() {
           this.addWorkoutManager.childViews = [];
           this.addWorkoutManager.buildChildViews();
-          expect(this.addWorkoutManager.childViews.length).to.be.equal(1);
+          expect(this.addWorkoutManager.childViews.length).to.be.equal(2);
         });
 
         it('should call the render method', sinon.test(function() {

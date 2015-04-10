@@ -87,6 +87,9 @@ define({
       closeButton: {
         text: 'Close'
       }
+    },
+    workoutFormView: {
+
     }
   }
 });
