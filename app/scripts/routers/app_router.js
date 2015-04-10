@@ -27,8 +27,9 @@ define([
     routes: {
       'login'                     : 'showLogin',
       'workouts'                  : 'showWorkouts',
-      'workout/:id/exercises'    : 'showWorkoutExercises',
-      'workout/:id/exercises/:id': 'showWorkoutExercise',
+      'workout/add'               : 'addWorkout',
+      'workout/:id/exercises'     : 'showWorkoutExercises',
+      'workout/:id/exercises/:id' : 'showWorkoutExercise',
       'me'                        : 'showProfile',
       '*actions'                  : 'showLogin'
     },
@@ -83,6 +84,14 @@ define([
      */
     showWorkouts: function() {
       var eventTrigger = 'goTo:workouts';
+      this.trigger(eventTrigger);
+    },
+
+    /**
+     * show user all workouts view (private)
+     */
+    addWorkout: function() {
+      var eventTrigger = 'goTo:addWorkout';
       this.trigger(eventTrigger);
     },
 
