@@ -10,7 +10,7 @@ define([
   'services/auth_service',
   'managers/base_manager',
   'routefilter'
-],function(AppRouter, AuthService, BaseManager) {
+], function(AppRouter, AuthService, BaseManager) {
 
   'use strict';
 
@@ -80,9 +80,9 @@ define([
     describe('Router Methods', function() {
       beforeEach(function() {
         this.baseManager = new BaseManager({
-              router: this.appRouter,
-              eventTrigger: 'foo'
-            });
+          router: this.appRouter,
+          eventTrigger: 'foo'
+        });
       });
 
       afterEach(function() {
@@ -98,7 +98,7 @@ define([
 
         it('should call activeLayout destroyChildViews and remove', function() {
           var spyDestroy = sinon.spy(this.baseManager, 'destroyChildViews'),
-              spyRemove = sinon.spy(this.baseManager, 'remove');
+            spyRemove = sinon.spy(this.baseManager, 'remove');
 
           this.appRouter.activeLayout = this.baseManager;
           this.appRouter.before('dummy');
@@ -106,14 +106,11 @@ define([
           expect(spyRemove.called).to.be.true;
         });
 
-        xit('should redirect to login if user is unauthenticated', sinon.test(function() {
-        }));
+        xit('should redirect to login if user is unauthenticated', sinon.test(function() {}));
 
-        xit('should not redirect to login if user is authenticated', sinon.test(function() {
-        }));
+        xit('should not redirect to login if user is authenticated', sinon.test(function() {}));
 
-        xit('should redirect to workouts if user is logged in but attemps to go to public route', function() {
-        });
+        xit('should redirect to workouts if user is logged in but attemps to go to public route', function() {});
       });
     });
 

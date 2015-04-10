@@ -6,12 +6,12 @@
 
 /*global define*/
 define([
-'jquery',
-'underscore',
-'backbone',
-'templates',
-'lang/en_locale'
-], function ($, _, Backbone, JST, enLocale) {
+  'jquery',
+  'underscore',
+  'backbone',
+  'templates',
+  'lang/en_locale'
+], function($, _, Backbone, JST, enLocale) {
 
   'use strict';
 
@@ -21,25 +21,28 @@ define([
 
     tagName: 'div',
 
-    attributes: { id: 'close-add-workout-view' },
+    attributes: {
+      id: 'close-add-workout-view'
+    },
 
     events: {
       'click .close-add-workout-view-button': 'close'
     },
 
-    initialize: function (options) {
-      var that = this;
+    initialize: function(options) {
       this.router = options.router;
     },
 
-    render: function () {
+    render: function() {
       this.$el.html(this.template(enLocale.addWorkout.closeAddWorkoutView));
       return this;
     },
 
     close: function(event) {
       event.preventDefault();
-      this.router.navigate('workouts', { trigger: true });
+      this.router.navigate('workouts', {
+        trigger: true
+      });
     }
 
   });

@@ -40,7 +40,7 @@ define([
 
       it('has correct id', function() {
         expect(this.loginMainView.attributes.id).to.equal('login-main-view');
-      })
+      });
 
     });
 

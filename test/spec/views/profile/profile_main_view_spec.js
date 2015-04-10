@@ -43,7 +43,7 @@ define([
 
       it('has correct id', function() {
         expect(this.profileMainView.attributes.id).to.equal('profile-main-view');
-      })
+      });
 
     });
 

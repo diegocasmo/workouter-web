@@ -6,12 +6,12 @@
 
 /*global define*/
 define([
-'jquery',
-'underscore',
-'backbone',
-'templates',
-'lang/en_locale',
-], function ($, _, Backbone, JST, enLocale) {
+  'jquery',
+  'underscore',
+  'backbone',
+  'templates',
+  'lang/en_locale',
+], function($, _, Backbone, JST, enLocale) {
 
   'use strict';
 
@@ -21,14 +21,15 @@ define([
 
     tagName: 'div',
 
-    attributes: { id: 'workout-form-view' },
+    attributes: {
+      id: 'workout-form-view'
+    },
 
-    initialize: function (options) {
-      var that = this;
+    initialize: function(options) {
       this.router = options.router;
     },
 
-    render: function () {
+    render: function() {
       this.$el.html(this.template(enLocale.addWorkout.workoutFormView));
       return this;
     }

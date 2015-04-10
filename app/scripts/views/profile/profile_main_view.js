@@ -6,14 +6,14 @@
 
 /*global define*/
 define([
-'jquery',
-'underscore',
-'backbone',
-'templates',
-'lang/en_locale',
-'services/auth_service',
-'models/user_model'
-], function ($, _, Backbone, JST, enLocale, AuthService, UserModel) {
+  'jquery',
+  'underscore',
+  'backbone',
+  'templates',
+  'lang/en_locale',
+  'services/auth_service',
+  'models/user_model'
+], function($, _, Backbone, JST, enLocale, AuthService, UserModel) {
 
   'use strict';
 
@@ -23,19 +23,20 @@ define([
 
     tagName: 'div',
 
-    attributes: { id: 'profile-main-view' },
+    attributes: {
+      id: 'profile-main-view'
+    },
 
     events: {
       'click .logout': 'logUserOut'
     },
 
-    initialize: function (options) {
-      var that = this;
+    initialize: function(options) {
       this.router = options.router;
       this.userModel = UserModel.getInstance();
     },
 
-    render: function () {
+    render: function() {
       this.$el.html(this.template(enLocale.profile.profileMainView));
       return this;
     },
@@ -43,7 +44,9 @@ define([
     logUserOut: function(event) {
       event.preventDefault();
       AuthService.logUserOut();
-      this.router.navigate('login', { trigger: true });
+      this.router.navigate('login', {
+        trigger: true
+      });
     }
 
   });

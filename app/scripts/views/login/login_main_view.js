@@ -13,7 +13,7 @@ define([
   'lang/en_locale',
   'services/auth_service',
   'models/user_model'
-  ], function ($, _, Backbone, JST, enLocale, AuthService, UserModel) {
+], function($, _, Backbone, JST, enLocale, AuthService, UserModel) {
 
   'use strict';
 
@@ -23,20 +23,22 @@ define([
 
     tagName: 'div',
 
-    attributes: { id: 'login-main-view' },
+    attributes: {
+      id: 'login-main-view'
+    },
 
     events: {
       'click .twitter-login': 'loginWithTwitter'
     },
 
-    initialize: function (options) {
+    initialize: function(options) {
       var that = this;
       this.router = options.router;
       this.userModel = UserModel.getInstance();
       // events setup
       this.listenTo(this, 'login:error', this.redirectToLogin);
       this.listenTo(this, 'login:success', function(userData) {
-        if(that.userModel.setTwitterUser(userData)) {
+        if (that.userModel.setTwitterUser(userData)) {
           // if successful redirect to workouts
           that.redirectToWorkouts();
         } else {
@@ -46,7 +48,7 @@ define([
       });
     },
 
-    render: function () {
+    render: function() {
       this.$el.html(this.template(enLocale.login.loginMainView));
       return this;
     },
@@ -55,7 +57,7 @@ define([
       event.preventDefault();
       var that = this;
       AuthService.attemptTologUserIn(function(data) {
-        if(data.error) {
+        if (data.error) {
           that.trigger('login:error');
         } else {
           that.trigger('login:success', data.authData);
@@ -64,11 +66,15 @@ define([
     },
 
     redirectToLogin: function() {
-      this.router.navigate('login', { trigger: true });
+      this.router.navigate('login', {
+        trigger: true
+      });
     },
 
     redirectToWorkouts: function() {
-      this.router.navigate('workouts', { trigger: true });
+      this.router.navigate('workouts', {
+        trigger: true
+      });
     }
 
   });

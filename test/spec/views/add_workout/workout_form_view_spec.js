@@ -4,7 +4,7 @@
  * Description: Tests for the workout form view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach*/
 define([
   'views/add_workout/workout_form_view',
   'lang/en_locale',

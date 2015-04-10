@@ -35,7 +35,7 @@ define([
 
       it('listens to correct event', sinon.test(function() {
         var stub = sinon.stub(this.addWorkoutManager, 'buildChildViews').returns(false),
-            spy = sinon.spy(stub)
+            spy = sinon.spy(stub);
         this.addWorkoutManager.router.on({
           'foo': spy()
         });

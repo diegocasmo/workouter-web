@@ -41,7 +41,6 @@ define([
     },
 
     render: function() {
-      console.log(this.workoutModel.toJSON());
       this.$el.append(this.closeAddWorkoutView.render().el);
       this.$el.append(this.workoutFormView.render().el);
       return this;

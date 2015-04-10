@@ -33,7 +33,7 @@ define([
 
       it('listens to correct event', sinon.test(function() {
         var stub = sinon.stub(this.loginManager, 'buildChildViews').returns(false),
-            spy = sinon.spy(stub)
+            spy = sinon.spy(stub);
         this.loginManager.router.on({
           'foo': spy()
         });
