@@ -10,10 +10,8 @@ define([
 'underscore',
 'backbone',
 'templates',
-'lang/en_locale',
-'services/auth_service',
-'models/user_model'
-], function ($, _, Backbone, JST, enLocale, AuthService, UserModel) {
+'lang/en_locale'
+], function ($, _, Backbone, JST, enLocale) {
 
   'use strict';
 

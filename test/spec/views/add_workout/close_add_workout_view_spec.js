@@ -39,7 +39,7 @@ define([
 
       it('has correct id', function() {
         expect(this.closeAddWorkoutView.attributes.id).to.equal('close-add-workout-view');
-      })
+      });
 
     });
 

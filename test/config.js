@@ -81,6 +81,7 @@ require([
 
   // add workout views
   specs.push('../../test/spec/views/add_workout/close_add_workout_view_spec');
+  specs.push('../../test/spec/views/add_workout/workout_form_view_spec');
 
   require(specs, function() {
     mocha.run();

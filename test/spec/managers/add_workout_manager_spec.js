@@ -40,6 +40,10 @@ define([
         this.addWorkoutManager.router.trigger('foo');
         expect(spy.called).to.be.true;
       }));
+
+      it('has a user model property', function() {
+        expect(this.addWorkoutManager.userModel).to.be.instanceOf(Backbone.Model);
+      });
     });
 
     describe('Manager methods', function() {
