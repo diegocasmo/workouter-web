@@ -14,17 +14,25 @@ define([
   describe('Login Main View', function() {
 
     beforeEach(function() {
-      this.loginMainView = new LoginMainView();
+      this.router = new Backbone.Router();
+      this.loginMainView = new LoginMainView({
+        router: this.router
+      });
     });
 
     afterEach(function() {
+      this.router = null;
       this.loginMainView = null;
     });
 
     describe('Login Main View Initialization', function() {
 
       it('is defined', function() {
-        exepect(this.loginMainView).to.be.ok;
+        expect(this.loginMainView).to.be.ok;
+      });
+
+      it('knows about the app router', function() {
+        expect(this.loginMainView.router).to.be.instanceOf(Backbone.Router);
       });
 
     });

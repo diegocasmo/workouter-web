@@ -8,8 +8,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'managers/base_manager'
-], function($, _, Backbone, BaseManager) {
+  'managers/base_manager',
+  'views/login/login_main_view'
+], function($, _, Backbone, BaseManager, LoginMainView) {
 
   'use strict';
 
@@ -18,12 +19,10 @@ define([
     /**
      * build child views for this manager
      */
-    buildChildViews: function() {},
-
-    /**
-     * save child views on array for later destroy
-     */
-    saveChildViews: function() {}
+    buildChildViews: function(options) {
+      this.loginMainView = new LoginMainView(options);
+      this.childViews.push(this.loginMainView);
+    }
 
   });
 

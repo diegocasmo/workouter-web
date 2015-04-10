@@ -14,17 +14,27 @@ define([
 
   var BaseManager = Backbone.View.extend({
 
+    childViews: [],
+
     initialize: function(options) {
+      var that = this;
       this.router = options.router;
       this.eventTrigger = options.eventTrigger;
-      this.listenTo(this.router, this.eventTrigger, this.buildChildViews);
+      this.listenTo(this.router, this.eventTrigger, function() {
+        this.buildChildViews(options);
+      });
     },
 
-    buildChildViews: function() {},
+    buildChildViews: function(options) {},
 
-    saveChildViews: function() {},
-
-    destroy: function() {},
+    destroy: function() {
+      if(this.childViews.length > 0) {
+        _.each(this.childViews, function(childView) {
+          childView.remove();
+        });
+      this.childViews = [];
+      }
+    },
 
     remove: function() {
       Backbone.View.prototype.remove.call(this);

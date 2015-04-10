@@ -32,7 +32,8 @@ define([
       });
 
       it('listens to correct event', sinon.test(function() {
-        var spy = sinon.spy(this.loginManager, 'buildChildViews');
+        var stub = sinon.stub(this.loginManager, 'buildChildViews').returns(false),
+            spy = sinon.spy(stub)
         this.loginManager.router.on({
           'foo': spy()
         });
@@ -42,16 +43,31 @@ define([
     });
 
     describe('Manager methods', function() {
-      it('must have a buildChildViews method', function() {
-        expect(this.loginManager.buildChildViews).to.be.ok;
+
+      describe('buildChildViews Method', function() {
+
+        it('must have a buildChildViews method', function() {
+          expect(this.loginManager.buildChildViews).to.be.ok;
+        });
+
+        it('should initialize a login main view', function() {
+          this.loginManager.childViews = [];
+          this.loginManager.buildChildViews();
+          expect(this.loginManager.loginMainView).to.be.instanceOf(Backbone.View);
+        });
+
+        it('should save login main view on childViews property', function() {
+          this.loginManager.childViews = [];
+          this.loginManager.buildChildViews();
+          expect(this.loginManager.childViews.length).to.be.equal(1);
+        });
+
       });
 
-      it('must have a destroy method', function() {
-        expect(this.loginManager.destroy).to.be.ok;
-      });
-
-      it('must have a saveChildViews method', function() {
-        expect(this.loginManager.saveChildViews).to.be.ok;
+      describe('destroy Method', function() {
+        it('must have a destroy method', function() {
+          expect(this.loginManager.destroy).to.be.ok;
+        });
       });
     });
 

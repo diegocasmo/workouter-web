@@ -14,15 +14,15 @@ define([
 
     'use strict';
 
-    var ContactView = Backbone.View.extend({
+    var LoginMainView = Backbone.View.extend({
 
       template: JST['app/scripts/templates/login/login_main_view_template.hbs'],
 
-      initialize: function () {
-        this.render();
+      initialize: function (options) {
+        this.router = options.router;
       }
 
     });
 
-    return ContactView;
+    return LoginMainView;
   });

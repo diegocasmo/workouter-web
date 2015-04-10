@@ -39,20 +39,43 @@ define([
         this.baseManager.router.trigger('foo');
         expect(spy.called).to.be.true;
       }));
+
+      it('should have a childViews property', function() {
+        expect(this.baseManager.childViews).to.be.ok;
+        expect(this.baseManager.childViews).to.be.instanceOf(Array);
+      });
     });
 
     describe('Manager methods', function() {
-      it('must have a buildChildViews method', function() {
-        expect(this.baseManager.buildChildViews).to.be.ok;
+
+      describe('buildChildViews Method', function() {
+        it('must have a buildChildViews method', function() {
+          expect(this.baseManager.buildChildViews).to.be.ok;
+        });
       });
 
-      it('must have a destroy method', function() {
-        expect(this.baseManager.destroy).to.be.ok;
+      describe('destroy Method', function() {
+        it('must have a destroy method', function() {
+          expect(this.baseManager.destroy).to.be.ok;
+        });
+
+        it('should call remove on each child View', function() {
+          // simulate adding a child view
+          var dummyView = new Backbone.View(),
+              spy = sinon.spy(dummyView, 'remove');
+          this.baseManager.childViews.push(dummyView);
+          this.baseManager.destroy();
+          expect(spy.called).to.be.true;
+        });
+
+        it('should reset the childViews property', function() {
+          // simulate adding a child view
+          this.baseManager.childViews.push(new Backbone.View());
+          this.baseManager.destroy();
+          expect(this.baseManager.childViews.length).to.be.equal(0);
+        });
       });
 
-      it('must have a saveChildViews method', function() {
-        expect(this.baseManager.saveChildViews).to.be.ok;
-      });
     });
 
   });
