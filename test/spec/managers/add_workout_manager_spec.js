@@ -50,13 +50,13 @@ define([
           expect(this.addWorkoutManager.buildChildViews).to.be.ok;
         });
 
-        xit('should initialize a profile main view', function() {
+        it('should initialize a close add workout view', function() {
           this.addWorkoutManager.childViews = [];
           this.addWorkoutManager.buildChildViews();
-          expect(this.addWorkoutManager.profileMainView).to.be.instanceOf(Backbone.View);
+          expect(this.addWorkoutManager.closeAddWorkoutView).to.be.instanceOf(Backbone.View);
         });
 
-        xit('should save profile main view on childViews property', function() {
+        it('should save close add workout on childViews property', function() {
           this.addWorkoutManager.childViews = [];
           this.addWorkoutManager.buildChildViews();
           expect(this.addWorkoutManager.childViews.length).to.be.equal(1);

@@ -10,13 +10,16 @@ define([
   'backbone',
   'services/auth_service',
   'managers/login_manager',
-  'managers/profile_manager'
-], function($, Backbone, AuthService, LoginManager, ProfileManager) {
+  'managers/profile_manager',
+  'managers/add_workout_manager'
+], function($, Backbone, AuthService, LoginManager, ProfileManager,
+            AddWorkoutManager) {
 
   'use strict';
 
   var loginManager = null,
-      profileManager = null;
+      profileManager = null,
+      addWorkoutManager = null;
 
   var AppRouter = Backbone.Router.extend({
 
@@ -92,6 +95,13 @@ define([
      */
     addWorkout: function() {
       var eventTrigger = 'goTo:addWorkout';
+      if(!addWorkoutManager) {
+        addWorkoutManager = new AddWorkoutManager({
+          router: this,
+          eventTrigger: eventTrigger
+        });
+      }
+      this.activeLayout = addWorkoutManager;
       this.trigger(eventTrigger);
     },
 
