@@ -98,6 +98,15 @@ define({
       title: 'Exercises',
       exerciseTitle: {
         placeholder: 'Title'
+      },
+      exerciseReps: {
+        placeholder: 'Reps'
+      },
+      exerciseSets: {
+        placeholder: 'Sets'
+      },
+      exerciseWeight: {
+        placeholder: 'Weight'
       }
     }
   }

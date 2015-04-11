@@ -75,6 +75,13 @@ define([
 
     validateAttr: function(attr, attrValue) {
       attrValue = $.trim(attrValue);
+
+      // convert to num if necessary
+      var convertToNum = ['reps', 'sets', 'weight'];
+      if(convertToNum.indexOf(attr) > -1) {
+        attrValue = parseInt(attrValue);
+      }
+
       // use a mapper to be able to dynamically set model property
       var mapper = {};
       mapper[attr] = attrValue;
@@ -82,6 +89,7 @@ define([
         this.set(mapper);
         return true;
       }
+
       // return back to default
       mapper[attr] = this.defaults[attr];
       this.set(mapper);
