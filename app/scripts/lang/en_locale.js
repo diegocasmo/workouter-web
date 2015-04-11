@@ -96,7 +96,7 @@ define({
     },
     exercisesFormView: {
       title: 'Exercises',
-      workoutTitle: {
+      exerciseTitle: {
         placeholder: 'Title'
       }
     }

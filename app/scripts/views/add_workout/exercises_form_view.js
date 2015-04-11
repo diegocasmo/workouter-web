@@ -26,7 +26,8 @@ define([
     },
 
     events: {
-      'focusout input': 'validateExerciseInput'
+      'focusout input': 'validateExerciseInput',
+      'focusin input': 'resetInputValidation'
     },
 
     initialize: function(options) {
@@ -41,6 +42,21 @@ define([
 
     validateExerciseInput: function(event) {
       event.preventDefault();
+      var $element = $(event.currentTarget);
+      var attr = $element.attr('name'),
+          attrValue = $element.val();
+
+      if(this.exerciseModel.validateAttr(attr, attrValue)) {
+        $element.addClass('input-valid');
+      } else {
+        $element.addClass('input-invalid');
+      }
+    },
+
+    resetInputValidation: function(event) {
+      event.preventDefault();
+      var $element = $(event.currentTarget);
+      $element.removeClass('input-valid input-invalid');
     }
 
   });
