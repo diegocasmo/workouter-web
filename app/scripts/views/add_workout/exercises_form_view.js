@@ -25,7 +25,6 @@ define([
       id: 'exercises-form-view'
     },
 
-
     initialize: function(options) {
       this.router = options.router;
       this.exerciseModel = options.exerciseModel;

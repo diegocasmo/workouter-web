@@ -51,12 +51,12 @@ define([
 
     });
 
-    xdescribe('Exercises Form View DOM', function() {
+    describe('Exercises Form View DOM', function() {
 
-      it('has a workout title input', function() {
-        var closeButton = this.exercisesFormView.$el.find('.workout-title');
-        expect(closeButton.length).to.be.equal(1);
-        expect(closeButton.attr('placeholder')).to.be.equal(enLocale.addWorkout.exercisesFormView.workoutTitle.placeholder);
+      it('has a exercise title input', function() {
+        var exerciseTitle = this.exercisesFormView.$el.find('.exercise-title');
+        expect(exerciseTitle.length).to.be.equal(1);
+        expect(exerciseTitle.attr('placeholder')).to.be.equal(enLocale.addWorkout.exercisesFormView.workoutTitle.placeholder);
       });
 
     });
