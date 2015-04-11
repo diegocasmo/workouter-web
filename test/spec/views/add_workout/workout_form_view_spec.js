@@ -108,7 +108,10 @@ define([
           var $inputElement = this.workoutFormView.$el.find('.workout-title');
           // add classes to element
           $inputElement.addClass('input-valid input-invalid');
-          this.workoutFormView.resetInputValidation();
+          var mock = {
+            preventDefault: function() { return false }
+          }
+          this.workoutFormView.resetInputValidation(mock);
           expect($inputElement.hasClass('input-valid')).to.be.false;
           expect($inputElement.hasClass('input-invalid')).to.be.false;
           expect($inputElement.hasClass('workout-title')).to.be.true;
