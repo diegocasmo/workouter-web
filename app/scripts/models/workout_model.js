@@ -90,6 +90,8 @@ define([
         this.set('title', title);
         return true;
       }
+      // return back to default
+      this.set('title', this.defaults.title);
       return false;
     }
 

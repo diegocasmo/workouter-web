@@ -50,7 +50,8 @@ define([
       }
     },
 
-    resetInputValidation: function() {
+    resetInputValidation: function(event) {
+      event.preventDefault();
       this.$el.find('.workout-title').removeClass('input-valid input-invalid');
     }
 

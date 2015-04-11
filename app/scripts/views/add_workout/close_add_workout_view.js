@@ -40,9 +40,7 @@ define([
 
     close: function(event) {
       event.preventDefault();
-      this.router.navigate('workouts', {
-        trigger: true
-      });
+      this.router.navigate('workouts', { trigger: true });
     }
 
   });
