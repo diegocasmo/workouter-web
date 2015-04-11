@@ -25,6 +25,10 @@ define([
       id: 'exercises-form-view'
     },
 
+    events: {
+      'focusout input': 'validateExerciseInput'
+    },
+
     initialize: function(options) {
       this.router = options.router;
       this.exerciseModel = options.exerciseModel;
@@ -33,6 +37,10 @@ define([
     render: function() {
       this.$el.html(this.template(enLocale.addWorkout.exercisesFormView));
       return this;
+    },
+
+    validateExerciseInput: function(event) {
+      event.preventDefault();
     }
 
   });

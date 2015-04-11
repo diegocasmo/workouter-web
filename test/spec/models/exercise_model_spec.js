@@ -13,6 +13,22 @@ define([
 
   describe('Exercise Model', function() {
 
+    beforeEach(function() {
+      this.exerciseModel = new ExerciseModel();
+      this.exerciseModel.set({
+        'id': 1,
+        'workoutId': 1,
+        'title': 'Squads',
+        'reps': 12,
+        'sets': 5,
+        'weight': 135
+      });
+    });
+
+    afterEach(function() {
+      this.exerciseModel = null;
+    });
+
     describe('Model Initialization', function() {
       beforeEach(function() {
         this.exerciseModel = new ExerciseModel();
@@ -37,22 +53,6 @@ define([
     });
 
     describe('Model Validation', function() {
-
-      beforeEach(function() {
-        this.exerciseModel = new ExerciseModel();
-        this.exerciseModel.set({
-          'id': 1,
-          'workoutId': 1,
-          'title': 'Squads',
-          'reps': 12,
-          'sets': 5,
-          'weight': 135
-        });
-      });
-
-      afterEach(function() {
-        this.exerciseModel = null;
-      });
 
       it('should have valid id', function() {
         this.exerciseModel.set({ 'id': 'invalid' });
@@ -100,6 +100,26 @@ define([
 
         this.exerciseModel.set({ 'weight': 120 });
         expect(this.exerciseModel.isValid()).to.be.equal(true);
+      });
+
+    });
+
+    describe('Exercise Model Method', function() {
+
+      describe('validateAttr Method', function() {
+
+        it('returns true on valid attr', function() {
+          var title = 'Leg Press',
+              validateAttrResult = this.exerciseModel.validateAttr('title', title);
+          expect(validateAttrResult).to.be.true;
+        });
+
+        it('returns false on valid attr', function() {
+          var title = '',
+              validateAttrResult = this.exerciseModel.validateAttr('title', title);
+          expect(validateAttrResult).to.be.false;
+        });
+
       });
 
     });

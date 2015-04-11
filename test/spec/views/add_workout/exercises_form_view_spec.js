@@ -53,39 +53,42 @@ define([
 
     describe('Exercises Form View DOM', function() {
 
-      it('has a exercise title input', function() {
-        var exerciseTitle = this.exercisesFormView.$el.find('.exercise-title');
-        expect(exerciseTitle.length).to.be.equal(1);
-        expect(exerciseTitle.attr('placeholder')).to.be.equal(enLocale.addWorkout.exercisesFormView.workoutTitle.placeholder);
+      it('has a exercise title input and attr title', function() {
+        var $exerciseTitle = this.exercisesFormView.$el.find('.exercise-title');
+        expect($exerciseTitle.length).to.be.equal(1);
+        expect($exerciseTitle.attr('placeholder')).to.be.equal(enLocale.addWorkout.exercisesFormView.workoutTitle.placeholder);
+
+        var exerciseTitleAttr = $exerciseTitle.attr('name');
+        expect(exerciseTitleAttr).to.be.equal('title');
       });
 
     });
 
-    xdescribe('Exercises Form View Events', function() {
+    describe('Exercises Form View Events', function() {
 
-      it('listens to focusout on title input', sinon.test(function() {
-        var spy = sinon.spy(this.exercisesFormView, 'validateWorkoutTitle');
+      it('listens to focusout on input elements', sinon.test(function() {
+        var spy = sinon.spy(this.exercisesFormView, 'validateExerciseInput');
         this.exercisesFormView.delegateEvents();
         // simulate user event
-        this.exercisesFormView.$el.find('.workout-title').trigger('focusout');
+        this.exercisesFormView.$el.find('input').trigger('focusout');
         expect(spy.called).to.be.true;
       }));
 
-      it('listens to focusin on title input', sinon.test(function() {
-        var spy = sinon.spy(this.exercisesFormView, 'resetInputValidation');
-        this.exercisesFormView.delegateEvents();
-        // simulate user event
-        this.exercisesFormView.$el.find('.workout-title').trigger('focusin');
-        expect(spy.called).to.be.true;
-      }));
+      // xit('listens to focusin on title input', sinon.test(function() {
+      //   var spy = sinon.spy(this.exercisesFormView, 'resetInputValidation');
+      //   this.exercisesFormView.delegateEvents();
+      //   // simulate user event
+      //   this.exercisesFormView.$el.find('.workout-title').trigger('focusin');
+      //   expect(spy.called).to.be.true;
+      // }));
 
     });
 
-    xdescribe('Exercises Form View Methods', function() {
+    describe('Exercises Form View Methods', function() {
 
-      describe('validateWorkoutTitle Method', function() {
+      describe('validateExerciseInput Method', function() {
 
-        xit('adds input-valid class on valid title', sinon.test(function() {
+        it('adds input-valid class on valid title', sinon.test(function() {
           var workoutTitle = 'Legs Day';
           var $inputElement = this.exercisesFormView.$el.find('.workout-title');
 
