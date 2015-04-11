@@ -29,28 +29,38 @@ define([
     validate: function (attrs) {
       var errors = [];
 
-      if (typeof attrs.id !== 'number') {
-        errors.push({ name: 'id', message: enLocale.workoutModel.id.required });
+      if(_.has(attrs, 'id')) {
+        if (typeof attrs.id !== 'number') {
+          errors.push({ name: 'id', message: enLocale.workoutModel.id.required });
+        }
       }
 
-      if (!attrs.title) {
-        errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
+      if(_.has(attrs, 'title')) {
+        if (!attrs.title || !attrs.title.length > 0) {
+          errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
+        }
       }
 
-      if(typeof attrs.user !== 'object') {
-        errors.push({ name: 'user', message: enLocale.workoutModel.user.required });
+      if(_.has(attrs, 'user')) {
+        if(typeof attrs.user !== 'object') {
+          errors.push({ name: 'user', message: enLocale.workoutModel.user.required });
+        }
       }
 
-      if (!attrs.date) {
-        errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
-      } else if (typeof attrs.date !== 'object') {
-        errors.push({ name: 'date', message: enLocale.workoutModel.date.date });
+      if(_.has(attrs, 'date')) {
+        if (!attrs.date) {
+          errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
+        } else if (typeof attrs.date !== 'object') {
+          errors.push({ name: 'date', message: enLocale.workoutModel.date.date });
+        }
       }
 
-      if (attrs.exercises.length <= 0) {
-        errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.required });
-      } else if (typeof attrs.exercises !== 'object') {
-        errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.array });
+      if(_.has(attrs, 'exercises')) {
+        if (attrs.exercises.length <= 0) {
+          errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.required });
+        } else if (typeof attrs.exercises !== 'object') {
+          errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.array });
+        }
       }
 
       return errors.length > 0 ? errors : false;
@@ -65,6 +75,19 @@ define([
       userModel.set(userAttrs);
       if(userModel.isValid()) {
         this.set('user', userModel.toJSON());
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * sets the workout title
+     * returns true if successful, false otherwise
+     */
+    setTitle: function(title) {
+      title = $.trim(title);
+      if(!this.validate({ 'title': title })) {
+        this.set('title', title);
         return true;
       }
       return false;

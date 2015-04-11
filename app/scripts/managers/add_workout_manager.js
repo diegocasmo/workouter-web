@@ -27,6 +27,11 @@ define([
     workoutModel: new WorkoutModel(),
 
     buildChildViews: function(options) {
+      // add models and collections to option to make
+      // sure child views have access to them
+      options.workoutModel = this.workoutModel;
+
+      // initialize subviews
       this.closeAddWorkoutView = new CloseAddWorkoutView(options);
       this.workoutFormView = new WorkoutFormView(options);
 

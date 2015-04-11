@@ -58,20 +58,20 @@ define([
 
         it('should initialize subviews correctly', function() {
           this.addWorkoutManager.childViews = [];
-          this.addWorkoutManager.buildChildViews();
+          this.addWorkoutManager.buildChildViews({});
           expect(this.addWorkoutManager.closeAddWorkoutView).to.be.instanceOf(Backbone.View);
           expect(this.addWorkoutManager.workoutFormView).to.be.instanceOf(Backbone.View);
         });
 
         it('should save childViews correctly', function() {
           this.addWorkoutManager.childViews = [];
-          this.addWorkoutManager.buildChildViews();
+          this.addWorkoutManager.buildChildViews({});
           expect(this.addWorkoutManager.childViews.length).to.be.equal(2);
         });
 
         it('should call the render method', sinon.test(function() {
           var spy = sinon.spy(this.addWorkoutManager, 'render');
-          this.addWorkoutManager.buildChildViews();
+          this.addWorkoutManager.buildChildViews({});
           expect(spy.called).to.be.true;
         }));
       });
@@ -101,7 +101,6 @@ define([
 
         it('should set the property user on workout model', function() {
           this.addWorkoutManager.addUserToWorkout();
-          console.log(this.userModel);
           var userModelValues = JSON.stringify(this.userModel.toJSON()),
               addWorkoutManagerUser = JSON.stringify(this.addWorkoutManager.workoutModel.get('user'));
           expect(userModelValues).to.be.equal(addWorkoutManagerUser);

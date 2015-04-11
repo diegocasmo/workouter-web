@@ -89,7 +89,10 @@ define({
       }
     },
     workoutFormView: {
-
+      title: 'Workout',
+      workoutTitle: {
+        placeholder: 'Title'
+      }
     }
   }
 });

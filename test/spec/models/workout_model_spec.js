@@ -155,6 +155,22 @@ define([
 
     });
 
+    describe('setTitle Method', function() {
+
+      it('returns true and sets title if title is valid', function() {
+        var validTitle = 'Legs Day';
+        expect(this.workoutModel.setTitle(validTitle)).to.be.true;
+        expect(this.workoutModel.get('title')).to.be.equal(validTitle);
+      });
+
+      it('returns false if title is invalid', function() {
+        var invalidTitle = '';
+        expect(this.workoutModel.setTitle(invalidTitle)).to.be.false;
+        expect(this.workoutModel.get('title')).to.be.equal('');
+      });
+
+    });
+
   });
 
 });
