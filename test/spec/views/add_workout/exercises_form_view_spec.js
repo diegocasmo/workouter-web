@@ -7,22 +7,26 @@
 /*global define, describe, it, afterEach, beforeEach*/
 define([
   'views/add_workout/exercises_form_view',
+  'models/exercise_model',
   'lang/en_locale',
-],function(ExercisesFormView, enLocale) {
+],function(ExercisesFormView, ExerciseModel, enLocale) {
 
   'use strict';
 
   describe('Exercises Form View', function() {
 
     beforeEach(function() {
+      this.exerciseModel = new ExerciseModel();
       this.router = new Backbone.Router();
       this.exercisesFormView = new ExercisesFormView({
-        router: this.router
+        router: this.router,
+        exerciseModel: this.exerciseModel
       });
       this.exercisesFormView.render();
     });
 
     afterEach(function() {
+      this.exerciseModel = null;
       this.router = null;
       this.exercisesFormView = null;
     });
@@ -37,8 +41,8 @@ define([
         expect(this.exercisesFormView.router).to.be.instanceOf(Backbone.Router);
       });
 
-      xit('knows about the workout model', function() {
-        expect(this.exercisesFormView.workoutModel).to.be.instanceOf(Backbone.Model);
+      it('knows about the exercise model', function() {
+        expect(this.exercisesFormView.exerciseModel).to.be.instanceOf(Backbone.Model);
       });
 
       it('has correct id', function() {

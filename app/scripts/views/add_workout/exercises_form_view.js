@@ -28,6 +28,7 @@ define([
 
     initialize: function(options) {
       this.router = options.router;
+      this.exerciseModel = options.exerciseModel;
     },
 
     render: function() {

@@ -46,6 +46,14 @@ define([
       it('has a user model property', function() {
         expect(this.addWorkoutManager.userModel).to.be.instanceOf(Backbone.Model);
       });
+
+      it('has a workoutModel model property', function() {
+        expect(this.addWorkoutManager.workoutModel).to.be.instanceOf(Backbone.Model);
+      });
+
+      it('has a exerciseModel model property', function() {
+        expect(this.addWorkoutManager.exerciseModel).to.be.instanceOf(Backbone.Model);
+      });
     });
 
     describe('Manager methods', function() {
@@ -61,12 +69,13 @@ define([
           this.addWorkoutManager.buildChildViews({});
           expect(this.addWorkoutManager.closeAddWorkoutView).to.be.instanceOf(Backbone.View);
           expect(this.addWorkoutManager.workoutFormView).to.be.instanceOf(Backbone.View);
+          expect(this.addWorkoutManager.exercisesFormView).to.be.instanceOf(Backbone.View);
         });
 
         it('should save childViews correctly', function() {
           this.addWorkoutManager.childViews = [];
           this.addWorkoutManager.buildChildViews({});
-          expect(this.addWorkoutManager.childViews.length).to.be.equal(2);
+          expect(this.addWorkoutManager.childViews.length).to.be.equal(3);
         });
 
         it('should call the render method', sinon.test(function() {
