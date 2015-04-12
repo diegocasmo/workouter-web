@@ -62,6 +62,12 @@ define([
         expect(exerciseTitleAttr).to.be.equal('title');
       });
 
+      it('must have a button to add exercise', function() {
+        var $addExerciseButton = this.exercisesFormView.$el.find('#add-exercise');
+        expect($addExerciseButton.length).to.be.equal(1);
+        expect($addExerciseButton.text()).to.be.equal(enLocale.addWorkout.exercisesFormView.addExerciseButton.text);
+      });
+
     });
 
     describe('Exercises Form View Events', function() {
@@ -81,6 +87,14 @@ define([
       //   this.exercisesFormView.$el.find('.exercise-title').trigger('focusin');
       //   expect(spy.called).to.be.true;
       // }));
+
+      it('listens to click to add exercise', sinon.test(function() {
+        var spy = sinon.spy(this.exercisesFormView, 'addExercise');
+        this.exercisesFormView.delegateEvents();
+        // simulate user event
+        this.exercisesFormView.$el.find('#add-exercise').trigger('click');
+        expect(spy.called).to.be.true;
+      }));
 
     });
 
@@ -119,6 +133,65 @@ define([
           expect($inputElement.hasClass('input-invalid')).to.be.false;
           expect($inputElement.hasClass('workout-title')).to.be.true;
         });
+
+      });
+
+      describe('resetInputs Method', function() {
+
+        it('resets input val on all form', function() {
+          var $inputElement = this.exercisesFormView.$el.find('.exercise-title');
+          // add classes to element
+          $inputElement.val('test');
+          this.exercisesFormView.resetsInputs();
+          expect($inputElement.val()).to.be.equal('');
+        });
+
+      });
+
+      describe('addExercise Method', function() {
+
+        it('triggers exercise:add if model is valid', sinon.test(function() {
+          var spy = sinon.spy();
+          sinon.stub(this.exerciseModel, 'isExerciseValid').returns(true);
+          this.exercisesFormView.on({
+            'exercise:add': spy
+          });
+
+          this.exercisesFormView.delegateEvents();
+          // simulate user event
+          var mock = {
+            preventDefault: function() { return false }
+          }
+          this.exercisesFormView.addExercise(mock);
+          expect(spy.called).to.be.true;
+        }));
+
+        it('does not trigger exercise:add if model is valid', sinon.test(function() {
+          var spy = sinon.spy();
+          sinon.stub(this.exerciseModel, 'isExerciseValid').returns(false);
+          this.exercisesFormView.on({
+            'exercise:add': spy
+          });
+
+          this.exercisesFormView.delegateEvents();
+          // simulate user event
+          var mock = {
+            preventDefault: function() { return false }
+          }
+          this.exercisesFormView.addExercise(mock);
+          expect(spy.called).to.be.false;
+        }));
+
+        it('should call resetsInputs', sinon.test(function() {
+          var spy = sinon.spy(this.exercisesFormView, 'resetsInputs');
+          sinon.stub(this.exerciseModel, 'isExerciseValid').returns(true);
+          // simulate user event
+          var mock = {
+            preventDefault: function() { return false }
+          }
+          this.exercisesFormView.addExercise(mock);
+          expect(spy.called).to.be.true;
+        }));
 
       });
 

@@ -27,7 +27,8 @@ define([
 
     events: {
       'focusout input': 'validateExerciseInput',
-      'focusin input': 'resetInputValidation'
+      'focusin input': 'resetInputValidation',
+      'click #add-exercise': 'addExercise'
     },
 
     initialize: function(options) {
@@ -53,10 +54,30 @@ define([
       }
     },
 
+    /**
+     * restes all inputs to their initial state
+     */
+    resetsInputs: function() {
+      var inputs = this.$el.find('input');
+      _.each(inputs, function(input) {
+        var $input = $(input);
+        $input.val('');
+        $input.removeClass('input-valid input-invalid');
+      });
+    },
+
     resetInputValidation: function(event) {
       event.preventDefault();
       var $element = $(event.currentTarget);
       $element.removeClass('input-valid input-invalid');
+    },
+
+    addExercise: function(event) {
+      event.preventDefault();
+      if(this.exerciseModel.isExerciseValid()) {
+        this.trigger('exercise:add');
+        this.resetsInputs();
+      }
     }
 
   });

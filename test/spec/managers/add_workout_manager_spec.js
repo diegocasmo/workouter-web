@@ -24,6 +24,7 @@ define([
     });
 
     afterEach(function() {
+      this.exercisesCollection = null;
       this.addWorkoutManager = null;
       this.router = null;
     });
@@ -51,8 +52,12 @@ define([
         expect(this.addWorkoutManager.workoutModel).to.be.instanceOf(Backbone.Model);
       });
 
-      it('has a exerciseModel model property', function() {
+      it('has an exerciseModel model property', function() {
         expect(this.addWorkoutManager.exerciseModel).to.be.instanceOf(Backbone.Model);
+      });
+
+      it('has an exercisesCollection model property', function() {
+        expect(this.addWorkoutManager.exercisesCollection).to.be.instanceOf(Backbone.Collection);
       });
     });
 
@@ -115,6 +120,23 @@ define([
           expect(userModelValues).to.be.equal(addWorkoutManagerUser);
         });
       });
+
+      describe('addExerciseToCollection Method', function() {
+
+        it('should call addExercise on collection', sinon.test(function() {
+          var spy = sinon.spy(this.addWorkoutManager.exercisesCollection, 'addExercise');
+          this.addWorkoutManager.addExerciseToCollection();
+          expect(spy.called).to.be.true;
+        }));
+
+        it('should call resetExercise on exerciseModel', sinon.test(function() {
+          var spy = sinon.spy(this.addWorkoutManager.exerciseModel, 'resetExercise');
+          this.addWorkoutManager.addExerciseToCollection();
+          expect(spy.called).to.be.true;
+        }));
+
+      });
+
     });
 
   });

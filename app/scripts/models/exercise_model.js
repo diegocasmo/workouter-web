@@ -17,8 +17,6 @@ define([
   var Excercise = Backbone.Model.extend({
 
     defaults: {
-      id: 0,
-      workoutId: 0,
       title: '',
       reps: 0,
       sets: 0,
@@ -27,18 +25,6 @@ define([
 
     validate: function (attrs) {
       var errors = [];
-
-      if(_.has(attrs, 'id')) {
-        if (typeof attrs.id !== 'number') {
-          errors.push({ name: 'id', message: enLocale.exerciseModel.id.required });
-        }
-      }
-
-      if(_.has(attrs, 'workoutId')) {
-        if (!attrs.workoutId || typeof attrs.workoutId !== 'number') {
-          errors.push({ name: 'workoutId', message: enLocale.exerciseModel.workoutId.required });
-        }
-      }
 
       if(_.has(attrs, 'title')) {
         if (!attrs.title || !attrs.title.length > 0) {
@@ -73,6 +59,9 @@ define([
       return errors.length > 0 ? errors : false;
     },
 
+    /**
+     * dynamically validates an attr and attrValue
+     */
     validateAttr: function(attr, attrValue) {
       attrValue = $.trim(attrValue);
 
@@ -94,6 +83,24 @@ define([
       mapper[attr] = this.defaults[attr];
       this.set(mapper);
       return false;
+    },
+
+    /**
+     * Returns true if model is valid, false otherwise
+     */
+    isExerciseValid: function() {
+      // make sure id is incremented by one before saving
+      if(this.isValid()) {
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * reset the model back to its defaults
+     */
+    resetExercise: function() {
+      this.clear().set(this.defaults);
     }
 
   });

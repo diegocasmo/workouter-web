@@ -19,7 +19,15 @@ define([
 
     model: ExerciseModel,
 
-    localStorage: new Backbone.LocalStorage('ExerciseCollection')
+    localStorage: new Backbone.LocalStorage('ExerciseCollection'),
+
+    addExercise: function(exercise) {
+      this.add(exercise);
+    },
+
+    removeAllExercises: function() {
+      _.invoke(this.toArray(), 'destroy');
+    }
 
   });
 

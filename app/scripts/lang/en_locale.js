@@ -107,6 +107,9 @@ define({
       },
       exerciseWeight: {
         placeholder: 'Weight'
+      },
+      addExerciseButton: {
+        text: 'Add Exercise'
       }
     }
   }

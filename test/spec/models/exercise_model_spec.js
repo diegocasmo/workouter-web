@@ -16,8 +16,6 @@ define([
     beforeEach(function() {
       this.exerciseModel = new ExerciseModel();
       this.exerciseModel.set({
-        'id': 1,
-        'workoutId': 1,
         'title': 'Squads',
         'reps': 12,
         'sets': 5,
@@ -43,8 +41,6 @@ define([
       });
 
       it('has correct defaults', function() {
-        expect(this.exerciseModel.get('id')).to.be.equal(0);
-        expect(this.exerciseModel.get('workoutId')).to.be.equal(0);
         expect(this.exerciseModel.get('title')).to.be.equal('');
         expect(this.exerciseModel.get('reps')).to.be.equal(0);
         expect(this.exerciseModel.get('sets')).to.be.equal(0);
@@ -53,22 +49,6 @@ define([
     });
 
     describe('Model Validation', function() {
-
-      it('should have valid id', function() {
-        this.exerciseModel.set({ 'id': 'invalid' });
-        expect(this.exerciseModel.isValid()).to.be.equal(false);
-
-        this.exerciseModel.set({ 'id': 1 });
-        expect(this.exerciseModel.isValid()).to.be.equal(true);
-      });
-
-      it('should have valid workoutId', function() {
-        this.exerciseModel.set({ 'workoutId': 'invalid' });
-        expect(this.exerciseModel.isValid()).to.be.equal(false);
-
-        this.exerciseModel.set({ 'workoutId': 1 });
-        expect(this.exerciseModel.isValid()).to.be.equal(true);
-      });
 
       it('should have valid title', function() {
         this.exerciseModel.set({ 'title': '' });
@@ -118,6 +98,44 @@ define([
           var title = '',
               validateAttrResult = this.exerciseModel.validateAttr('title', title);
           expect(validateAttrResult).to.be.false;
+        });
+
+      });
+
+      describe('isExerciseValid Method', function() {
+
+        it('returns true if model is valid', function() {
+          this.exerciseModel.set({
+            'id': 1,
+            'workoutId': 1,
+            'title': 'Squads',
+            'reps': 12,
+            'sets': 5,
+            'weight': 135
+          });
+          expect(this.exerciseModel.isExerciseValid()).to.be.true
+        });
+
+        it('returns false if model is invalid', function() {
+          this.exerciseModel.clear().set(this.exerciseModel.defaults);
+          this.exerciseModel.set({
+            'id': 1,
+            'workoutId': 1,
+            'title': 'Squads'
+          });
+          expect(this.exerciseModel.isExerciseValid()).to.be.false
+        });
+
+      });
+
+      describe('resetExercise Method', function() {
+
+        it('it resets model appropriately', function() {
+          this.exerciseModel.resetExercise();
+          var exerciseModelValues = JSON.stringify(this.exerciseModel.toJSON()),
+              exerciseModelDefaultValues = JSON.stringify(this.exerciseModel.defaults);
+
+          expect(exerciseModelValues).to.be.equal(exerciseModelDefaultValues);
         });
 
       });
