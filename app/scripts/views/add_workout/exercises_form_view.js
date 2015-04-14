@@ -34,6 +34,8 @@ define([
     initialize: function(options) {
       this.router = options.router;
       this.exerciseModel = options.exerciseModel;
+      this.exercisesCollection = options.exercisesCollection;
+      this.listenTo(this.exercisesCollection, 'add', this.updateExercisesCount);
     },
 
     render: function() {
@@ -78,6 +80,11 @@ define([
         this.trigger('exercise:add');
         this.resetsInputs();
       }
+    },
+
+    updateExercisesCount: function() {
+      var collectionLength = this.exercisesCollection.getLength();
+      this.$el.find('#exercises-total').text(collectionLength);
     }
 
   });

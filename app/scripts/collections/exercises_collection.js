@@ -27,6 +27,10 @@ define([
 
     removeAllExercises: function() {
       _.invoke(this.toArray(), 'destroy');
+    },
+
+    getLength: function() {
+      return parseInt(this.length);
     }
 
   });

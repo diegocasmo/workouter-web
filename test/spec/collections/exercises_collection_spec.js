@@ -35,6 +35,12 @@ define([
       });
     });
 
+    describe('Collection Methods', function() {
+      it('is getLength', function() {
+        expect(this.exercisesCollection.getLength()).to.be.equal(this.exercisesCollection.length);
+      });
+    });
+
   });
 
 });

@@ -110,6 +110,10 @@ define({
       },
       addExerciseButton: {
         text: 'Add Exercise'
+      },
+      exercisesTotalCount: {
+        text: 'Exercises:',
+        initialCount: '0'
       }
     }
   }

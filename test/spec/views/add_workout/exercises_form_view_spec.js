@@ -8,8 +8,9 @@
 define([
   'views/add_workout/exercises_form_view',
   'models/exercise_model',
-  'lang/en_locale',
-],function(ExercisesFormView, ExerciseModel, enLocale) {
+  'collections/exercises_collection',
+  'lang/en_locale'
+],function(ExercisesFormView, ExerciseModel, ExercisesCollection, enLocale) {
 
   'use strict';
 
@@ -18,14 +19,17 @@ define([
     beforeEach(function() {
       this.exerciseModel = new ExerciseModel();
       this.router = new Backbone.Router();
+      this.exercisesCollection = new ExercisesCollection();
       this.exercisesFormView = new ExercisesFormView({
         router: this.router,
-        exerciseModel: this.exerciseModel
+        exerciseModel: this.exerciseModel,
+        exercisesCollection: this.exercisesCollection
       });
       this.exercisesFormView.render();
     });
 
     afterEach(function() {
+      this.exercisesCollection = null;
       this.exerciseModel = null;
       this.router = null;
       this.exercisesFormView = null;
@@ -43,6 +47,10 @@ define([
 
       it('knows about the exercise model', function() {
         expect(this.exercisesFormView.exerciseModel).to.be.instanceOf(Backbone.Model);
+      });
+
+      it('knows about the exercises collection', function() {
+        expect(this.exercisesFormView.exercisesCollection).to.be.instanceOf(Backbone.Collection);
       });
 
       it('has correct id', function() {
@@ -66,6 +74,11 @@ define([
         var $addExerciseButton = this.exercisesFormView.$el.find('#add-exercise');
         expect($addExerciseButton.length).to.be.equal(1);
         expect($addExerciseButton.text()).to.be.equal(enLocale.addWorkout.exercisesFormView.addExerciseButton.text);
+      });
+
+      it('has an elment to show total number of exercises', function() {
+        var $exercisesCount = this.exercisesFormView.$el.find('#exercises-total');
+        expect($exercisesCount.length).to.be.equal(1);
       });
 
     });
@@ -93,6 +106,20 @@ define([
         this.exercisesFormView.delegateEvents();
         // simulate user event
         this.exercisesFormView.$el.find('#add-exercise').trigger('click');
+        expect(spy.called).to.be.true;
+      }));
+
+      xit('listens to add event on exercisesCollection', sinon.test(function() {
+        var spy = sinon.spy(this.exercisesFormView, 'updateExercisesCount');
+        this.exercisesFormView.delegateEvents();
+        // simulate user event
+        var exerciseModel = new ExerciseModel({
+          'title': 'Squads',
+          'reps': 12,
+          'sets': 5,
+          'weight': 135
+        });
+        this.exercisesCollection.add(exerciseModel);
         expect(spy.called).to.be.true;
       }));
 
@@ -192,6 +219,37 @@ define([
           this.exercisesFormView.addExercise(mock);
           expect(spy.called).to.be.true;
         }));
+
+      });
+
+      describe('updateExercisesCount Method', function() {
+
+        it('should call getLength of collection', sinon.test(function() {
+          var spy = sinon.spy(this.exercisesCollection, 'getLength');
+          this.exercisesFormView.updateExercisesCount();
+          expect(spy.called).to.be.true;
+        }));
+
+        it('should update count on DOM', function() {
+          // default value must be 0
+          var oldText = this.exercisesFormView.$el.find('#exercises-total').text();
+          this.exercisesFormView.updateExercisesCount();
+          expect(oldText).to.be.equal('0');
+
+          // simulate user adding a new exercise
+          var exerciseModel = new ExerciseModel({
+            'title': 'Squads',
+            'reps': 12,
+            'sets': 5,
+            'weight': 135
+          });
+          this.exercisesCollection.add(exerciseModel);
+          this.exercisesFormView.updateExercisesCount();
+
+          // check new value
+          var newText = this.exercisesFormView.$el.find('#exercises-total').text();
+          expect(newText).to.be.equal('1');
+        });
 
       });
 

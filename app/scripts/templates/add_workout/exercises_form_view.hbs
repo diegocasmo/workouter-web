@@ -1,8 +1,10 @@
 <h3>{{ title }}</h3>
 
+<p>{{ exercisesTotalCount.text }} <span id="exercises-total">{{ exercisesTotalCount.initialCount }}</span> </p>
+
 <input name="title" type="text" class="exercise-title" placeholder={{ exerciseTitle.placeholder }}>
-<input name="reps" type="number" class="exercise-reps" placeholder={{ exerciseReps.placeholder }}>
 <input name="sets" type="number" class="exercise-sets" placeholder={{ exerciseSets.placeholder }}>
+<input name="reps" type="number" class="exercise-reps" placeholder={{ exerciseReps.placeholder }}>
 <input name="weight" type="number" class="exercise-weight" placeholder={{ exerciseWeight.placeholder }}>
 
 <button id="add-exercise">{{ addExerciseButton.text }}</button>

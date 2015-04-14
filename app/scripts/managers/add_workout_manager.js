@@ -48,7 +48,7 @@ define([
       // sure child views have access to them
       options.workoutModel = this.workoutModel;
       options.exerciseModel = this.exerciseModel;
-
+      options.exercisesCollection = this.exercisesCollection;
       // initialize subviews
       this.closeAddWorkoutView = new CloseAddWorkoutView(options);
       this.workoutFormView = new WorkoutFormView(options);
