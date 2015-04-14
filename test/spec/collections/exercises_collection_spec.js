@@ -22,6 +22,7 @@ define([
   describe('Exercises Collection', function() {
 
     describe('Collection Initialization', function() {
+
       it('is defined', function() {
         expect(this.exercisesCollection).to.be.ok;
       });
@@ -33,12 +34,15 @@ define([
       it('has a model', function() {
         expect(this.exercisesCollection.model).to.exist;
       });
+
     });
 
     describe('Collection Methods', function() {
-      it('is getLength', function() {
+
+      it('should return collection length', function() {
         expect(this.exercisesCollection.getLength()).to.be.equal(this.exercisesCollection.length);
       });
+
     });
 
   });
