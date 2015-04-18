@@ -110,7 +110,7 @@ define([
       // add workout to collection if valid
       if(workout) {
         workoutsCollection.addWorkout(workout);
-        // this.router.navigate('workouts', { trigger: true });
+        this.router.navigate('workouts', { trigger: true });
       } else {
         console.log('Can\'t add workout.');
       }
