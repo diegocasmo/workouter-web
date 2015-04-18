@@ -115,6 +115,11 @@ define({
         text: 'Exercises:',
         initialCount: '0'
       }
+    },
+    addWorkoutFormView: {
+      addButton: {
+        text: 'Add Workout'
+      }
     }
   }
 });
