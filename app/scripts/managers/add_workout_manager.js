@@ -101,9 +101,7 @@ define([
 
     addWorkoutToCollection: function() {
       // initialize collection
-      if(!this.workoutsCollection) {
-        this.workoutsCollection = new WorkoutsCollection();
-      }
+      var workoutsCollection = new WorkoutsCollection();
 
       // create workout
       var exercisesCollection = this.exercisesCollection.toJSON(),
@@ -111,7 +109,7 @@ define([
 
       // add workout to collection if valid
       if(workout) {
-        this.workoutsCollection.addWorkout(workout);
+        workoutsCollection.addWorkout(workout);
         // this.router.navigate('workouts', { trigger: true });
       } else {
         console.log('Can\'t add workout.');
