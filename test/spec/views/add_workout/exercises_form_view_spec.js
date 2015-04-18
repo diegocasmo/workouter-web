@@ -4,7 +4,7 @@
  * Description: Tests for the exercises form view.
  */
 
-/*global define, describe, it, afterEach, beforeEach*/
+/*global define, describe, it, afterEach, beforeEach, sinon, xit*/
 define([
   'views/add_workout/exercises_form_view',
   'models/exercise_model',
@@ -153,8 +153,10 @@ define([
           // add classes to element
           $inputElement.addClass('input-valid input-invalid');
           var mock = {
-            preventDefault: function() { return false }
-          }
+            preventDefault: function() {
+              return false;
+            }
+          };
           this.exercisesFormView.resetInputValidation(mock);
           expect($inputElement.hasClass('input-valid')).to.be.false;
           expect($inputElement.hasClass('input-invalid')).to.be.false;
@@ -187,8 +189,10 @@ define([
           this.exercisesFormView.delegateEvents();
           // simulate user event
           var mock = {
-            preventDefault: function() { return false }
-          }
+            preventDefault: function() {
+              return false;
+            }
+          };
           this.exercisesFormView.addExercise(mock);
           expect(spy.called).to.be.true;
         }));
@@ -203,8 +207,10 @@ define([
           this.exercisesFormView.delegateEvents();
           // simulate user event
           var mock = {
-            preventDefault: function() { return false }
-          }
+            preventDefault: function() {
+              return false;
+            }
+          };
           this.exercisesFormView.addExercise(mock);
           expect(spy.called).to.be.false;
         }));
@@ -214,8 +220,10 @@ define([
           sinon.stub(this.exerciseModel, 'isExerciseValid').returns(true);
           // simulate user event
           var mock = {
-            preventDefault: function() { return false }
-          }
+            preventDefault: function() {
+              return false;
+            }
+          };
           this.exercisesFormView.addExercise(mock);
           expect(spy.called).to.be.true;
         }));

@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: A view for the main close add workout view.
+ * Description: A view for the workout form view.
  */
 
 /*global define*/

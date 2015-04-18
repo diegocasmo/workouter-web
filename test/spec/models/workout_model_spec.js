@@ -199,13 +199,13 @@ define([
 
       it('returns workout if it\'s valid', function() {
         this.workoutModel.set('title', 'Some title');
-        var workout = this.workoutModel.createWorkout(this.exercisesCollection.toJSON())
+        var workout = this.workoutModel.createWorkout(this.exercisesCollection.toJSON());
         expect(workout).to.be.instanceOf(Backbone.Model);
       });
 
       it('returns false if it\'s is invalid', function() {
         this.workoutModel.set('title', '');
-        var workout = this.workoutModel.createWorkout(this.exercisesCollection.toJSON())
+        var workout = this.workoutModel.createWorkout(this.exercisesCollection.toJSON());
         expect(workout).to.be.equal(false);
       });
 

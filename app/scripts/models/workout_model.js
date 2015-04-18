@@ -19,7 +19,6 @@ define([
   var Workout = Backbone.Model.extend({
 
     defaults: {
-      id: 0,
       title: '',
       user: new UserModel(),
       date: new Date(),

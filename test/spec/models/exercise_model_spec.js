@@ -113,7 +113,7 @@ define([
             'sets': 5,
             'weight': 135
           });
-          expect(this.exerciseModel.isExerciseValid()).to.be.true
+          expect(this.exerciseModel.isExerciseValid()).to.be.true;
         });
 
         it('returns false if model is invalid', function() {
@@ -123,7 +123,7 @@ define([
             'workoutId': 1,
             'title': 'Squads'
           });
-          expect(this.exerciseModel.isExerciseValid()).to.be.false
+          expect(this.exerciseModel.isExerciseValid()).to.be.false;
         });
 
       });

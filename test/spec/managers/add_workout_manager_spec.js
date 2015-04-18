@@ -4,7 +4,7 @@
  * Description: Tests for the Add Workout Manager.
  */
 
-/*global define, describe, it, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach, sinon, xit*/
 define([
   'managers/add_workout_manager',
   'services/firebase_service',

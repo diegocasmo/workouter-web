@@ -4,7 +4,7 @@
  * Description: Tests for the workout form view.
  */
 
-/*global define, describe, it, afterEach, beforeEach*/
+/*global define, describe, it, afterEach, beforeEach, sinon, xit*/
 define([
   'views/add_workout/workout_form_view',
   'models/workout_model',
@@ -109,8 +109,10 @@ define([
           // add classes to element
           $inputElement.addClass('input-valid input-invalid');
           var mock = {
-            preventDefault: function() { return false }
-          }
+            preventDefault: function() {
+              return false;
+            }
+          };
           this.workoutFormView.resetInputValidation(mock);
           expect($inputElement.hasClass('input-valid')).to.be.false;
           expect($inputElement.hasClass('input-invalid')).to.be.false;

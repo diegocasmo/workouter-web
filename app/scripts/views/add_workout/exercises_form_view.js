@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: A view for the main close add workout view.
+ * Description: A view for the exercises form view.
  */
 
 /*global define*/
@@ -79,6 +79,8 @@ define([
       if(this.exerciseModel.isExerciseValid()) {
         this.trigger('exercise:add');
         this.resetsInputs();
+      } else {
+        console.log('Cant\'t add exercise');
       }
     },
 

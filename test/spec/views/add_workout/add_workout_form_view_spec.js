@@ -4,7 +4,7 @@
  * Description: Tests for the add workout form view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach, sinon*/
 define([
   'views/add_workout/add_workout_form_view',
   'lang/en_locale',
@@ -78,8 +78,10 @@ define([
           this.addWorkoutFormView.delegateEvents();
           // simulate user event
           var mock = {
-            preventDefault: function() { return false }
-          }
+            preventDefault: function() {
+              return false;
+            }
+          };
           this.addWorkoutFormView.addWorkout(mock);
           expect(spy.called).to.be.true;
         }));
