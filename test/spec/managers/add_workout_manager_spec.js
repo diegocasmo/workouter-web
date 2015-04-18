@@ -59,6 +59,7 @@ define([
       it('has an exercisesCollection model property', function() {
         expect(this.addWorkoutManager.exercisesCollection).to.be.instanceOf(Backbone.Collection);
       });
+
     });
 
     describe('Manager methods', function() {
@@ -134,6 +135,26 @@ define([
           var spy = sinon.spy(this.addWorkoutManager.exerciseModel, 'resetExercise');
           this.addWorkoutManager.addExerciseToCollection();
           expect(spy.called).to.be.true;
+        }));
+
+      });
+
+      describe('addWorkoutToCollection Method', function() {
+
+        it('should call createWorkout on workout model', sinon.test(function() {
+          var spy = sinon.spy(this.addWorkoutManager.workoutModel, 'createWorkout');
+          this.addWorkoutManager.addWorkoutToCollection();
+          expect(spy.called).to.be.true;
+        }));
+
+        xit('should call addWorkout on collection if workout is valid', sinon.test(function() {
+          sinon.stub(this.workoutModel, 'createWorkout').returns(true);
+          var spy = sinon.spy(this.addWorkoutManager.workoutsCollection, 'addWorkout');
+          this.addWorkoutManager.addWorkoutToCollection();
+          expect(spy.called).to.be.true;
+        }));
+
+        xit('should redirect uset to workouts', sinon.test(function() {
         }));
 
       });

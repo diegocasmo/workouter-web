@@ -29,12 +29,6 @@ define([
     validate: function (attrs) {
       var errors = [];
 
-      if(_.has(attrs, 'id')) {
-        if (typeof attrs.id !== 'number') {
-          errors.push({ name: 'id', message: enLocale.workoutModel.id.required });
-        }
-      }
-
       if(_.has(attrs, 'title')) {
         if (!attrs.title || !attrs.title.length > 0) {
           errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
@@ -92,6 +86,15 @@ define([
       }
       // return back to default
       this.set('title', this.defaults.title);
+      return false;
+    },
+
+    createWorkout: function(exercises) {
+      this.set('exercises', exercises);
+      if(this.isValid()) {
+        return this;
+      }
+
       return false;
     }
 

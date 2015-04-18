@@ -36,4 +36,12 @@ define([
 
   });
 
+  describe('Workouts Collection Methods', function() {
+
+    describe('addWorkout Method', function() {
+
+    });
+
+  });
+
 });

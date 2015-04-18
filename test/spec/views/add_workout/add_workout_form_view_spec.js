@@ -65,16 +65,22 @@ define([
 
     });
 
-    xdescribe('Add Workout Form View Methods', function() {
+    describe('Add Workout Form View Methods', function() {
 
-      describe('close Method', function() {
+      describe('addWorkout Method', function() {
 
-        xit('redirects user back to workouts', sinon.test(function() {
+        it('triggers workout:add', sinon.test(function() {
           var spy = sinon.spy();
-          this.router.on({
-            'workouts': spy
+          this.addWorkoutFormView.on({
+            'workout:add': spy
           });
-          this.addWorkoutFormView.$el.find('.close-add-workout-view-button').trigger('click');
+
+          this.addWorkoutFormView.delegateEvents();
+          // simulate user event
+          var mock = {
+            preventDefault: function() { return false }
+          }
+          this.addWorkoutFormView.addWorkout(mock);
           expect(spy.called).to.be.true;
         }));
 

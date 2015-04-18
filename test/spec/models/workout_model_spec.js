@@ -31,7 +31,6 @@ define([
       });
 
       it('has correct defaults', function() {
-        expect(this.workoutModel.get('id')).to.be.equal(0);
         expect(this.workoutModel.get('title')).to.be.equal('');
         expect(this.workoutModel.get('user')).to.be.an.instanceOf(Object);
         expect(this.workoutModel.get('date')).to.be.an.instanceOf(Date);
@@ -44,8 +43,6 @@ define([
         // create exercise
         this.exercise = new ExerciseModel();
         this.exercise.set({
-          'id': 1,
-          'workoutId': 1,
           'title': 'Squads',
           'reps': 12,
           'sets': 5,
@@ -68,7 +65,6 @@ define([
         });
 
         this.workoutModel.set({
-          'id': 1,
           'title': 'Leg Day',
           'user': this.userModel.toJSON(),
           'date': new Date(),
@@ -81,13 +77,6 @@ define([
         this.exercisesCollection = null;
         this.exercise = null;
         this.userModel = null;
-      });
-
-      it('should have valid id', function() {
-        expect(this.workoutModel.isValid()).to.be.equal(true);
-
-        this.workoutModel.set({ 'id': '' });
-        expect(this.workoutModel.isValid()).to.be.equal(false);
       });
 
       it('should have valid title', function() {
@@ -167,6 +156,57 @@ define([
         var invalidTitle = '';
         expect(this.workoutModel.setTitle(invalidTitle)).to.be.false;
         expect(this.workoutModel.get('title')).to.be.equal('');
+      });
+
+    });
+
+    describe('createWorkout Method', function() {
+
+      beforeEach(function() {
+        // create exercise
+        this.exercise = new ExerciseModel();
+        this.exercise.set({
+          'title': 'Squads',
+          'reps': 12,
+          'sets': 5,
+          'weight': 135
+        });
+
+        // add exercise to collection
+        this.exercisesCollection = new ExercisesCollection();
+        this.exercisesCollection.add(this.exercise);
+
+        // create workout
+        this.workoutModel = new WorkoutModel();
+        this.userModel = UserModel.getInstance();
+        this.userModel.set({
+          uid: FirebaseService.oAuthProvider + ':246134729',
+          provider: FirebaseService.oAuthProvider,
+          token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
+          username: 'username',
+          displayName: 'Some Name'
+        });
+
+        this.workoutModel.setCurrentUser(this.userModel.toJSON());
+      });
+
+      afterEach(function() {
+        this.workoutModel = null;
+        this.exercisesCollection = null;
+        this.exercise = null;
+        this.userModel = null;
+      });
+
+      it('returns workout if it\'s valid', function() {
+        this.workoutModel.set('title', 'Some title');
+        var workout = this.workoutModel.createWorkout(this.exercisesCollection.toJSON())
+        expect(workout).to.be.instanceOf(Backbone.Model);
+      });
+
+      it('returns false if it\'s is invalid', function() {
+        this.workoutModel.set('title', '');
+        var workout = this.workoutModel.createWorkout(this.exercisesCollection.toJSON())
+        expect(workout).to.be.equal(false);
       });
 
     });

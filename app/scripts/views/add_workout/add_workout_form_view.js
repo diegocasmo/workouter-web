@@ -40,6 +40,7 @@ define([
 
     addWorkout: function(event) {
       event.preventDefault();
+      this.trigger('workout:add');
     }
 
   });

@@ -22,10 +22,21 @@ define([
 
     model: WorkoutModel,
 
-    userModel: UserModel.getInstance(),
-
+    /**
+     * URL where this resource is going to be stored
+     * for this specific user
+     */
     url: function() {
-      return new Firebase(FirebaseService.url + this.userModel.getUniqueIdentifier());
+      var userModel = UserModel.getInstance(),
+          url = FirebaseService.url + 'workouts/' + userModel.getUniqueIdentifier();
+      return new Firebase(url);
+    },
+
+    /**
+     * Adds a workout to the collection
+     */
+    addWorkout: function(workout) {
+      this.add(workout.toJSON());
     }
 
   });

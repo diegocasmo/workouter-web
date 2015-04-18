@@ -13,13 +13,15 @@ define([
   'models/workout_model',
   'models/exercise_model',
   'collections/exercises_collection',
+  'collections/workouts_collection',
   'views/add_workout/close_add_workout_view',
   'views/add_workout/workout_form_view',
   'views/add_workout/exercises_form_view',
   'views/add_workout/add_workout_form_view'
 ], function($, _, Backbone, BaseManager, UserModel, WorkoutModel,
-            ExerciseModel, ExercisesCollection, CloseAddWorkoutView,
-            WorkoutFormView, ExercisesFormView, AddWorkoutFormView) {
+            ExerciseModel, ExercisesCollection, WorkoutsCollection,
+            CloseAddWorkoutView, WorkoutFormView, ExercisesFormView,
+            AddWorkoutFormView) {
 
   'use strict';
 
@@ -45,6 +47,9 @@ define([
     },
 
     buildChildViews: function(options) {
+      // initial setup
+      this.router = options.router;
+
       // add models and collections to option to make
       // sure child views have access to them
       options.workoutModel = this.workoutModel;
@@ -61,6 +66,9 @@ define([
       // to the exercises collection
       this.listenTo(this.exercisesFormView, 'exercise:add',
         this.addExerciseToCollection);
+
+      this.listenTo(this.addWorkoutFormView, 'workout:add',
+        this.addWorkoutToCollection);
 
       // save shild views
       this.childViews.push(this.closeAddWorkoutView);
@@ -89,6 +97,25 @@ define([
     addExerciseToCollection: function() {
       this.exercisesCollection.addExercise(this.exerciseModel.toJSON());
       this.exerciseModel.resetExercise();
+    },
+
+    addWorkoutToCollection: function() {
+      // initialize collection
+      if(!this.workoutsCollection) {
+        this.workoutsCollection = new WorkoutsCollection();
+      }
+
+      // create workout
+      var exercisesCollection = this.exercisesCollection.toJSON(),
+          workout = this.workoutModel.createWorkout(exercisesCollection);
+
+      // add workout to collection if valid
+      if(workout) {
+        this.workoutsCollection.addWorkout(workout);
+        // this.router.navigate('workouts', { trigger: true });
+      } else {
+        console.log('Can\'t add workout.');
+      }
     }
 
   });
