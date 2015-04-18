@@ -65,5 +65,22 @@ define([
 
     });
 
+    xdescribe('Add Workout Form View Methods', function() {
+
+      describe('close Method', function() {
+
+        xit('redirects user back to workouts', sinon.test(function() {
+          var spy = sinon.spy();
+          this.router.on({
+            'workouts': spy
+          });
+          this.addWorkoutFormView.$el.find('.close-add-workout-view-button').trigger('click');
+          expect(spy.called).to.be.true;
+        }));
+
+      });
+
+    });
+
   });
 });

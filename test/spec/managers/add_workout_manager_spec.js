@@ -75,12 +75,13 @@ define([
           expect(this.addWorkoutManager.closeAddWorkoutView).to.be.instanceOf(Backbone.View);
           expect(this.addWorkoutManager.workoutFormView).to.be.instanceOf(Backbone.View);
           expect(this.addWorkoutManager.exercisesFormView).to.be.instanceOf(Backbone.View);
+          expect(this.addWorkoutManager.addWorkoutFormView).to.be.instanceOf(Backbone.View);
         });
 
         it('should save childViews correctly', function() {
           this.addWorkoutManager.childViews = [];
           this.addWorkoutManager.buildChildViews({});
-          expect(this.addWorkoutManager.childViews.length).to.be.equal(3);
+          expect(this.addWorkoutManager.childViews.length).to.be.equal(4);
         });
 
         it('should call the render method', sinon.test(function() {

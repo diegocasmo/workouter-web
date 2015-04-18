@@ -15,10 +15,11 @@ define([
   'collections/exercises_collection',
   'views/add_workout/close_add_workout_view',
   'views/add_workout/workout_form_view',
-  'views/add_workout/exercises_form_view'
+  'views/add_workout/exercises_form_view',
+  'views/add_workout/add_workout_form_view'
 ], function($, _, Backbone, BaseManager, UserModel, WorkoutModel,
             ExerciseModel, ExercisesCollection, CloseAddWorkoutView,
-            WorkoutFormView, ExercisesFormView) {
+            WorkoutFormView, ExercisesFormView, AddWorkoutFormView) {
 
   'use strict';
 
@@ -54,6 +55,7 @@ define([
       this.closeAddWorkoutView = new CloseAddWorkoutView(options);
       this.workoutFormView = new WorkoutFormView(options);
       this.exercisesFormView = new ExercisesFormView(options);
+      this.addWorkoutFormView = new AddWorkoutFormView(options);
 
       // hook exercisesFormView to be able to add an exercise
       // to the exercises collection
@@ -64,6 +66,7 @@ define([
       this.childViews.push(this.closeAddWorkoutView);
       this.childViews.push(this.workoutFormView);
       this.childViews.push(this.exercisesFormView);
+      this.childViews.push(this.addWorkoutFormView);
 
       // make sure we set the owner of this workout
       this.addUserToWorkout();
@@ -75,6 +78,7 @@ define([
       this.$el.append(this.closeAddWorkoutView.render().el);
       this.$el.append(this.workoutFormView.render().el);
       this.$el.append(this.exercisesFormView.render().el);
+      this.$el.append(this.addWorkoutFormView.render().el);
       return this;
     },
 
