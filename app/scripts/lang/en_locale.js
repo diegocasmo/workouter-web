@@ -124,5 +124,8 @@ define({
   },
   bottomMenuView: {
 
+  },
+  workoutItemView: {
+
   }
 });
