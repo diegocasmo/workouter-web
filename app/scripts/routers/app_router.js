@@ -10,14 +10,16 @@ define([
   'backbone',
   'services/auth_service',
   'managers/login_manager',
+  'managers/workouts_home_manager',
   'managers/profile_manager',
   'managers/add_workout_manager'
-], function($, Backbone, AuthService, LoginManager, ProfileManager,
-            AddWorkoutManager) {
+], function($, Backbone, AuthService, LoginManager, WorkoutsHomeManager,
+            ProfileManager, AddWorkoutManager) {
 
   'use strict';
 
   var loginManager = null,
+      workoutsHomeManager = null,
       profileManager = null,
       addWorkoutManager = null;
 
@@ -87,6 +89,13 @@ define([
      */
     showWorkouts: function() {
       var eventTrigger = 'goTo:workouts';
+      if(!workoutsHomeManager) {
+        workoutsHomeManager = new WorkoutsHomeManager({
+          router: this,
+          eventTrigger: eventTrigger
+        });
+      }
+      this.activeLayout = workoutsHomeManager;
       this.trigger(eventTrigger);
     },
 
