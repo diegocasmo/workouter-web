@@ -17,7 +17,7 @@ define([
 
   var BottomMenuView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/elements/button_menu_view.hbs'],
+    template: JST['app/scripts/templates/elements/bottom_menu_view.hbs'],
 
     tagName: 'div',
 

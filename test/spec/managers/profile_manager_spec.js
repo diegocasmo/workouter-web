@@ -50,16 +50,17 @@ define([
           expect(this.profileManager.buildChildViews).to.be.ok;
         });
 
-        it('should initialize a profile main view', function() {
+        it('should initialize subviews correctly', function() {
           this.profileManager.childViews = [];
           this.profileManager.buildChildViews();
           expect(this.profileManager.profileMainView).to.be.instanceOf(Backbone.View);
+          expect(this.profileManager.bottomMenuView).to.be.instanceOf(Backbone.View);
         });
 
-        it('should save profile main view on childViews property', function() {
+        it('should save childViews correctly', function() {
           this.profileManager.childViews = [];
           this.profileManager.buildChildViews();
-          expect(this.profileManager.childViews.length).to.be.equal(1);
+          expect(this.profileManager.childViews.length).to.be.equal(2);
         });
 
         it('should call the render method', sinon.test(function() {
