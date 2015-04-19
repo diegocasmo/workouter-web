@@ -40,12 +40,15 @@ define([
 
     render: function() {
       var that = this;
-      var workoutItemsView = this.workoutsCollection.map(function(workout) {
+      var workoutItemsViews = this.workoutsCollection.map(function(workout) {
           var workoutView = new WorkoutItemView({workoutModel: workout});
           that.childViews.push(workoutView);
           return workoutView.render().el;
       });
-      this.$el.append(workoutItemsView);
+
+      // make sure to use reverse in order to show
+      // the latest workout first on the list
+      this.$el.append(workoutItemsViews.reverse());
       this.$el.append(this.bottomMenuView.render().el);
       return this;
     },

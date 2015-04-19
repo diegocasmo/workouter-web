@@ -33,7 +33,7 @@ define([
       it('has correct defaults', function() {
         expect(this.workoutModel.get('title')).to.be.equal('');
         expect(this.workoutModel.get('user')).to.be.an.instanceOf(Object);
-        expect(this.workoutModel.get('date')).to.be.an.instanceOf(String);
+        expect(this.workoutModel.get('date')).to.be.a('number');
         expect(this.workoutModel.get('exercises')).to.be.an.instanceOf(Array);
       });
     });
@@ -98,7 +98,7 @@ define([
         this.workoutModel.set({ 'date': '2/5/1992' });
         expect(this.workoutModel.isValid()).to.be.equal(false);
 
-        this.workoutModel.set({ 'date': new Date() });
+        this.workoutModel.set({ 'date': Date.now() });
         expect(this.workoutModel.isValid()).to.be.equal(true);
       });
 

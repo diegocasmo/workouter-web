@@ -43,6 +43,8 @@ define([
       if(_.has(attrs, 'date')) {
         if (!attrs.date) {
           errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
+        } else if (typeof attrs.date !== 'number') {
+          errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
         }
       }
 
