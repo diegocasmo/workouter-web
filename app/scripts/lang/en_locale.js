@@ -121,5 +121,8 @@ define({
         text: 'Add Workout'
       }
     }
+  },
+  bottomMenuView: {
+
   }
 });
