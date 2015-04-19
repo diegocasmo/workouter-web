@@ -38,7 +38,31 @@ define([
 
   describe('Workouts Collection Methods', function() {
 
-    describe('addWorkout Method', function() {
+    xdescribe('addWorkout Method', function() {
+
+    });
+
+    describe('getWorkouts Method', function() {
+
+      it('should trigger "success" on fetch success', sinon.test(function() {
+        sinon.stub(this.workoutsCollection, 'fetch').yieldsTo('success');
+        var spy = sinon.spy();
+        this.workoutsCollection.on({
+          'success': spy
+        });
+        this.workoutsCollection.getWorkouts();
+        expect(spy.called).to.be.true;
+      }));
+
+      it('should trigger "error" on fetch error', function() {
+        sinon.stub(this.workoutsCollection, 'fetch').yieldsTo('error');
+        var spy = sinon.spy();
+        this.workoutsCollection.on({
+          'error': spy
+        });
+        this.workoutsCollection.getWorkouts();
+        expect(spy.called).to.be.true;
+      });
 
     });
 

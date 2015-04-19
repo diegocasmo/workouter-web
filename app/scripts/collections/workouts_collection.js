@@ -37,6 +37,22 @@ define([
      */
     addWorkout: function(workout) {
       this.add(workout.toJSON());
+    },
+
+    /**
+     * fetch all workouts and trigger success if successful,
+     * trigger error otherwise
+     */
+    getWorkouts: function() {
+      var that = this;
+      this.fetch({
+          success: function(collection, response, options) {
+            that.trigger('success');
+          },
+          error: function(collection, response, options) {
+            that.trigger('error');
+          }
+      });
     }
 
   });
