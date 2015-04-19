@@ -27,7 +27,8 @@ define([
 
     events: {
       'click i.fa-plus': 'goToAddWorkout',
-      'click i.fa-user': 'goToProfile'
+      'click i.fa-user': 'goToProfile',
+      'click i.fa-home': 'goToWorkouts'
     },
 
     initialize: function(options) {
@@ -36,6 +37,8 @@ define([
 
     render: function() {
       this.$el.html(this.template(enLocale.bottomMenuView));
+      // make sure current route isn't show on menu
+      this.hideCurrentRoute();
       return this;
     },
 
@@ -47,6 +50,25 @@ define([
     goToProfile: function(event) {
       event.preventDefault();
       this.router.navigate('me', { trigger: true });
+    },
+
+    goToWorkouts: function(event) {
+      event.preventDefault();
+      this.router.navigate('workouts', { trigger: true });
+    },
+
+    /**
+     * hides current route from menu
+     */
+    hideCurrentRoute: function() {
+      var urlHash = window.location.hash;
+      // clean hash
+      urlHash = urlHash.replace('#', '');
+      if(urlHash === 'workouts') {
+        this.$el.find('i.fa-home').parent().hide();
+      } else if (urlHash === 'me') {
+        this.$el.find('i.fa-user').parent().hide();
+      }
     }
 
   });

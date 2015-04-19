@@ -55,6 +55,11 @@ define([
         expect(goToProfile.length).to.be.equal(1);
       });
 
+      it('has a go to workouts home icon', function() {
+        var goToProfile = this.bottomMenuView.$el.find('i.fa-home');
+        expect(goToProfile.length).to.be.equal(1);
+      });
+
     });
 
     describe('Bottom Menu View Events', function() {
@@ -72,6 +77,14 @@ define([
         this.bottomMenuView.delegateEvents();
         // simulate user event
         this.bottomMenuView.$el.find('i.fa-user').trigger('click');
+        expect(spy.called).to.be.true;
+      }));
+
+      it('listens to go to workouts home click', sinon.test(function() {
+        var spy = sinon.spy(this.bottomMenuView, 'goToWorkouts');
+        this.bottomMenuView.delegateEvents();
+        // simulate user event
+        this.bottomMenuView.$el.find('i.fa-home').trigger('click');
         expect(spy.called).to.be.true;
       }));
 
