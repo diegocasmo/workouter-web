@@ -90,6 +90,7 @@ require([
   specs.push('../../test/spec/views/elements/bottom_menu_view_spec');
 
   // workouts home
+  specs.push('../../test/spec/views/workouts_home/workouts_list_view_spec');
   specs.push('../../test/spec/views/workouts_home/workout_item_view_spec');
 
   require(specs, function() {
