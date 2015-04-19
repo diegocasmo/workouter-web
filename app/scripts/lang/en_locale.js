@@ -37,8 +37,7 @@ define({
       required: 'Invalid user.'
     },
     date: {
-      required: 'Please, enter a date.',
-      date: 'Please, enter a valid date.'
+      required: 'Please, enter a date.'
     },
     exercises: {
       required: 'Please, enter the excercises.',

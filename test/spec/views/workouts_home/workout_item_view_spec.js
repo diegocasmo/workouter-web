@@ -16,9 +16,11 @@ define([
 
     beforeEach(function() {
       this.router = new Backbone.Router();
+      this.model = new Backbone.Model();
       this.workoutItemView = new WorkoutItemView({
         router: this.router
       });
+      this.workoutItemView.workoutModel = this.model;
       this.workoutItemView.render();
     });
 
@@ -43,44 +45,6 @@ define([
 
     });
 
-    xdescribe('Workout Item View DOM', function() {
-
-      it('has close button', function() {
-        var closeButton = this.workoutItemView.$el.find('.close-add-workout-view-button');
-        expect(closeButton.length).to.be.equal(1);
-        expect(closeButton.text()).to.be.equal(enLocale.addWorkout.workoutItemView.closeButton.text);
-      });
-
-    });
-
-    xdescribe('Workout Item View Events', function() {
-
-      it('listens to close click', sinon.test(function() {
-        var spy = sinon.spy(this.workoutItemView, 'close');
-        this.workoutItemView.delegateEvents();
-        // simulate user event
-        this.workoutItemView.$el.find('.close-add-workout-view-button').trigger('click');
-        expect(spy.called).to.be.true;
-      }));
-
-    });
-
-    xdescribe('Workout Item View Methods', function() {
-
-      describe('close Method', function() {
-
-        xit('redirects user back to workouts', sinon.test(function() {
-          var spy = sinon.spy();
-          this.router.on({
-            'workouts': spy
-          });
-          this.workoutItemView.$el.find('.close-add-workout-view-button').trigger('click');
-          expect(spy.called).to.be.true;
-        }));
-
-      });
-
-    });
-
   });
+
 });

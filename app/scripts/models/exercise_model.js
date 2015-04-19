@@ -49,10 +49,10 @@ define([
       }
 
       if(_.has(attrs, 'weight')) {
-        if (!attrs.weight) {
-          errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.required });
-        } else if (typeof attrs.weight !== 'number') {
+        if (typeof attrs.weight !== 'number') {
           errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.number });
+        } else if (attrs.weight < 0) {
+          errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.required });
         }
       }
 

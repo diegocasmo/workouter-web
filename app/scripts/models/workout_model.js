@@ -21,7 +21,7 @@ define([
     defaults: {
       title: '',
       user: new UserModel(),
-      date: new Date(),
+      date: Date.now(),
       exercises: []
     },
 
@@ -43,8 +43,6 @@ define([
       if(_.has(attrs, 'date')) {
         if (!attrs.date) {
           errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
-        } else if (typeof attrs.date !== 'object') {
-          errors.push({ name: 'date', message: enLocale.workoutModel.date.date });
         }
       }
 
@@ -89,6 +87,7 @@ define([
     },
 
     createWorkout: function(exercises) {
+      this.set('date', Date.now());
       this.set('exercises', exercises);
       if(this.isValid()) {
         return this;

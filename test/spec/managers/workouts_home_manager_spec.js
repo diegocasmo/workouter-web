@@ -62,11 +62,6 @@ define([
           expect(this.workoutsHomeManager.childViews.length).to.be.equal(1);
         });
 
-        it('should call the render method', sinon.test(function() {
-          var spy = sinon.spy(this.workoutsHomeManager, 'render');
-          this.workoutsHomeManager.buildChildViews();
-          expect(spy.called).to.be.true;
-        }));
       });
 
       describe('destroyChildViews Method', function() {

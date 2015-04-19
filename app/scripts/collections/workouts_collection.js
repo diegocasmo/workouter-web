@@ -27,8 +27,11 @@ define([
      * for this specific user
      */
     url: function() {
-      var userModel = UserModel.getInstance(),
-          url = FirebaseService.url + 'workouts/' + userModel.getUniqueIdentifier();
+      var userModel = UserModel.getInstance();
+
+      var url = FirebaseService.url + 'workouts/' +
+                userModel.getUniqueIdentifier();
+
       return new Firebase(url);
     },
 

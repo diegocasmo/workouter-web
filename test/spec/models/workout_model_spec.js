@@ -33,7 +33,7 @@ define([
       it('has correct defaults', function() {
         expect(this.workoutModel.get('title')).to.be.equal('');
         expect(this.workoutModel.get('user')).to.be.an.instanceOf(Object);
-        expect(this.workoutModel.get('date')).to.be.an.instanceOf(Date);
+        expect(this.workoutModel.get('date')).to.be.an.instanceOf(String);
         expect(this.workoutModel.get('exercises')).to.be.an.instanceOf(Array);
       });
     });
@@ -67,7 +67,7 @@ define([
         this.workoutModel.set({
           'title': 'Leg Day',
           'user': this.userModel.toJSON(),
-          'date': new Date(),
+          'date': Date.now(),
           'exercises': this.exercisesCollection.toJSON()
         });
       });
