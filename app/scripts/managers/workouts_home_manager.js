@@ -11,9 +11,10 @@ define([
   'managers/base_manager',
   'collections/workouts_collection',
   'views/elements/bottom_menu_view',
-  'views/workouts_home/workout_item_view'
+  'views/workouts_home/workout_item_view',
+  'views/workouts_home/add_first_workout_view'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
-            BottomMenuView, WorkoutItemView) {
+            BottomMenuView, WorkoutItemView, AddFirstWorkoutView) {
 
   'use strict';
 
@@ -22,6 +23,8 @@ define([
     el: $('#app-wrapper'),
 
     buildChildViews: function(options) {
+      this.options = options;
+
       // initialize child views
       this.bottomMenuView = new BottomMenuView(options);
 
@@ -45,8 +48,11 @@ define([
       if(workoutItemsViews) {
         this.$el.append(workoutItemsViews);
       } else {
-        // should display add a workout message
-        console.log('should display add a workout message');
+        // display add workout message
+        this.addFirstWorkoutView = new AddFirstWorkoutView(this.options);
+        // save as child view
+        this.childViews.push(this.addFirstWorkoutView);
+        this.$el.append(this.addFirstWorkoutView.render().el);
       }
 
       this.$el.append(this.bottomMenuView.render().el);
