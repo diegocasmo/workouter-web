@@ -4,11 +4,9 @@
  * Description: Handlebars helpers
  */
 define([
-  'jquery',
-  'underscore',
   'handlebars',
   'lang/en_locale'
-], function($, _, Handlebars, enLocale) {
+], function(Handlebars, enLocale) {
 
   'use strict';
 

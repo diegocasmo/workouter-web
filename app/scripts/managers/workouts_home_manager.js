@@ -39,18 +39,40 @@ define([
     },
 
     render: function() {
+
+      var workoutItemsViews = this.getAllWorkouts();
+      // if no workout items views
+      if(workoutItemsViews) {
+        this.$el.append(workoutItemsViews);
+      } else {
+        // should display add a workout message
+        console.log('should display add a workout message');
+      }
+
+      this.$el.append(this.bottomMenuView.render().el);
+      return this;
+    },
+
+    /**
+     * return workouts list if greater than zero,
+     * false otherwise
+     */
+    getAllWorkouts: function() {
       var that = this;
       var workoutItemsViews = this.workoutsCollection.map(function(workout) {
           var workoutView = new WorkoutItemView({workoutModel: workout});
+          // save as child view to be able to delete it
           that.childViews.push(workoutView);
           return workoutView.render().el;
       });
 
-      // make sure to use reverse in order to show
-      // the latest workout first on the list
-      this.$el.append(workoutItemsViews.reverse());
-      this.$el.append(this.bottomMenuView.render().el);
-      return this;
+      if(workoutItemsViews.length > 0) {
+        // make sure to use reverse in order to show
+        // the latest workout first on the list
+        return workoutItemsViews.reverse();
+      }
+
+      return false
     },
 
     /**

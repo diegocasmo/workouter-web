@@ -147,7 +147,12 @@ define({
   bottomMenuView: {
 
   },
-  workoutItemView: {
+  workoutsHome: {
+    workoutItemView: {
 
+    },
+    addFirstWorkoutView: {
+      addWorkoutMsg: 'Add your first workout!'
+    }
   }
 });
