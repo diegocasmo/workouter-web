@@ -46,17 +46,17 @@ define([
 
     describe('Login Main View DOM', function() {
 
-      it('has twitter login button', function() {
-        var twitterElement = this.loginMainView.$el.find('.twitter-login');
-        expect(twitterElement.length).to.be.equal(1);
-        expect(twitterElement.text()).to.be.equal(enLocale.login.loginMainView.twitterButton.text);
+      it('has twitter login text', function() {
+        var twitterLoginText = this.loginMainView.$el.find('p.twitter-login');
+        expect(twitterLoginText.length).to.be.equal(1);
+        expect(twitterLoginText.text()).to.be.equal(enLocale.login.loginMainView.twitterButton.text);
       });
 
     });
 
     describe('Login Main View Events', function() {
 
-      it('listens to login with twitter button click', sinon.test(function() {
+      it('listens to login with twitter text click', sinon.test(function() {
         var spy = sinon.spy(this.loginMainView, 'loginWithTwitter');
         this.loginMainView.delegateEvents();
         // simulate user event
