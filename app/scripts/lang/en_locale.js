@@ -92,7 +92,7 @@ define({
   },
   login: {
     loginMainView: {
-      twitterButton: {
+      twitterLoginText: {
         text: 'Login with Twitter'
       }
     }

@@ -49,7 +49,7 @@ define([
       it('has twitter login text', function() {
         var twitterLoginText = this.loginMainView.$el.find('p.twitter-login');
         expect(twitterLoginText.length).to.be.equal(1);
-        expect(twitterLoginText.text()).to.be.equal(enLocale.login.loginMainView.twitterButton.text);
+        expect(twitterLoginText.text()).to.be.equal(enLocale.login.loginMainView.twitterLoginText.text);
       });
 
     });
