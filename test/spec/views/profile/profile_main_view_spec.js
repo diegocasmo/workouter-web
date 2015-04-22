@@ -49,21 +49,21 @@ define([
 
     describe('Profile Main View DOM', function() {
 
-      it('has logout button', function() {
-        var logoutElement = this.profileMainView.$el.find('.logout');
-        expect(logoutElement.length).to.be.equal(1);
-        expect(logoutElement.text()).to.be.equal(enLocale.profile.profileMainView.logoutButton.text);
+      it('has logout text', function() {
+        var logoutText = this.profileMainView.$el.find('p.logout');
+        expect(logoutText.length).to.be.equal(1);
+        expect(logoutText.text()).to.be.equal(enLocale.profile.profileMainView.logoutText.text);
       });
 
     });
 
     describe('Profile Main View Events', function() {
 
-      it('listens to logout click and calls logUserOut', sinon.test(function() {
+      it('listens to logout text click and calls logUserOut', sinon.test(function() {
         var spy = sinon.spy(this.profileMainView, 'logUserOut');
         this.profileMainView.delegateEvents();
         // simulate user event
-        this.profileMainView.$el.find('.logout').trigger('click');
+        this.profileMainView.$el.find('p.logout').trigger('click');
         expect(spy.called).to.be.true;
       }));
 

@@ -28,7 +28,7 @@ define([
     },
 
     events: {
-      'click .logout': 'logUserOut'
+      'click p.logout': 'logUserOut'
     },
 
     initialize: function(options) {

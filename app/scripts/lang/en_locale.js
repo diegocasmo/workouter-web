@@ -99,7 +99,7 @@ define({
   },
   profile: {
     profileMainView: {
-      logoutButton: {
+      logoutText: {
         text: 'Logout'
       }
     }
