@@ -45,10 +45,9 @@ define([
 
     describe('Close Add Workout View DOM', function() {
 
-      it('has close button', function() {
-        var closeButton = this.closeAddWorkoutView.$el.find('.close-add-workout-view-button');
-        expect(closeButton.length).to.be.equal(1);
-        expect(closeButton.text()).to.be.equal(enLocale.addWorkout.closeAddWorkoutView.closeButton.text);
+      it('has close icon', function() {
+        var closeIcon = this.closeAddWorkoutView.$el.find('i.fa-close');
+        expect(closeIcon.length).to.be.equal(1);
       });
 
     });
@@ -59,7 +58,7 @@ define([
         var spy = sinon.spy(this.closeAddWorkoutView, 'close');
         this.closeAddWorkoutView.delegateEvents();
         // simulate user event
-        this.closeAddWorkoutView.$el.find('.close-add-workout-view-button').trigger('click');
+        this.closeAddWorkoutView.$el.find('i.fa-close').trigger('click');
         expect(spy.called).to.be.true;
       }));
 

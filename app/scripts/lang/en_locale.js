@@ -106,9 +106,7 @@ define({
   },
   addWorkout: {
     closeAddWorkoutView: {
-      closeButton: {
-        text: 'Close'
-      }
+
     },
     workoutFormView: {
       title: 'Workout',

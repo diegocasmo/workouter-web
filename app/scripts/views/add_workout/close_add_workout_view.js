@@ -26,7 +26,7 @@ define([
     },
 
     events: {
-      'click .close-add-workout-view-button': 'close'
+      'click i.fa-close': 'close'
     },
 
     initialize: function(options) {
