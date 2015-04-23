@@ -73,6 +73,7 @@ require([
   specs.push('../../test/spec/managers/workouts_home_manager_spec');
   specs.push('../../test/spec/managers/profile_manager_spec');
   specs.push('../../test/spec/managers/add_workout_manager_spec');
+  specs.push('../../test/spec/managers/view_workout_manager_spec');
 
   // login views
   specs.push('../../test/spec/views/login/login_main_view_spec');
