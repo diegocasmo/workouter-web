@@ -35,7 +35,6 @@ define([
         expect(this.appRouter.routes.workouts).to.be.ok;
         expect(this.appRouter.routes['workout/add']).to.be.ok;
         expect(this.appRouter.routes['workout/:id/exercises']).to.be.ok;
-        expect(this.appRouter.routes['workout/:id/exercises/:id']).to.be.ok;
         expect(this.appRouter.routes.me).to.be.ok;
         expect(this.appRouter.routes['*actions']).to.be.ok;
       });
@@ -45,7 +44,6 @@ define([
         expect(this.appRouter.routes.workouts).to.be.equal('showWorkouts');
         expect(this.appRouter.routes['workout/add']).to.be.equal('addWorkout');
         expect(this.appRouter.routes['workout/:id/exercises']).to.be.equal('showWorkoutExercises');
-        expect(this.appRouter.routes['workout/:id/exercises/:id']).to.be.equal('showWorkoutExercise');
         expect(this.appRouter.routes.me).to.be.equal('showProfile');
         expect(this.appRouter.routes['*actions']).to.be.equal('showLogin');
       });

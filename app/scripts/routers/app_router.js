@@ -34,7 +34,6 @@ define([
       'workouts'                  : 'showWorkouts',
       'workout/add'               : 'addWorkout',
       'workout/:id/exercises'     : 'showWorkoutExercises',
-      'workout/:id/exercises/:id' : 'showWorkoutExercise',
       'me'                        : 'showProfile',
       '*actions'                  : 'showLogin'
     },
@@ -119,14 +118,6 @@ define([
      */
     showWorkoutExercises: function(workoutId) {
       var eventTrigger = 'goTo:exercises';
-      this.trigger(eventTrigger);
-    },
-
-    /**
-     * show single user exercise of a single workout (private)
-     */
-    showWorkoutExercise: function(workoutId, exerciseId) {
-      var eventTrigger = 'goTo:exercise';
       this.trigger(eventTrigger);
     },
 
