@@ -12,16 +12,18 @@ define([
   'managers/login_manager',
   'managers/workouts_home_manager',
   'managers/profile_manager',
-  'managers/add_workout_manager'
+  'managers/add_workout_manager',
+  'managers/view_workout_manager'
 ], function($, Backbone, AuthService, LoginManager, WorkoutsHomeManager,
-            ProfileManager, AddWorkoutManager) {
+            ProfileManager, AddWorkoutManager, ViewWorkoutManager) {
 
   'use strict';
 
   var loginManager = null,
       workoutsHomeManager = null,
       profileManager = null,
-      addWorkoutManager = null;
+      addWorkoutManager = null,
+      viewWorkoutManager = null;
 
   var AppRouter = Backbone.Router.extend({
 
@@ -118,6 +120,14 @@ define([
      */
     showWorkoutExercises: function(workoutId) {
       var eventTrigger = 'goTo:exercises';
+      if(!viewWorkoutManager) {
+        viewWorkoutManager = new ViewWorkoutManager({
+          router: this,
+          eventTrigger: eventTrigger,
+          workoutId: workoutId
+        });
+      }
+      this.activeLayout = viewWorkoutManager;
       this.trigger(eventTrigger);
     },
 

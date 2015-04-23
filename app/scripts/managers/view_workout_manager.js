@@ -18,6 +18,7 @@ define([
     el: $('#app-wrapper'),
 
     buildChildViews: function(options) {
+      this.workoutId = options.workoutId;
       this.render();
     },
 

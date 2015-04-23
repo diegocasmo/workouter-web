@@ -15,10 +15,12 @@ define([
 
     beforeEach(function() {
       this.router = new Backbone.Router();
-      this.viewWorkoutManager = new ViewWorkoutManager({
+      this.options = {
         router: this.router,
-        eventTrigger: 'foo'
-      });
+        eventTrigger: 'foo',
+        workoutId: '123456'
+      }
+      this.viewWorkoutManager = new ViewWorkoutManager(this.options);
     });
 
     afterEach(function() {
@@ -40,6 +42,7 @@ define([
         this.viewWorkoutManager.router.trigger('foo');
         expect(spy.called).to.be.true;
       }));
+
     });
 
     describe('View Workout Manager methods', function() {
@@ -48,6 +51,11 @@ define([
 
         it('must have a buildChildViews method', function() {
           expect(this.viewWorkoutManager.buildChildViews).to.be.ok;
+        });
+
+        it('initializes workoutId', function() {
+          this.viewWorkoutManager.buildChildViews(this.options);
+          expect(this.viewWorkoutManager.workoutId).to.be.ok;
         });
 
         xit('should initialize subviews correctly', function() {
@@ -65,7 +73,7 @@ define([
 
         it('should call the render method', sinon.test(function() {
           var spy = sinon.spy(this.viewWorkoutManager, 'render');
-          this.viewWorkoutManager.buildChildViews();
+          this.viewWorkoutManager.buildChildViews(this.options);
           expect(spy.called).to.be.true;
         }));
       });
