@@ -16,7 +16,11 @@ define([
 
     beforeEach(function() {
       this.router = new Backbone.Router();
-      this.model = new Backbone.Model();
+      this.model = new Backbone.Model({
+        id: '-JnU0ZeNyNEWThAW-xOp',
+        title: 'title',
+        date: Date.now()
+      });
       this.workoutItemView = new WorkoutItemView({
         router: this.router
       });
@@ -45,6 +49,13 @@ define([
 
     });
 
+    describe('Workout Item View DOM', function() {
+
+      it('must have a link to workout exercises', function() {
+        expect(this.workoutItemView.$el.find('a').length).to.be.equal(1);
+      });
+
+    });
   });
 
 });
