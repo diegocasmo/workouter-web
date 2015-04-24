@@ -152,5 +152,10 @@ define({
     addFirstWorkoutView: {
       addWorkoutMsg: 'Add your first workout!'
     }
+  },
+  viewWorkout: {
+    closeViewWorkoutView: {
+
+    }
   }
 });
