@@ -58,17 +58,16 @@ define([
           expect(this.viewWorkoutManager.workoutId).to.be.ok;
         });
 
-        xit('should initialize subviews correctly', function() {
+        it('should initialize subviews correctly', function() {
           this.viewWorkoutManager.childViews = [];
-          this.viewWorkoutManager.buildChildViews();
-          expect(this.viewWorkoutManager.profileMainView).to.be.instanceOf(Backbone.View);
-          expect(this.viewWorkoutManager.bottomMenuView).to.be.instanceOf(Backbone.View);
+          this.viewWorkoutManager.buildChildViews(this.options);
+          expect(this.viewWorkoutManager.closeViewWorkoutView).to.be.instanceOf(Backbone.View);
         });
 
-        xit('should save childViews correctly', function() {
+        it('should save childViews correctly', function() {
           this.viewWorkoutManager.childViews = [];
-          this.viewWorkoutManager.buildChildViews();
-          expect(this.viewWorkoutManager.childViews.length).to.be.equal(2);
+          this.viewWorkoutManager.buildChildViews(this.options);
+          expect(this.viewWorkoutManager.childViews.length).to.be.equal(1);
         });
 
         it('should call the render method', sinon.test(function() {
