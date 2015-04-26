@@ -9,8 +9,10 @@ define([
   'underscore',
   'backbone',
   'managers/base_manager',
-  'views/view_workout/close_view_workout_view'
-], function($, _, Backbone, BaseManager, CloseViewWorkoutView) {
+  'views/view_workout/close_view_workout_view',
+  'views/view_workout/workout_view'
+], function($, _, Backbone, BaseManager, CloseViewWorkoutView,
+          WorkoutView) {
 
   'use strict';
 
@@ -23,15 +25,18 @@ define([
 
       // initialize child views
       this.closeViewWorkoutView = new CloseViewWorkoutView(options);
+      this.workoutView = new WorkoutView(options);
 
       // save child views
       this.childViews.push(this.closeViewWorkoutView);
+      this.childViews.push(this.workoutView);
 
       this.render();
     },
 
     render: function() {
       this.$el.append(this.closeViewWorkoutView.render().el);
+      this.$el.append(this.workoutView.render().el);
       return this;
     }
 
