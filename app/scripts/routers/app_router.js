@@ -123,10 +123,11 @@ define([
       if(!viewWorkoutManager) {
         viewWorkoutManager = new ViewWorkoutManager({
           router: this,
-          eventTrigger: eventTrigger,
-          workoutId: workoutId
+          eventTrigger: eventTrigger
         });
       }
+      // make sure id is always updated
+      viewWorkoutManager.workoutId = workoutId;
       this.activeLayout = viewWorkoutManager;
       this.trigger(eventTrigger);
     },

@@ -27,10 +27,13 @@ define([
 
     initialize: function(options) {
       this.router = options.router;
+      this.workout = options.workout;
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.viewWorkout.workoutView));
+      var jsonData = enLocale.viewWorkout.workoutView;
+      $.extend(jsonData, this.workout.toJSON());
+      this.$el.html(this.template(jsonData));
       return this;
     }
 

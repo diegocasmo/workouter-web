@@ -17,8 +17,7 @@ define([
       this.router = new Backbone.Router();
       this.options = {
         router: this.router,
-        eventTrigger: 'foo',
-        workoutId: '123456'
+        eventTrigger: 'foo'
       }
       this.viewWorkoutManager = new ViewWorkoutManager(this.options);
     });
@@ -51,11 +50,6 @@ define([
 
         it('must have a buildChildViews method', function() {
           expect(this.viewWorkoutManager.buildChildViews).to.be.ok;
-        });
-
-        it('initializes workoutId', function() {
-          this.viewWorkoutManager.buildChildViews(this.options);
-          expect(this.viewWorkoutManager.workoutId).to.be.ok;
         });
 
         it('should initialize subviews correctly', function() {

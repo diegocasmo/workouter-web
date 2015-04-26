@@ -1,1 +1,15 @@
-<p>tst</p>
+<article>
+  <p>title: {{ title }}</p>
+  <p>date: {{# beautify_date }} {{ date }} {{/ beautify_date }}</p>
+  <h3>Exercises: </h3>
+  <ul>
+    {{#each exercises}}
+      <li>
+        <p>title: {{ title }}</p>
+        <p>sets: {{ sets }}</p>
+        <p>reps: {{ reps }}</p>
+        <p>weight: {{ weight }}</p>
+      </li>
+    {{/each}}
+  </ul>
+</article>
