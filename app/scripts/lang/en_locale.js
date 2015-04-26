@@ -156,6 +156,9 @@ define({
   viewWorkout: {
     closeViewWorkoutView: {
 
+    },
+    workoutView: {
+
     }
   }
 });

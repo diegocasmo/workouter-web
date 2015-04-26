@@ -96,6 +96,7 @@ require([
 
   // view workout views
   specs.push('../../test/spec/views/view_workout/close_view_workout_view_spec');
+  specs.push('../../test/spec/views/view_workout/workout_view_spec');
 
   require(specs, function() {
     mocha.run();
