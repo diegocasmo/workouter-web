@@ -48,11 +48,12 @@ define([
       it('has delete button', function() {
         var deleteButton = this.deleteWorkoutView.$el.find('button#delete-workout');
         expect(deleteButton.length).to.be.equal(1);
+        expect(deleteButton.text()).to.be.equal(enLocale.viewWorkout.deleteWorkoutView.deleteButton.text);
       });
 
     });
 
-    describe('Delete Workout View Events', function() {
+    xdescribe('Delete Workout View Events', function() {
 
       it('listens to delete click', sinon.test(function() {
         var spy = sinon.spy(this.deleteWorkoutView, 'deleteWorkout');
@@ -66,9 +67,23 @@ define([
 
     describe('Delete Workout View Methods', function() {
 
-      describe('deleteWorkout Method', function() {
+      xdescribe('deleteWorkout Method', function() {
 
+        xit('asks the user to confirm his action', sinon.test(function() {
+          var spy = sinon.spy(window, 'confirm');
+          this.deleteWorkoutView.deleteWorkout({preventDefault: function() {}});
+          expect(spy.called).to.be.true;
+        }));
 
+        xit('triggers "workout:delete" if user accepts', sinon.test(function() {
+          sinon.stub(window, 'confirm').returns(true);
+          var spy = sinon.spy();
+          this.deleteWorkoutView.on({
+            'workout:delete': spy
+          });
+          this.deleteWorkoutView.deleteWorkout({preventDefault: function() {}});
+          expect(spy.called).to.be.true;
+        }));
       });
 
     });

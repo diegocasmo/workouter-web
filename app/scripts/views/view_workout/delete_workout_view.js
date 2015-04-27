@@ -34,12 +34,16 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.addWorkout.deleteWorkoutView));
+      this.$el.html(this.template(enLocale.viewWorkout.deleteWorkoutView));
       return this;
     },
 
     deleteWorkout: function(event) {
       event.preventDefault();
+      var answer = confirm(enLocale.viewWorkout.deleteWorkoutView.deleteWorkoutAlert.text);
+      if (answer) {
+        this.trigger('workout:delete');
+      }
     }
 
   });

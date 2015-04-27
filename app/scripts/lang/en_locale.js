@@ -161,7 +161,12 @@ define({
 
     },
     deleteWorkoutView: {
-
+      deleteButton: {
+        text: 'Delete Workout'
+      },
+      deleteWorkoutAlert: {
+        text: 'Are you sure you want to delete this workout?'
+      }
     }
   }
 });

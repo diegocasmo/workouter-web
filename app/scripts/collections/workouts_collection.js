@@ -56,6 +56,14 @@ define([
             that.trigger('error');
           }
       });
+    },
+
+    /**
+     * removes a workout from collection
+     */
+    removeWorkout: function(workoutId) {
+      var workout = this.findWhere({ id: workoutId });
+      this.remove(workout);
     }
 
   });
