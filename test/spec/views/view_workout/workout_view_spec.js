@@ -7,8 +7,9 @@
 /*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
   'views/view_workout/workout_view',
+  'models/workout_model',
   'lang/en_locale',
-],function(WorkoutView, enLocale) {
+],function(WorkoutView, WorkoutModel, enLocale) {
 
   'use strict';
 
@@ -16,8 +17,10 @@ define([
 
     beforeEach(function() {
       this.router = new Backbone.Router();
+      this.workoutModel = new WorkoutModel();
       this.workoutItemView = new WorkoutView({
-        router: this.router
+        router: this.router,
+        workoutModel: this.workoutModel
       });
       this.workoutItemView.render();
     });

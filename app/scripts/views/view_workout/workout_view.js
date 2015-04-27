@@ -27,12 +27,12 @@ define([
 
     initialize: function(options) {
       this.router = options.router;
-      this.workout = options.workout;
+      this.workoutModel = options.workoutModel;
     },
 
     render: function() {
       var jsonData = enLocale.viewWorkout.workoutView;
-      $.extend(jsonData, this.workout.toJSON());
+      $.extend(jsonData, this.workoutModel.toJSON());
       this.$el.html(this.template(jsonData));
       return this;
     }

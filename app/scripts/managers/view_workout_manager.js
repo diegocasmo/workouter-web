@@ -26,7 +26,7 @@ define([
       this.closeViewWorkoutView = new CloseViewWorkoutView(options);
 
       // make sure workout is passed to WorkoutView
-      options.workout = this.getSingleWorkout();
+      options.workoutModel = this.getSingleWorkout();
       this.workoutView = new WorkoutView(options);
 
       // save child views
@@ -35,7 +35,7 @@ define([
 
       // if no workout is found, then redirect to workouts
       // after childViews have been properly set up
-      if(!options.workout) {
+      if(!options.workoutModel) {
         this.router.navigate('workouts', { trigger: true });
         return;
       }

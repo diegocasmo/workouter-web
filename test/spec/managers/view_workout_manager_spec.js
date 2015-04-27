@@ -6,8 +6,9 @@
 
 /*global define, describe, it, afterEach, beforeEach, sinon*/
 define([
-  'managers/view_workout_manager'
-],function(ViewWorkoutManager) {
+  'managers/view_workout_manager',
+  'models/workout_model'
+],function(ViewWorkoutManager, WorkoutModel) {
 
   'use strict';
 
@@ -66,6 +67,7 @@ define([
         });
 
         it('should call the render method', sinon.test(function() {
+          sinon.stub(this.viewWorkoutManager, 'getSingleWorkout').returns(new WorkoutModel());
           var spy = sinon.spy(this.viewWorkoutManager, 'render');
           this.viewWorkoutManager.buildChildViews(this.options);
           expect(spy.called).to.be.true;
