@@ -159,6 +159,9 @@ define({
     },
     workoutView: {
 
+    },
+    deleteWorkoutView: {
+
     }
   }
 });
