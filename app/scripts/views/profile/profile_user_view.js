@@ -33,7 +33,9 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.profile.profileUserView));
+      var jsonData = enLocale.profile.profileUserView;
+      $.extend(jsonData, this.userModel.toJSON());
+      this.$el.html(this.template(jsonData));
       return this;
     }
 

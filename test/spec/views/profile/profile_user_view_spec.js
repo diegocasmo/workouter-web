@@ -48,12 +48,20 @@ define([
 
     describe('Profile Logout View DOM', function() {
 
-      xit('has logout text', function() {
-        var logoutText = this.profileUserView.$el.find('p.logout');
+      it('has a user "avatar" element', function() {
+        var logoutText = this.profileUserView.$el.find('li.avatar');
         expect(logoutText.length).to.be.equal(1);
-        expect(logoutText.text()).to.be.equal(enLocale.profile.profileUserView.logoutText.text);
       });
 
+      it('has a user "displayName" element', function() {
+        var logoutText = this.profileUserView.$el.find('li.display-name');
+        expect(logoutText.length).to.be.equal(1);
+      });
+
+      it('has a user "userLocation" element', function() {
+        var logoutText = this.profileUserView.$el.find('li.location');
+        expect(logoutText.length).to.be.equal(1);
+      });
     });
 
   });
