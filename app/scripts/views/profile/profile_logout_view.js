@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: A view for the main profile view.
+ * Description: A view for the profile logout view.
  */
 
 /*global define*/
@@ -17,14 +17,14 @@ define([
 
   'use strict';
 
-  var ProfileMainView = Backbone.View.extend({
+  var ProfileLogoutView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/profile/profile_main_view_template.hbs'],
+    template: JST['app/scripts/templates/profile/profile_logout_view.hbs'],
 
     tagName: 'div',
 
     attributes: {
-      id: 'profile-main-view'
+      id: 'profile-logout-view'
     },
 
     events: {
@@ -37,7 +37,7 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.profile.profileMainView));
+      this.$el.html(this.template(enLocale.profile.profileLogoutView));
       return this;
     },
 
@@ -51,6 +51,6 @@ define([
 
   });
 
-  return ProfileMainView;
+  return ProfileLogoutView;
 
 });

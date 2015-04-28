@@ -98,7 +98,7 @@ define({
     }
   },
   profile: {
-    profileMainView: {
+    profileLogoutView: {
       logoutText: {
         text: 'Logout'
       }

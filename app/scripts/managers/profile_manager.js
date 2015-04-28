@@ -9,9 +9,9 @@ define([
   'underscore',
   'backbone',
   'managers/base_manager',
-  'views/profile/profile_main_view',
+  'views/profile/profile_logout_view',
   'views/elements/bottom_menu_view'
-], function($, _, Backbone, BaseManager, ProfileMainView,
+], function($, _, Backbone, BaseManager, ProfileLogoutView,
             BottomMenuElement) {
 
   'use strict';
@@ -22,18 +22,18 @@ define([
 
     buildChildViews: function(options) {
       // initialize child views
-      this.profileMainView = new ProfileMainView(options);
+      this.profileLogoutView = new ProfileLogoutView(options);
       this.bottomMenuView = new BottomMenuElement(options);
 
       // save child views
-      this.childViews.push(this.profileMainView);
+      this.childViews.push(this.profileLogoutView);
       this.childViews.push(this.bottomMenuView);
 
       this.render();
     },
 
     render: function() {
-      this.$el.append(this.profileMainView.render().el);
+      this.$el.append(this.profileLogoutView.render().el);
       this.$el.append(this.bottomMenuView.render().el);
       return this;
     }

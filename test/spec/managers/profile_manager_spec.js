@@ -53,7 +53,7 @@ define([
         it('should initialize subviews correctly', function() {
           this.profileManager.childViews = [];
           this.profileManager.buildChildViews();
-          expect(this.profileManager.profileMainView).to.be.instanceOf(Backbone.View);
+          expect(this.profileManager.profileLogoutView).to.be.instanceOf(Backbone.View);
           expect(this.profileManager.bottomMenuView).to.be.instanceOf(Backbone.View);
         });
 
