@@ -111,6 +111,9 @@ define({
     },
     profileUserView: {
 
+    },
+    profileGoBackView: {
+
     }
   },
   addWorkout: {

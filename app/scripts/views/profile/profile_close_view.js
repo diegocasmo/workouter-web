@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: A view for the main close add workout view.
+ * Description: A view for the profile go back view.
  */
 
 /*global define*/
@@ -15,18 +15,18 @@ define([
 
   'use strict';
 
-  var CloseAddWorkoutView = Backbone.View.extend({
+  var ProfileCloseView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/add_workout/close_add_workout_view.hbs'],
+    template: JST['app/scripts/templates/profile/profile_close_view.hbs'],
 
     tagName: 'div',
 
     attributes: {
-      id: 'close-add-workout-view'
+      class: 'profile-close-view'
     },
 
     events: {
-      'click i.fa-close': 'close'
+      'click i.fa-chevron-left': 'navigateToWorkouts'
     },
 
     initialize: function(options) {
@@ -34,17 +34,17 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.addWorkout.closeAddWorkoutView));
+      this.$el.html(this.template(enLocale.profile.profileCloseView));
       return this;
     },
 
-    close: function(event) {
+    navigateToWorkouts: function(event) {
       event.preventDefault();
-      this.router.navigateToPreviousRoute();
+      this.router.navigate('workouts', { trigger: true });
     }
 
   });
 
-  return CloseAddWorkoutView;
+  return ProfileCloseView;
 
 });

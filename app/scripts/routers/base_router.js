@@ -22,7 +22,7 @@ define([
       this.history.push(Backbone.history.fragment);
     },
 
-    previousRoute: function() {
+    navigateToPreviousRoute: function() {
       if (this.history.length > 1) {
         this.navigate(this.history[this.history.length - 2], { trigger: true });
       } else {

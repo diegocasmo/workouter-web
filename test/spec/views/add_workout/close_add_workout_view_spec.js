@@ -16,6 +16,7 @@ define([
 
     beforeEach(function() {
       this.router = new Backbone.Router();
+      this.router.navigateToPreviousRoute = function() {};
       this.closeAddWorkoutView = new CloseAddWorkoutView({
         router: this.router
       });
