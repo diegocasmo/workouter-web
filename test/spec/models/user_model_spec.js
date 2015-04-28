@@ -33,6 +33,8 @@ define([
         expect(this.userModel.get('token')).to.be.equal('');
         expect(this.userModel.get('username')).to.be.equal('');
         expect(this.userModel.get('displayName')).to.be.equal('');
+        expect(this.userModel.get('avatar')).to.be.equal('http://placehold.it/100x100');
+        expect(this.userModel.get('userLocation')).to.be.equal('');
       });
     });
 
@@ -45,7 +47,9 @@ define([
           provider: FirebaseService.oAuthProvider,
           token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
           username: 'username',
-          displayName: 'Some Name'
+          displayName: 'Some Name',
+          avatar: 'http://placehold.it/100x100',
+          userLocation: 'Panama'
         });
       });
 
@@ -100,6 +104,22 @@ define([
         this.userModel.set({ 'displayName': 0 });
         expect(this.userModel.isValid()).to.be.equal(false);
       });
+
+      it('should have a valid avatar', function() {
+        expect(this.userModel.isValid()).to.be.equal(true);
+
+        this.userModel.set({ 'avatar': '' });
+        expect(this.userModel.isValid()).to.be.equal(false);
+      });
+
+      it('should have a valid userLocation', function() {
+        expect(this.userModel.isValid()).to.be.equal(true);
+
+        this.userModel.set({ 'userLocation': '' });
+        console.log(this.userModel.get('userLocation'));
+        expect(this.userModel.isValid()).to.be.equal(false);
+      });
+
     });
 
     describe('Model Functions', function() {
@@ -134,7 +154,11 @@ define([
             token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
             twitter: {
               username: 'username',
-              displayName: 'Some Name'
+              displayName: 'Some Name',
+              cachedUserProfile: {
+                profile_image_url_https: 'https://pbs.twimg.com/profile_images/463715519036526592/3Sj3kZmo_normal.jpeg',
+                location: 'Panama'
+              }
             }
           };
           expect(this.userModel.setTwitterUser(validAttrs)).to.be.true;
@@ -147,7 +171,11 @@ define([
             token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
             twitter: {
               username: 'username',
-              displayName: 'Some Name'
+              displayName: 'Some Name',
+              cachedUserProfile: {
+                profile_image_url_https: '',
+                location: ''
+              }
             }
           };
           expect(this.userModel.setTwitterUser(invalidAttrs)).to.be.false;

@@ -47,6 +47,12 @@ define({
     },
     displayName: {
       required: 'Invalid displayName.'
+    },
+    avatar: {
+      required: 'Invalid avatar'
+    },
+    userLocation: {
+      required: 'Invalid location'
     }
   },
   workoutModel: {

@@ -22,7 +22,9 @@ define([
       provider: FirebaseService.oAuthProvider,
       token: '',
       username: '',
-      displayName: ''
+      displayName: '',
+      avatar: 'http://placehold.it/100x100',
+      userLocation: ''
     },
 
     validate: function (attrs) {
@@ -48,6 +50,14 @@ define([
 
       if (!attrs.displayName || typeof attrs.displayName !== 'string') {
         errors.push({ name: 'displayName', message: enLocale.userModel.displayName.required });
+      }
+
+      if (!attrs.avatar || typeof attrs.avatar !== 'string') {
+        errors.push({ name: 'avatar', message: enLocale.userModel.avatar.required });
+      }
+
+      if (!attrs.userLocation || typeof attrs.userLocation !== 'string') {
+        errors.push({ name: 'userLocation', message: enLocale.userModel.userLocation.required });
       }
 
       return errors.length > 0 ? errors : false;
@@ -77,7 +87,9 @@ define([
         provider: attrs.provider,
         token: attrs.token,
         username: attrs.twitter.username,
-        displayName: attrs.twitter.displayName
+        displayName: attrs.twitter.displayName,
+        avatar: attrs.twitter.cachedUserProfile.profile_image_url_https,
+        userLocation: attrs.twitter.cachedUserProfile.location
       });
 
       if(this.isValid()) {

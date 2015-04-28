@@ -122,7 +122,9 @@ define([
           provider: FirebaseService.oAuthProvider,
           token: 'DRiGSnTPwAP6np0lzGMOsOHHpJoUvvq5yUgRNW9qhcU',
           username: 'username',
-          displayName: 'Some Name'
+          displayName: 'Some Name',
+          avatar: 'http://placehold.it/100x100',
+          userLocation: 'Panama'
         };
 
         var success = this.workoutModel.setCurrentUser(validAttrs);
