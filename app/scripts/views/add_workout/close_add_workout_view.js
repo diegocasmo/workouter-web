@@ -26,7 +26,7 @@ define([
     },
 
     events: {
-      'click i.fa-close': 'close'
+      'click i.fa-chevron-left': 'close'
     },
 
     initialize: function(options) {
