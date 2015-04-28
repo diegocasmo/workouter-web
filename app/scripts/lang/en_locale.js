@@ -102,6 +102,9 @@ define({
       logoutText: {
         text: 'Logout'
       }
+    },
+    profileUserView: {
+
     }
   },
   addWorkout: {

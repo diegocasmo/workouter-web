@@ -42,7 +42,7 @@ define([
       });
 
       it('has correct id', function() {
-        expect(this.profileLogoutView.attributes.id).to.equal('profile-logout-view');
+        expect(this.profileLogoutView.attributes.class).to.equal('profile-logout-view');
       });
 
     });

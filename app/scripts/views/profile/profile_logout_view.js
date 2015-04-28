@@ -24,7 +24,7 @@ define([
     tagName: 'div',
 
     attributes: {
-      id: 'profile-logout-view'
+      class: 'profile-logout-view'
     },
 
     events: {

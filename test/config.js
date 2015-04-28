@@ -79,6 +79,7 @@ require([
   specs.push('../../test/spec/views/login/login_main_view_spec');
 
   // profiles views
+  specs.push('../../test/spec/views/profile/profile_user_view_spec');
   specs.push('../../test/spec/views/profile/profile_logout_view_spec');
 
   // add workout views
