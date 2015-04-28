@@ -8,14 +8,16 @@
 define([
   'jquery',
   'backbone',
+  'routers/base_router',
   'services/auth_service',
   'managers/login_manager',
   'managers/workouts_home_manager',
   'managers/profile_manager',
   'managers/add_workout_manager',
   'managers/view_workout_manager'
-], function($, Backbone, AuthService, LoginManager, WorkoutsHomeManager,
-            ProfileManager, AddWorkoutManager, ViewWorkoutManager) {
+], function($, Backbone, BaseRouter, AuthService, LoginManager,
+            WorkoutsHomeManager, ProfileManager, AddWorkoutManager,
+            ViewWorkoutManager) {
 
   'use strict';
 
@@ -25,7 +27,7 @@ define([
       addWorkoutManager = null,
       viewWorkoutManager = null;
 
-  var AppRouter = Backbone.Router.extend({
+  var AppRouter = BaseRouter.extend({
 
     activeLayout: null,
 
