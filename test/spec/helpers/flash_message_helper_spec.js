@@ -39,7 +39,6 @@ define([
                                   '</div>';
 
         this.$fixture.append(flashMessageTemplate);
-        // console.log(this.$fixture.html());
       });
 
       afterEach(function() {
