@@ -101,6 +101,9 @@ require([
   specs.push('../../test/spec/views/view_workout/workout_view_spec');
   specs.push('../../test/spec/views/view_workout/delete_workout_view_spec');
 
+  // helpers
+  specs.push('../../test/spec/helpers/flash_message_helper_spec');
+
   require(specs, function() {
     mocha.run();
   });
