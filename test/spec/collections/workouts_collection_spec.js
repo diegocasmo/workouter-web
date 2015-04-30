@@ -66,6 +66,10 @@ define([
 
     });
 
+    xdescribe('getWorkout Method', function() {
+
+    });
+
   });
 
 });

@@ -27,6 +27,8 @@ define([
 
 
     buildChildViews: function(options) {
+      // workoutId has already been update for this
+      // view on app_router
 
       this.workoutsCollection = new WorkoutsCollection();
 
@@ -71,18 +73,18 @@ define([
       return this.workoutsCollection.get(this.workoutId);
     },
 
-    redirectToWorkouts: function() {
-      this.router.navigate('workouts', { trigger: true });
-    },
-
     deleteWorkoutFromCollection: function() {
-      var workout = this.workoutsCollection.get(this.workoutId),
-          workoutTitle = workout.getWorkoutTitle();
+      var workoutTitle =
+        this.workoutsCollection.getWorkout(this.workoutId).getWorkoutTitle();
 
       var message = workoutTitle + enLocale.flashMessage.workoutDelete;
       FlashMessage.showSuccess(message);
       this.workoutsCollection.removeWorkout(this.workoutId);
       this.redirectToWorkouts();
+    },
+
+    redirectToWorkouts: function() {
+      this.router.navigate('workouts', { trigger: true });
     }
 
   });

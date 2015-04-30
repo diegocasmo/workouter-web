@@ -59,6 +59,18 @@ define([
     },
 
     /**
+     * get specific collection workout
+     * returns workout if found, false otherwise
+     */
+    getWorkout: function(workoutId) {
+      var workout = this.get(workoutId);
+      if(workout) {
+        return workout;
+      }
+      return false;
+    },
+
+    /**
      * removes a workout from collection
      */
     removeWorkout: function(workoutId) {
