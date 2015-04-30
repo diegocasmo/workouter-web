@@ -140,6 +140,14 @@ define([
 
       });
 
+      describe('getExerciseTitle Method', function() {
+
+        it('it returns model title', function() {
+          expect(this.exerciseModel.get('title')).to.be.equal(this.exerciseModel.getExerciseTitle());
+        });
+
+      });
+
     });
 
   });

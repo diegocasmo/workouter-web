@@ -11,33 +11,43 @@ define([
 
   'use strict';
 
-
   var FlashMessage = {
 
-    $id: $('#flash-message'),
+    $el: $('#flash-message'),
 
-    timeInterval: 1500,
+    timeInterval: 2700,
 
     /**
      * display message passed to it on DOM
      * as flash message
      */
-    show: function(message) {
-      this.$id.stop();
-      clearInterval(this.timeout);
-      this.$id.text(message);
+    showSuccess: function(message) {
+      this.$el.addClass('success');
+      this.show(message);
+    },
 
-      this.$id.animate({
+    showError: function(message) {
+      this.$el.addClass('alert');
+      this.show(message);
+    },
+
+    show: function(message) {
+      this.$el.stop();
+      clearInterval(this.timeout);
+      this.$el.children('.message-text').text(message);
+
+      this.$el.animate({
         opacity: 1
       }, 'slow');
 
       var that = this;
       this.timeout = setTimeout(function() {
-        that.$id.animate({
+        that.$el.animate({
           opacity: 0
-        }, function() {
-          that.$id.text('');
-        }, 'fast');
+        }, 'fast', function() {
+          that.$el.removeClass('success alert');
+          that.$el.children('.message-text').text('');
+        });
       }, this.timeInterval);
     }
 

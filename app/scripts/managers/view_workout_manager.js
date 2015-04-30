@@ -12,9 +12,12 @@ define([
   'collections/workouts_collection',
   'views/view_workout/close_view_workout_view',
   'views/view_workout/workout_view',
-  'views/view_workout/delete_workout_view'
+  'views/view_workout/delete_workout_view',
+  'helpers/flash_message_helper',
+  'lang/en_locale'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
-          CloseViewWorkoutView, WorkoutView, DeleteWorkoutView) {
+          CloseViewWorkoutView, WorkoutView, DeleteWorkoutView,
+          FlashMessage, enLocale) {
 
   'use strict';
 
@@ -73,6 +76,11 @@ define([
     },
 
     deleteWorkoutFromCollection: function() {
+      var workout = this.workoutsCollection.get(this.workoutId),
+          workoutTitle = workout.getWorkoutTitle();
+
+      var message = workoutTitle + enLocale.flashMessage.workoutDelete;
+      FlashMessage.showSuccess(message);
       this.workoutsCollection.removeWorkout(this.workoutId);
       this.redirectToWorkouts();
     }

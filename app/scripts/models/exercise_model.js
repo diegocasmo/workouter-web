@@ -101,6 +101,13 @@ define([
      */
     resetExercise: function() {
       this.clear().set(this.defaults);
+    },
+
+    /**
+     * returns exercise title
+     */
+    getExerciseTitle: function() {
+      return this.get('title');
     }
 
   });

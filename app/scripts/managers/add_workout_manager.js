@@ -17,11 +17,13 @@ define([
   'views/add_workout/close_add_workout_view',
   'views/add_workout/workout_form_view',
   'views/add_workout/exercises_form_view',
-  'views/add_workout/add_workout_form_view'
+  'views/add_workout/add_workout_form_view',
+  'helpers/flash_message_helper',
+  'lang/en_locale'
 ], function($, _, Backbone, BaseManager, UserModel, WorkoutModel,
             ExerciseModel, ExercisesCollection, WorkoutsCollection,
             CloseAddWorkoutView, WorkoutFormView, ExercisesFormView,
-            AddWorkoutFormView) {
+            AddWorkoutFormView, FlashMessage, enLocale) {
 
   'use strict';
 
@@ -96,6 +98,8 @@ define([
 
     addExerciseToCollection: function() {
       this.exercisesCollection.addExercise(this.exerciseModel.toJSON());
+      var message = this.exerciseModel.getExerciseTitle() + enLocale.flashMessage.exerciseAdded;
+      FlashMessage.showSuccess(message);
       this.exerciseModel.resetExercise();
     },
 
@@ -110,9 +114,12 @@ define([
       // add workout to collection if valid
       if(workout) {
         workoutsCollection.addWorkout(workout);
+        var message = this.workoutModel.getWorkoutTitle() + enLocale.flashMessage.workoutAdded;
+        FlashMessage.showSuccess(message);
         this.router.navigate('workouts', { trigger: true });
       } else {
-        console.log('Can\'t add workout.');
+        var message = enLocale.flashMessage.workoutError;
+        FlashMessage.showError(message);
       }
     }
 

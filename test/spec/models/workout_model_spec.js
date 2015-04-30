@@ -213,6 +213,14 @@ define([
 
     });
 
+    describe('getWorkoutTitle Method', function() {
+
+      it('returns workoutTitle', function() {
+        expect(this.workoutModel.get('title')).to.be.equal(this.workoutModel.getWorkoutTitle());
+      });
+
+    });
+
   });
 
 });

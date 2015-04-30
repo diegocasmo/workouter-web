@@ -10,8 +10,9 @@ define([
   'underscore',
   'backbone',
   'templates',
+  'helpers/flash_message_helper',
   'lang/en_locale',
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, JST, FlashMessage, enLocale) {
 
   'use strict';
 
@@ -80,7 +81,8 @@ define([
         this.trigger('exercise:add');
         this.resetsInputs();
       } else {
-        console.log('Cant\'t add exercise');
+        var message = enLocale.flashMessage.exerciseError;
+        FlashMessage.showError(message);
       }
     },
 

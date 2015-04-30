@@ -88,6 +88,10 @@ define([
       return false;
     },
 
+    getWorkoutTitle: function() {
+      return this.get('title');
+    },
+
     createWorkout: function(exercises) {
       this.set('date', Date.now());
       this.set('exercises', exercises);

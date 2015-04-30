@@ -180,5 +180,12 @@ define({
         text: 'Are you sure you want to delete this workout?'
       }
     }
+  },
+  flashMessage: {
+    exerciseAdded: ' has been added.',
+    exerciseError: 'Please, enter a valid exercise.',
+    workoutAdded: ' workout has been successfully added.',
+    workoutError: 'Please, correctly fill all the mandatory fields.',
+    workoutDelete: ' has been successfully deleted.'
   }
 });
