@@ -12,9 +12,12 @@ define([
   'collections/workouts_collection',
   'views/elements/bottom_menu_view',
   'views/workouts_home/workout_item_view',
-  'views/workouts_home/add_first_workout_view'
+  'views/workouts_home/add_first_workout_view',
+  'helpers/flash_message_helper',
+  'lang/en_locale'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
-            BottomMenuView, WorkoutItemView, AddFirstWorkoutView) {
+            BottomMenuView, WorkoutItemView, AddFirstWorkoutView,
+            FlashMessage, enLocale) {
 
   'use strict';
 
@@ -44,11 +47,11 @@ define([
     render: function() {
 
       var workoutItemsViews = this.getAllWorkouts();
-      // if no workout items views
+      // if no workout items views display
+      // add workout message
       if(workoutItemsViews) {
         this.$el.append(workoutItemsViews);
       } else {
-        // display add workout message
         this.addFirstWorkoutView = new AddFirstWorkoutView(this.options);
         // save as child view
         this.childViews.push(this.addFirstWorkoutView);
@@ -78,7 +81,7 @@ define([
         return workoutItemsViews.reverse();
       }
 
-      return false
+      return false;
     },
 
     /**
@@ -90,7 +93,8 @@ define([
     },
 
     errorOnFetch: function() {
-      console.log('There was an error while trying to fetch collection.');
+      var message = enLocale.flashMessage.errorFetchingCollection;
+      FlashMessage.showError(message);
     }
 
   });

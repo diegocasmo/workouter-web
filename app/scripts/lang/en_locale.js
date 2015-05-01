@@ -183,9 +183,10 @@ define({
   },
   flashMessage: {
     exerciseAdded: ' has been added to this workout.',
-    exerciseError: 'Please, enter a valid exercise.',
     workoutAdded: ' has been successfully added.',
-    workoutError: 'Please, correctly fill all the mandatory fields.',
-    workoutDelete: ' has been successfully deleted.'
+    workoutDelete: ' has been successfully deleted.',
+    exerciseError: 'Please, enter a valid exercise.',
+    workoutError: 'Please, fill all the mandatory fields.',
+    errorFetchingCollection: 'There was an error while trying to fetch collection.'
   }
 });
