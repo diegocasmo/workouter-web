@@ -14,10 +14,11 @@ define([
   'views/workouts_home/workout_item_view',
   'views/workouts_home/add_first_workout_view',
   'helpers/flash_message_helper',
+  'backbone-paginated-collection',
   'lang/en_locale'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
             BottomMenuView, WorkoutItemView, AddFirstWorkoutView,
-            FlashMessage, enLocale) {
+            FlashMessage, PaginatedCollection, enLocale) {
 
   'use strict';
 
@@ -28,11 +29,8 @@ define([
     buildChildViews: function(options) {
       this.options = options;
 
-      // initialize child views
-      this.bottomMenuView = new BottomMenuView(options);
-
-      // save child views
-      this.childViews.push(this.bottomMenuView);
+      // bind window scroll event to loadMore
+      $(window).on('scroll', _.bind(this.loadMore, this));
 
       // initialize collection
       this.workoutsCollection = new WorkoutsCollection();
@@ -40,12 +38,17 @@ define([
       // attach events
       this.attachCollectionEvents();
 
+      // initialize child views
+      this.bottomMenuView = new BottomMenuView(options);
+
+      // save child views
+      this.childViews.push(this.bottomMenuView);
+
       // attempt to fetch collection
       this.workoutsCollection.getWorkouts();
     },
 
     render: function() {
-
       var workoutItemsViews = this.getAllWorkouts();
       // if no workout items views display
       // add workout message
@@ -68,17 +71,23 @@ define([
      */
     getAllWorkouts: function() {
       var that = this;
-      var workoutItemsViews = this.workoutsCollection.map(function(workout) {
-          var workoutView = new WorkoutItemView({workoutModel: workout});
-          // save as child view to be able to delete it
-          that.childViews.push(workoutView);
-          return workoutView.render().el;
-      });
-
-      if(workoutItemsViews.length > 0) {
+      if(this.workoutsCollection.models.length > 0) {
         // make sure to use reverse in order to show
         // the latest workout first on the list
-        return workoutItemsViews.reverse();
+        this.workoutsCollection.models = this.workoutsCollection.models.reverse();
+
+        // assign collection to PaginatedCollection
+        that.paginatedWorkouts = new PaginatedCollection(
+          this.workoutsCollection, { perPage: 10 });
+
+        var workoutItemsViews = that.paginatedWorkouts.map(function(workout) {
+            var workoutView = new WorkoutItemView({workoutModel: workout});
+            // save as child view to be able to delete it
+            that.childViews.push(workoutView);
+            return workoutView.render().el;
+        });
+
+        return workoutItemsViews;
       }
 
       return false;
@@ -95,6 +104,28 @@ define([
     errorOnFetch: function() {
       var message = enLocale.flashMessage.errorFetchingCollection;
       FlashMessage.showError(message);
+    },
+
+    /**
+     * load more workouts on user scroll
+     */
+    loadMore: function() {
+      // make sure user scroll reached bottom of the page
+      if($(window).scrollTop() >= $(document).height() - $(window).height()) {
+        if(this.paginatedWorkouts.hasNextPage()) {
+          this.paginatedWorkouts.nextPage();
+          var that = this;
+          var workoutItemsViews = this.paginatedWorkouts.map(function(workout) {
+              var workoutView = new WorkoutItemView({workoutModel: workout});
+              // save as child view to be able to delete it
+              that.childViews.push(workoutView);
+              return workoutView.render().el;
+          });
+
+          // append before menu to view
+          this.$el.find('#bottom-menu-view').before(workoutItemsViews);
+        }
+      }
     }
 
   });

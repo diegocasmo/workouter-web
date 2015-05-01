@@ -20,7 +20,8 @@ require.config({
     firebase: '../bower_components/firebase/firebase',
     backbonefire: '../bower_components/backbonefire/dist/backbonefire',
     'jquery.cookie': '../bower_components/jquery.cookie/jquery.cookie',
-    routefilter: '../bower_components/routefilter/dist/backbone.routefilter.min'
+    routefilter: '../bower_components/routefilter/dist/backbone.routefilter.min',
+    'backbone-paginated-collection': '../bower_components/backbone-paginated-collection/backbone-paginated-collection'
   },
   shim: {
     underscore: {
@@ -44,6 +45,9 @@ require.config({
     },
     'jquery.cookie': {
       deps: ['jquery']
+    },
+    'backbone-paginated-collection': {
+      deps: ['backbone']
     }
   }
 });
