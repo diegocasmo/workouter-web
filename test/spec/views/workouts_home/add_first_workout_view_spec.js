@@ -4,7 +4,7 @@
  * Description: Tests for the add first workout view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach*/
 define([
   'views/workouts_home/add_first_workout_view',
   'lang/en_locale',

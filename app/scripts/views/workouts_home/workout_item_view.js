@@ -10,9 +10,8 @@ define([
   'underscore',
   'backbone',
   'templates',
-  'lang/en_locale',
   'helpers/handlebars_helpers'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, JST) {
 
   'use strict';
 

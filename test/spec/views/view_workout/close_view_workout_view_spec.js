@@ -4,7 +4,7 @@
  * Description: Tests for the close view workout view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, xdescribe, it, afterEach, beforeEach, sinon*/
 define([
   'views/view_workout/close_view_workout_view'
 ],function(CloseViewWorkoutView) {

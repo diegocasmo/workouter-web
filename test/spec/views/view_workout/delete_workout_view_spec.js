@@ -4,7 +4,7 @@
  * Description: Tests for the delete workout view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, xdescribe, it, xit, afterEach, beforeEach, sinon*/
 define([
   'views/view_workout/delete_workout_view',
   'lang/en_locale',

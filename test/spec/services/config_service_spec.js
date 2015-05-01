@@ -4,7 +4,7 @@
  * Description: Tests for the config service
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it*/
 define([
   'jquery',
   'services/config_service'

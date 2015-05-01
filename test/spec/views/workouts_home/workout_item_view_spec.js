@@ -4,11 +4,10 @@
  * Description: Tests for the Workout item view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach*/
 define([
-  'views/workouts_home/workout_item_view',
-  'lang/en_locale',
-],function(WorkoutItemView, enLocale) {
+  'views/workouts_home/workout_item_view'
+],function(WorkoutItemView) {
 
   'use strict';
 

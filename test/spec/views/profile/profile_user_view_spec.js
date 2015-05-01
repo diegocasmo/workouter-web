@@ -4,12 +4,11 @@
  * Description: Tests for the profile user view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it, afterEach, beforeEach*/
 define([
   'views/profile/profile_user_view',
-  'lang/en_locale',
   'models/user_model'
-],function(ProfileUserView, enLocale, UserModel) {
+],function(ProfileUserView, UserModel) {
 
   'use strict';
 

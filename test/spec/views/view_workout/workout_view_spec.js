@@ -4,12 +4,11 @@
  * Description: Tests for the Workout view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, xdescribe, it, afterEach, beforeEach*/
 define([
   'views/view_workout/workout_view',
-  'models/workout_model',
-  'lang/en_locale',
-],function(WorkoutView, WorkoutModel, enLocale) {
+  'models/workout_model'
+],function(WorkoutView, WorkoutModel) {
 
   'use strict';
 

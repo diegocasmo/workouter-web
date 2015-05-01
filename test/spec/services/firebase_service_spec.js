@@ -4,7 +4,7 @@
  * Description: Tests for firebase service
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, it*/
 define([
   'jquery',
   'services/firebase_service'

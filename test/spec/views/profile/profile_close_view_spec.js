@@ -6,9 +6,8 @@
 
 /*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
-  'views/profile/profile_close_view',
-  'lang/en_locale',
-],function(ProfileCloseView, enLocale) {
+  'views/profile/profile_close_view'
+],function(ProfileCloseView) {
 
   'use strict';
 

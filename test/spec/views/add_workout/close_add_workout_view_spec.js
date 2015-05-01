@@ -6,9 +6,8 @@
 
 /*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
-  'views/add_workout/close_add_workout_view',
-  'lang/en_locale',
-],function(CloseAddWorkoutView, enLocale) {
+  'views/add_workout/close_add_workout_view'
+],function(CloseAddWorkoutView) {
 
   'use strict';
 

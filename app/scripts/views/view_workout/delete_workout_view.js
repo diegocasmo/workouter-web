@@ -4,7 +4,7 @@
  * Description: A view for the delete workout view
  */
 
-/*global define*/
+/*global define, confirm*/
 define([
   'jquery',
   'underscore',

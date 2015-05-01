@@ -4,11 +4,10 @@
  * Description: Tests for the bottom menu view.
  */
 
-/*global define, describe, it, xit, afterEach, beforeEach, sinon*/
+/*global define, describe, xdescribe, it, afterEach, beforeEach, sinon*/
 define([
-  'views/elements/bottom_menu_view',
-  'lang/en_locale',
-],function(BottomMenuView, enLocale) {
+  'views/elements/bottom_menu_view'
+],function(BottomMenuView) {
 
   'use strict';
 

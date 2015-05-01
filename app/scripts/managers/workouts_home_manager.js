@@ -83,10 +83,10 @@ define([
           this.workoutsCollection, { perPage: ConfigService.pagination.perPage });
 
         var workoutItemsViews = that.paginatedWorkouts.map(function(workout) {
-            var workoutView = new WorkoutItemView({workoutModel: workout});
-            // save as child view to be able to delete it
-            that.childViews.push(workoutView);
-            return workoutView.render().el;
+          var workoutView = new WorkoutItemView({workoutModel: workout});
+          // save as child view to be able to delete it
+          that.childViews.push(workoutView);
+          return workoutView.render().el;
         });
 
         return workoutItemsViews;
@@ -120,10 +120,10 @@ define([
 
           var that = this;
           var workoutItemsViews = this.paginatedWorkouts.map(function(workout) {
-              var workoutView = new WorkoutItemView({ workoutModel: workout });
-              // save as child view to be able to delete it
-              that.childViews.push(workoutView);
-              return workoutView.render().el;
+            var workoutView = new WorkoutItemView({ workoutModel: workout });
+            // save as child view to be able to delete it
+            that.childViews.push(workoutView);
+            return workoutView.render().el;
           });
 
           // append before menu to view

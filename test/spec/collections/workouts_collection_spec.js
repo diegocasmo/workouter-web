@@ -4,7 +4,7 @@
  * Description: Tests for the WorkoutsCollection object.
  */
 
-/*global define, describe, it, afterEach, beforeEach*/
+/*global define, describe, xdescribe, it, afterEach, beforeEach, sinon*/
 define([
   'collections/workouts_collection',
   'models/user_model'

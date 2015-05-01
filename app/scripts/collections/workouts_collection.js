@@ -49,10 +49,10 @@ define([
     getWorkouts: function() {
       var that = this;
       this.fetch({
-        success: function(collection, response, options) {
+        success: function() {
           that.trigger('success');
         },
-        error: function(collection, response, options) {
+        error: function() {
           that.trigger('error');
         }
       });
