@@ -70,7 +70,7 @@ define([
      * by URL on router
      */
     getSingleWorkout: function() {
-      return this.workoutsCollection.get(this.workoutId);
+      return this.workoutsCollection.getWorkout(this.workoutId);
     },
 
     deleteWorkoutFromCollection: function() {

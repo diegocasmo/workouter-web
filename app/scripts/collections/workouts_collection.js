@@ -18,7 +18,7 @@ define([
 
   'use strict';
 
-  var Workouts = Backbone.Firebase.Collection.extend({
+  var WorkoutsCollection = Backbone.Firebase.Collection.extend({
 
     model: WorkoutModel,
 
@@ -49,12 +49,12 @@ define([
     getWorkouts: function() {
       var that = this;
       this.fetch({
-          success: function(collection, response, options) {
-            that.trigger('success');
-          },
-          error: function(collection, response, options) {
-            that.trigger('error');
-          }
+        success: function(collection, response, options) {
+          that.trigger('success');
+        },
+        error: function(collection, response, options) {
+          that.trigger('error');
+        }
       });
     },
 
@@ -80,6 +80,6 @@ define([
 
   });
 
-  return Workouts;
+  return WorkoutsCollection;
 
 });
