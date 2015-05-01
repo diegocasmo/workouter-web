@@ -1,66 +1,66 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: Tests for the login main view.
+ * Description: Tests for the twitter login view.
  */
 
 /*global define, describe, it, xit, afterEach, beforeEach, sinon*/
 define([
-  'views/login/login_main_view',
+  'views/login/twitter_login_view',
   'lang/en_locale',
   'services/auth_service'
-],function(LoginMainView, enLocale, AuthService) {
+],function(TwitterLoginView, enLocale, AuthService) {
 
   'use strict';
 
-  describe('Login Main View', function() {
+  describe('Twitter Login View', function() {
 
     beforeEach(function() {
       this.router = new Backbone.Router();
-      this.loginMainView = new LoginMainView({
+      this.twitterLoginView = new TwitterLoginView({
         router: this.router
       });
-      this.loginMainView.render();
+      this.twitterLoginView.render();
     });
 
     afterEach(function() {
       this.router = null;
-      this.loginMainView = null;
+      this.twitterLoginView = null;
     });
 
-    describe('Login Main View Initialization', function() {
+    describe('Twitter Login View Initialization', function() {
 
       it('is defined', function() {
-        expect(this.loginMainView).to.be.ok;
+        expect(this.twitterLoginView).to.be.ok;
       });
 
       it('knows about the app router', function() {
-        expect(this.loginMainView.router).to.be.instanceOf(Backbone.Router);
+        expect(this.twitterLoginView.router).to.be.instanceOf(Backbone.Router);
       });
 
       it('has correct id', function() {
-        expect(this.loginMainView.attributes.id).to.equal('login-main-view');
+        expect(this.twitterLoginView.attributes.id).to.equal('login-main-view');
       });
 
     });
 
-    describe('Login Main View DOM', function() {
+    describe('Twitter Login View DOM', function() {
 
       it('has twitter login text', function() {
-        var twitterLoginText = this.loginMainView.$el.find('p.twitter-login');
+        var twitterLoginText = this.twitterLoginView.$el.find('p#twitter-login');
         expect(twitterLoginText.length).to.be.equal(1);
-        expect(twitterLoginText.text()).to.be.equal(enLocale.login.loginMainView.twitterLoginText.text);
+        expect(twitterLoginText.text()).to.be.equal(enLocale.login.twitterLoginView.twitterLoginText.text);
       });
 
     });
 
-    describe('Login Main View Events', function() {
+    describe('Twitter Login View Events', function() {
 
       it('listens to login with twitter text click', sinon.test(function() {
-        var spy = sinon.spy(this.loginMainView, 'loginWithTwitter');
-        this.loginMainView.delegateEvents();
+        var spy = sinon.spy(this.twitterLoginView, 'login');
+        this.twitterLoginView.delegateEvents();
         // simulate user event
-        this.loginMainView.$el.find('.twitter-login').trigger('click');
+        this.twitterLoginView.$el.find('p#twitter-login').trigger('click');
         expect(spy.called).to.be.true;
       }));
 
@@ -72,14 +72,13 @@ define([
 
     });
 
-    describe('Login Main View Methods', function() {
+    describe('Twitter Login View Methods', function() {
 
-      describe('loginWithTwitter Method', function() {
+      describe('login Method', function() {
 
         it('calls attemptTologUserIn on auth service', sinon.test(function() {
           var spy = sinon.spy(AuthService, 'attemptTologUserIn');
-          // simulate user event
-          this.loginMainView.$el.find('.twitter-login').trigger('click');
+          this.twitterLoginView.login({ preventDefault: function() {} });
           expect(spy.called).to.be.true;
           spy.restore();
         }));

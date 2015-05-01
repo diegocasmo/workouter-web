@@ -76,7 +76,7 @@ require([
   specs.push('../../test/spec/managers/view_workout_manager_spec');
 
   // login views
-  specs.push('../../test/spec/views/login/login_main_view_spec');
+  specs.push('../../test/spec/views/login/twitter_login_view_spec');
 
   // profiles views
   specs.push('../../test/spec/views/profile/profile_close_view_spec');

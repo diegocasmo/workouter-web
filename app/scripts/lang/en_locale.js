@@ -97,7 +97,7 @@ define({
     }
   },
   login: {
-    loginMainView: {
+    twitterLoginView: {
       twitterLoginText: {
         text: 'Login with Twitter'
       }

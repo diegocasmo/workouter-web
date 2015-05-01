@@ -9,8 +9,8 @@ define([
   'underscore',
   'backbone',
   'managers/base_manager',
-  'views/login/login_main_view'
-], function($, _, Backbone, BaseManager, LoginMainView) {
+  'views/login/twitter_login_view'
+], function($, _, Backbone, BaseManager, TwitterLoginView) {
 
   'use strict';
 
@@ -19,13 +19,13 @@ define([
     el: $('#app-wrapper'),
 
     buildChildViews: function(options) {
-      this.loginMainView = new LoginMainView(options);
-      this.childViews.push(this.loginMainView);
+      this.twitterLoginView = new TwitterLoginView(options);
+      this.childViews.push(this.twitterLoginView);
       this.render();
     },
 
     render: function() {
-      this.$el.append(this.loginMainView.render().el);
+      this.$el.append(this.twitterLoginView.render().el);
       return this;
     }
 

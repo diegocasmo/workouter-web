@@ -17,9 +17,9 @@ define([
 
   'use strict';
 
-  var LoginMainView = Backbone.View.extend({
+  var TwitterLoginView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/login/login_main_view_template.hbs'],
+    template: JST['app/scripts/templates/login/twitter_login_view.hbs'],
 
     tagName: 'div',
 
@@ -28,7 +28,7 @@ define([
     },
 
     events: {
-      'click .twitter-login': 'loginWithTwitter'
+      'click p#twitter-login': 'login'
     },
 
     initialize: function(options) {
@@ -49,11 +49,11 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.login.loginMainView));
+      this.$el.html(this.template(enLocale.login.twitterLoginView));
       return this;
     },
 
-    loginWithTwitter: function(event) {
+    login: function(event) {
       event.preventDefault();
       var that = this;
       AuthService.attemptTologUserIn(function(data) {
@@ -79,5 +79,5 @@ define([
 
   });
 
-  return LoginMainView;
+  return TwitterLoginView;
 });
