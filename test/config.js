@@ -13,7 +13,8 @@ require.config({
     chai: '../bower_components/chai/chai',
     sinon: '../bower_components/sinonjs/sinon',
     templates: '../../.tmp/scripts/templates',
-    routefilter: '../bower_components/routefilter/dist/backbone.routefilter.min'
+    routefilter: '../bower_components/routefilter/dist/backbone.routefilter.min',
+    'backbone-paginated-collection': '../bower_components/backbone-paginated-collection/backbone-paginated-collection'
   },
   shim: {
     underscore: {
@@ -27,6 +28,9 @@ require.config({
       exports: 'Backbone'
     },
     localstorage: {
+      deps: ['backbone']
+    },
+    'backbone-paginated-collection': {
       deps: ['backbone']
     },
     backbonefire: {
@@ -103,6 +107,10 @@ require([
 
   // helpers
   specs.push('../../test/spec/helpers/flash_message_helper_spec');
+
+  // services
+  specs.push('../../test/spec/services/config_service_spec');
+  specs.push('../../test/spec/services/firebase_service_spec');
 
   require(specs, function() {
     mocha.run();

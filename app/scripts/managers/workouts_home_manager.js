@@ -15,10 +15,12 @@ define([
   'views/workouts_home/add_first_workout_view',
   'helpers/flash_message_helper',
   'backbone-paginated-collection',
+  'services/config_service',
   'lang/en_locale'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
             BottomMenuView, WorkoutItemView, AddFirstWorkoutView,
-            FlashMessage, PaginatedCollection, enLocale) {
+            FlashMessage, PaginatedCollection, ConfigService,
+            enLocale) {
 
   'use strict';
 
@@ -78,7 +80,7 @@ define([
 
         // assign collection to PaginatedCollection
         that.paginatedWorkouts = new PaginatedCollection(
-          this.workoutsCollection, { perPage: 10 });
+          this.workoutsCollection, { perPage: ConfigService.pagination.perPage });
 
         var workoutItemsViews = that.paginatedWorkouts.map(function(workout) {
             var workoutView = new WorkoutItemView({workoutModel: workout});
@@ -113,10 +115,12 @@ define([
       // make sure user scroll reached bottom of the page
       if($(window).scrollTop() >= $(document).height() - $(window).height()) {
         if(this.paginatedWorkouts.hasNextPage()) {
+          // get next page
           this.paginatedWorkouts.nextPage();
+
           var that = this;
           var workoutItemsViews = this.paginatedWorkouts.map(function(workout) {
-              var workoutView = new WorkoutItemView({workoutModel: workout});
+              var workoutView = new WorkoutItemView({ workoutModel: workout });
               // save as child view to be able to delete it
               that.childViews.push(workoutView);
               return workoutView.render().el;
