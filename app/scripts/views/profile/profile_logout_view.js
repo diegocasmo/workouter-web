@@ -12,8 +12,10 @@ define([
   'templates',
   'lang/en_locale',
   'services/auth_service',
-  'models/user_model'
-], function($, _, Backbone, JST, enLocale, AuthService, UserModel) {
+  'models/user_model',
+  'helpers/flash_message_helper'
+], function($, _, Backbone, JST, enLocale, AuthService,
+          UserModel, FlashMessage) {
 
   'use strict';
 
@@ -44,6 +46,8 @@ define([
     logUserOut: function(event) {
       event.preventDefault();
       AuthService.logUserOut();
+      var message = enLocale.flashMessage.logoutSuccess;
+      FlashMessage.showSuccess(message);
       this.router.navigate('login', {
         trigger: true
       });

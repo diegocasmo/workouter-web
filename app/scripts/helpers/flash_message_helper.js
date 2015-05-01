@@ -15,7 +15,7 @@ define([
 
     $el: $('#flash-message'),
 
-    timeInterval: 2700,
+    timeInterval: 2500,
 
     /**
      * display a successful message

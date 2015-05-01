@@ -12,8 +12,10 @@ define([
   'templates',
   'lang/en_locale',
   'services/auth_service',
-  'models/user_model'
-], function($, _, Backbone, JST, enLocale, AuthService, UserModel) {
+  'models/user_model',
+  'helpers/flash_message_helper'
+], function($, _, Backbone, JST, enLocale, AuthService,
+          UserModel, FlashMessage) {
 
   'use strict';
 
@@ -39,9 +41,13 @@ define([
       this.listenTo(this, 'login:error', this.redirectToLogin);
       this.listenTo(this, 'login:success', function(userData) {
         if (that.userModel.setTwitterUser(userData)) {
+          var message = enLocale.flashMessage.loginSuccess;
+          FlashMessage.showSuccess(message);
           // if successful redirect to workouts
           that.redirectToWorkouts();
         } else {
+          var message = enLocale.flashMessage.loginError;
+          FlashMessage.showError(message);
           // if error, then trigger "login:error"
           that.trigger('login:error');
         }
@@ -58,6 +64,8 @@ define([
       var that = this;
       AuthService.attemptTologUserIn(function(data) {
         if (data.error) {
+          var message = enLocale.flashMessage.loginError;
+          FlashMessage.showError(message);
           that.trigger('login:error');
         } else {
           that.trigger('login:success', data.authData);

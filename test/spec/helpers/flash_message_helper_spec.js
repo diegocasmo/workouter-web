@@ -25,7 +25,7 @@ define([
       });
 
       it('has correct timeInterval', function() {
-        expect(FlashMessage.timeInterval).to.be.equal(2700);
+        expect(FlashMessage.timeInterval).to.be.equal(2500);
       });
 
     });

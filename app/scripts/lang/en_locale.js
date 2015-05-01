@@ -182,6 +182,9 @@ define({
     }
   },
   flashMessage: {
+    loginSuccess: 'You have been successfully logged in.',
+    logoutSuccess: 'You have been successfully logged out.',
+    loginError: 'Sorry, we were unable to log you in.',
     exerciseAdded: ' has been added.',
     workoutAdded: ' has been successfully added.',
     workoutDelete: ' has been successfully deleted.',
