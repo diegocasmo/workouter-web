@@ -114,7 +114,7 @@ define([
       // add workout to collection if valid
       if(workout) {
         workoutsCollection.addWorkout(workout);
-        var message = this.workoutModel.getWorkoutTitle() + enLocale.flashMessage.workoutAdded;
+        var message = workout.getWorkoutTitle() + enLocale.flashMessage.workoutAdded;
         FlashMessage.showSuccess(message);
         this.router.navigate('workouts', { trigger: true });
       } else {

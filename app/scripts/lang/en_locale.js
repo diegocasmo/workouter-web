@@ -182,7 +182,7 @@ define({
     }
   },
   flashMessage: {
-    exerciseAdded: ' has been added to this workout.',
+    exerciseAdded: ' has been added.',
     workoutAdded: ' has been successfully added.',
     workoutDelete: ' has been successfully deleted.',
     exerciseError: 'Please, enter a valid exercise.',

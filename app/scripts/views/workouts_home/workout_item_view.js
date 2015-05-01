@@ -20,7 +20,7 @@ define([
 
     template: JST['app/scripts/templates/workouts_home/workout_item_view.hbs'],
 
-    tagName: 'div',
+    tagName: 'article',
 
     attributes: {
       class: 'workout-item'
