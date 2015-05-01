@@ -39,28 +39,28 @@ define([
       });
 
       it('has correct id', function() {
-        expect(this.twitterLoginView.attributes.id).to.equal('login-main-view');
+        expect(this.twitterLoginView.attributes.class).to.equal('twitter-login-view');
       });
 
     });
 
     describe('Twitter Login View DOM', function() {
 
-      it('has twitter login text', function() {
-        var twitterLoginText = this.twitterLoginView.$el.find('p#twitter-login');
-        expect(twitterLoginText.length).to.be.equal(1);
-        expect(twitterLoginText.text()).to.be.equal(enLocale.login.twitterLoginView.twitterLoginText.text);
+      it('has twitter login button', function() {
+        var twitterLoginButton = this.twitterLoginView.$el.find('button#twitter-login');
+        expect(twitterLoginButton.length).to.be.equal(1);
+        expect(twitterLoginButton.text()).to.be.equal(enLocale.login.twitterLoginView.twitterLoginButton.text);
       });
 
     });
 
     describe('Twitter Login View Events', function() {
 
-      it('listens to login with twitter text click', sinon.test(function() {
+      it('listens to login with twitter button click', sinon.test(function() {
         var spy = sinon.spy(this.twitterLoginView, 'login');
         this.twitterLoginView.delegateEvents();
         // simulate user event
-        this.twitterLoginView.$el.find('p#twitter-login').trigger('click');
+        this.twitterLoginView.$el.find('button#twitter-login').trigger('click');
         expect(spy.called).to.be.true;
       }));
 

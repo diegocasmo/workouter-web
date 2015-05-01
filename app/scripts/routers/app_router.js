@@ -33,6 +33,8 @@ define([
 
     publicRoutes: ['', 'login', '*actions'],
 
+    $body: $('body'),
+
     routes: {
       'login'                     : 'showLogin',
       'workouts'                  : 'showWorkouts',
@@ -48,6 +50,10 @@ define([
      * manages activeLayout state
      */
     before: function(route) {
+      route = $.trim(route);
+
+      this.addClassToBody(route);
+
       if(this.activeLayout) {
         this.activeLayout.destroyChildViews();
         this.activeLayout.remove();
@@ -55,7 +61,6 @@ define([
       }
 
       var isPrivate = true;
-      route = $.trim(route);
       if(this.publicRoutes.indexOf(route) > -1) {
         isPrivate = false;
       }
@@ -147,6 +152,29 @@ define([
       }
       this.activeLayout = profileManager;
       this.trigger(eventTrigger);
+    },
+
+    addClassToBody: function(route) {
+      // remove old class
+      this.$body.removeClass();
+
+      // choose new class
+      var defaultClass = 'login-page';
+      switch(route) {
+        case 'workouts':
+          defaultClass = 'workouts-page'
+          break;
+        case 'workout/add':
+          defaultClass = 'workout-add-page'
+          break;
+        case 'workout/:id/exercises':
+          defaultClass = 'workout-page'
+          break;
+        case 'me':
+          defaultClass = 'profile-page'
+          break;
+      }
+      this.$body.addClass(defaultClass);
     }
 
   });

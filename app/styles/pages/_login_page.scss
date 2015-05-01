@@ -1,0 +1,8 @@
+.login-page {
+  background: $red_pastel;
+
+  .twitter-login-view {
+    @include _vertical_align;
+    text-align: center;
+  }
+}

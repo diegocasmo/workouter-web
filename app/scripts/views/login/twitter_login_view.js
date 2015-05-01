@@ -24,11 +24,11 @@ define([
     tagName: 'div',
 
     attributes: {
-      id: 'login-main-view'
+      class: 'twitter-login-view'
     },
 
     events: {
-      'click p#twitter-login': 'login'
+      'click button#twitter-login': 'login'
     },
 
     initialize: function(options) {
