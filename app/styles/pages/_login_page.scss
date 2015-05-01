@@ -1,6 +1,11 @@
 .login-page {
   background: $red_pastel;
 
+  .login-app-logo-view {
+    @include _vertical_align;
+    margin-top: -43px;
+  }
+
   .twitter-login-view {
     @include _vertical_align;
     text-align: center;

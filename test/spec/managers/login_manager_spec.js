@@ -53,13 +53,14 @@ define([
         it('should initialize a login main view', function() {
           this.loginManager.childViews = [];
           this.loginManager.buildChildViews();
+          expect(this.loginManager.loginAppLogoView).to.be.instanceOf(Backbone.View);
           expect(this.loginManager.twitterLoginView).to.be.instanceOf(Backbone.View);
         });
 
         it('should save login main view on childViews property', function() {
           this.loginManager.childViews = [];
           this.loginManager.buildChildViews();
-          expect(this.loginManager.childViews.length).to.be.equal(1);
+          expect(this.loginManager.childViews.length).to.be.equal(2);
         });
 
         it('should call the render method', sinon.test(function() {

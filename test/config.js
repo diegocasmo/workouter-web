@@ -95,6 +95,7 @@ require([
 
   // elements views
   specs.push('../../test/spec/views/elements/bottom_menu_view_spec');
+  specs.push('../../test/spec/views/elements/login_app_logo_view_spec');
 
   // workouts home
   specs.push('../../test/spec/views/workouts_home/workout_item_view_spec');
