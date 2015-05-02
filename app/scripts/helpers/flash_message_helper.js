@@ -42,9 +42,10 @@ define([
       clearInterval(this.timeout);
       this.$el.children('.message-text').text(message);
 
+      this.$el.css('height', 30);
       this.$el.animate({
         opacity: 1
-      }, 'slow');
+      }, 'fast');
 
       var that = this;
       this.timeout = setTimeout(function() {
@@ -53,6 +54,7 @@ define([
         }, 'fast', function() {
           that.$el.removeClass('success alert');
           that.$el.children('.message-text').text('');
+          that.$el.css('height', 0);
         });
       }, this.timeInterval);
     }

@@ -1,5 +1,5 @@
 .login-page {
-  background: $red_pastel;
+  @include _red_pastel_gradient;
 
   .login-app-logo-view {
     @include _vertical_align;

@@ -5,3 +5,9 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+@mixin _red_pastel_gradient {
+  background-color: rgba(245,119,117,1);
+  @include filter-gradient(#f57775, #f57775, horizontal);
+  @include background-image(radial-gradient(center, ellipse cover, rgba(245,119,117,1) 0%, rgba(245,119,117,1) 21%, rgba(249,93,88,1) 54%, rgba(249,93,88,1) 100%));
+}
