@@ -6,6 +6,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 /**
  * variables
  */
+ @import "variables/variables";
 @import "variables/breakpoint";
 @import "variables/typography";
 @import "variables/colors";
@@ -23,11 +24,13 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 /**
  * components
  */
-@import "components/login/_twitter_button";
-@import "components/elements/_app_logo";
-@import "components/elements/_flash_message";
+@import "components/login/twitter_button";
+@import "components/elements/app_logo";
+@import "components/elements/flash_message";
+@import "components/elements/bottom_menu";
 
 /**
  * pages
  */
-@import "pages/_login_page";
+@import "pages/login_page";
+@import "pages/workouts_page";

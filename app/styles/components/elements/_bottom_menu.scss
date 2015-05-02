@@ -1,0 +1,67 @@
+#bottom-menu-view {
+  @include _red_pastel_vertical_gradient;
+  position: fixed;
+  bottom: 0px;
+  height: 50px;
+  width: 100%;
+  min-width: $app_min_width;
+}
+
+.bottom-menu-items {
+  margin: 0px;
+  text-align: center;
+}
+
+.bottom-menu-item {
+  @include inline-block;
+  list-style: none;
+  margin: -25px 0px 0px 50px;
+
+  @include _breakpoint(phablet) {
+    margin: -25px 0px 0px 150px;
+  }
+}
+
+.bottom-menu-item:first-child {
+  margin: -25px 50px 0px 0px;
+
+  @include _breakpoint(phablet) {
+    margin: -25px 150px 0px 0px;
+  }
+}
+
+.bottom-menu-icon {
+  @include border-radius(100%);
+  text-align: center;
+  font-size: 22px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #F9F9F9;
+  cursor: pointer;
+}
+
+.bottom-menu-icon.fa-plus {
+  color: #51AE61;
+}
+
+.bottom-menu-icon.fa-user, .bottom-menu-icon.fa-home {
+  color: #4288CC;
+}
+
+// hover effects
+.no-touch {
+  .bottom-menu-item:hover {
+    .bottom-menu-icon.fa-plus {
+      @include transition(background-color .3s, color .3s);
+      background-color: #51AE61;
+      color: #F9F9F9;
+    }
+
+    .bottom-menu-icon.fa-user, .bottom-menu-icon.fa-home {
+      @include transition(background-color .3s, color .3s);
+      background-color: #4288CC;
+      color: #F9F9F9;
+    }
+  }
+}

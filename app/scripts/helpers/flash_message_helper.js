@@ -42,7 +42,7 @@ define([
       clearInterval(this.timeout);
       this.$el.children('.message-text').text(message);
 
-      this.$el.css('height', 30);
+      this.$el.removeClass('display-none').addClass('display-block');
       this.$el.animate({
         opacity: 1
       }, 'fast');
@@ -52,9 +52,9 @@ define([
         that.$el.animate({
           opacity: 0
         }, 'fast', function() {
+          that.$el.removeClass('display-block').addClass('display-none');
           that.$el.removeClass('success alert');
           that.$el.children('.message-text').text('');
-          that.$el.css('height', 0);
         });
       }, this.timeInterval);
     }
