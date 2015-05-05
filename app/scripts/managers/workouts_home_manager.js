@@ -28,6 +28,15 @@ define([
 
     el: $('#app-wrapper'),
 
+    /**
+     * override destroyChildViews from base_manager
+     * in order to unbind window scroll event
+     */
+    destroyChildViews: function() {
+      $(window).off('scroll');
+      BaseManager.prototype.destroyChildViews();
+    },
+
     buildChildViews: function(options) {
       this.options = options;
 
