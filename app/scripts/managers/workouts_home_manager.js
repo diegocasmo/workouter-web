@@ -122,7 +122,8 @@ define([
      */
     loadMore: function() {
       // make sure user scroll reached bottom of the page
-      if($(window).scrollTop() >= $(document).height() - $(window).height()) {
+      if($(window).scrollTop() >= $(document).height() - $(window).height() &&
+        typeof this.paginatedWorkouts !== 'undefined') {
         if(this.paginatedWorkouts.hasNextPage()) {
           // get next page
           this.paginatedWorkouts.nextPage();

@@ -1,7 +1,8 @@
 .workouts-page {
-  // temp
-  article {
-    background: white;
-    border-bottom: 1px solid black;
+  // @include _red_pastel_vertical_gradient;
+  max-width: $app_max_width;
+
+  #flash-message {
+    max-width: $app_max_width - 20px;
   }
 }

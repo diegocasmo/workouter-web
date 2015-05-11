@@ -1,0 +1,38 @@
+.workout-item {
+  position: relative;
+  background: rgb(250, 250, 250);
+  border-bottom: 1px solid rgb(239, 239, 239);
+}
+
+.workout-item-link {
+  @include inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+.workout-item-date {
+  margin: 10px 0px 5px;
+  padding-left: 10px;
+  color: #0d0d0d;
+}
+
+.workout-item-title {
+  margin: 0px 0px 10px;
+  padding-left: 20px;
+  color: #7b7b7b;
+}
+
+.workout-item-caret-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -12px;
+  font-size: 24px;
+  color: #C3C3C3;
+
+  @include _breakpoint(tablet) {
+    right: 15px;
+    margin-top: -14px;
+    font-size: 28px;
+  }
+}

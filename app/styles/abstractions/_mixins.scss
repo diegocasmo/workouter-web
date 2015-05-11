@@ -17,3 +17,20 @@
   @include filter-gradient(#f95d58, #f95d58, horizontal);
   @include background-image(linear-gradient(left, rgba(249,93,88,1) 0%, rgba(249,93,88,1) 18%, rgba(245,116,113,1) 72%, rgba(245,116,113,1) 100%));
 }
+
+@mixin _font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@mixin _no-outline {
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+@mixin _antialiasing {
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-smooth: always;
+}
