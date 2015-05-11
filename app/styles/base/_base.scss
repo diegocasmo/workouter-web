@@ -6,6 +6,7 @@ html, body {
   min-width: $app_min_width;
   min-height: 480px;
   margin: 0px auto;
+  color: $dark_black;
   @include _font-size(1.2);
   @include _breakpoint(tablet) {
     @include _font-size(1.4);
@@ -16,16 +17,14 @@ h1, h2, h3, h4, h5, h6 {
   @include _antialiasing;
   font-family: $nunito;
   font-weight: normal;
+  color: $dark_black;
 }
 
 p, a, button, span, input {
   @include _antialiasing;
+  @include _no-outline;
   font-family: $nunito;
   font-weight: 300;
-}
-
-a, button, input {
-  @include _no-outline;
 }
 
 #app-wrapper {

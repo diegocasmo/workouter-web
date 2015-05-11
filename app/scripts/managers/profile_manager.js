@@ -39,7 +39,7 @@ define([
     },
 
     render: function() {
-      this.$el.append(this.profileCloseView.render().el);
+      // this.$el.append(this.profileCloseView.render().el);
       this.$el.append(this.profileUserView.render().el);
       this.$el.append(this.profileLogoutView.render().el);
       this.$el.append(this.bottomMenuView.render().el);

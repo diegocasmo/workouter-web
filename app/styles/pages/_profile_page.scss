@@ -1,0 +1,19 @@
+.profile-page {
+  background: $lighter_gray;
+  max-width: $app_max_width;
+
+  #flash-message {
+    max-width: $app_max_width - 20px;
+  }
+
+  .profile-user-view {
+    @include _vertical-align;
+    margin-top: -65px;
+  }
+
+  .profile-logout-view {
+    @include _vertical-align;
+    text-align: center;
+    margin-top: -20px;
+  }
+}

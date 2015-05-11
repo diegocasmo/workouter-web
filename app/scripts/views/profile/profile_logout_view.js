@@ -30,7 +30,7 @@ define([
     },
 
     events: {
-      'click p.logout': 'logUserOut'
+      'click .logout-button': 'logUserOut'
     },
 
     initialize: function(options) {

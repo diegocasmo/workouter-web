@@ -1,14 +1,14 @@
-#twitter-login {
+.logout-button {
   @include border-radius(4px);
-  background: $twitter_button;
+  background: $dark_gray;
   padding: 12px 24px;
   margin: 0px;
 }
 
 .no-touch {
-  #twitter-login {
+ .logout-button {
     &:hover, &:active, &:focus {
-      background: $twitter_button_hover;
+      background: $dark_gray;
     }
   }
 }

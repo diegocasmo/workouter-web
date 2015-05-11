@@ -1,0 +1,19 @@
+.user-container {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  text-align: center;
+}
+
+.user-avatar {
+  @include border-radius(100%);
+}
+
+.user-display-name {
+  margin: 5px 0px 0px;
+}
+
+.user-location {
+  margin: 5px 0px 0px;
+  color: $dark_gray;
+}

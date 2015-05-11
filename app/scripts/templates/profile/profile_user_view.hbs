@@ -1,7 +1,11 @@
-<ul class="user-info">
-  <li class="avatar">
-    <img src="{{ avatar }}" alt="{{ displayName }}">
+<ul class="user-container">
+  <li>
+    <img class="user-avatar" src="{{ avatar }}" alt="{{ displayName }}">
   </li>
-  <li class="display-name"> {{ displayName }} </li>
-  <li class="location"> {{ userLocation }} </li>
+  <li>
+    <h6 class="user-display-name">{{ displayName }} </h6>
+  </li>
+  <li>
+    <p class="user-location">{{ userLocation }}</p>
+  </li>
 </ul>

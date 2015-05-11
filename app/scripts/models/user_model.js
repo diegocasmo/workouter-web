@@ -82,13 +82,17 @@ define([
      * returns true if successful, false otherwise
      */
     setTwitterUser: function(attrs) {
+      // make sure we get bigger avatar instead of
+      // normal
+      var avatar = attrs.twitter.cachedUserProfile.profile_image_url_https;
+      avatar = avatar.replace('_normal', '_bigger');
       this.set({
         uid: attrs.uid,
         provider: attrs.provider,
         token: attrs.token,
         username: attrs.twitter.username,
         displayName: attrs.twitter.displayName,
-        avatar: attrs.twitter.cachedUserProfile.profile_image_url_https,
+        avatar: avatar,
         userLocation: attrs.twitter.cachedUserProfile.location
       });
 

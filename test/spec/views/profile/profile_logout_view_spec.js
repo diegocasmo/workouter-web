@@ -50,7 +50,7 @@ define([
     describe('Profile Logout View DOM', function() {
 
       it('has logout text', function() {
-        var logoutText = this.profileLogoutView.$el.find('p.logout');
+        var logoutText = this.profileLogoutView.$el.find('.logout-button');
         expect(logoutText.length).to.be.equal(1);
         expect(logoutText.text()).to.be.equal(enLocale.profile.profileLogoutView.logoutText.text);
       });
@@ -63,7 +63,7 @@ define([
         var spy = sinon.spy(this.profileLogoutView, 'logUserOut');
         this.profileLogoutView.delegateEvents();
         // simulate user event
-        this.profileLogoutView.$el.find('p.logout').trigger('click');
+        this.profileLogoutView.$el.find('.logout-button').trigger('click');
         expect(spy.called).to.be.true;
       }));
 
@@ -75,7 +75,7 @@ define([
 
         it('logs user out', sinon.test(function() {
           var spy = sinon.spy(AuthService, 'logUserOut');
-          this.profileLogoutView.$el.find('.logout').trigger('click');
+          this.profileLogoutView.$el.find('.logout-button').trigger('click');
           expect(spy.called).to.be.true;
         }));
 

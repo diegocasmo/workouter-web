@@ -12,7 +12,7 @@ define([
 
   'use strict';
 
-  describe('Profile Logout View', function() {
+  describe('Profile User View', function() {
 
     beforeEach(function() {
       this.router = new Backbone.Router();
@@ -29,7 +29,7 @@ define([
       this.profileUserView = null;
     });
 
-    describe('Profile Logout View Initialization', function() {
+    describe('Profile User View Initialization', function() {
 
       it('is defined', function() {
         expect(this.profileUserView).to.be.ok;
@@ -45,20 +45,20 @@ define([
 
     });
 
-    describe('Profile Logout View DOM', function() {
+    describe('Profile User View DOM', function() {
 
       it('has a user "avatar" element', function() {
-        var logoutText = this.profileUserView.$el.find('li.avatar');
+        var logoutText = this.profileUserView.$el.find('.user-avatar');
         expect(logoutText.length).to.be.equal(1);
       });
 
       it('has a user "displayName" element', function() {
-        var logoutText = this.profileUserView.$el.find('li.display-name');
+        var logoutText = this.profileUserView.$el.find('.user-display-name');
         expect(logoutText.length).to.be.equal(1);
       });
 
       it('has a user "userLocation" element', function() {
-        var logoutText = this.profileUserView.$el.find('li.location');
+        var logoutText = this.profileUserView.$el.find('.user-location');
         expect(logoutText.length).to.be.equal(1);
       });
     });
