@@ -7,9 +7,13 @@
     max-width: $app_max_width - 20px;
   }
 
+  .workout-view > article.workout {
+    background: $lighter_gray;
+  }
+
   .delete-workout-view {
+    background: $lighter_gray;
     text-align: center;
-    margin: 12px 0px 0px;
-    padding-bottom: 80px;
+    padding: 12px 0px 80px 0px;
   }
 }
