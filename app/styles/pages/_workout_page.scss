@@ -1,4 +1,4 @@
-.workouts-page {
+.workout-page {
   background: $lighter_gray;
   min-width: $app_min_width;
   max-width: $app_max_width;
@@ -7,7 +7,8 @@
     max-width: $app_max_width - 20px;
   }
 
-  #add-first-workout-view {
-    height: 100%;
+  .delete-workout-view {
+    text-align: center;
+    margin: 12px 0px 0px;
   }
 }

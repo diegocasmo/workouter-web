@@ -1,0 +1,36 @@
+.workout-date {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  padding: 10px 0px;
+  text-align: center;
+  border-bottom: 1px solid $light_gray;
+  min-width: $app_min_width;
+  max-width: $app_max_width;
+  margin: 0px auto;
+}
+
+.workout-title {
+  padding: 63px 0px 12px 10px;
+  margin: 0px;
+  border-bottom: 1px solid $light_gray;
+  text-transform: capitalize;
+}
+
+.workout-exercises {
+  margin: 0px;
+  padding-left: 10px;
+  list-style: none;
+}
+
+.workout-exercise-title {
+  text-transform: capitalize;
+  margin: 0px;
+  padding: 10px 0px 0px;
+}
+
+.workout-exercise-details {
+  margin: 0px;
+  padding-left: 20px;
+  color: $dark_gray;
+}

@@ -46,7 +46,7 @@ define([
     describe('Add First Workout View DOM', function() {
 
       it('has an add workout message', function() {
-        var addWorkoutMsg = this.addFirstWorkoutView.$el.find('p.add-workout-msg');
+        var addWorkoutMsg = this.addFirstWorkoutView.$el.find('h3.add-workout-msg');
         expect(addWorkoutMsg.length).to.be.equal(1);
         expect(addWorkoutMsg.text()).to.be.equal(enLocale.workoutsHome.addFirstWorkoutView.addWorkoutMsg);
       });

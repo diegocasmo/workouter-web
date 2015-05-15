@@ -1,0 +1,14 @@
+#delete-workout {
+  @include border-radius(4px);
+  background: $dark_red;
+  padding: 10px 15px;
+  margin: 0px;
+}
+
+.no-touch {
+  #delete-workout {
+    &:hover, &:active, &:focus {
+      background: $light_red;
+    }
+  }
+}

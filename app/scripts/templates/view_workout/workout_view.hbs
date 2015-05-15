@@ -1,14 +1,11 @@
-<article>
-  <p>title: {{ title }}</p>
-  <p>date: {{# beautify_date }} {{ date }} {{/ beautify_date }}</p>
-  <h3>Exercises: </h3>
-  <ul>
+<article class="workout">
+  <h3 class="workout-date"> {{# beautify_date }} {{ date }} {{/ beautify_date }} </h3>
+  <h4 class="workout-title"> {{ title }} </h4>
+  <ul class="workout-exercises">
     {{#each exercises}}
-      <li>
-        <p>title: {{ title }}</p>
-        <p>sets: {{ sets }}</p>
-        <p>reps: {{ reps }}</p>
-        <p>weight: {{ weight }}</p>
+      <li class="workout-exercise">
+        <p class="workout-exercise-title"> {{ title }} </p>
+        <p class="workout-exercise-details">{{ sets }}x{{ reps }} @{{ weight }}lb</p>
       </li>
     {{/each}}
   </ul>

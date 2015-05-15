@@ -33,6 +33,9 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "components/profile/profile_close_view";
 @import "components/profile/profile_logout_view";
 @import "components/profile/profile_user_view";
+@import "components/view_workout/workout_view";
+@import "components/view_workout/delete_workout_view";
+@import "components/view_workout/close_view_workout_view";
 
 /**
  * pages
@@ -40,3 +43,4 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "pages/login_page";
 @import "pages/workouts_page";
 @import "pages/profile_page";
+@import "pages/workout_page";

@@ -66,7 +66,7 @@ define([
       urlHash = urlHash.replace('#', '');
       if(urlHash === 'workouts') {
         this.$el.find('i.fa-home').parent().hide();
-      } else if (urlHash === 'me') {
+      } else {
         this.$el.find('i.fa-user').parent().hide();
       }
     }
