@@ -88,7 +88,7 @@ define([
     },
 
     render: function() {
-      this.$el.append(this.closeAddWorkoutView.render().el);
+      // this.$el.append(this.closeAddWorkoutView.render().el);
       this.$el.append(this.workoutFormView.render().el);
       this.$el.append(this.exercisesFormView.render().el);
       this.$el.append(this.addWorkoutFormView.render().el);

@@ -62,7 +62,7 @@ define([
     describe('Exercises Form View DOM', function() {
 
       it('has a exercise title input and attr title', function() {
-        var $exerciseTitle = this.exercisesFormView.$el.find('.exercise-title');
+        var $exerciseTitle = this.exercisesFormView.$el.find('.add-workout--exercise-title');
         expect($exerciseTitle.length).to.be.equal(1);
         expect($exerciseTitle.attr('placeholder')).to.be.equal(enLocale.addWorkout.exercisesFormView.exerciseTitle.placeholder);
 
@@ -168,7 +168,7 @@ define([
       describe('resetInputs Method', function() {
 
         it('resets input val on all form', function() {
-          var $inputElement = this.exercisesFormView.$el.find('.exercise-title');
+          var $inputElement = this.exercisesFormView.$el.find('.add-workout--exercise-title');
           // add classes to element
           $inputElement.val('test');
           this.exercisesFormView.resetsInputs();

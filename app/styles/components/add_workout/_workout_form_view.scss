@@ -1,0 +1,10 @@
+#workout-form-view{
+  @include grid-row();
+}
+
+.add-workout-header {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  color: $dark_black;
+}

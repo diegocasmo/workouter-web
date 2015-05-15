@@ -26,8 +26,8 @@ define([
     },
 
     events: {
-      'focusout .workout-title': 'validateWorkoutTitle',
-      'focusin .workout-title': 'resetInputValidation'
+      'focusout .add-workout--title': 'validateWorkoutTitle',
+      'focusin .add-workout--title': 'resetInputValidation'
     },
 
     initialize: function(options) {
@@ -42,7 +42,7 @@ define([
 
     validateWorkoutTitle: function(event) {
       event.preventDefault();
-      var $workoutTitle = this.$el.find('.workout-title');
+      var $workoutTitle = this.$el.find('.add-workout--title');
       if(this.workoutModel.setTitle($workoutTitle.val())) {
         $workoutTitle.addClass('input-valid');
       } else {
@@ -52,7 +52,7 @@ define([
 
     resetInputValidation: function(event) {
       event.preventDefault();
-      this.$el.find('.workout-title').removeClass('input-valid input-invalid');
+      this.$el.find('.add-workout--title').removeClass('input-valid input-invalid');
     }
 
   });

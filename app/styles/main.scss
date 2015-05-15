@@ -6,7 +6,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 /**
  * variables
  */
- @import "variables/variables";
+@import "variables/variables";
 @import "variables/breakpoint";
 @import "variables/typography";
 @import "variables/colors";
@@ -14,12 +14,13 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 /**
  * abstractions
  */
-@import "abstractions/_mixins";
+@import "abstractions/mixins";
 
 /**
  * base
  */
 @import "base/base";
+@import "base/forms";
 
 /**
  * components
@@ -36,6 +37,9 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "components/view_workout/workout_view";
 @import "components/view_workout/delete_workout_view";
 @import "components/view_workout/close_view_workout_view";
+@import "components/add_workout/workout_form_view";
+@import "components/add_workout/exercises_form_view";
+@import "components/add_workout/add_workout_form_view";
 
 /**
  * pages
@@ -44,3 +48,4 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "pages/workouts_page";
 @import "pages/profile_page";
 @import "pages/workout_page";
+@import "pages/workout_add_page";

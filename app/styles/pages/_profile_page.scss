@@ -9,12 +9,10 @@
 
   .profile-user-view {
     @include _vertical-align;
-    margin-top: -65px;
   }
 
   .profile-logout-view {
     @include _vertical-align;
     text-align: center;
-    margin-top: -20px;
   }
 }

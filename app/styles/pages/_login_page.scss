@@ -1,9 +1,17 @@
 .login-page {
-  @include _red_pastel_circular_gradient;
+  min-width: $app_min_width;
+  max-width: $app_max_width;
+
+  #app-wrapper {
+    @include _red_pastel_circular_gradient;
+  }
+
+  #flash-message {
+    max-width: $app_max_width - 20px;
+  }
 
   .login-app-logo-view {
     @include _vertical_align;
-    margin-top: -43px;
   }
 
   .twitter-login-view {

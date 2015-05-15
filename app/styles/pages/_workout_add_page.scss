@@ -1,0 +1,45 @@
+.workout-add-page {
+  background: $lighter_gray;
+  min-width: $app_min_width;
+  max-width: $app_max_width;
+
+  #app-wrapper {
+    max-width: 90%;
+    margin: 0px auto;
+  }
+
+  #flash-message {
+    max-width: $app_max_width - 20px;
+  }
+
+  .add-workout-header {
+    margin: 0px 0px 15px;
+  }
+
+  input[type="text"].add-workout--title {
+    margin: 0px auto;
+  }
+
+  input[type="text"], input[type="number"] {
+    margin: 0px auto 12px auto;
+    @include grid-column(10);
+    float: none;
+  }
+
+  .add-workout--exercises-total {
+    @include grid-column(10);
+    margin: 10px auto 15px auto;
+    float: none;
+    padding: 0px;
+  }
+
+  #add-exercise {
+    display: block;
+    margin: 20px auto;
+  }
+
+  button.add-workout {
+    display: block;
+    margin: 10px auto;
+  }
+}

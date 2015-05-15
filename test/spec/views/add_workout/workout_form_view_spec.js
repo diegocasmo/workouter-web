@@ -54,7 +54,7 @@ define([
     describe('Workout Form View DOM', function() {
 
       it('has a workout title input', function() {
-        var closeButton = this.workoutFormView.$el.find('.workout-title');
+        var closeButton = this.workoutFormView.$el.find('.add-workout--title');
         expect(closeButton.length).to.be.equal(1);
         expect(closeButton.attr('placeholder')).to.be.equal(enLocale.addWorkout.workoutFormView.workoutTitle.placeholder);
       });
@@ -67,7 +67,7 @@ define([
         var spy = sinon.spy(this.workoutFormView, 'validateWorkoutTitle');
         this.workoutFormView.delegateEvents();
         // simulate user event
-        this.workoutFormView.$el.find('.workout-title').trigger('focusout');
+        this.workoutFormView.$el.find('.add-workout--title').trigger('focusout');
         expect(spy.called).to.be.true;
       }));
 
@@ -75,7 +75,7 @@ define([
         var spy = sinon.spy(this.workoutFormView, 'resetInputValidation');
         this.workoutFormView.delegateEvents();
         // simulate user event
-        this.workoutFormView.$el.find('.workout-title').trigger('focusin');
+        this.workoutFormView.$el.find('.add-workout--title').trigger('focusin');
         expect(spy.called).to.be.true;
       }));
 
@@ -87,11 +87,11 @@ define([
 
         xit('adds input-valid class on valid title', sinon.test(function() {
           var workoutTitle = 'Legs Day';
-          var $inputElement = this.workoutFormView.$el.find('.workout-title');
+          var $inputElement = this.workoutFormView.$el.find('.add-workout--title');
 
           // simulate user add title
           $inputElement.val(workoutTitle);
-          $inputElement.find('.workout-title').trigger('focusout');
+          $inputElement.find('.add-workout--title').trigger('focusout');
 
           expect($inputElement.hasClass('input-valid')).to.be.true;
         }));
@@ -105,7 +105,7 @@ define([
       describe('resetInputValidation Method', function() {
 
         it('resets input-invalid and input-valid classes', function() {
-          var $inputElement = this.workoutFormView.$el.find('.workout-title');
+          var $inputElement = this.workoutFormView.$el.find('.add-workout--title');
           // add classes to element
           $inputElement.addClass('input-valid input-invalid');
           var mock = {
@@ -116,7 +116,7 @@ define([
           this.workoutFormView.resetInputValidation(mock);
           expect($inputElement.hasClass('input-valid')).to.be.false;
           expect($inputElement.hasClass('input-invalid')).to.be.false;
-          expect($inputElement.hasClass('workout-title')).to.be.true;
+          expect($inputElement.hasClass('add-workout--title')).to.be.true;
         });
 
       });
