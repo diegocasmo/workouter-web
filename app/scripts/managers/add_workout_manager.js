@@ -49,6 +49,9 @@ define([
     },
 
     buildChildViews: function(options) {
+      // scroll to top
+      window.scrollTo(0, 0);
+
       // initial setup
       this.router = options.router;
 
