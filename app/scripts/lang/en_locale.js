@@ -138,7 +138,7 @@ define({
         placeholder: 'Sets'
       },
       exerciseWeight: {
-        placeholder: 'Weight'
+        placeholder: 'Weight (lb)'
       },
       addExerciseButton: {
         text: 'Add Exercise'
