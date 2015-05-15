@@ -1,14 +1,14 @@
 .logout-button {
   @include border-radius(4px);
-  background: $dark_gray;
-  padding: 12px 24px;
+  background: $dark_blue;
+  padding: 10px 15px;
   margin: 0px;
 }
 
 .no-touch {
  .logout-button {
     &:hover, &:active, &:focus {
-      background: $dark_gray;
+      background: $light_blue;
     }
   }
 }

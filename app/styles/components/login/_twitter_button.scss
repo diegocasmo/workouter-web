@@ -1,14 +1,14 @@
 #twitter-login {
   @include border-radius(4px);
-  background: $twitter_button;
-  padding: 12px 24px;
+  background: $dark_blue;
+  padding: 10px 15px;
   margin: 0px;
 }
 
 .no-touch {
   #twitter-login {
     &:hover, &:active, &:focus {
-      background: $twitter_button_hover;
+      background: $light_blue;
     }
   }
 }

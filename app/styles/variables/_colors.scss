@@ -1,13 +1,21 @@
 $red_pastel: #f95e59;
 
-$twitter_button: #4099FF;
-$twitter_button_hover: #1E85FD;
+/**
+ * black scale
+ */
+$lighter_black: none;
+$light_black: none;
+$dark_black: #0d0d0d;
 
+/**
+ * gray scale
+ */
 $lighter_gray: rgb(250, 250, 250);
 $light_gray: rgb(239, 239, 239);
 $dark_gray: #7b7b7b;
 
-
-$lighter_black: none;
-$light_black: none;
-$dark_black: #0d0d0d;
+/**
+ * blue scale
+ */
+$light_blue: #4099FF;
+$dark_blue: #1E85FD;

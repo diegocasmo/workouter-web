@@ -1,8 +1,11 @@
 .workouts-page {
-  // @include _red_pastel_vertical_gradient;
   max-width: $app_max_width;
 
   #flash-message {
     max-width: $app_max_width - 20px;
+  }
+
+  #add-first-workout-view {
+    height: 100%;
   }
 }
