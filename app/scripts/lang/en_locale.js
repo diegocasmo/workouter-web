@@ -190,6 +190,6 @@ define({
     workoutDelete: ' has been successfully deleted.',
     exerciseError: 'Please, enter a valid exercise.',
     workoutError: 'Please, fill all the mandatory fields.',
-    errorFetchingCollection: 'There was an error while trying to fetch collection.'
+    errorFetchingCollection: 'There was an error while trying get your workouts.'
   }
 });

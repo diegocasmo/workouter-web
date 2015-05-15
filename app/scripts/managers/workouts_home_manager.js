@@ -57,21 +57,11 @@ define([
 
       // attempt to fetch collection
       this.workoutsCollection.getWorkouts();
+
+      this.render();
     },
 
     render: function() {
-      var workoutItemsViews = this.getAllWorkouts();
-      // if no workout items views display
-      // add workout message
-      if(workoutItemsViews) {
-        this.$el.append(workoutItemsViews);
-      } else {
-        this.addFirstWorkoutView = new AddFirstWorkoutView(this.options);
-        // save as child view
-        this.childViews.push(this.addFirstWorkoutView);
-        this.$el.append(this.addFirstWorkoutView.render().el);
-      }
-
       this.$el.append(this.bottomMenuView.render().el);
       return this;
     },
@@ -108,8 +98,30 @@ define([
      * attaches collection events to this view
      */
     attachCollectionEvents: function() {
-      this.listenTo(this.workoutsCollection, 'success', this.render);
+      this.listenTo(this.workoutsCollection, 'success', this.renderAllWorkouts);
       this.listenTo(this.workoutsCollection, 'error', this.errorOnFetch);
+    },
+
+    /**
+     * renders workout collection if length is greater
+     * than zero. If not, renders add first workout view
+     */
+    renderAllWorkouts: function() {
+      var workoutItemsViews = this.getAllWorkouts();
+      // if no workout items views display
+      // add workout message
+      if(workoutItemsViews) {
+        // html needs to be preprend in order to be
+        // added before bottomMenuView
+        this.$el.prepend(workoutItemsViews);
+      } else {
+        this.addFirstWorkoutView = new AddFirstWorkoutView(this.options);
+        // save as child view
+        this.childViews.push(this.addFirstWorkoutView);
+        // html needs to be preprend in order to be
+        // added before bottomMenuView
+        this.$el.prepend(this.addFirstWorkoutView.render().el);
+      }
     },
 
     errorOnFetch: function() {
