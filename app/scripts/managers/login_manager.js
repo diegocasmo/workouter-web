@@ -21,6 +21,9 @@ define([
     el: $('#app-wrapper'),
 
     buildChildViews: function(options) {
+      // scroll to top
+      window.scrollTo(0, 0);
+
       // initialize child views
       this.loginAppLogoView = new LoginAppLogoView(options);
       this.twitterLoginView = new TwitterLoginView(options);

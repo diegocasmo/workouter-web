@@ -38,6 +38,9 @@ define([
     },
 
     buildChildViews: function(options) {
+      // scroll to top
+      window.scrollTo(0, 0);
+
       this.options = options;
 
       // bind window scroll event to loadMore
