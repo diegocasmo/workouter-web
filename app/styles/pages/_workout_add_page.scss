@@ -16,6 +16,13 @@
     margin: 0px 0px 15px;
   }
 
+  #close-add-workout-view {
+    margin: 0px auto -37px auto;
+    @include grid-column(10);
+    float: none;
+    padding: 0px;
+  }
+
   input[type="text"].add-workout--title {
     margin: 0px auto;
   }
