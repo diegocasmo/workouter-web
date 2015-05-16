@@ -83,12 +83,10 @@ require([
   specs.push('../../test/spec/views/login/twitter_login_view_spec');
 
   // profiles views
-  specs.push('../../test/spec/views/profile/profile_close_view_spec');
   specs.push('../../test/spec/views/profile/profile_user_view_spec');
   specs.push('../../test/spec/views/profile/profile_logout_view_spec');
 
   // add workout views
-  specs.push('../../test/spec/views/add_workout/close_add_workout_view_spec');
   specs.push('../../test/spec/views/add_workout/workout_form_view_spec');
   specs.push('../../test/spec/views/add_workout/exercises_form_view_spec');
   specs.push('../../test/spec/views/add_workout/add_workout_form_view_spec');
@@ -96,13 +94,13 @@ require([
   // elements views
   specs.push('../../test/spec/views/elements/bottom_menu_view_spec');
   specs.push('../../test/spec/views/elements/login_app_logo_view_spec');
+  specs.push('../../test/spec/views/elements/go_back_view_spec');
 
   // workouts home
   specs.push('../../test/spec/views/workouts_home/workout_item_view_spec');
   specs.push('../../test/spec/views/workouts_home/add_first_workout_view_spec');
 
   // view workout views
-  specs.push('../../test/spec/views/view_workout/close_view_workout_view_spec');
   specs.push('../../test/spec/views/view_workout/workout_view_spec');
   specs.push('../../test/spec/views/view_workout/delete_workout_view_spec');
 

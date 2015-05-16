@@ -56,7 +56,7 @@ define([
         it('should initialize subviews correctly', function() {
           this.viewWorkoutManager.childViews = [];
           this.viewWorkoutManager.buildChildViews(this.options);
-          expect(this.viewWorkoutManager.closeViewWorkoutView).to.be.instanceOf(Backbone.View);
+          expect(this.viewWorkoutManager.goBackView).to.be.instanceOf(Backbone.View);
           expect(this.viewWorkoutManager.workoutView).to.be.instanceOf(Backbone.View);
           expect(this.viewWorkoutManager.deleteWorkoutView).to.be.instanceOf(Backbone.View);
           expect(this.viewWorkoutManager.bottomMenuView).to.be.instanceOf(Backbone.View);

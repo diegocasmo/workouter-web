@@ -15,18 +15,18 @@ define([
 
   'use strict';
 
-  var CloseViewWorkoutView = Backbone.View.extend({
+  var goBackView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/view_workout/close_view_workout_view.hbs'],
+    template: JST['app/scripts/templates/elements/go_back_view.hbs'],
 
     tagName: 'div',
 
     attributes: {
-      id: 'close-view-workout-view'
+      id: 'go-back-view'
     },
 
     events: {
-      'click .close-view-workout-item': 'close'
+      'click i.fa-chevron-left': 'close'
     },
 
     initialize: function(options) {
@@ -34,17 +34,17 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.viewWorkout.closeViewWorkoutView));
+      this.$el.html(this.template(enLocale.goBackView));
       return this;
     },
 
     close: function(event) {
       event.preventDefault();
-      this.router.navigate('workouts', { trigger: true });
+      this.router.navigateToPreviousRoute();
     }
 
   });
 
-  return CloseViewWorkoutView;
+  return goBackView;
 
 });

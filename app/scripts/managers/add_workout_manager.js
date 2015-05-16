@@ -14,7 +14,7 @@ define([
   'models/exercise_model',
   'collections/exercises_collection',
   'collections/workouts_collection',
-  'views/add_workout/close_add_workout_view',
+  'views/elements/go_back_view',
   'views/add_workout/workout_form_view',
   'views/add_workout/exercises_form_view',
   'views/add_workout/add_workout_form_view',
@@ -22,7 +22,7 @@ define([
   'lang/en_locale'
 ], function($, _, Backbone, BaseManager, UserModel, WorkoutModel,
             ExerciseModel, ExercisesCollection, WorkoutsCollection,
-            CloseAddWorkoutView, WorkoutFormView, ExercisesFormView,
+            GoBackView, WorkoutFormView, ExercisesFormView,
             AddWorkoutFormView, FlashMessage, enLocale) {
 
   'use strict';
@@ -62,7 +62,7 @@ define([
       options.exercisesCollection = this.exercisesCollection;
 
       // initialize subviews
-      this.closeAddWorkoutView = new CloseAddWorkoutView(options);
+      this.goBackView = new GoBackView(options);
       this.workoutFormView = new WorkoutFormView(options);
       this.exercisesFormView = new ExercisesFormView(options);
       this.addWorkoutFormView = new AddWorkoutFormView(options);
@@ -76,7 +76,7 @@ define([
         this.addWorkoutToCollection);
 
       // save shild views
-      this.childViews.push(this.closeAddWorkoutView);
+      this.childViews.push(this.goBackView);
       this.childViews.push(this.workoutFormView);
       this.childViews.push(this.exercisesFormView);
       this.childViews.push(this.addWorkoutFormView);
@@ -88,7 +88,7 @@ define([
     },
 
     render: function() {
-      this.$el.append(this.closeAddWorkoutView.render().el);
+      this.$el.append(this.goBackView.render().el);
       this.$el.append(this.workoutFormView.render().el);
       this.$el.append(this.exercisesFormView.render().el);
       this.$el.append(this.addWorkoutFormView.render().el);

@@ -9,11 +9,11 @@ define([
   'underscore',
   'backbone',
   'managers/base_manager',
-  'views/profile/profile_close_view',
+  'views/elements/go_back_view',
   'views/profile/profile_user_view',
   'views/profile/profile_logout_view',
   'views/elements/bottom_menu_view'
-], function($, _, Backbone, BaseManager, ProfileCloseView,
+], function($, _, Backbone, BaseManager, GoBackView,
             ProfileUserView, ProfileLogoutView, BottomMenuElement) {
 
   'use strict';
@@ -27,13 +27,13 @@ define([
       window.scrollTo(0, 0);
 
       // initialize child views
-      this.profileCloseView = new ProfileCloseView(options);
+      this.goBackView = new GoBackView(options);
       this.profileUserView = new ProfileUserView(options);
       this.profileLogoutView = new ProfileLogoutView(options);
       this.bottomMenuView = new BottomMenuElement(options);
 
       // save child views
-      this.childViews.push(this.profileCloseView);
+      this.childViews.push(this.goBackView);
       this.childViews.push(this.profileUserView);
       this.childViews.push(this.profileLogoutView);
       this.childViews.push(this.bottomMenuView);
@@ -42,7 +42,7 @@ define([
     },
 
     render: function() {
-      // this.$el.append(this.profileCloseView.render().el);
+      this.$el.append(this.goBackView.render().el);
       this.$el.append(this.profileUserView.render().el);
       this.$el.append(this.profileLogoutView.render().el);
       this.$el.append(this.bottomMenuView.render().el);

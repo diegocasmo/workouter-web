@@ -96,6 +96,9 @@ define({
       number: 'Weight needs to be a number.'
     }
   },
+  goBackView: {
+
+  },
   login: {
     twitterLoginView: {
       twitterLoginButton: {

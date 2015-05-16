@@ -10,14 +10,14 @@ define([
   'backbone',
   'managers/base_manager',
   'collections/workouts_collection',
-  'views/view_workout/close_view_workout_view',
+  'views/elements/go_back_view',
   'views/view_workout/workout_view',
   'views/view_workout/delete_workout_view',
   'views/elements/bottom_menu_view',
   'helpers/flash_message_helper',
   'lang/en_locale'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
-          CloseViewWorkoutView, WorkoutView, DeleteWorkoutView,
+          GoBackView, WorkoutView, DeleteWorkoutView,
           BottomMenuView, FlashMessage, enLocale) {
 
   'use strict';
@@ -37,7 +37,7 @@ define([
       this.workoutsCollection = new WorkoutsCollection();
 
       // initialize child views
-      this.closeViewWorkoutView = new CloseViewWorkoutView(options);
+      this.goBackView = new GoBackView(options);
       this.bottomMenuView = new BottomMenuView(options);
 
       // make sure workout is passed to WorkoutView
@@ -50,7 +50,7 @@ define([
 
       // save child views
       this.childViews.push(this.bottomMenuView);
-      this.childViews.push(this.closeViewWorkoutView);
+      this.childViews.push(this.goBackView);
       this.childViews.push(this.workoutView);
       this.childViews.push(this.deleteWorkoutView);
 
@@ -65,7 +65,7 @@ define([
     },
 
     render: function() {
-      // this.$el.append(this.closeViewWorkoutView.render().el);
+      this.$el.append(this.goBackView.render().el);
       this.$el.append(this.workoutView.render().el);
       this.$el.append(this.deleteWorkoutView.render().el);
       this.$el.append(this.bottomMenuView.render().el);
