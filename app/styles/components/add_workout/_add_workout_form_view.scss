@@ -1,3 +1,13 @@
+#add-workout-view {
+  @include _red_pastel_vertical_gradient;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  min-width: $app_min_width;
+  max-width: $app_max_width;
+  height: 60px;
+}
+
 button.add-workout {
   @include border-radius(4px);
   @include _font-size(1.2);
