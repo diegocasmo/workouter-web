@@ -18,9 +18,9 @@ define([
 
     defaults: {
       title: '',
-      reps: 0,
-      sets: 0,
-      weight: 0
+      reps: '',
+      sets: '',
+      weight: ''
     },
 
     validate: function (attrs) {
@@ -33,7 +33,7 @@ define([
       }
 
       if(_.has(attrs, 'reps')) {
-        if (!attrs.reps) {
+        if (isNaN(attrs.reps)) {
           errors.push({ name: 'reps', message: enLocale.exerciseModel.reps.required });
         } else if (typeof attrs.reps !== 'number') {
           errors.push({ name: 'reps', message: enLocale.exerciseModel.reps.number });
@@ -41,7 +41,7 @@ define([
       }
 
       if(_.has(attrs, 'sets')) {
-        if (!attrs.sets) {
+        if (isNaN(attrs.sets)) {
           errors.push({ name: 'sets', message: enLocale.exerciseModel.sets.required });
         } else if (typeof attrs.sets !== 'number') {
           errors.push({ name: 'sets', message: enLocale.exerciseModel.sets.number });
@@ -49,7 +49,7 @@ define([
       }
 
       if(_.has(attrs, 'weight')) {
-        if (typeof attrs.weight !== 'number') {
+        if (typeof attrs.weight !== 'number' || isNaN(attrs.weight)) {
           errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.number });
         } else if (attrs.weight < 0) {
           errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.required });

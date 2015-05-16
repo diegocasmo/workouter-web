@@ -42,9 +42,9 @@ define([
 
       it('has correct defaults', function() {
         expect(this.exerciseModel.get('title')).to.be.equal('');
-        expect(this.exerciseModel.get('reps')).to.be.equal(0);
-        expect(this.exerciseModel.get('sets')).to.be.equal(0);
-        expect(this.exerciseModel.get('weight')).to.be.equal(0);
+        expect(this.exerciseModel.get('reps')).to.be.equal('');
+        expect(this.exerciseModel.get('sets')).to.be.equal('');
+        expect(this.exerciseModel.get('weight')).to.be.equal('');
       });
     });
 
