@@ -1,7 +1,7 @@
 /**
  * Author: Diego Castillo
  * Company: Workouter
- * Description: A view to redirect the user back to the previous route.
+ * Description: A view to redirect the user back to workouts home.
  */
 
 /*global define*/
@@ -14,7 +14,7 @@ define([
 
   'use strict';
 
-  var GoBackView = Backbone.View.extend({
+  var GoToWorkouts = Backbone.View.extend({
 
     template: _.template(
       '<i class="fa fa-chevron-left"></i>'
@@ -23,11 +23,11 @@ define([
     tagName: 'div',
 
     attributes: {
-      id: 'go-back-view'
+      id: 'go-to-workouts-view'
     },
 
     events: {
-      'click i.fa-chevron-left': 'close'
+      'click i.fa-chevron-left': 'goToWorkouts'
     },
 
     initialize: function(options) {
@@ -35,17 +35,17 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.goBackView));
+      this.$el.html(this.template(enLocale.goToWorkoutsView));
       return this;
     },
 
-    close: function(event) {
+    goToWorkouts: function(event) {
       event.preventDefault();
-      this.router.navigateToPreviousRoute();
+      this.router.navigate('workouts', { trigger: true });
     }
 
   });
 
-  return GoBackView;
+  return GoToWorkouts;
 
 });

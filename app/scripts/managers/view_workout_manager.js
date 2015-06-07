@@ -10,13 +10,14 @@ define([
   'backbone',
   'managers/base_manager',
   'collections/workouts_collection',
+  'views/elements/go_to_workouts',
   'views/view_workout/workout_view',
   'views/view_workout/delete_workout_view',
   'views/elements/bottom_menu_view',
   'helpers/flash_message_helper',
   'lang/en_locale'
 ], function($, _, Backbone, BaseManager, WorkoutsCollection,
-          WorkoutView, DeleteWorkoutView,
+          GoToWorkouts, WorkoutView, DeleteWorkoutView,
           BottomMenuView, FlashMessage, enLocale) {
 
   'use strict';
@@ -36,6 +37,7 @@ define([
       this.workoutsCollection = new WorkoutsCollection();
 
       // initialize child views
+      this.goToWorkouts = new GoToWorkouts(options);
       this.bottomMenuView = new BottomMenuView(options);
 
       // make sure workout is passed to WorkoutView
@@ -47,6 +49,7 @@ define([
         this.deleteWorkoutFromCollection);
 
       // save child views
+      this.childViews.push(this.goToWorkouts);
       this.childViews.push(this.bottomMenuView);
       this.childViews.push(this.workoutView);
       this.childViews.push(this.deleteWorkoutView);
@@ -62,6 +65,7 @@ define([
     },
 
     render: function() {
+      this.$el.append(this.goToWorkouts.render().el);
       this.$el.append(this.workoutView.render().el);
       this.$el.append(this.deleteWorkoutView.render().el);
       this.$el.append(this.bottomMenuView.render().el);

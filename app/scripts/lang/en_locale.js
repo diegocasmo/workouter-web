@@ -99,6 +99,9 @@ define({
   goBackView: {
 
   },
+  goToWorkoutsView: {
+
+  },
   login: {
     twitterLoginView: {
       twitterLoginButton: {
