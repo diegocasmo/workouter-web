@@ -9,15 +9,17 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
+  'handlebars',
   'lang/en_locale'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, Handlebars, enLocale) {
 
   'use strict';
 
   var AddWorkoutFormView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/add_workout/add_workout_view.hbs'],
+    template: Handlebars.compile(
+      '<button class="add-workout">{{ addButton.text }}</button>'
+      ),
 
     tagName: 'div',
 

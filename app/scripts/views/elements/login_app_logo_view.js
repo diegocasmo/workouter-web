@@ -9,15 +9,16 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
   'lang/en_locale'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, enLocale) {
 
   'use strict';
 
   var LoginAppLogoView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/elements/login_app_logo_view.hbs'],
+    template: _.template(
+      '<div class="workouter-letter-logo"></div>'
+      ),
 
     tagName: 'div',
 

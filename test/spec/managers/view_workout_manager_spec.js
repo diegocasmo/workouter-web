@@ -56,7 +56,6 @@ define([
         it('should initialize subviews correctly', function() {
           this.viewWorkoutManager.childViews = [];
           this.viewWorkoutManager.buildChildViews(this.options);
-          expect(this.viewWorkoutManager.goBackView).to.be.instanceOf(Backbone.View);
           expect(this.viewWorkoutManager.workoutView).to.be.instanceOf(Backbone.View);
           expect(this.viewWorkoutManager.deleteWorkoutView).to.be.instanceOf(Backbone.View);
           expect(this.viewWorkoutManager.bottomMenuView).to.be.instanceOf(Backbone.View);
@@ -65,7 +64,7 @@ define([
         it('should save childViews correctly', function() {
           this.viewWorkoutManager.childViews = [];
           this.viewWorkoutManager.buildChildViews(this.options);
-          expect(this.viewWorkoutManager.childViews.length).to.be.equal(4);
+          expect(this.viewWorkoutManager.childViews.length).to.be.equal(3);
         });
 
         it('should call the render method', sinon.test(function() {

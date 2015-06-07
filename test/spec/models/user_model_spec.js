@@ -116,7 +116,6 @@ define([
         expect(this.userModel.isValid()).to.be.equal(true);
 
         this.userModel.set({ 'userLocation': '' });
-        console.log(this.userModel.get('userLocation'));
         expect(this.userModel.isValid()).to.be.equal(false);
       });
 

@@ -9,19 +9,21 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
+  'handlebars',
   'lang/en_locale',
   'services/auth_service',
   'models/user_model',
   'helpers/flash_message_helper'
-], function($, _, Backbone, JST, enLocale, AuthService,
+], function($, _, Backbone, Handlebars, enLocale, AuthService,
           UserModel, FlashMessage) {
 
   'use strict';
 
   var ProfileLogoutView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/profile/profile_logout_view.hbs'],
+    template: Handlebars.compile(
+      '<button class="logout-button">{{ logoutText.text }}</button>'
+      ),
 
     tagName: 'div',
 

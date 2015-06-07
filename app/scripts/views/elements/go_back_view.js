@@ -9,15 +9,16 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
   'lang/en_locale'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, enLocale) {
 
   'use strict';
 
   var goBackView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/elements/go_back_view.hbs'],
+    template: _.template(
+      '<i class="fa fa-chevron-left"></i>'
+      ),
 
     tagName: 'div',
 

@@ -9,15 +9,17 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
+  'handlebars',
   'lang/en_locale'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, Handlebars, enLocale) {
 
   'use strict';
 
   var DeleteWorkoutView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/view_workout/delete_workout_view.hbs'],
+    template: Handlebars.compile(
+      '<button id="delete-workout">{{ deleteButton.text }}</button>'
+      ),
 
     tagName: 'div',
 

@@ -9,15 +9,17 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
+  'handlebars',
   'lang/en_locale'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, Handlebars, enLocale) {
 
   'use strict';
 
   var AddFirstWorkoutView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/workouts_home/add_first_workout_view.hbs'],
+    template: Handlebars.compile(
+      '<h3 class="add-workout-msg">{{ addWorkoutMsg }}</h3>'
+      ),
 
     tagName: 'div',
 
