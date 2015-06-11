@@ -46,13 +46,16 @@ define({
       required: 'Invalid username.'
     },
     displayName: {
-      required: 'Invalid displayName.'
+      required: 'Invalid display name.'
     },
     avatar: {
       required: 'Invalid avatar'
     },
     userLocation: {
       required: 'Invalid location'
+    },
+    profileBanner: {
+      required: 'Invalid profile banner'
     }
   },
   workoutModel: {

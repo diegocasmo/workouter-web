@@ -45,7 +45,7 @@ define([
     describe('Go To Workouts DOM', function() {
 
       it('has close icon', function() {
-        var closeIcon = this.goToWorkouts.$el.find('i.fa-chevron-left');
+        var closeIcon = this.goToWorkouts.$el.find('i.fa-times');
         expect(closeIcon.length).to.be.equal(1);
       });
 
@@ -57,7 +57,7 @@ define([
         var spy = sinon.spy(this.goToWorkouts, 'goToWorkouts');
         this.goToWorkouts.delegateEvents();
         // simulate user event
-        this.goToWorkouts.$el.find('i.fa-chevron-left').trigger('click');
+        this.goToWorkouts.$el.find('i.fa-times').trigger('click');
         expect(spy.called).to.be.true;
       }));
 

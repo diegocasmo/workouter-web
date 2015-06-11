@@ -2,17 +2,29 @@
   background: $lighter_gray;
   min-width: $app_min_width;
   max-width: $app_max_width;
+  position: relative;
 
   #flash-message {
     max-width: $app_max_width - 20px;
   }
 
-  .profile-user-view {
-    @include _vertical-align;
+  #go-to-workouts-view {
+    .fa.fa-times {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+  }
+
+  .user-profile-avatar {
+    margin-top: -35px;
+  }
+
+  .logout-button {
+    margin: 20px 0px;
   }
 
   .profile-logout-view {
-    @include _vertical-align;
     text-align: center;
   }
 }

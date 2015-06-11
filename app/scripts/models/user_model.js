@@ -24,7 +24,8 @@ define([
       username: '',
       displayName: '',
       avatar: 'http://placehold.it/100x100',
-      userLocation: ''
+      userLocation: '',
+      profileBanner: 'http://placehold.it/620x310'
     },
 
     validate: function (attrs) {
@@ -60,6 +61,10 @@ define([
         errors.push({ name: 'userLocation', message: enLocale.userModel.userLocation.required });
       }
 
+      if (!attrs.profileBanner || typeof attrs.profileBanner !== 'string') {
+        errors.push({ name: 'profileBanner', message: enLocale.userModel.profileBanner.required });
+      }
+
       return errors.length > 0 ? errors : false;
     },
 
@@ -93,14 +98,10 @@ define([
         username: attrs.twitter.username,
         displayName: attrs.twitter.displayName,
         avatar: avatar,
-        userLocation: attrs.twitter.cachedUserProfile.location
+        userLocation: attrs.twitter.cachedUserProfile.location,
+        profileBanner: attrs.twitter.cachedUserProfile.profile_banner_url
       });
-
-      if(this.isValid()) {
-        return true;
-      }
-
-      return false;
+      return (this.isValid()) ? true : false;
     }
 
   }, {

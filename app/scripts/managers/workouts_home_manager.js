@@ -29,12 +29,12 @@ define([
     el: $('#app-wrapper'),
 
     /**
-     * override destroyChildViews from base_manager
+     * override 'remove' from 'Backbone'
      * in order to unbind window scroll event
      */
-    destroyChildViews: function() {
+    remove: function() {
       $(window).off('scroll');
-      BaseManager.prototype.destroyChildViews();
+      BaseManager.prototype.remove.call(this);
     },
 
     buildChildViews: function(options) {
@@ -90,10 +90,8 @@ define([
           that.childViews.push(workoutView);
           return workoutView.render().el;
         });
-
         return workoutItemsViews;
       }
-
       return false;
     },
 

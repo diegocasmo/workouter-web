@@ -27,16 +27,17 @@ define([
 
     buildChildViews: function(options) {},
 
+    remove: function() {
+      this.destroyChildViews();
+      this.$el.html('');
+      this.undelegateEvents();
+    },
+
     destroyChildViews: function() {
       _.each(this.childViews, function(childView) {
         childView.remove();
       });
       this.childViews = [];
-    },
-
-    remove: function() {
-      this.$el.html('');
-      this.undelegateEvents();
     }
 
   });

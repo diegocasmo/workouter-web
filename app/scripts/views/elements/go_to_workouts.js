@@ -17,7 +17,7 @@ define([
   var GoToWorkouts = Backbone.View.extend({
 
     template: _.template(
-      '<i class="fa fa-chevron-left"></i>'
+      '<i class="fa fa-times"></i>'
       ),
 
     tagName: 'div',
@@ -27,7 +27,7 @@ define([
     },
 
     events: {
-      'click i.fa-chevron-left': 'goToWorkouts'
+      'click i.fa-times': 'goToWorkouts'
     },
 
     initialize: function(options) {

@@ -1,19 +1,19 @@
-.user-container {
+.user-profile-list {
   margin: 0px;
   padding: 0px;
   list-style: none;
   text-align: center;
 }
 
-.user-avatar {
+.user-profile-avatar {
   @include border-radius(100%);
 }
 
-.user-display-name {
+.user-profile-display-name {
   margin: 5px 0px 0px;
 }
 
-.user-location {
+.user-profile-location {
   margin: 5px 0px 0px;
   color: $dark_gray;
 }

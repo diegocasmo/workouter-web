@@ -47,19 +47,24 @@ define([
 
     describe('Profile User View DOM', function() {
 
+      it('has a user "banner" element', function() {
+        var el = this.profileUserView.$el.find('.user-profile-banner');
+        expect(el.length).to.be.equal(1);
+      });
+
       it('has a user "avatar" element', function() {
-        var logoutText = this.profileUserView.$el.find('.user-avatar');
-        expect(logoutText.length).to.be.equal(1);
+        var el = this.profileUserView.$el.find('.user-profile-avatar');
+        expect(el.length).to.be.equal(1);
       });
 
       it('has a user "displayName" element', function() {
-        var logoutText = this.profileUserView.$el.find('.user-display-name');
-        expect(logoutText.length).to.be.equal(1);
+        var el = this.profileUserView.$el.find('.user-profile-display-name');
+        expect(el.length).to.be.equal(1);
       });
 
       it('has a user "userLocation" element', function() {
-        var logoutText = this.profileUserView.$el.find('.user-location');
-        expect(logoutText.length).to.be.equal(1);
+        var el = this.profileUserView.$el.find('.user-profile-location');
+        expect(el.length).to.be.equal(1);
       });
     });
 

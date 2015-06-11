@@ -13,9 +13,14 @@ define([
 
   var BaseRouter = Backbone.Router.extend({
 
+    history: [],
+
+    activeLayout: null,
+
+    $body: $('body'),
+
     initialize: function() {
       this.on('route', this.storeRoute);
-      this.history = [];
     },
 
     storeRoute: function() {
@@ -24,7 +29,10 @@ define([
 
     navigateToPreviousRoute: function() {
       if (this.history.length > 1) {
-        this.navigate(this.history[this.history.length - 2], { trigger: true });
+        this.navigate(
+          this.history[this.history.length - 2],
+          { trigger: true }
+        );
       } else {
         this.navigate('', { trigger: true });
       }

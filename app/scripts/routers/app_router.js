@@ -2,7 +2,7 @@
  * Author: Diego Castillo
  * Company: Workouter
  * Description: App router to trigger appropiate events
- *              which managers listen to
+ *              which application managers listen to.
  */
 
 define([
@@ -29,11 +29,7 @@ define([
 
   var AppRouter = BaseRouter.extend({
 
-    activeLayout: null,
-
     publicRoutes: ['', 'login', '*actions'],
-
-    $body: $('body'),
 
     routes: {
       'login'                     : 'showLogin',
@@ -46,35 +42,36 @@ define([
 
     /**
      * check wheter the current route is private or public
-     * and handle user authentication appropriately. It also
-     * manages activeLayout state
+     * and handles user authentication appropriately
      */
     before: function(route) {
       route = $.trim(route);
-
       this.addClassToBody(route);
-
-      if(this.activeLayout) {
-        this.activeLayout.destroyChildViews();
-        this.activeLayout.remove();
-        this.activeLayout = null;
-      }
-
-      var isPrivate = true;
-      if(this.publicRoutes.indexOf(route) > -1) {
-        isPrivate = false;
-      }
-
-      if(!AuthService.isUserLoggedIn() && isPrivate) {
+      this.removeActiveLayout()
+      if(!AuthService.isUserLoggedIn() && this.isRoutePrivate(route)) {
         // if user is not logged in, then redirect to login page
         this.navigate('login', { trigger: true });
         return false;
-      } else if (AuthService.isUserLoggedIn() && !isPrivate) {
+      } else if (AuthService.isUserLoggedIn() && !this.isRoutePrivate(route)) {
         // if user is already logged in, but attemps to navigate
         // a public route, redirect to workouts
         this.navigate('workouts', { trigger: true });
         return false;
       }
+    },
+
+    // removes active layout if any
+    removeActiveLayout: function() {
+      if(this.activeLayout) {
+        this.activeLayout.remove();
+        this.activeLayout = null;
+      }
+    },
+
+    // returns true if a route is private,
+    // false otherwise
+    isRoutePrivate: function(route) {
+      return (this.publicRoutes.indexOf(route) > -1) ? false : true;
     },
 
     /**
@@ -154,6 +151,8 @@ define([
       this.trigger(eventTrigger);
     },
 
+    // adds class to body in order to be able
+    // to indentify from CSS what page are we in
     addClassToBody: function(route) {
       // remove old class
       this.$body.removeClass();

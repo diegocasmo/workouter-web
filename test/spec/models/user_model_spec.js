@@ -35,6 +35,7 @@ define([
         expect(this.userModel.get('displayName')).to.be.equal('');
         expect(this.userModel.get('avatar')).to.be.equal('http://placehold.it/100x100');
         expect(this.userModel.get('userLocation')).to.be.equal('');
+        expect(this.userModel.get('profileBanner')).to.be.equal('http://placehold.it/620x310');
       });
     });
 
@@ -49,7 +50,8 @@ define([
           username: 'username',
           displayName: 'Some Name',
           avatar: 'http://placehold.it/100x100',
-          userLocation: 'Panama'
+          userLocation: 'Panama',
+          profileBanner: 'http://placehold.it/620x310'
         });
       });
 
@@ -119,6 +121,13 @@ define([
         expect(this.userModel.isValid()).to.be.equal(false);
       });
 
+      it('should have a valid profile banner', function() {
+        expect(this.userModel.isValid()).to.be.equal(true);
+
+        this.userModel.set({ 'profileBanner': '' });
+        expect(this.userModel.isValid()).to.be.equal(false);
+      });
+
     });
 
     describe('Model Functions', function() {
@@ -156,7 +165,8 @@ define([
               displayName: 'Some Name',
               cachedUserProfile: {
                 profile_image_url_https: 'https://pbs.twimg.com/profile_images/463715519036526592/3Sj3kZmo_normal.jpeg',
-                location: 'Panama'
+                location: 'Panama',
+                profile_banner_url: 'https://pbs.twimg.com/profile_banners/286533729/1369541726'
               }
             }
           };
@@ -173,7 +183,8 @@ define([
               displayName: 'Some Name',
               cachedUserProfile: {
                 profile_image_url_https: '',
-                location: ''
+                location: '',
+                profile_banner_url: ''
               }
             }
           };

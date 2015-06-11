@@ -14,7 +14,7 @@
   }
 
   #go-back-view {
-    @include grid-column(10);
+    @include grid-column(11);
     margin: 0px auto -43px auto;
     padding: 0px;
     float: none;
@@ -30,13 +30,13 @@
   }
 
   input[type="text"], input[type="number"] {
-    @include grid-column(10);
+    @include grid-column(11);
     margin: 0px auto 12px auto;
     float: none;
   }
 
   .add-workout--exercises-total {
-    @include grid-column(10);
+    @include grid-column(11);
     margin: 10px auto 15px auto;
     float: none;
     padding: 0px;

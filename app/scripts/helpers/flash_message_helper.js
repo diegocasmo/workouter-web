@@ -21,6 +21,7 @@ define([
      * display a successful message
      */
     showSuccess: function(message) {
+      this.$el.removeClass('success alert');
       this.$el.addClass('success');
       this.show(message);
     },
@@ -29,6 +30,7 @@ define([
      * display an error message
      */
     showError: function(message) {
+      this.$el.removeClass('success alert');
       this.$el.addClass('alert');
       this.show(message);
     },
@@ -42,10 +44,11 @@ define([
       clearInterval(this.timeout);
       this.$el.children('.message-text').text(message);
 
-      this.$el.removeClass('display-none').addClass('display-block');
-      this.$el.animate({
-        opacity: 1
-      }, 'fast');
+      this.$el.removeClass('display-none')
+              .addClass('display-block')
+              .animate({
+                opacity: 1
+              }, 'fast');
 
       var that = this;
       this.timeout = setTimeout(function() {
@@ -53,7 +56,6 @@ define([
           opacity: 0
         }, 'fast', function() {
           that.$el.removeClass('display-block').addClass('display-none');
-          that.$el.removeClass('success alert');
           that.$el.children('.message-text').text('');
         });
       }, this.timeInterval);

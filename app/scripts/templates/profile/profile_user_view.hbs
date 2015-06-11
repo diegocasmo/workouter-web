@@ -1,11 +1,14 @@
-<ul class="user-container">
-  <li>
-    <img class="user-avatar" src="{{ avatar }}" alt="{{ displayName }}">
+<ul class="user-profile-list">
+  <li class="user-profile-item">
+    <img class="user-profile-banner" src="{{ profileBanner }}" alt="{{ displayName }}">
   </li>
-  <li>
-    <h6 class="user-display-name">{{ displayName }}</h6>
+  <li class="user-profile-item">
+    <img class="user-profile-avatar" src="{{ avatar }}" alt="{{ displayName }}">
   </li>
-  <li>
-    <p class="user-location">{{ userLocation }}</p>
+  <li class="user-profile-item">
+    <h6 class="user-profile-display-name">{{ displayName }}</h6>
+  </li>
+  <li class="user-profile-item">
+    <p class="user-profile-location">{{ userLocation }}</p>
   </li>
 </ul>

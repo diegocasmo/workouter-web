@@ -1,6 +1,31 @@
 #go-to-workouts-view {
-  i.fa-chevron-left {
-    padding: 10px 10px 10px 0px;
+  i.fa-times {
+    @include border-radius(100%);
+    background-color: $light_gray;
+    border: 1px solid $light_gray;
+    color: $dark_black;
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 27px;
+    padding: 0px;
+    text-align: center;
+    @include _breakpoint(phablet) {
+      width: 40px;
+      height: 40px;
+      line-height: 37px;
+    }
+  }
+}
+
+// hover effects
+.no-touch {
+  #go-to-workouts-view {
+    i.fa-times:hover {
+      @include transition(all .3s);
+      background-color: $dark_gray;
+      border: 1px solid $dark_gray;
+      color: $light_gray;
+    }
   }
 }
