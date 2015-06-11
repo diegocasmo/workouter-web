@@ -6,7 +6,6 @@
 
 /*global define*/
 define([
-  'firebase'
 ], function() {
 
   'use strict';

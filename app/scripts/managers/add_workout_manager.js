@@ -40,12 +40,12 @@ define([
     exercisesCollection: new ExercisesCollection(),
 
     /**
-     * override destroyChildViews from base_manager
+     * override 'remove' from base_manager
      * in order to destroy models and collections
      */
-    destroyChildViews: function() {
+    remove: function() {
       this.exercisesCollection.removeAllExercises();
-      BaseManager.prototype.destroyChildViews();
+      BaseManager.prototype.remove.call(this);
     },
 
     buildChildViews: function(options) {

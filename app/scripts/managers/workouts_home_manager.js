@@ -29,7 +29,7 @@ define([
     el: $('#app-wrapper'),
 
     /**
-     * override 'remove' from 'Backbone'
+     * override 'remove' from 'BaseManager'
      * in order to unbind window scroll event
      */
     remove: function() {

@@ -2,7 +2,7 @@
  * Author: Diego Castillo
  * Company: Workouter
  * Description: A configuiration service to save application
- *            setup
+ *            setup.
  */
 
 /*global define*/
