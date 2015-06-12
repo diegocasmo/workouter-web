@@ -6,5 +6,3 @@ Workouter is a simple workout logger application I made to test a new [Backbone.
 + Run ``npm install && bower install`` to download frontend dependencies
 + Run ``grunt serve`` to serve development environment
 + Run ``grunt build`` to create production build on ``dist/`` directory
-
-A working demo can be found here: http://www.diegocasmo.me/projects/workouter
