@@ -1,7 +1,6 @@
 html, body {
   font-family: $nunito;
   font-weight: normal;
-  background: $body_background;
   color: $dark_black;
   width: 100%;
   min-width: $app_min_width;
@@ -9,6 +8,10 @@ html, body {
   min-height: 480px;
   margin: 0px auto;
   @include _font-size(1);
+  background: $lighter_gray;
+  @include _breakpoint(phablet) {
+    background: $body_background;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
