@@ -18,21 +18,32 @@ define([
 
     initialize: function(options) {
       var that = this;
+      this.options = options;
       this.router = options.router;
       this.eventTrigger = options.eventTrigger;
       this.listenTo(this.router, this.eventTrigger, function() {
+        that.prepareManager();
         that.buildChildViews(options);
       });
     },
 
+    // execute common functionality before
+    // building child views
+    prepareManager: function() {
+      window.scrollTo(0, 0);
+    },
+
     buildChildViews: function(options) {},
 
+    // overwrite remove method in order to clean
+    // html and not delete view's $el
     remove: function() {
       this.destroyChildViews();
       this.$el.html('');
       this.undelegateEvents();
     },
 
+    // destroys all child views
     destroyChildViews: function() {
       _.each(this.childViews, function(childView) {
         childView.remove();

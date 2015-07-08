@@ -23,9 +23,6 @@ define([
     el: $('#app-wrapper'),
 
     buildChildViews: function(options) {
-      // scroll to top
-      window.scrollTo(0, 0);
-
       // initialize child views
       this.goToWorkouts = new GoToWorkouts(options);
       this.profileUserView = new ProfileUserView(options);

@@ -26,11 +26,9 @@ define([
      */
     isUserLoggedIn: function() {
       var authData = this.ref.getAuth();
-      if(authData) {
-        // user is logged in, attempt to set it on model
-        if(this.userModel.setTwitterUser(authData)) {
-          return true;
-        }
+      // if user is logged in, attempt to set it on model
+      if(authData && this.userModel.setTwitterUser(authData)) {
+        return true;
       }
       // user is logged out, or there was a problem
       // trying to sign in, reset and return false
@@ -42,12 +40,15 @@ define([
      * attempt to log in a user
      */
     attemptTologUserIn: function(callback) {
-      this.ref.authWithOAuthPopup(FirebaseService.oAuthProvider, function(error, authData) {
-        callback({
-          error: error,
-          authData: authData
-        });
-      });
+      this.ref.authWithOAuthPopup(
+        FirebaseService.oAuthProvider,
+        function(error, authData) {
+          callback({
+            error: error,
+            authData: authData
+          });
+        }
+      );
     },
 
     /**

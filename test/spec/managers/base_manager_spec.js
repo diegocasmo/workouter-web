@@ -54,6 +54,20 @@ define([
         });
       });
 
+      describe('prepareManager Method', function() {
+        it('must have a prepareManager method', function() {
+          expect(this.baseManager.prepareManager).to.be.ok;
+        });
+
+        it('must scroll window to top', sinon.test(function() {
+          var spy = sinon.spy(window, 'scrollTo');
+          this.baseManager.prepareManager();
+          expect(spy.called).to.be.true;
+          expect(spy.calledWith(0,0)).to.be.true;
+        }));
+
+      });
+
       describe('destroyChildViews Method', function() {
         it('must have a destroyChildViews method', function() {
           expect(this.baseManager.destroyChildViews).to.be.ok;

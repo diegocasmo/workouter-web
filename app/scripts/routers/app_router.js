@@ -161,16 +161,16 @@ define([
       var defaultClass = 'login-page';
       switch(route) {
         case 'workouts':
-          defaultClass = 'workouts-page'
+          defaultClass = 'workouts-page';
           break;
         case 'workout/add':
-          defaultClass = 'workout-add-page'
+          defaultClass = 'workout-add-page';
           break;
         case 'workout/:id/exercises':
-          defaultClass = 'workout-page'
+          defaultClass = 'workout-page';
           break;
         case 'me':
-          defaultClass = 'profile-page'
+          defaultClass = 'profile-page';
           break;
       }
       this.$body.addClass(defaultClass);
@@ -179,4 +179,5 @@ define([
   });
 
   return AppRouter;
+
 });

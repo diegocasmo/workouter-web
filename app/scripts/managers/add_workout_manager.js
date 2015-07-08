@@ -49,12 +49,6 @@ define([
     },
 
     buildChildViews: function(options) {
-      // scroll to top
-      window.scrollTo(0, 0);
-
-      // initial setup
-      this.router = options.router;
-
       // add models and collections to option to make
       // sure child views have access to them
       options.workoutModel = this.workoutModel;
