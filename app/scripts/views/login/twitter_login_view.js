@@ -43,13 +43,11 @@ define([
       this.listenTo(this, 'login:error', this.redirectToLogin);
       this.listenTo(this, 'login:success', function(userData) {
         if (that.userModel.setTwitterUser(userData)) {
-          var message = enLocale.flashMessage.loginSuccess;
-          FlashMessage.showSuccess(message);
+          FlashMessage.showSuccess(enLocale.flashMessage.loginSuccess);
           // if successful redirect to workouts
           that.redirectToWorkouts();
         } else {
-          var message = enLocale.flashMessage.loginError;
-          FlashMessage.showError(message);
+          FlashMessage.showError(enLocale.flashMessage.loginError);
           // if error, then trigger "login:error"
           that.trigger('login:error');
         }
@@ -66,8 +64,7 @@ define([
       var that = this;
       AuthService.attemptTologUserIn(function(data) {
         if (data.error) {
-          var message = enLocale.flashMessage.loginError;
-          FlashMessage.showError(message);
+          FlashMessage.showError(enLocale.flashMessage.loginError);
           that.trigger('login:error');
         } else {
           that.trigger('login:success', data.authData);
@@ -76,15 +73,11 @@ define([
     },
 
     redirectToLogin: function() {
-      this.router.navigate('login', {
-        trigger: true
-      });
+      this.router.navigate('login', { trigger: true });
     },
 
     redirectToWorkouts: function() {
-      this.router.navigate('workouts', {
-        trigger: true
-      });
+      this.router.navigate('workouts', { trigger: true });
     }
 
   });

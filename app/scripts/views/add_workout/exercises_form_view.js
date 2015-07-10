@@ -46,10 +46,9 @@ define([
 
     validateExerciseInput: function(event) {
       event.preventDefault();
-      var $element = $(event.currentTarget);
-      var attr = $element.attr('name'),
+      var $element = $(event.currentTarget),
+          attr = $element.attr('name'),
           attrValue = $element.val();
-
       if(this.exerciseModel.validateAttr(attr, attrValue)) {
         $element.addClass('input-valid');
       } else {
@@ -81,14 +80,14 @@ define([
         this.trigger('exercise:add');
         this.resetsInputs();
       } else {
-        var message = enLocale.flashMessage.exerciseError;
-        FlashMessage.showError(message);
+        FlashMessage.showError(enLocale.flashMessage.exerciseError);
       }
     },
 
     updateExercisesCount: function() {
-      var collectionLength = this.exercisesCollection.getLength();
-      this.$el.find('#exercises-total').text(collectionLength);
+      this.$el.find('#exercises-total').text(
+        this.exercisesCollection.getLength()
+      );
     }
 
   });

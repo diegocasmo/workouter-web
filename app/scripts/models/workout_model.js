@@ -95,11 +95,7 @@ define([
     createWorkout: function(exercises) {
       this.set('date', Date.now());
       this.set('exercises', exercises);
-      if(this.isValid()) {
-        return this;
-      }
-
-      return false;
+      return this.isValid() ? this : false;
     }
 
   });

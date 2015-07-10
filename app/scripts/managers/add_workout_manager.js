@@ -95,23 +95,22 @@ define([
 
     addExerciseToCollection: function() {
       this.exercisesCollection.addExercise(this.exerciseModel.toJSON());
-      var message = this.exerciseModel.getExerciseTitle() + enLocale.flashMessage.exerciseAdded;
+      var message = this.exerciseModel.getExerciseTitle() +
+        enLocale.flashMessage.exerciseAdded;
       FlashMessage.showSuccess(message);
       this.exerciseModel.resetExercise();
     },
 
     addWorkoutToCollection: function() {
-      // initialize collection
-      var workoutsCollection = new WorkoutsCollection();
-
-      // create workout
-      var exercisesCollection = this.exercisesCollection.toJSON(),
+      // initialize collection and create workout
+      var workoutsCollection = new WorkoutsCollection(),
+          exercisesCollection = this.exercisesCollection.toJSON(),
           workout = this.workoutModel.createWorkout(exercisesCollection);
-
       // add workout to collection if valid
       if(workout) {
         workoutsCollection.addWorkout(workout);
-        var message = workout.getWorkoutTitle() + enLocale.flashMessage.workoutAdded;
+        var message = workout.getWorkoutTitle() +
+          enLocale.flashMessage.workoutAdded;
         FlashMessage.showSuccess(message);
         this.router.navigate('workouts', { trigger: true });
       } else {

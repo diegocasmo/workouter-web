@@ -27,11 +27,9 @@ define([
      * for this specific user
      */
     url: function() {
-      var userModel = UserModel.getInstance();
-
-      var url = FirebaseService.url + 'workouts/' +
+      var userModel = UserModel.getInstance(),
+          url = FirebaseService.url + 'workouts/' +
                 userModel.getUniqueIdentifier();
-
       return new Firebase(url);
     },
 
@@ -63,19 +61,29 @@ define([
      * returns workout if found, false otherwise
      */
     getWorkout: function(workoutId) {
-      var workout = this.get(workoutId);
-      if(workout) {
-        return workout;
-      }
-      return false;
+      return this.get(workoutId) ? this.get(workoutId) : false;
     },
 
     /**
      * removes a workout from collection
      */
     removeWorkout: function(workoutId) {
-      var workout = this.findWhere({ id: workoutId });
-      this.remove(workout);
+      this.remove(this.findWhere({ id: workoutId }));
+    },
+
+    /**
+     * orders workouts in reverse order
+     */
+    reverseWorkouts: function() {
+      this.models = this.models.reverse();
+    },
+
+    /**
+     * returns true if collection has workouts,
+     * false otherwise
+     */
+    hasWorkouts: function() {
+      return this.length > 0;
     }
 
   });

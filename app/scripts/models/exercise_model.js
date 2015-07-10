@@ -89,11 +89,7 @@ define([
      * returns true if model is valid, false otherwise
      */
     isExerciseValid: function() {
-      // make sure id is incremented by one before saving
-      if(this.isValid()) {
-        return true;
-      }
-      return false;
+      return this.isValid();
     },
 
     /**

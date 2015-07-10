@@ -70,22 +70,16 @@ define([
      */
     getAllWorkouts: function() {
       var that = this;
-      if(this.workoutsCollection.models.length > 0) {
-        // make sure to use reverse in order to show
-        // the latest workout first on the list
-        this.workoutsCollection.models = this.workoutsCollection.models.reverse();
-
+      if(this.workoutsCollection.hasWorkouts()) {
+        this.workoutsCollection.reverseWorkouts();
         // assign collection to PaginatedCollection
-        that.paginatedWorkouts = new PaginatedCollection(
-          this.workoutsCollection, { perPage: ConfigService.pagination.perPage });
-
-        var workoutItemsViews = that.paginatedWorkouts.map(function(workout) {
-          var workoutView = new WorkoutItemView({workoutModel: workout});
-          // save as child view to be able to delete it
-          that.childViews.push(workoutView);
-          return workoutView.render().el;
+        this.paginatedWorkouts = new PaginatedCollection(
+          this.workoutsCollection,
+          { perPage: ConfigService.pagination.perPage }
+        );
+        return this.paginatedWorkouts.map(function(workout) {
+          return that.renderWorkoutItemView(workout);
         });
-        return workoutItemsViews;
       }
       return false;
     },
@@ -135,19 +129,24 @@ define([
         if(this.paginatedWorkouts.hasNextPage()) {
           // get next page
           this.paginatedWorkouts.nextPage();
-
           var that = this;
           var workoutItemsViews = this.paginatedWorkouts.map(function(workout) {
-            var workoutView = new WorkoutItemView({ workoutModel: workout });
-            // save as child view to be able to delete it
-            that.childViews.push(workoutView);
-            return workoutView.render().el;
+            return that.renderWorkoutItemView(workout);
           });
-
           // append before menu to view
           this.$el.find('#bottom-menu-view').before(workoutItemsViews);
         }
       }
+    },
+
+    /**
+     * renders workout item view with specific workout
+     */
+    renderWorkoutItemView: function(workout) {
+      var workoutView = new WorkoutItemView({ workoutModel: workout });
+      // save as child view to be able to delete it
+      this.childViews.push(workoutView);
+      return workoutView.render().el;
     }
 
   });

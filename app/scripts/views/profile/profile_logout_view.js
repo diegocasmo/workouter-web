@@ -48,11 +48,8 @@ define([
     logUserOut: function(event) {
       event.preventDefault();
       AuthService.logUserOut();
-      var message = enLocale.flashMessage.logoutSuccess;
-      FlashMessage.showSuccess(message);
-      this.router.navigate('login', {
-        trigger: true
-      });
+      FlashMessage.showSuccess(enLocale.flashMessage.logoutSuccess);
+      this.router.navigate('login', { trigger: true });
     }
 
   });
