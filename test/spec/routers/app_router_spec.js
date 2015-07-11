@@ -64,14 +64,14 @@ define([
 
     describe('Layout Management', function() {
       it('should be initially null', function() {
-        expect(this.appRouter.activeLayout).to.be.equal(null);
+        expect(this.appRouter.activeManager).to.be.equal(null);
       });
 
       it('should initialize Managers on route callback', sinon.test(function() {
-        expect(this.appRouter.activeLayout).to.be.equal(null);
+        expect(this.appRouter.activeManager).to.be.equal(null);
         // simulate login route callback
         this.appRouter.showLogin();
-        expect(this.appRouter.activeLayout).to.be.instanceOf(BaseManager);
+        expect(this.appRouter.activeManager).to.be.instanceOf(BaseManager);
       }));
     });
 
@@ -88,17 +88,17 @@ define([
       });
 
       describe('Before Method', function() {
-        it('should set activeLayout to null', function() {
-          this.appRouter.activeLayout = this.baseManager;
+        it('should set activeManager to null', function() {
+          this.appRouter.activeManager = this.baseManager;
           this.appRouter.before('dummy');
-          expect(this.appRouter.activeLayout).to.be.equal(null);
+          expect(this.appRouter.activeManager).to.be.equal(null);
         });
 
-        it('should call activeLayout destroyChildViews and remove', function() {
+        it('should call activeManager destroyChildViews and remove', function() {
           var spyDestroy = sinon.spy(this.baseManager, 'destroyChildViews'),
             spyRemove = sinon.spy(this.baseManager, 'remove');
 
-          this.appRouter.activeLayout = this.baseManager;
+          this.appRouter.activeManager = this.baseManager;
           this.appRouter.before('dummy');
           expect(spyDestroy.called).to.be.true;
           expect(spyRemove.called).to.be.true;
