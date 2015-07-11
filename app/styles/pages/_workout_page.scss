@@ -21,7 +21,7 @@
 
   .workout-exercises {
     @include grid-column(11);
-    margin: 10px auto 15px auto;
+    margin: 0px auto;
     float: none;
     padding: 0px;
     background: $lighter_gray;
