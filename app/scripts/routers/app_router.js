@@ -47,7 +47,7 @@ define([
     before: function(route) {
       route = $.trim(route);
       this.addClassToBody(route);
-      this.removeActiveLayout()
+      this.removeActiveManager()
       if(!AuthService.isUserLoggedIn() && this.isRoutePrivate(route)) {
         // if user is not logged in, then redirect to login page
         this.navigate('login', { trigger: true });
@@ -60,16 +60,10 @@ define([
       }
     },
 
-    // removes active layout if any
-    removeActiveLayout: function() {
-      if(this.activeLayout) {
-        this.activeLayout.remove();
-        this.activeLayout = null;
-      }
-    },
-
-    // returns true if a route is private,
-    // false otherwise
+    /**
+     * returns true if a route is private,
+     * false otherwise
+     */
     isRoutePrivate: function(route) {
       return (this.publicRoutes.indexOf(route) > -1) ? false : true;
     },
@@ -85,7 +79,7 @@ define([
           eventTrigger: eventTrigger
         });
       }
-      this.activeLayout = loginManager;
+      this.activeManager = loginManager;
       this.trigger(eventTrigger);
     },
 
@@ -100,7 +94,7 @@ define([
           eventTrigger: eventTrigger
         });
       }
-      this.activeLayout = workoutsHomeManager;
+      this.activeManager = workoutsHomeManager;
       this.trigger(eventTrigger);
     },
 
@@ -115,7 +109,7 @@ define([
           eventTrigger: eventTrigger
         });
       }
-      this.activeLayout = addWorkoutManager;
+      this.activeManager = addWorkoutManager;
       this.trigger(eventTrigger);
     },
 
@@ -132,7 +126,7 @@ define([
       }
       // make sure id is always updated
       viewWorkoutManager.workoutId = workoutId;
-      this.activeLayout = viewWorkoutManager;
+      this.activeManager = viewWorkoutManager;
       this.trigger(eventTrigger);
     },
 
@@ -147,16 +141,17 @@ define([
           eventTrigger: eventTrigger
         });
       }
-      this.activeLayout = profileManager;
+      this.activeManager = profileManager;
       this.trigger(eventTrigger);
     },
 
-    // adds class to body in order to be able
-    // to indentify from CSS what page are we in
+    /**
+     * adds class to body in order to be able
+     * to indentify from CSS what page are we in
+     */
     addClassToBody: function(route) {
       // remove old class
       this.$body.removeClass();
-
       // choose new class
       var defaultClass = 'login-page';
       switch(route) {

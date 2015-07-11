@@ -37,7 +37,7 @@ define([
     },
 
     /**
-     * attempt to log in a user
+     * attempt to log user in
      */
     attemptTologUserIn: function(callback) {
       this.ref.authWithOAuthPopup(
@@ -52,7 +52,7 @@ define([
     },
 
     /**
-     * log out a user
+     * log user out
      */
     logUserOut: function() {
       this.ref.unauth();

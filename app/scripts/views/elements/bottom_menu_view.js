@@ -9,15 +9,25 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'templates',
   'lang/en_locale'
-], function($, _, Backbone, JST, enLocale) {
+], function($, _, Backbone, enLocale) {
 
   'use strict';
 
   var BottomMenuView = Backbone.View.extend({
 
-    template: JST['app/scripts/templates/elements/bottom_menu_view.hbs'],
+    template: _.template(
+      '<ul class="bottom-menu-items">' +
+        '<li class="bottom-menu-item">' +
+          '<i class="bottom-menu-icon fa fa-plus"></i>' +
+        '</li>' +
+        '<li class="bottom-menu-logo">' +
+        '</li>' +
+        '<li class="bottom-menu-item">' +
+          '<i class="bottom-menu-icon fa fa-user"></i>' +
+        '</li>' +
+      '</ul>'
+    ),
 
     tagName: 'div',
 

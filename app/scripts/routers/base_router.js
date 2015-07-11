@@ -15,7 +15,7 @@ define([
 
     history: [],
 
-    activeLayout: null,
+    activeManager: null,
 
     $body: $('body'),
 
@@ -25,6 +25,16 @@ define([
 
     storeRoute: function() {
       this.history.push(Backbone.history.fragment);
+    },
+
+    /**
+     * removes active manager if any
+     */
+    removeActiveManager: function() {
+      if(this.activeManager) {
+        this.activeManager.remove();
+        this.activeManager = null;
+      }
     },
 
     navigateToPreviousRoute: function() {
