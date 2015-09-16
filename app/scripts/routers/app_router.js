@@ -21,12 +21,6 @@ define([
 
   'use strict';
 
-  var loginManager = null,
-      workoutsHomeManager = null,
-      profileManager = null,
-      addWorkoutManager = null,
-      viewWorkoutManager = null;
-
   var AppRouter = BaseRouter.extend({
 
     publicRoutes: ['', 'login', '*actions'],
@@ -46,7 +40,6 @@ define([
      */
     before: function(route) {
       route = $.trim(route);
-      this.addClassToBody(route);
       this.removeActiveManager()
       if(!AuthService.isUserLoggedIn() && this.isRoutePrivate(route)) {
         // if user is not logged in, then redirect to login page
@@ -72,13 +65,12 @@ define([
      * show login page (public)
      */
     showLogin: function() {
-      var eventTrigger = 'goTo:login';
-      if(!loginManager) {
-        loginManager = new LoginManager({
-          router: this,
-          eventTrigger: eventTrigger
-        });
-      }
+      var eventTrigger = 'login:show',
+      loginManager = new LoginManager({
+        router: this,
+        eventTrigger: eventTrigger,
+        managerClass: 'login-page'
+      });
       this.activeManager = loginManager;
       this.trigger(eventTrigger);
     },
@@ -87,13 +79,12 @@ define([
      * show user all workouts view (private)
      */
     showWorkouts: function() {
-      var eventTrigger = 'goTo:workouts';
-      if(!workoutsHomeManager) {
-        workoutsHomeManager = new WorkoutsHomeManager({
-          router: this,
-          eventTrigger: eventTrigger
-        });
-      }
+      var eventTrigger = 'workouts:show',
+      workoutsHomeManager = new WorkoutsHomeManager({
+        router: this,
+        eventTrigger: eventTrigger,
+        managerClass: 'workouts-page'
+      });
       this.activeManager = workoutsHomeManager;
       this.trigger(eventTrigger);
     },
@@ -102,13 +93,12 @@ define([
      * show add workout form (private)
      */
     addWorkout: function() {
-      var eventTrigger = 'goTo:addWorkout';
-      if(!addWorkoutManager) {
-        addWorkoutManager = new AddWorkoutManager({
-          router: this,
-          eventTrigger: eventTrigger
-        });
-      }
+      var eventTrigger = 'workout:add:show',
+      addWorkoutManager = new AddWorkoutManager({
+        router: this,
+        eventTrigger: eventTrigger,
+        managerClass: 'workout-add-page'
+      });
       this.activeManager = addWorkoutManager;
       this.trigger(eventTrigger);
     },
@@ -117,13 +107,12 @@ define([
      * show user exercises perform on a single workout (private)
      */
     showWorkoutExercises: function(workoutId) {
-      var eventTrigger = 'goTo:exercises';
-      if(!viewWorkoutManager) {
-        viewWorkoutManager = new ViewWorkoutManager({
-          router: this,
-          eventTrigger: eventTrigger
-        });
-      }
+      var eventTrigger = 'exercises:show',
+      viewWorkoutManager = new ViewWorkoutManager({
+        router: this,
+        eventTrigger: eventTrigger,
+        managerClass: 'workout-page'
+      });
       // make sure id is always updated
       viewWorkoutManager.workoutId = workoutId;
       this.activeManager = viewWorkoutManager;
@@ -134,41 +123,14 @@ define([
      * show user profile (private)
      */
     showProfile: function() {
-      var eventTrigger = 'goTo:profile';
-      if(!profileManager) {
-        profileManager = new ProfileManager({
-          router: this,
-          eventTrigger: eventTrigger
-        });
-      }
+      var eventTrigger = 'profile:show',
+      profileManager = new ProfileManager({
+        router: this,
+        eventTrigger: eventTrigger,
+        managerClass: 'profile-page'
+      });
       this.activeManager = profileManager;
       this.trigger(eventTrigger);
-    },
-
-    /**
-     * adds class to body in order to be able
-     * to indentify from CSS what page are we in
-     */
-    addClassToBody: function(route) {
-      // remove old class
-      this.$body.removeClass();
-      // choose new class
-      var defaultClass = 'login-page';
-      switch(route) {
-        case 'workouts':
-          defaultClass = 'workouts-page';
-          break;
-        case 'workout/add':
-          defaultClass = 'workout-add-page';
-          break;
-        case 'workout/:id/exercises':
-          defaultClass = 'workout-page';
-          break;
-        case 'me':
-          defaultClass = 'profile-page';
-          break;
-      }
-      this.$body.addClass(defaultClass);
     }
 
   });

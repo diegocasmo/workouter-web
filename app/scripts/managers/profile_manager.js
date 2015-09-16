@@ -20,8 +20,6 @@ define([
 
   var ProfileManager = BaseManager.extend({
 
-    el: $('#app-wrapper'),
-
     buildChildViews: function(options) {
       // initialize child views
       this.goToWorkouts = new GoToWorkouts(options);

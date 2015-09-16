@@ -29,8 +29,6 @@ define([
 
   var AddWorkoutManager = BaseManager.extend({
 
-    el: $('#app-wrapper'),
-
     userModel: UserModel.getInstance(),
 
     workoutModel: new WorkoutModel(),

@@ -24,8 +24,6 @@ define([
 
   var ViewWorkoutManager = BaseManager.extend({
 
-    el: $('#app-wrapper'),
-
     buildChildViews: function(options) {
       // workoutId has already been update for this
       // view on app_router

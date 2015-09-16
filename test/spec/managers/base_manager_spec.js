@@ -15,15 +15,18 @@ define([
 
     beforeEach(function() {
       this.router = new Backbone.Router();
-      this.baseManager = new BaseManager({
+      this.options = {
         router: this.router,
-        eventTrigger: 'foo'
-      });
+        eventTrigger: 'foo',
+        managerClass: 'test'
+      }
+      this.baseManager = new BaseManager(this.options);
     });
 
     afterEach(function() {
       this.baseManager = null;
       this.router = null;
+      this.options = null;
     });
 
     describe('Manager Initialization', function() {
@@ -61,7 +64,7 @@ define([
 
         it('must scroll window to top', sinon.test(function() {
           var spy = sinon.spy(window, 'scrollTo');
-          this.baseManager.prepareManager();
+          this.baseManager.prepareManager(this.options);
           expect(spy.called).to.be.true;
           expect(spy.calledWith(0,0)).to.be.true;
         }));

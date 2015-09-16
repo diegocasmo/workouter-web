@@ -54,7 +54,7 @@ define([
         var spy = sinon.spy();
 
         this.appRouter.on({
-          'goTo:login': spy
+          'login:show': spy
         });
 
         this.appRouter.showLogin();

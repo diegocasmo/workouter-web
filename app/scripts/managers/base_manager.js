@@ -14,6 +14,10 @@ define([
 
   var BaseManager = Backbone.View.extend({
 
+    $body: $('body'),
+
+    el: $('#app-wrapper'),
+
     childViews: [],
 
     initialize: function(options) {
@@ -22,15 +26,16 @@ define([
       this.router = options.router;
       this.eventTrigger = options.eventTrigger;
       this.listenTo(this.router, this.eventTrigger, function() {
-        that.prepareManager();
+        that.prepareManager(options);
         that.buildChildViews(options);
       });
     },
 
     // execute common functionality before
     // building child views
-    prepareManager: function() {
+    prepareManager: function(options) {
       window.scrollTo(0, 0);
+      this.$body.addClass(options.managerClass);
     },
 
     buildChildViews: function(options) {},
@@ -39,8 +44,10 @@ define([
     // html and not delete view's $el
     remove: function() {
       this.destroyChildViews();
+      this.$body.removeClass();
       this.$el.html('');
-      this.undelegateEvents();
+      this.stopListening();
+      return this;
     },
 
     // destroys all child views

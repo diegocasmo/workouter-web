@@ -18,8 +18,6 @@ define([
 
   var LoginManager = BaseManager.extend({
 
-    el: $('#app-wrapper'),
-
     buildChildViews: function(options) {
       // initialize child views
       this.loginAppLogoView = new LoginAppLogoView(options);

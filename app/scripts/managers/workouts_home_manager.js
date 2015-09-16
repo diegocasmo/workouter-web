@@ -26,8 +26,6 @@ define([
 
   var WorkoutsHomeManager = BaseManager.extend({
 
-    el: $('#app-wrapper'),
-
     /**
      * override 'remove' from 'BaseManager'
      * in order to unbind window scroll event

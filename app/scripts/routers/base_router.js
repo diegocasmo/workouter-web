@@ -17,8 +17,6 @@ define([
 
     activeManager: null,
 
-    $body: $('body'),
-
     initialize: function() {
       this.on('route', this.storeRoute);
     },
