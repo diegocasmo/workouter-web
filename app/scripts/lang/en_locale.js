@@ -95,8 +95,7 @@ define({
       number: 'Sets needs to be a number.'
     },
     weight: {
-      required: 'Please, enter a weight.',
-      number: 'Weight needs to be a number.'
+      required: 'Please, enter a weight/time/other.'
     }
   },
   goBackView: {
@@ -147,7 +146,7 @@ define({
         placeholder: 'Sets'
       },
       exerciseWeight: {
-        placeholder: 'Weight (lb)'
+        placeholder: 'Weight/Time/Other'
       },
       addExerciseButton: {
         text: 'Add Exercise'

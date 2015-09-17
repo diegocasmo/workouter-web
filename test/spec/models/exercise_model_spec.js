@@ -76,7 +76,7 @@ define([
 
       it('should have valid weight', function() {
         this.exerciseModel.set({ 'weight': 'string' });
-        expect(this.exerciseModel.isValid()).to.be.equal(false);
+        expect(this.exerciseModel.isValid()).to.be.equal(true);
 
         this.exerciseModel.set({ 'weight': 120 });
         expect(this.exerciseModel.isValid()).to.be.equal(true);

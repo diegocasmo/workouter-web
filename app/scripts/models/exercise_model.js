@@ -49,9 +49,7 @@ define([
       }
 
       if(_.has(attrs, 'weight')) {
-        if (typeof attrs.weight !== 'number' || isNaN(attrs.weight)) {
-          errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.number });
-        } else if (attrs.weight < 0) {
+        if (!attrs.weight || !attrs.weight.toString().length > 0) {
           errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.required });
         }
       }
@@ -66,7 +64,7 @@ define([
       attrValue = $.trim(attrValue);
 
       // convert to num if necessary
-      var convertToNum = ['reps', 'sets', 'weight'];
+      var convertToNum = ['reps', 'sets'];
       if(convertToNum.indexOf(attr) > -1) {
         attrValue = parseInt(attrValue);
       }
