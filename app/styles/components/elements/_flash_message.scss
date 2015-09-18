@@ -9,8 +9,14 @@
   top: 10px;
   right: 10px;
   left: 10px;
+  cursor: pointer;
+}
 
-  .message-text {
-    text-transform: capitalize;
-  }
+.flash-message-text {
+  text-transform: capitalize;
+}
+
+.flash-message-close {
+  line-height: 19px;
+  float: right;
 }

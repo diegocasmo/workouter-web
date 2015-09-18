@@ -20,10 +20,6 @@ define([
 
   var WorkoutsHomeManager = BaseManager.extend({
 
-    $document: $(document),
-
-    $window: $(window),
-
     // Override 'remove' from 'BaseManager'
     // in order to unbind window scroll event
     remove: function() {
@@ -45,12 +41,12 @@ define([
 
     // Binds window scroll event to 'loadMoreWorkouts'
     bindScrollEvent: function() {
-      this.$window.on('scroll', _.bind(this.loadMoreWorkouts, this));
+      $(window).on('scroll', _.bind(this.loadMoreWorkouts, this));
     },
 
     // Unbind window scroll event
     unbindScrollEvent: function() {
-      this.$window.off('scroll');
+      $(window).off('scroll');
     },
 
     // Binds collection events to this view
@@ -106,9 +102,8 @@ define([
 
     // Load more workouts on user scroll
     loadMoreWorkouts: function() {
-      console.log('loadMoreWorkouts');
-      var pageBottom = this.$document.height() - this.$window.height();
-      if (this.$window.scrollTop() >= pageBottom) {
+      var pageBottom = $(document).height() - $(window).height();
+      if ($(window).scrollTop() >= pageBottom) {
         this.renderWorkoutList(this.paginatedWorkouts.getNextPage());
       }
     },

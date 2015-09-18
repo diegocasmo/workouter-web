@@ -1,13 +1,10 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A helper object to show flash messages.
- */
+// A helper object to show flash messages.
 
 /*global define*/
 define([
-  'jquery'
-], function($) {
+  'jquery',
+  'underscore'
+], function($, _) {
 
   'use strict';
 
@@ -17,32 +14,27 @@ define([
 
     timeInterval: 2500,
 
-    /**
-     * display a successful message
-     */
+    // Display a successful message
     showSuccess: function(message) {
       this.$el.removeClass('success alert');
       this.$el.addClass('success');
       this.show(message);
     },
 
-    /**
-     * display an error message
-     */
+    // Display an error message
     showError: function(message) {
       this.$el.removeClass('success alert');
       this.$el.addClass('alert');
       this.show(message);
     },
 
-    /**
-     * display message passed to it on DOM
-     * as flash message
-     */
+    // Display message passed to it on DOM
+    // as flash message
     show: function(message) {
+      this.$el.on('click', _.bind(this.hide, this));
       this.$el.stop();
-      clearInterval(this.timeout);
-      this.$el.children('.message-text').text(message);
+      clearTimeout(this.timeoutId);
+      this.$el.children('.flash-message-text').text(message);
 
       this.$el.removeClass('display-none')
               .addClass('display-block')
@@ -51,14 +43,22 @@ define([
               }, 'fast');
 
       var that = this;
-      this.timeout = setTimeout(function() {
+      this.timeoutId = setTimeout(function() {
         that.$el.animate({
           opacity: 0
         }, 'fast', function() {
-          that.$el.removeClass('display-block').addClass('display-none');
-          that.$el.children('.message-text').text('');
+          that.hide();
         });
       }, this.timeInterval);
+    },
+
+    // Hides flash message
+    hide: function() {
+      clearTimeout(this.timeoutId);
+      this.$el.off('click');
+      this.$el.removeClass('display-block').addClass('display-none');
+      this.$el.css('opacity', 0);
+      this.$el.children('.flash-message-text').text('');
     }
 
   };
