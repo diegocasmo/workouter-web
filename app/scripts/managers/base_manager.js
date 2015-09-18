@@ -28,7 +28,7 @@ define([
       });
     },
 
-    // execute common functionality before
+    // Execute common functionality before
     // building child views
     prepareManager: function(options) {
       window.scrollTo(0, 0);
@@ -38,8 +38,8 @@ define([
     // Initializes manager logic
     initializeManager: function(options) {},
 
-    // overwrite remove method in order to clean
-    // html and not delete view's $el
+    // Overwrite remove method in order to clean
+    // HTML and not remove view's $el
     remove: function() {
       this.destroyChildViews();
       this.$body.removeClass();
@@ -48,7 +48,7 @@ define([
       return this;
     },
 
-    // destroys all child views
+    // Destroys all child views
     destroyChildViews: function() {
       _.each(this.childViews, function(childView) {
         childView.remove();

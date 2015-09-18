@@ -166,6 +166,7 @@ define({
 
   },
   workoutsHome: {
+    loadingWorkouts: 'Loading workouts...',
     workoutItemView: {
 
     },

@@ -3,34 +3,28 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "../bower_components/foundation/scss/foundation";
 @import "compass/css3";
 
-/**
- * variables
- */
+// Variables
 @import "variables/variables";
 @import "variables/breakpoint";
 @import "variables/typography";
 @import "variables/colors";
 
-/**
- * abstractions
- */
+// Abstractions
 @import "abstractions/mixins";
 
-/**
- * base
- */
+// Base
 @import "base/base";
 @import "base/forms";
 
-/**
- * components
- */
+// Components
 @import "components/login/twitter_button_view";
 @import "components/elements/app_logo";
+@import "components/elements/ajax_loader";
 @import "components/elements/flash_message";
 @import "components/elements/bottom_menu_view";
 @import "components/elements/go_back_view";
 @import "components/elements/go_to_workouts_view";
+@import "components/workouts_home/workout_list";
 @import "components/workouts_home/workout_item_view";
 @import "components/workouts_home/_add_first_workout_view";
 @import "components/profile/profile_logout_view";
@@ -41,9 +35,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "components/add_workout/exercises_form_view";
 @import "components/add_workout/add_workout_form_view";
 
-/**
- * pages
- */
+// Pages
 @import "pages/login_page";
 @import "pages/workouts_page";
 @import "pages/profile_page";

@@ -9,14 +9,25 @@ define([
   'views/workouts_home/workout_item_view',
   'views/workouts_home/add_first_workout_view',
   'services/list_paginator',
-  'services/auth_service'
+  'services/auth_service',
+  'lang/en_locale'
 ], function($, _, Backbone, BaseManager, BottomMenuView,
             WorkoutItemView, AddFirstWorkoutView, ListPaginator,
-            AuthService) {
+            AuthService, enLocale) {
 
   'use strict';
 
   var WorkoutsHomeManager = BaseManager.extend({
+
+    template: _.template(
+      '<ul class="workout-list"></ul>' +
+      '<div class="ajax-loader--wrapper display-block">' +
+        '<img class="ajax-loader--img"' +
+          'src="images/ajax_loader.gif"/>' +
+        '<p class="ajax-loader--text"><%= loadingWorkouts %></p>' +
+      '</div>' +
+      '<div class="bottom-menu"></div>'
+    ),
 
     // Override 'remove' from 'BaseManager'
     // in order to unbind window scroll event
@@ -34,6 +45,7 @@ define([
     },
 
     render: function() {
+      this.$el.html(this.template(enLocale.workoutsHome));
       return this;
     },
 
@@ -61,6 +73,7 @@ define([
         this.paginatedWorkouts = new ListPaginator(
           this.workoutsCollection.models
         );
+        this.hideLoading();
         this.renderWorkoutList(this.paginatedWorkouts.getFirstPage());
         this.bindScrollEvent();
       } else {
@@ -72,9 +85,7 @@ define([
     renderAddFirstWorkoutView: function() {
       var addFirstWorkoutView = new AddFirstWorkoutView(this.options);
       this.childViews.push(addFirstWorkoutView);
-      // HTML needs to be preprend to be
-      // added before 'bottomMenuView'
-      this.$el.prepend(addFirstWorkoutView.render().el);
+      this.$el.find('.workout-list').append(addFirstWorkoutView.render().el);
     },
 
     // Renders a list of workouts
@@ -87,9 +98,7 @@ define([
         that.childViews.push(workoutView);
         return workoutView.render().el;
       });
-      // HTML needs to be preprend to be
-      // added before 'bottomMenuView'
-      this.$el.prepend(workoutViewList);
+      this.$el.find('.workout-list').append(workoutViewList);
     },
 
     // Error on fetch, log user out
@@ -110,7 +119,14 @@ define([
     renderBottomMenuView: function() {
       var bottomMenuView = new BottomMenuView(this.options);
       this.childViews.push(bottomMenuView);
-      this.$el.append(bottomMenuView.render().el);
+      this.$el.find('.bottom-menu').append(bottomMenuView.render().el);
+    },
+
+    // Hides ajax loader GIF
+    hideLoading: function() {
+      this.$el.find('.ajax-loader--wrapper')
+        .removeClass('display-block')
+        .addClass('display-none');
     }
 
   });

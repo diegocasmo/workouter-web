@@ -27,7 +27,7 @@ define([
       '</a>'
     ),
 
-    tagName: 'article',
+    tagName: 'li',
 
     attributes: {
       class: 'workout-item'
