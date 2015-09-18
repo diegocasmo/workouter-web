@@ -37,11 +37,11 @@ define([
   };
 
   ListPaginator.prototype._setFirstPage = function() {
-    return this._currentPage = 0;
+    this._currentPage = 0;
   };
 
   ListPaginator.prototype._setTotalPages = function() {
-    return this._totalPages = Math.ceil(this._list.length / this._perPage);
+    this._totalPages = Math.ceil(this._list.length / this._perPage);
   };
 
   ListPaginator.prototype._getCurrentPage = function() {

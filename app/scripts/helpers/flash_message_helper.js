@@ -38,9 +38,7 @@ define([
 
       this.$el.removeClass('display-none')
               .addClass('display-block')
-              .animate({
-                opacity: 1
-              }, 'fast');
+              .animate({ opacity: 1 }, 'fast');
 
       var that = this;
       this.timeoutId = setTimeout(function() {

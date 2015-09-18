@@ -35,6 +35,7 @@ define([
       this.$body.addClass(options.managerClass);
     },
 
+    // Initializes manager logic
     initializeManager: function(options) {},
 
     // overwrite remove method in order to clean

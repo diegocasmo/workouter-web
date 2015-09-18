@@ -9,12 +9,10 @@ define([
   'views/workouts_home/workout_item_view',
   'views/workouts_home/add_first_workout_view',
   'services/list_paginator',
-  'services/auth_service',
-  'helpers/flash_message_helper',
-  'lang/en_locale'
+  'services/auth_service'
 ], function($, _, Backbone, BaseManager, BottomMenuView,
             WorkoutItemView, AddFirstWorkoutView, ListPaginator,
-            AuthService, FlashMessage, enLocale) {
+            AuthService) {
 
   'use strict';
 
@@ -23,7 +21,7 @@ define([
     // Override 'remove' from 'BaseManager'
     // in order to unbind window scroll event
     remove: function() {
-      this.unbindScrollEvent()
+      this.unbindScrollEvent();
       BaseManager.prototype.remove.call(this);
     },
 
@@ -32,7 +30,7 @@ define([
       this.bindCollectionEvents();
       this.workoutsCollection.getWorkouts();
       this.render();
-      this.renderBottomMenuView()
+      this.renderBottomMenuView();
     },
 
     render: function() {

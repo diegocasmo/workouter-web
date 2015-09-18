@@ -37,7 +37,7 @@ define([
      */
     before: function(route) {
       route = $.trim(route);
-      this.removeActiveManager()
+      this.removeActiveManager();
       if(!AuthService.isUserLoggedIn() && this.isRoutePrivate(route)) {
         // if user is not logged in, then redirect to login page
         this.navigate('login', { trigger: true });
