@@ -1,9 +1,5 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: App router to trigger appropiate events
- *              which application managers listen to.
- */
+// App router to trigger appropiate events
+// which application managers listen to.
 
 define([
   'jquery',
@@ -14,10 +10,11 @@ define([
   'managers/workouts_home_manager',
   'managers/profile_manager',
   'managers/add_workout_manager',
-  'managers/view_workout_manager'
+  'managers/view_workout_manager',
+  'collections/workouts_collection'
 ], function($, Backbone, BaseRouter, AuthService, LoginManager,
             WorkoutsHomeManager, ProfileManager, AddWorkoutManager,
-            ViewWorkoutManager) {
+            ViewWorkoutManager, WorkoutsCollection) {
 
   'use strict';
 
@@ -83,6 +80,7 @@ define([
       workoutsHomeManager = new WorkoutsHomeManager({
         router: this,
         eventTrigger: eventTrigger,
+        workoutsCollection: new WorkoutsCollection(),
         managerClass: 'workouts-page'
       });
       this.activeManager = workoutsHomeManager;

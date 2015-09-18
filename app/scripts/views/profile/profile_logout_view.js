@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view for the profile logout view.
- */
+// A view for the profile logout view.
 
 /*global define*/
 define([
@@ -11,11 +7,11 @@ define([
   'backbone',
   'handlebars',
   'lang/en_locale',
-  'services/auth_service',
   'models/user_model',
+  'services/auth_service',
   'helpers/flash_message_helper'
-], function($, _, Backbone, Handlebars, enLocale, AuthService,
-          UserModel, FlashMessage) {
+], function($, _, Backbone, Handlebars, enLocale, UserModel,
+            AuthService, FlashMessage) {
 
   'use strict';
 

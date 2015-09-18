@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A collection of workouts.
- */
+// A collection of workouts.
 
 /*global define, Firebase*/
 define([
@@ -22,10 +18,13 @@ define([
 
     model: WorkoutModel,
 
-    /**
-     * URL where this resource is going to be stored
-     * for this specific user
-     */
+    // Order by descending date
+    comparator: function(a, b) {
+      return b.get('date') - a.get('date');
+    },
+
+    // URL where this resource is going to be stored
+    // for this specific user
     url: function() {
       var userModel = UserModel.getInstance(),
           url = FirebaseService.url + 'workouts/' +
@@ -33,17 +32,13 @@ define([
       return new Firebase(url);
     },
 
-    /**
-     * Adds a workout to the collection
-     */
+    // Adds a workout to the collection
     addWorkout: function(workout) {
       this.add(workout.toJSON());
     },
 
-    /**
-     * fetch all workouts and trigger success if successful,
-     * trigger error otherwise
-     */
+    // Fetch all workouts and trigger success if successful,
+    // trigger error otherwise
     getWorkouts: function() {
       var that = this;
       this.fetch({
@@ -56,32 +51,19 @@ define([
       });
     },
 
-    /**
-     * get specific collection workout
-     * returns workout if found, false otherwise
-     */
+    // Get specific collection workout
+    // returns workout if found, false otherwise
     getWorkout: function(workoutId) {
       return this.get(workoutId) ? this.get(workoutId) : false;
     },
 
-    /**
-     * removes a workout from collection
-     */
+    // Removes a workout from collection
     removeWorkout: function(workoutId) {
       this.remove(this.findWhere({ id: workoutId }));
     },
 
-    /**
-     * orders workouts in reverse order
-     */
-    reverseWorkouts: function() {
-      this.models = this.models.reverse();
-    },
-
-    /**
-     * returns true if collection has workouts,
-     * false otherwise
-     */
+    // Returns true if collection has workouts,
+    // false otherwise
     hasWorkouts: function() {
       return this.length > 0;
     }

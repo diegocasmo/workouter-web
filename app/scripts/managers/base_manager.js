@@ -1,13 +1,10 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: Base manager to extend from.
- */
+// Base manager to extend from.
 
 define([
   'jquery',
   'underscore',
-  'backbone'
+  'backbone',
+  'services/auth_service'
 ], function($, _, Backbone) {
 
   'use strict';
@@ -27,7 +24,7 @@ define([
       this.eventTrigger = options.eventTrigger;
       this.listenTo(this.router, this.eventTrigger, function() {
         that.prepareManager(options);
-        that.buildChildViews(options);
+        that.initializeManager(options);
       });
     },
 
@@ -38,7 +35,7 @@ define([
       this.$body.addClass(options.managerClass);
     },
 
-    buildChildViews: function(options) {},
+    initializeManager: function(options) {},
 
     // overwrite remove method in order to clean
     // html and not delete view's $el

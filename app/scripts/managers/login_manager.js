@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: View manager to render login view
- */
+// View manager to render login view
 
 define([
   'jquery',
@@ -18,7 +14,7 @@ define([
 
   var LoginManager = BaseManager.extend({
 
-    buildChildViews: function(options) {
+    initializeManager: function(options) {
       // initialize child views
       this.loginAppLogoView = new LoginAppLogoView(options);
       this.twitterLoginView = new TwitterLoginView(options);

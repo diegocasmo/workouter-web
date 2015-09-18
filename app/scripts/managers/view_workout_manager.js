@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: View manager to render a single workout
- */
+// View manager to render a single workout
 
 define([
   'jquery',
@@ -24,7 +20,7 @@ define([
 
   var ViewWorkoutManager = BaseManager.extend({
 
-    buildChildViews: function(options) {
+    initializeManager: function(options) {
       // workoutId has already been update for this
       // view on app_router
 

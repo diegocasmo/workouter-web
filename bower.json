@@ -15,12 +15,6 @@
     "firebase": "2.0.6",
     "backbonefire": "~0.5.1",
     "backbone.localStorage": "~1.1.16",
-    "routefilter": "~0.2.1",
-    "backbone-paginated-collection": "0.3.5"
-  },
-  "devDependencies": {
-    "chai": "~1.8.1",
-    "mocha": "~1.15.1",
-    "sinonjs": "~1.7.3"
+    "routefilter": "~0.2.1"
   }
 }

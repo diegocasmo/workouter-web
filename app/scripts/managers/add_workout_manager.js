@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: View manager to render profile view
- */
+// View manager to render profile view
 
 define([
   'jquery',
@@ -46,7 +42,7 @@ define([
       BaseManager.prototype.remove.call(this);
     },
 
-    buildChildViews: function(options) {
+    initializeManager: function(options) {
       // add models and collections to option to make
       // sure child views have access to them
       options.workoutModel = this.workoutModel;

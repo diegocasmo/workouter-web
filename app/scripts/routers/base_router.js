@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: Base app router
- */
+// Base app router
 
 define([
   'jquery',

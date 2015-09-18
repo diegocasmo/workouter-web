@@ -14,13 +14,14 @@ define([
   'views/profile/profile_logout_view',
   'views/elements/bottom_menu_view'
 ], function($, _, Backbone, BaseManager, GoToWorkouts,
-            ProfileUserView, ProfileLogoutView, BottomMenuElement) {
+            ProfileUserView, ProfileLogoutView,
+            BottomMenuElement) {
 
   'use strict';
 
   var ProfileManager = BaseManager.extend({
 
-    buildChildViews: function(options) {
+    initializeManager: function(options) {
       // initialize child views
       this.goToWorkouts = new GoToWorkouts(options);
       this.profileUserView = new ProfileUserView(options);

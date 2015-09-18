@@ -1,150 +1,123 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: View manager to render workouts view
- */
+// View manager to render home workouts view
 
 define([
   'jquery',
   'underscore',
   'backbone',
   'managers/base_manager',
-  'collections/workouts_collection',
   'views/elements/bottom_menu_view',
   'views/workouts_home/workout_item_view',
   'views/workouts_home/add_first_workout_view',
+  'services/list_paginator',
+  'services/auth_service',
   'helpers/flash_message_helper',
-  'backbone-paginated-collection',
-  'services/config_service',
   'lang/en_locale'
-], function($, _, Backbone, BaseManager, WorkoutsCollection,
-            BottomMenuView, WorkoutItemView, AddFirstWorkoutView,
-            FlashMessage, PaginatedCollection, ConfigService,
-            enLocale) {
+], function($, _, Backbone, BaseManager, BottomMenuView,
+            WorkoutItemView, AddFirstWorkoutView, ListPaginator,
+            AuthService, FlashMessage, enLocale) {
 
   'use strict';
 
   var WorkoutsHomeManager = BaseManager.extend({
 
-    /**
-     * override 'remove' from 'BaseManager'
-     * in order to unbind window scroll event
-     */
+    $document: $(document),
+
+    $window: $(window),
+
+    // Override 'remove' from 'BaseManager'
+    // in order to unbind window scroll event
     remove: function() {
-      $(window).off('scroll');
+      this.unbindScrollEvent()
       BaseManager.prototype.remove.call(this);
     },
 
-    buildChildViews: function(options) {
-      // bind window scroll event to loadMore
-      $(window).on('scroll', _.bind(this.loadMore, this));
-
-      // initialize collection
-      this.workoutsCollection = new WorkoutsCollection();
-
-      // attach events
-      this.attachCollectionEvents();
-
-      // initialize child views
-      this.bottomMenuView = new BottomMenuView(options);
-
-      // save child views
-      this.childViews.push(this.bottomMenuView);
-
-      // attempt to fetch collection
+    initializeManager: function(options) {
+      this.workoutsCollection = options.workoutsCollection;
+      this.bindCollectionEvents();
       this.workoutsCollection.getWorkouts();
-
       this.render();
+      this.renderBottomMenuView()
     },
 
     render: function() {
-      this.$el.append(this.bottomMenuView.render().el);
       return this;
     },
 
-    /**
-     * return workouts list if greater than zero,
-     * false otherwise
-     */
-    getAllWorkouts: function() {
-      var that = this;
+    // Binds window scroll event to 'loadMoreWorkouts'
+    bindScrollEvent: function() {
+      this.$window.on('scroll', _.bind(this.loadMoreWorkouts, this));
+    },
+
+    // Unbind window scroll event
+    unbindScrollEvent: function() {
+      this.$window.off('scroll');
+    },
+
+    // Binds collection events to this view
+    bindCollectionEvents: function() {
+      this.listenTo(this.workoutsCollection, 'success',
+        this.setupPaginatedWorkouts);
+      this.listenTo(this.workoutsCollection, 'error',
+        this.errorOnFetch);
+    },
+
+    // Sets up paginated workouts
+    setupPaginatedWorkouts: function() {
       if(this.workoutsCollection.hasWorkouts()) {
-        this.workoutsCollection.reverseWorkouts();
-        // assign collection to PaginatedCollection
-        this.paginatedWorkouts = new PaginatedCollection(
-          this.workoutsCollection,
-          { perPage: ConfigService.pagination.perPage }
+        this.paginatedWorkouts = new ListPaginator(
+          this.workoutsCollection.models
         );
-        return this.paginatedWorkouts.map(function(workout) {
-          return that.renderWorkoutItemView(workout);
-        });
-      }
-      return false;
-    },
-
-    /**
-     * attaches collection events to this view
-     */
-    attachCollectionEvents: function() {
-      this.listenTo(this.workoutsCollection, 'success', this.renderAllWorkouts);
-      this.listenTo(this.workoutsCollection, 'error', this.errorOnFetch);
-    },
-
-    /**
-     * renders workout collection if length is greater
-     * than zero. If not, renders add first workout view
-     */
-    renderAllWorkouts: function() {
-      var workoutItemsViews = this.getAllWorkouts();
-      // if no workout items views display
-      // add workout message
-      if(workoutItemsViews) {
-        // html needs to be preprend in order to be
-        // added before bottomMenuView
-        this.$el.prepend(workoutItemsViews);
+        this.renderWorkoutList(this.paginatedWorkouts.getFirstPage());
+        this.bindScrollEvent();
       } else {
-        this.addFirstWorkoutView = new AddFirstWorkoutView(this.options);
-        // save as child view
-        this.childViews.push(this.addFirstWorkoutView);
-        // html needs to be preprend in order to be
-        // added before bottomMenuView
-        this.$el.prepend(this.addFirstWorkoutView.render().el);
+        this.renderAddFirstWorkoutView();
       }
     },
 
+    // Renders add first workout view
+    renderAddFirstWorkoutView: function() {
+      var addFirstWorkoutView = new AddFirstWorkoutView(this.options);
+      this.childViews.push(addFirstWorkoutView);
+      // HTML needs to be preprend to be
+      // added before 'bottomMenuView'
+      this.$el.prepend(addFirstWorkoutView.render().el);
+    },
+
+    // Renders a list of workouts
+    renderWorkoutList: function(workoutList) {
+      var that = this;
+      var workoutViewList = _.map(workoutList, function(workoutModel) {
+        var workoutView = new WorkoutItemView({
+          workoutModel: workoutModel
+        });
+        that.childViews.push(workoutView);
+        return workoutView.render().el;
+      });
+      // HTML needs to be preprend to be
+      // added before 'bottomMenuView'
+      this.$el.prepend(workoutViewList);
+    },
+
+    // Error on fetch, log user out
     errorOnFetch: function() {
-      var message = enLocale.flashMessage.errorFetchingCollection;
-      FlashMessage.showError(message);
+      AuthService.logUserOut();
+      this.router.navigate('login', { trigger: true });
     },
 
-    /**
-     * load more workouts on user scroll
-     */
-    loadMore: function() {
-      // make sure user scroll reached bottom of the page
-      if($(window).scrollTop() >= $(document).height() - $(window).height() &&
-        typeof this.paginatedWorkouts !== 'undefined') {
-        if(this.paginatedWorkouts.hasNextPage()) {
-          // get next page
-          this.paginatedWorkouts.nextPage();
-          var that = this;
-          var workoutItemsViews = this.paginatedWorkouts.map(function(workout) {
-            return that.renderWorkoutItemView(workout);
-          });
-          // append before menu to view
-          this.$el.find('#bottom-menu-view').before(workoutItemsViews);
-        }
+    // Load more workouts on user scroll
+    loadMoreWorkouts: function() {
+      console.log('loadMoreWorkouts');
+      var pageBottom = this.$document.height() - this.$window.height();
+      if (this.$window.scrollTop() >= pageBottom) {
+        this.renderWorkoutList(this.paginatedWorkouts.getNextPage());
       }
     },
 
-    /**
-     * renders workout item view with specific workout
-     */
-    renderWorkoutItemView: function(workout) {
-      var workoutView = new WorkoutItemView({ workoutModel: workout });
-      // save as child view to be able to delete it
-      this.childViews.push(workoutView);
-      return workoutView.render().el;
+    // Renders bottom menu view
+    renderBottomMenuView: function() {
+      var bottomMenuView = new BottomMenuView(this.options);
+      this.childViews.push(bottomMenuView);
+      this.$el.append(bottomMenuView.render().el);
     }
 
   });
