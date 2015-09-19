@@ -29,9 +29,7 @@ define([
 
     tagName: 'li',
 
-    attributes: {
-      class: 'workout-item'
-    },
+    className: 'workout-item',
 
     initialize: function(options) {
       this.router = options.router;

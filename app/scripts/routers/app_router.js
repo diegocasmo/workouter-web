@@ -11,10 +11,15 @@ define([
   'managers/profile_manager',
   'managers/add_workout_manager',
   'managers/view_workout_manager',
-  'collections/workouts_collection'
+  'models/user_model',
+  'models/workout_model',
+  'models/exercise_model',
+  'collections/exercises_collection',
+  'collections/workouts_collection',
 ], function($, Backbone, BaseRouter, AuthService, LoginManager,
             WorkoutsHomeManager, ProfileManager, AddWorkoutManager,
-            ViewWorkoutManager, WorkoutsCollection) {
+            ViewWorkoutManager, UserModel, WorkoutModel, ExerciseModel,
+            ExercisesCollection, WorkoutsCollection) {
 
   'use strict';
 
@@ -72,30 +77,31 @@ define([
       this.trigger(eventTrigger);
     },
 
-    /**
-     * show user all workouts view (private)
-     */
+    // Show user all workouts view (private)
     showWorkouts: function() {
       var eventTrigger = 'workouts:show',
       workoutsHomeManager = new WorkoutsHomeManager({
-        router: this,
-        eventTrigger: eventTrigger,
-        workoutsCollection: new WorkoutsCollection(),
-        managerClass: 'workouts-page'
+        router              : this,
+        eventTrigger        : eventTrigger,
+        workoutsCollection  : new WorkoutsCollection(),
+        managerClass        : 'workouts-page'
       });
       this.activeManager = workoutsHomeManager;
       this.trigger(eventTrigger);
     },
 
-    /**
-     * show add workout form (private)
-     */
+    // Show add workout form (private)
     addWorkout: function() {
       var eventTrigger = 'workout:add:show',
       addWorkoutManager = new AddWorkoutManager({
-        router: this,
-        eventTrigger: eventTrigger,
-        managerClass: 'workout-add-page'
+        router              : this,
+        eventTrigger        : eventTrigger,
+        userModel           : UserModel.getInstance(),
+        workoutModel        : new WorkoutModel(),
+        exerciseModel       : new ExerciseModel(),
+        exercisesCollection : new ExercisesCollection(),
+        workoutsCollection  : new WorkoutsCollection(),
+        managerClass        : 'workout-add-page'
       });
       this.activeManager = addWorkoutManager;
       this.trigger(eventTrigger);

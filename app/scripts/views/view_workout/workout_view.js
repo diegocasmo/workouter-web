@@ -21,9 +21,7 @@ define([
 
     tagName: 'div',
 
-    attributes: {
-      class: 'workout-view'
-    },
+    className: 'workout-view',
 
     initialize: function(options) {
       this.router = options.router;

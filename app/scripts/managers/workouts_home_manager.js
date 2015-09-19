@@ -20,6 +20,7 @@ define([
   var WorkoutsHomeManager = BaseManager.extend({
 
     template: _.template(
+      '<div id="add-first-workout-view"></div>' +
       '<ul class="workout-list"></ul>' +
       '<div class="ajax-loader--wrapper display-block">' +
         '<img class="ajax-loader--img"' +
@@ -73,19 +74,20 @@ define([
         this.paginatedWorkouts = new ListPaginator(
           this.workoutsCollection.models
         );
-        this.hideLoading();
         this.renderWorkoutList(this.paginatedWorkouts.getFirstPage());
         this.bindScrollEvent();
       } else {
         this.renderAddFirstWorkoutView();
       }
+      this.hideLoading();
     },
 
     // Renders add first workout view
     renderAddFirstWorkoutView: function() {
       var addFirstWorkoutView = new AddFirstWorkoutView(this.options);
       this.childViews.push(addFirstWorkoutView);
-      this.$el.find('.workout-list').append(addFirstWorkoutView.render().el);
+      this.$el.find('#add-first-workout-view')
+        .append(addFirstWorkoutView.render().el);
     },
 
     // Renders a list of workouts

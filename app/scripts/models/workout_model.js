@@ -59,11 +59,9 @@ define([
       return errors.length > 0 ? errors : false;
     },
 
-    /**
-     * sets the user as the workout's owner.
-     * returns true if successful, false otherwise
-     */
-    setCurrentUser: function(userAttrs) {
+    // Sets the user as the workout's owner.
+    // returns true if successful, false otherwise
+    assignCurrentUser: function(userAttrs) {
       var userModel = UserModel.getInstance();
       userModel.set(userAttrs);
       if(userModel.isValid()) {
