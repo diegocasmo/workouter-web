@@ -70,6 +70,7 @@ define([
 
     // Sets up paginated workouts
     setupPaginatedWorkouts: function() {
+      this.hideLoading();
       if(this.workoutsCollection.hasWorkouts()) {
         this.paginatedWorkouts = new ListPaginator(
           this.workoutsCollection.models
@@ -79,7 +80,6 @@ define([
       } else {
         this.renderAddFirstWorkoutView();
       }
-      this.hideLoading();
     },
 
     // Renders add first workout view

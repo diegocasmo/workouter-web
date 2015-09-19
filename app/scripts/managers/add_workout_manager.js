@@ -39,7 +39,7 @@ define([
       this.exerciseModel        = options.exerciseModel;
       this.exercisesCollection  = options.exercisesCollection;
       this.workoutsCollection   = options.workoutsCollection;
-      // Make sure current user is assign as the
+      // Make sure current user is assigned as the
       // workout's owner
       this.assignWorkoutToUser();
       this.render();

@@ -21,9 +21,6 @@ define([
   var ViewWorkoutManager = BaseManager.extend({
 
     initializeManager: function(options) {
-      // workoutId has already been update for this
-      // view on app_router
-
       this.workoutsCollection = new WorkoutsCollection();
 
       // initialize child views
