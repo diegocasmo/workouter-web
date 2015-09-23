@@ -21,11 +21,7 @@ define([
       '<button class="add-workout">{{ addButton.text }}</button>'
       ),
 
-    tagName: 'div',
-
-    attributes: {
-      id: 'add-workout-view'
-    },
+    className: 'add-workout-view',
 
     events: {
       'click button.add-workout': 'addWorkout'

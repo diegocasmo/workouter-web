@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view to redirect the user back to the previous route.
- */
+// A view to redirect the user back to the previous route.
 
 /*global define*/
 define([
@@ -20,11 +16,7 @@ define([
       '<i class="fa fa-chevron-left"></i>'
       ),
 
-    tagName: 'div',
-
-    attributes: {
-      id: 'go-back-view'
-    },
+    className: 'go-back-view',
 
     events: {
       'click i.fa-chevron-left': 'close'

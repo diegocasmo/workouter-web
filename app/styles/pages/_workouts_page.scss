@@ -7,7 +7,10 @@
     max-width: $app_max_width - 20px;
   }
 
-  #add-first-workout-view {
+  .add-first-workout {
     height: 100%;
+    position: absolute;
+    left: 0px;
+    right: 0px;
   }
 }

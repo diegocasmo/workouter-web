@@ -29,7 +29,7 @@ define([
       _.invoke(this.toArray(), 'destroy');
     },
 
-    getLength: function() {
+    getTotal: function() {
       return parseInt(this.length);
     }
 

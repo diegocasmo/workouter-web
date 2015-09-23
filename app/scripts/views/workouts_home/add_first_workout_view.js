@@ -1,31 +1,22 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view for the add first workout view.
- */
+// A view for the add first workout view.
 
 /*global define*/
 define([
   'jquery',
   'underscore',
   'backbone',
-  'handlebars',
   'lang/en_locale'
-], function($, _, Backbone, Handlebars, enLocale) {
+], function($, _, Backbone, enLocale) {
 
   'use strict';
 
   var AddFirstWorkoutView = Backbone.View.extend({
 
-    template: Handlebars.compile(
-      '<h3 class="add-workout-msg">{{ addWorkoutMsg }}</h3>'
-      ),
+    template: _.template(
+      '<h3 class="add-workout-msg"><%= addWorkoutMsg %></h3>'
+    ),
 
-    tagName: 'div',
-
-    attributes: {
-      id: 'add-first-workout-view'
-    },
+    className: 'add-first-workout',
 
     initialize: function(options) {
       this.router = options.router;
