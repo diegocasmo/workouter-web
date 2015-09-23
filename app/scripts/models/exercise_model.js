@@ -16,90 +16,54 @@ define([
 
   var Excercise = Backbone.Model.extend({
 
-    defaults: {
-      title: '',
-      reps: '',
-      sets: '',
-      weight: ''
-    },
 
     validate: function (attrs) {
       var errors = [];
 
-      if(_.has(attrs, 'title')) {
-        if (!attrs.title || !attrs.title.length > 0) {
-          errors.push({ name: 'title', message: enLocale.exerciseModel.title.required });
-        }
+      if (!attrs.title || !attrs.title.length > 0) {
+        errors.push({ name: 'title', message: enLocale.exerciseModel.title.required });
       }
 
-      if(_.has(attrs, 'reps')) {
-        if (isNaN(attrs.reps)) {
-          errors.push({ name: 'reps', message: enLocale.exerciseModel.reps.required });
-        } else if (typeof attrs.reps !== 'number') {
-          errors.push({ name: 'reps', message: enLocale.exerciseModel.reps.number });
-        }
+      if (isNaN(attrs.sets)) {
+        errors.push({ name: 'sets', message: enLocale.exerciseModel.sets.required });
+      } else if (typeof attrs.sets !== 'number') {
+        errors.push({ name: 'sets', message: enLocale.exerciseModel.sets.number });
       }
 
-      if(_.has(attrs, 'sets')) {
-        if (isNaN(attrs.sets)) {
-          errors.push({ name: 'sets', message: enLocale.exerciseModel.sets.required });
-        } else if (typeof attrs.sets !== 'number') {
-          errors.push({ name: 'sets', message: enLocale.exerciseModel.sets.number });
-        }
+      if (isNaN(attrs.reps)) {
+        errors.push({ name: 'reps', message: enLocale.exerciseModel.reps.required });
+      } else if (typeof attrs.reps !== 'number') {
+        errors.push({ name: 'reps', message: enLocale.exerciseModel.reps.number });
       }
 
-      if(_.has(attrs, 'weight')) {
-        if (!attrs.weight || !attrs.weight.toString().length > 0) {
-          errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.required });
-        }
+      if (!attrs.weight || !attrs.weight.toString().length > 0) {
+        errors.push({ name: 'weight', message: enLocale.exerciseModel.weight.required });
       }
 
       return errors.length > 0 ? errors : false;
     },
 
-    /**
-     * dynamically validates an attr and attrValue
-     */
-    validateAttr: function(attr, attrValue) {
-      attrValue = $.trim(attrValue);
-
-      // convert to num if necessary
-      var convertToNum = ['reps', 'sets'];
-      if(convertToNum.indexOf(attr) > -1) {
-        attrValue = parseInt(attrValue);
-      }
-
-      // use a mapper to be able to dynamically set model property
-      var mapper = {};
-      mapper[attr] = attrValue;
-      if(!this.validate(mapper)) {
-        this.set(mapper);
-        return true;
-      }
-
-      // return back to default
-      mapper[attr] = this.defaults[attr];
-      this.set(mapper);
-      return false;
+    // Sets an exercise attributes
+    setExercise: function(params) {
+      this.set(params);
     },
 
-    /**
-     * returns true if model is valid, false otherwise
-     */
+    // Returns true if model is valid, false otherwise
     isExerciseValid: function() {
       return this.isValid();
     },
 
-    /**
-     * reset the model back to its defaults
-     */
-    resetExercise: function() {
-      this.clear().set(this.defaults);
+    // Gets first exercise validation error if any
+    firstValidationError: function() {
+      return _.first(this.validate(this.toJSON()));
     },
 
-    /**
-     * returns exercise title
-     */
+    // Reset the model back to its defaults
+    resetExercise: function() {
+      this.clear();
+    },
+
+    // Returns exercise title
     getExerciseTitle: function() {
       return this.get('title');
     }

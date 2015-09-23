@@ -63,17 +63,17 @@ define({
       required: 'Invalid id.'
     },
     title: {
-      required: 'Please, enter a title.'
+      required: 'Please, enter a workout title.'
     },
     user: {
       required: 'Invalid user.'
     },
     date: {
-      required: 'Please, enter a date.'
+      required: 'Please, enter a workout date.'
     },
     exercises: {
-      required: 'Please, enter the excercises.',
-      array: 'Please, enter valid excercises.'
+      required: 'Please, enter the workout excercises.',
+      array: 'Please, enter valid workout excercises.'
     }
   },
   exerciseModel: {
@@ -84,18 +84,18 @@ define({
       required: 'Invalid workout_id.'
     },
     title: {
-      required: 'Please, enter a title.'
+      required: 'Please, enter an exercise title.'
     },
     reps: {
-      required: 'Please, enter the number of repetitions.',
+      required: 'Please, enter the exercise number of repetitions.',
       number: 'Repetitions needs to be a number.'
     },
     sets: {
-      required: 'Please, enter the number of sets.',
+      required: 'Please, enter the exercise number of sets.',
       number: 'Sets needs to be a number.'
     },
     weight: {
-      required: 'Please, enter a weight/time/other.'
+      required: 'Please, enter a weight/time/other for the exercise.'
     }
   },
   goBackView: {
@@ -197,8 +197,6 @@ define({
     exerciseAdded: ' has been added.',
     workoutAdded: ' has been successfully added.',
     workoutDelete: ' has been successfully deleted.',
-    exerciseError: 'Please, enter a valid exercise.',
-    workoutError: 'Please, fill all the mandatory fields.',
     errorFetchingCollection: 'There was an error while trying get your workouts.'
   }
 });

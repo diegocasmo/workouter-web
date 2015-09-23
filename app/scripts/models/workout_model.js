@@ -19,41 +19,30 @@ define([
   var Workout = Backbone.Model.extend({
 
     defaults: {
-      title: '',
-      user: new UserModel(),
-      date: Date.now(),
-      exercises: []
+      date: Date.now()
     },
 
     validate: function (attrs) {
       var errors = [];
 
-      if(_.has(attrs, 'title')) {
-        if (!attrs.title || !attrs.title.length > 0) {
-          errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
-        }
+      if (!attrs.title || !attrs.title.length > 0) {
+        errors.push({ name: 'title', message: enLocale.workoutModel.title.required });
       }
 
-      if(_.has(attrs, 'user')) {
-        if(typeof attrs.user !== 'object') {
-          errors.push({ name: 'user', message: enLocale.workoutModel.user.required });
-        }
+      if(typeof attrs.user !== 'object') {
+        errors.push({ name: 'user', message: enLocale.workoutModel.user.required });
       }
 
-      if(_.has(attrs, 'date')) {
-        if (!attrs.date) {
-          errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
-        } else if (typeof attrs.date !== 'number') {
-          errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
-        }
+      if (!attrs.date) {
+        errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
+      } else if (typeof attrs.date !== 'number') {
+        errors.push({ name: 'date', message: enLocale.workoutModel.date.required });
       }
 
-      if(_.has(attrs, 'exercises')) {
-        if (attrs.exercises.length <= 0) {
-          errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.required });
-        } else if (typeof attrs.exercises !== 'object') {
-          errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.array });
-        }
+      if (!attrs.exercises || attrs.exercises.length <= 0) {
+        errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.required });
+      } else if (typeof attrs.exercises !== 'object') {
+        errors.push({ name: 'exercises', message: enLocale.workoutModel.exercises.array });
       }
 
       return errors.length > 0 ? errors : false;
@@ -71,19 +60,15 @@ define([
       return false;
     },
 
-    /**
-     * sets the workout title
-     * returns true if successful, false otherwise
-     */
+    // Sets the workout title
     setTitle: function(title) {
       title = $.trim(title);
-      if(!this.validate({ 'title': title })) {
-        this.set('title', title);
-        return true;
-      }
-      // return back to default
-      this.set('title', this.defaults.title);
-      return false;
+      this.set('title', title);
+    },
+
+    // Gets first workout validation error if any
+    firstValidationError: function() {
+      return _.first(this.validate(this.toJSON()));
     },
 
     getWorkoutTitle: function() {

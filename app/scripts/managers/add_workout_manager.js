@@ -76,9 +76,6 @@ define([
           enLocale.flashMessage.workoutAdded;
         FlashMessage.showSuccess(message);
         this.router.navigate('workouts', { trigger: true });
-      } else {
-        var message = enLocale.flashMessage.workoutError;
-        FlashMessage.showError(message);
       }
     },
 

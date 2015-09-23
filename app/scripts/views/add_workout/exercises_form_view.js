@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view for the exercises form view.
- */
+// A view for the exercises form view.
 
 /*global define*/
 define([
@@ -20,22 +16,17 @@ define([
 
     template: JST['app/scripts/templates/add_workout/exercises_form_view.hbs'],
 
-    tagName: 'div',
-
-    attributes: {
-      id: 'exercises-form-view'
-    },
+    className: 'exercises-form-view',
 
     events: {
-      'focusout input': 'validateExerciseInput',
-      'focusin input': 'resetInputValidation',
-      'click #add-exercise': 'addExercise'
+      'focusin input'       : 'resetInputValidation',
+      'click #add-exercise' : 'addExercise'
     },
 
     initialize: function(options) {
-      this.router = options.router;
-      this.exerciseModel = options.exerciseModel;
-      this.exercisesCollection = options.exercisesCollection;
+      this.router               = options.router;
+      this.exerciseModel        = options.exerciseModel;
+      this.exercisesCollection  = options.exercisesCollection;
       this.listenTo(this.exercisesCollection, 'add', this.updateExercisesCount);
     },
 
@@ -44,22 +35,8 @@ define([
       return this;
     },
 
-    validateExerciseInput: function(event) {
-      event.preventDefault();
-      var $element = $(event.currentTarget),
-          attr = $element.attr('name'),
-          attrValue = $element.val();
-      if(this.exerciseModel.validateAttr(attr, attrValue)) {
-        $element.addClass('input-valid');
-      } else {
-        $element.addClass('input-invalid');
-      }
-    },
-
-    /**
-     * restes all inputs to their initial state
-     */
-    resetsInputs: function() {
+    // Resets all inputs to their initial state
+    resetAllInputs: function() {
       var inputs = this.$el.find('input');
       _.each(inputs, function(input) {
         var $input = $(input);
@@ -68,6 +45,7 @@ define([
       });
     },
 
+    // Resets a single input element validation classes
     resetInputValidation: function(event) {
       event.preventDefault();
       var $element = $(event.currentTarget);
@@ -76,17 +54,32 @@ define([
 
     addExercise: function(event) {
       event.preventDefault();
+      this.exerciseModel.setExercise(this.getExerciseInputValues());
       if(this.exerciseModel.isExerciseValid()) {
         this.trigger('exercise:add');
-        this.resetsInputs();
+        this.resetAllInputs();
       } else {
-        FlashMessage.showError(enLocale.flashMessage.exerciseError);
+        var error = this.exerciseModel.firstValidationError();
+        FlashMessage.showError(error.message);
+        this.$el.find('input[name="' + error.name + '"]')
+          .addClass('input-invalid');
       }
     },
 
+    // Returns exercise input valis in DOM
+    getExerciseInputValues: function() {
+      return {
+        title: this.$el.find('input[name="title"]').val(),
+        sets: parseInt(this.$el.find('input[name="sets"]').val()),
+        reps: parseInt(this.$el.find('input[name="reps"]').val()),
+        weight: this.$el.find('input[name="weight"]').val()
+      };
+    },
+
+    // Updates exercises count in DOM
     updateExercisesCount: function() {
       this.$el.find('#exercises-total').text(
-        this.exercisesCollection.getLength()
+        this.exercisesCollection.getTotal()
       );
     }
 
