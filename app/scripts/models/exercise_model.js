@@ -44,8 +44,8 @@ define([
     },
 
     // Sets an exercise attributes
-    setExercise: function(params) {
-      this.set(params);
+    setExercise: function(attrs) {
+      this.set(attrs);
     },
 
     // Returns true if model is valid, false otherwise

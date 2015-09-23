@@ -69,10 +69,10 @@ define([
     // Returns exercise input valis in DOM
     getExerciseInputValues: function() {
       return {
-        title: this.$el.find('input[name="title"]').val(),
-        sets: parseInt(this.$el.find('input[name="sets"]').val()),
-        reps: parseInt(this.$el.find('input[name="reps"]').val()),
-        weight: this.$el.find('input[name="weight"]').val()
+        title   : this.$el.find('input[name="title"]').val(),
+        sets    : parseInt(this.$el.find('input[name="sets"]').val()),
+        reps    : parseInt(this.$el.find('input[name="reps"]').val()),
+        weight  : this.$el.find('input[name="weight"]').val()
       };
     },
 
