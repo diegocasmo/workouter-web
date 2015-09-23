@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A model for a workout.
- */
+// A model for a workout
 
 /*global define*/
 define([
@@ -10,9 +6,8 @@ define([
   'underscore',
   'backbone',
   'collections/exercises_collection',
-  'models/user_model',
   'lang/en_locale'
-], function($, _, Backbone, ExercisesCollectionm, UserModel, enLocale) {
+], function($, _, Backbone, ExercisesCollectionm, enLocale) {
 
   'use strict';
 
@@ -51,13 +46,7 @@ define([
     // Sets the user as the workout's owner.
     // returns true if successful, false otherwise
     assignCurrentUser: function(userAttrs) {
-      var userModel = UserModel.getInstance();
-      userModel.set(userAttrs);
-      if(userModel.isValid()) {
-        this.set('user', userModel.toJSON());
-        return true;
-      }
-      return false;
+      this.set('user', userAttrs);
     },
 
     // Sets the workout title
