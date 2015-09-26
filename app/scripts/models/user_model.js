@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A model for a user.
- */
+// A model for a user
 
 /*global define*/
 define([
@@ -82,24 +78,21 @@ define([
       this.clear().set(this.defaults);
     },
 
-    /**
-     * creats an instance of twiter a user.
-     * returns true if successful, false otherwise
-     */
+    // Creats an instance of twiter a user.
+    // returns true if successful, false otherwise
     setTwitterUser: function(attrs) {
-      // make sure we get bigger avatar instead of
-      // normal
+      // Make sure bigger avatar is used
       var avatar = attrs.twitter.cachedUserProfile.profile_image_url_https;
       avatar = avatar.replace('_normal', '_bigger');
       this.set({
-        uid: attrs.uid,
-        provider: attrs.provider,
-        token: attrs.token,
-        username: attrs.twitter.username,
-        displayName: attrs.twitter.displayName,
-        avatar: avatar,
-        userLocation: attrs.twitter.cachedUserProfile.location,
-        profileBanner: attrs.twitter.cachedUserProfile.profile_banner_url
+        uid           : attrs.uid,
+        provider      : attrs.provider,
+        token         : attrs.token,
+        username      : attrs.twitter.username,
+        displayName   : attrs.twitter.displayName,
+        avatar        : avatar,
+        userLocation  : attrs.twitter.cachedUserProfile.location,
+        profileBanner : attrs.twitter.cachedUserProfile.profile_banner_url
       });
       return (this.isValid()) ? true : false;
     }

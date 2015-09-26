@@ -5,31 +5,34 @@ define([
   'underscore',
   'backbone',
   'managers/base_manager',
-  'views/elements/login_app_logo_view',
   'views/login/twitter_login_view'
-], function($, _, Backbone, BaseManager, LoginAppLogoView,
-          TwitterLoginView) {
+], function($, _, Backbone, BaseManager, TwitterLoginView) {
 
   'use strict';
 
   var LoginManager = BaseManager.extend({
 
+    template: _.template(
+      '<div class="login-app-logo-view">' +
+        '<div class="workouter-letter-logo"></div>' +
+      '</div>'
+      ),
+
     initializeManager: function(options) {
-      // initialize child views
-      this.loginAppLogoView = new LoginAppLogoView(options);
-      this.twitterLoginView = new TwitterLoginView(options);
-
-      // save child views
-      this.childViews.push(this.loginAppLogoView);
-      this.childViews.push(this.twitterLoginView);
-
       this.render();
+      this.renderTwitterLoginView(options)
     },
 
     render: function() {
-      this.$el.append(this.loginAppLogoView.render().el);
-      this.$el.append(this.twitterLoginView.render().el);
+      this.$el.html(this.template());
       return this;
+    },
+
+    // Renders twitter login button
+    renderTwitterLoginView: function(options) {
+      var twitterLoginView = new TwitterLoginView(options);
+      this.childViews.push(twitterLoginView);
+      this.$el.append(twitterLoginView.render().el);
     }
 
   });

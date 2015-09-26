@@ -69,9 +69,10 @@ define([
     showLogin: function() {
       var eventTrigger = 'login:show',
       loginManager = new LoginManager({
-        router: this,
-        eventTrigger: eventTrigger,
-        managerClass: 'login-page'
+        router        : this,
+        eventTrigger  : eventTrigger,
+        userModel     : UserModel.getInstance(),
+        managerClass  : 'login-page'
       });
       this.activeManager = loginManager;
       this.trigger(eventTrigger);
