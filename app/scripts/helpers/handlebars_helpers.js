@@ -1,8 +1,5 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: Handlebars helpers
- */
+// Handlebars helpers
+
 define([
   'handlebars',
   'lang/en_locale'
@@ -15,7 +12,7 @@ define([
         days = enLocale.daysNames[0],
         months = enLocale.monthsNames[0];
 
-    var dayNumber = timeAgo.getDay() + 1,
+    var dayNumber = timeAgo.getUTCDate(),
         dayName = days[ timeAgo.getDay() ],
         monthName = months[ timeAgo.getMonth() ];
 

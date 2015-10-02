@@ -99,9 +99,9 @@ define([
         eventTrigger        : eventTrigger,
         userModel           : UserModel.getInstance(),
         workoutModel        : new WorkoutModel(),
+        workoutsCollection  : new WorkoutsCollection(),
         exerciseModel       : new ExerciseModel(),
         exercisesCollection : new ExercisesCollection(),
-        workoutsCollection  : new WorkoutsCollection(),
         managerClass        : 'workout-add-page'
       });
       this.activeManager = addWorkoutManager;
