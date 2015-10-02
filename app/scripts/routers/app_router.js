@@ -36,36 +36,30 @@ define([
       '*actions'                  : 'showLogin'
     },
 
-    /**
-     * check wheter the current route is private or public
-     * and handles user authentication appropriately
-     */
+    // Check wheter the current route is private or public
+    // and handles user authentication appropriately
     before: function(route) {
       route = $.trim(route);
       this.removeActiveManager();
       if(!AuthService.isUserLoggedIn() && this.isRoutePrivate(route)) {
-        // if user is not logged in, then redirect to login page
+        // If user is not logged in, then redirect to login page
         this.navigate('login', { trigger: true });
         return false;
       } else if (AuthService.isUserLoggedIn() && !this.isRoutePrivate(route)) {
-        // if user is already logged in, but attemps to navigate
+        // If user is already logged in, but attemps to navigate
         // a public route, redirect to workouts
         this.navigate('workouts', { trigger: true });
         return false;
       }
     },
 
-    /**
-     * returns true if a route is private,
-     * false otherwise
-     */
+    // Returns true if a route is private,
+    // false otherwise
     isRoutePrivate: function(route) {
       return (this.publicRoutes.indexOf(route) > -1) ? false : true;
     },
 
-    /**
-     * show login page (public)
-     */
+    // Show login page (public)
     showLogin: function() {
       var eventTrigger = 'login:show',
       loginManager = new LoginManager({
@@ -108,31 +102,26 @@ define([
       this.trigger(eventTrigger);
     },
 
-    /**
-     * show user exercises perform on a single workout (private)
-     */
+    // Show user exercises perform on a single workout (private)
     showWorkoutExercises: function(workoutId) {
       var eventTrigger = 'exercises:show',
       viewWorkoutManager = new ViewWorkoutManager({
-        router: this,
-        eventTrigger: eventTrigger,
-        managerClass: 'workout-page'
+        router        : this,
+        eventTrigger  : eventTrigger,
+        workoutId     : workoutId
+        managerClass  : 'workout-page'
       });
-      // make sure id is always updated
-      viewWorkoutManager.workoutId = workoutId;
       this.activeManager = viewWorkoutManager;
       this.trigger(eventTrigger);
     },
 
-    /**
-     * show user profile (private)
-     */
+    // Show user profile (private)
     showProfile: function() {
       var eventTrigger = 'profile:show',
       profileManager = new ProfileManager({
-        router: this,
-        eventTrigger: eventTrigger,
-        managerClass: 'profile-page'
+        router        : this,
+        eventTrigger  : eventTrigger,
+        managerClass  : 'profile-page'
       });
       this.activeManager = profileManager;
       this.trigger(eventTrigger);
