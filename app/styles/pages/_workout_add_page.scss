@@ -13,7 +13,7 @@
     border-bottom: 1px solid $light_gray;
   }
 
-  #go-back-view {
+  .go-back-view {
     @include grid-column(11);
     margin: 0px auto -43px auto;
     padding: 0px;

@@ -98,12 +98,6 @@ define({
       required: 'Please, enter a weight/time/other for the exercise.'
     }
   },
-  goBackView: {
-
-  },
-  goToWorkoutsView: {
-
-  },
   login: {
     twitterLoginView: {
       twitterLoginButton: {

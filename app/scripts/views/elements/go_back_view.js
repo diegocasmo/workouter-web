@@ -5,8 +5,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'lang/en_locale'
-], function($, _, Backbone, enLocale) {
+], function($, _, Backbone) {
 
   'use strict';
 
@@ -19,21 +18,17 @@ define([
     className: 'go-back-view',
 
     events: {
-      'click i.fa-chevron-left': 'close'
-    },
-
-    initialize: function(options) {
-      this.router = options.router;
+      'click i.fa-chevron-left': 'goBack'
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.goBackView));
+      this.$el.html(this.template());
       return this;
     },
 
-    close: function(event) {
+    goBack: function(event) {
       event.preventDefault();
-      this.router.navigateToPreviousRoute();
+      window.history.back();
     }
 
   });

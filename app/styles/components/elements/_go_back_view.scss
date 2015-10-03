@@ -1,5 +1,6 @@
-#go-back-view {
+.go-back-view {
   i.fa-chevron-left {
+    position: relative;
     @include border-radius(100%);
     background-color: $light_gray;
     border: 1px solid $light_gray;
@@ -23,7 +24,7 @@
 
 // hover effects
 .no-touch {
-  #go-back-view:hover {
+  .go-back-view:hover {
     i.fa-chevron-left {
       @include transition(all .3s);
       background-color: $dark_gray;

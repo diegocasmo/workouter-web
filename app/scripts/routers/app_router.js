@@ -108,7 +108,7 @@ define([
       viewWorkoutManager = new ViewWorkoutManager({
         router        : this,
         eventTrigger  : eventTrigger,
-        workoutId     : workoutId
+        workoutId     : workoutId,
         managerClass  : 'workout-page'
       });
       this.activeManager = viewWorkoutManager;

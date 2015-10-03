@@ -8,8 +8,8 @@
     max-width: $app_max_width - 20px;
   }
 
-  #go-to-workouts-view {
-    .fa.fa-times {
+  .go-back-view {
+    .fa.fa-chevron-left {
       position: absolute;
       top: 10px;
       left: 10px;
