@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: View manager to render profile view
- */
+// View manager to render profile view
 
 define([
   'jquery',
@@ -21,28 +17,56 @@ define([
 
   var ProfileManager = BaseManager.extend({
 
+    template: _.template(
+      '<div id="go-back-view"></div>' +
+      '<div id="profile-user-view"></div>' +
+      '<div id="profile-logout-view"></div>' +
+      '<div class="bottom-menu"></div>'
+    ),
+
     initializeManager: function(options) {
-      // initialize child views
-      this.goBackView = new GoBackView(options);
-      this.profileUserView = new ProfileUserView(options);
-      this.profileLogoutView = new ProfileLogoutView(options);
-      this.bottomMenuView = new BottomMenuElement(options);
-
-      // save child views
-      this.childViews.push(this.goBackView);
-      this.childViews.push(this.profileUserView);
-      this.childViews.push(this.profileLogoutView);
-      this.childViews.push(this.bottomMenuView);
-
       this.render();
+      this.renderGoBackView(options);
+      this.renderPofileUserView(options);
+      this.renderProfileLogoutView(options);
+      this.renderBottomMenuElement(options);
     },
 
     render: function() {
-      this.$el.append(this.goBackView.render().el);
-      this.$el.append(this.profileUserView.render().el);
-      this.$el.append(this.profileLogoutView.render().el);
-      this.$el.append(this.bottomMenuView.render().el);
+      this.$el.html(this.template());
       return this;
+    },
+
+    // Renders go back view
+    renderGoBackView: function(options) {
+      var goBackView = new GoBackView(options);
+      this.childViews.push(goBackView);
+      this.$el.find('#go-back-view')
+        .append(goBackView.render().el);
+    },
+
+    // Renders profile user view
+    renderPofileUserView: function (options) {
+      var profileUserView = new ProfileUserView(options);
+      this.childViews.push(profileUserView);
+      this.$el.find('#profile-user-view')
+        .append(profileUserView.render().el);
+    },
+
+    // Renders profile logout view
+    renderProfileLogoutView: function(options) {
+      var profileLogoutView = new ProfileLogoutView(options);
+      this.childViews.push(profileLogoutView);
+      this.$el.find('#profile-logout-view')
+        .append(profileLogoutView.render().el);
+    },
+
+    // Renders bottom menu element
+    renderBottomMenuElement: function(options) {
+      var bottomMenuElement = new BottomMenuElement(options);
+      this.childViews.push(bottomMenuElement);
+      this.$el.find('.bottom-menu')
+        .append(bottomMenuElement.render().el);
     }
 
   });

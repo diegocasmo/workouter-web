@@ -107,9 +107,7 @@ define({
   },
   profile: {
     profileLogoutView: {
-      logoutText: {
-        text: 'Logout'
-      }
+      logoutText: 'Logout'
     },
     profileUserView: {
 
@@ -155,9 +153,6 @@ define({
         text: 'Add Workout'
       }
     }
-  },
-  bottomMenuView: {
-
   },
   workoutsHome: {
     loadingWorkouts: 'Loading workouts...',

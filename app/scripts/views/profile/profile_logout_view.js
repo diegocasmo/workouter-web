@@ -5,27 +5,20 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'handlebars',
   'lang/en_locale',
-  'models/user_model',
   'services/auth_service',
   'helpers/flash_message_helper'
-], function($, _, Backbone, Handlebars, enLocale, UserModel,
-            AuthService, FlashMessage) {
+], function($, _, Backbone, enLocale, AuthService, FlashMessage) {
 
   'use strict';
 
   var ProfileLogoutView = Backbone.View.extend({
 
-    template: Handlebars.compile(
-      '<button class="logout-button">{{ logoutText.text }}</button>'
-      ),
+    template: _.template(
+      '<button class="logout-button"><%= logoutText %></button>'
+    ),
 
-    tagName: 'div',
-
-    attributes: {
-      class: 'profile-logout-view'
-    },
+    className: 'profile-logout-view',
 
     events: {
       'click .logout-button': 'logUserOut'
@@ -33,7 +26,6 @@ define([
 
     initialize: function(options) {
       this.router = options.router;
-      this.userModel = UserModel.getInstance();
     },
 
     render: function() {

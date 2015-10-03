@@ -1,16 +1,11 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view for the add workout button.
- */
+// Bottom navigation view
 
 /*global define*/
 define([
   'jquery',
   'underscore',
-  'backbone',
-  'lang/en_locale'
-], function($, _, Backbone, enLocale) {
+  'backbone'
+], function($, _, Backbone) {
 
   'use strict';
 
@@ -29,8 +24,6 @@ define([
       '</ul>'
     ),
 
-    tagName: 'div',
-
     attributes: {
       id: 'bottom-menu-view'
     },
@@ -46,7 +39,7 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template(enLocale.bottomMenuView));
+      this.$el.html(this.template());
       return this;
     },
 

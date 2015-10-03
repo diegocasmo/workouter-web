@@ -121,6 +121,7 @@ define([
       profileManager = new ProfileManager({
         router        : this,
         eventTrigger  : eventTrigger,
+        userModel     : UserModel.getInstance(),
         managerClass  : 'profile-page'
       });
       this.activeManager = profileManager;
