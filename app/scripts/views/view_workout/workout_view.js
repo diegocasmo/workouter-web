@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view workout view.
- */
+// A workout item view
 
 /*global define*/
 define([
@@ -19,12 +15,9 @@ define([
 
     template: JST['app/scripts/templates/view_workout/workout_view.hbs'],
 
-    tagName: 'div',
-
     className: 'workout-view',
 
     initialize: function(options) {
-      this.router = options.router;
       this.workoutModel = options.workoutModel;
     },
 

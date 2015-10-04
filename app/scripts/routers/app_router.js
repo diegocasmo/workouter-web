@@ -36,6 +36,10 @@ define([
       '*actions'                  : 'showLogin'
     },
 
+    initialize: function() {
+      this.userModel = UserModel.getInstance();
+    },
+
     // Check wheter the current route is private or public
     // and handles user authentication appropriately
     before: function(route) {
@@ -65,7 +69,7 @@ define([
       loginManager = new LoginManager({
         router        : this,
         eventTrigger  : eventTrigger,
-        userModel     : UserModel.getInstance(),
+        userModel     : this.userModel,
         managerClass  : 'login-page'
       });
       this.activeManager = loginManager;
@@ -91,7 +95,7 @@ define([
       addWorkoutManager = new AddWorkoutManager({
         router              : this,
         eventTrigger        : eventTrigger,
-        userModel           : UserModel.getInstance(),
+        userModel           : this.userModel,
         workoutModel        : new WorkoutModel(),
         workoutsCollection  : new WorkoutsCollection(),
         exerciseModel       : new ExerciseModel(),
@@ -104,15 +108,24 @@ define([
 
     // Show user exercises perform on a single workout (private)
     showWorkoutExercises: function(workoutId) {
-      var eventTrigger = 'exercises:show',
-      viewWorkoutManager = new ViewWorkoutManager({
-        router        : this,
-        eventTrigger  : eventTrigger,
-        workoutId     : workoutId,
-        managerClass  : 'workout-page'
-      });
-      this.activeManager = viewWorkoutManager;
-      this.trigger(eventTrigger);
+      var workoutsCollection = new WorkoutsCollection(),
+          workoutModel = workoutsCollection.getWorkout(workoutId);
+      if(workoutModel) {
+        var eventTrigger = 'exercises:show',
+        viewWorkoutManager = new ViewWorkoutManager({
+          router              : this,
+          eventTrigger        : eventTrigger,
+          workoutId           : workoutId,
+          workoutModel        : workoutModel,
+          workoutsCollection  : workoutsCollection,
+          managerClass        : 'workout-page'
+        });
+        this.activeManager = viewWorkoutManager;
+        this.trigger(eventTrigger);
+      } else {
+        this.navigate('workouts', { trigger: true });
+        return false;
+      }
     },
 
     // Show user profile (private)
@@ -121,7 +134,7 @@ define([
       profileManager = new ProfileManager({
         router        : this,
         eventTrigger  : eventTrigger,
-        userModel     : UserModel.getInstance(),
+        userModel     : this.userModel,
         managerClass  : 'profile-page'
       });
       this.activeManager = profileManager;

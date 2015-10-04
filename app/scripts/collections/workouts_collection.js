@@ -58,8 +58,8 @@ define([
     },
 
     // Removes a workout from collection
-    removeWorkout: function(workoutId) {
-      this.remove(this.findWhere({ id: workoutId }));
+    removeWorkout: function(workout) {
+      this.remove(workout);
     },
 
     // Returns true if collection has workouts,

@@ -1,38 +1,25 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A view for the delete workout view
- */
+// Delete workout bottom view
 
 /*global define, confirm*/
 define([
   'jquery',
   'underscore',
   'backbone',
-  'handlebars',
   'lang/en_locale'
-], function($, _, Backbone, Handlebars, enLocale) {
+], function($, _, Backbone, enLocale) {
 
   'use strict';
 
   var DeleteWorkoutView = Backbone.View.extend({
 
-    template: Handlebars.compile(
-      '<button id="delete-workout">{{ deleteButton.text }}</button>'
+    template: _.template(
+      '<button id="delete-workout"><%= deleteButton %></button>'
       ),
 
-    tagName: 'div',
-
-    attributes: {
-      class: 'delete-workout-view'
-    },
+    className: 'delete-workout-view',
 
     events: {
       'click button#delete-workout': 'deleteWorkout'
-    },
-
-    initialize: function(options) {
-      this.router = options.router;
     },
 
     render: function() {

@@ -11,7 +11,7 @@ define([
   'views/elements/bottom_menu_view'
 ], function($, _, Backbone, BaseManager, GoBackView,
             ProfileUserView, ProfileLogoutView,
-            BottomMenuElement) {
+            BottomMenuView) {
 
   'use strict';
 
@@ -29,7 +29,7 @@ define([
       this.renderGoBackView(options);
       this.renderPofileUserView(options);
       this.renderProfileLogoutView(options);
-      this.renderBottomMenuElement(options);
+      this.renderBottomMenuView(options);
     },
 
     render: function() {
@@ -61,12 +61,12 @@ define([
         .append(profileLogoutView.render().el);
     },
 
-    // Renders bottom menu element
-    renderBottomMenuElement: function(options) {
-      var bottomMenuElement = new BottomMenuElement(options);
-      this.childViews.push(bottomMenuElement);
+    // Renders bottom menu view
+    renderBottomMenuView: function(options) {
+      var bottomMenuView = new BottomMenuView(options);
+      this.childViews.push(bottomMenuView);
       this.$el.find('.bottom-menu')
-        .append(bottomMenuElement.render().el);
+        .append(bottomMenuView.render().el);
     }
 
   });

@@ -13,32 +13,11 @@ define([
 
     activeManager: null,
 
-    initialize: function() {
-      this.on('route', this.storeRoute);
-    },
-
-    storeRoute: function() {
-      this.history.push(Backbone.history.fragment);
-    },
-
-    /**
-     * removes active manager if any
-     */
+    // Removes active manager if any
     removeActiveManager: function() {
       if(this.activeManager) {
         this.activeManager.remove();
         this.activeManager = null;
-      }
-    },
-
-    navigateToPreviousRoute: function() {
-      if (this.history.length > 1) {
-        this.navigate(
-          this.history[this.history.length - 2],
-          { trigger: true }
-        );
-      } else {
-        this.navigate('', { trigger: true });
       }
     }
 
