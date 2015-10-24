@@ -1,9 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: Main entry point and configuration
- *              of the application
- */
+// Main file which scaffolds application
 
 /*global require*/
 

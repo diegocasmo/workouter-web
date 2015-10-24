@@ -56,7 +56,9 @@ define([
       event.preventDefault();
       this.exerciseModel.setExercise(this.getExerciseInputValues());
       if(this.exerciseModel.isExerciseValid()) {
-        this.trigger('exercise:add');
+        this.trigger('exercise:add', this.exerciseModel.toJSON());
+        // Reset exercise to defaults
+        this.exerciseModel.clear();
         this.resetAllInputs();
       } else {
         var error = this.exerciseModel.firstValidationError();

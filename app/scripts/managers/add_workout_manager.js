@@ -58,12 +58,11 @@ define([
       this.workoutModel.assignCurrentUser(this.userModel.toJSON());
     },
 
-    addExerciseToCollection: function() {
-      this.exercisesCollection.addExercise(this.exerciseModel.toJSON());
-      var message = this.exerciseModel.getExerciseTitle() +
+    addExerciseToCollection: function(exerciseAttrs) {
+      this.exercisesCollection.addExercise(exerciseAttrs);
+      var message = exerciseAttrs.title +
         enLocale.flashMessage.exerciseAdded;
       FlashMessage.showSuccess(message);
-      this.exerciseModel.resetExercise();
     },
 
     addWorkoutToCollection: function() {

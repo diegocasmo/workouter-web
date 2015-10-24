@@ -21,7 +21,7 @@ define([
   ListPaginator.prototype.setList = function(list) {
     this._list = list;
     this._setFirstPage();
-    return this._setTotalPages();
+    this._setTotalPages();
   };
 
   ListPaginator.prototype.getFirstPage = function() {

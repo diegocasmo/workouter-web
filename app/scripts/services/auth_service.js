@@ -1,9 +1,5 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A wrapper to handle authentication with
- *              Firebase information.
- */
+// A wrapper to handle authentication with
+// Firebase
 
 /*global define, Firebase*/
 define([
@@ -20,30 +16,26 @@ define([
 
     ref: new Firebase(FirebaseService.url),
 
-    /**
-     * returns true if current user is logged in,
-     * false otherwise
-     */
+    // Returns true if current user is logged in,
+    // false otherwise
     isUserLoggedIn: function() {
       var authData = this.ref.getAuth();
-      // if user is logged in, attempt to set it on model
+      // If user is logged in, attempt to set it on model
       if(authData && this.userModel.setTwitterUser(authData)) {
         return true;
       }
-      // user is logged out, or there was a problem
+      // User is logged out, or there was a problem
       // trying to sign in, reset and return false
       this.logUserOut();
       return false;
     },
 
-    /**
-     * attempt to log user in
-     */
-    attemptTologUserIn: function(callback) {
+    // Attempts to log user in
+    attemptTologUserIn: function(cb) {
       this.ref.authWithOAuthPopup(
         FirebaseService.oAuthProvider,
         function(error, authData) {
-          callback({
+          cb({
             error: error,
             authData: authData
           });
@@ -51,9 +43,7 @@ define([
       );
     },
 
-    /**
-     * log user out
-     */
+    // Logs user out
     logUserOut: function() {
       this.ref.unauth();
       this.userModel.resetModel();

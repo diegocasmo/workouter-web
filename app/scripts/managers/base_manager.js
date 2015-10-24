@@ -21,8 +21,8 @@ define([
       var that = this;
       this.options = options;
       this.router = options.router;
-      this.eventTrigger = options.eventTrigger;
-      this.listenTo(this.router, this.eventTrigger, function() {
+      this.eventName = options.eventName;
+      this.listenTo(this.router, this.eventName, function() {
         that.prepareManager(options);
         that.initializeManager(options);
       });

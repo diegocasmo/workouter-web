@@ -40,9 +40,9 @@ define([
     initializeManager: function(options) {
       this.workoutsCollection = options.workoutsCollection;
       this.bindCollectionEvents();
-      this.workoutsCollection.getWorkouts();
       this.render();
       this.renderBottomMenuView();
+      this.workoutsCollection.getWorkouts();
     },
 
     render: function() {

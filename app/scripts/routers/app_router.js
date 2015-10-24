@@ -12,13 +12,13 @@ define([
   'managers/add_workout_manager',
   'managers/view_workout_manager',
   'models/user_model',
-  'models/workout_model',
   'models/exercise_model',
+  'models/workout_model',
   'collections/exercises_collection',
   'collections/workouts_collection',
 ], function($, Backbone, BaseRouter, AuthService, LoginManager,
             WorkoutsHomeManager, ProfileManager, AddWorkoutManager,
-            ViewWorkoutManager, UserModel, WorkoutModel, ExerciseModel,
+            ViewWorkoutManager, UserModel, ExerciseModel, WorkoutModel,
             ExercisesCollection, WorkoutsCollection) {
 
   'use strict';
@@ -28,28 +28,24 @@ define([
     publicRoutes: ['', 'login', '*actions'],
 
     routes: {
-      'login'                     : 'showLogin',
-      'workouts'                  : 'showWorkouts',
-      'workout/add'               : 'addWorkout',
-      'workout/:id/exercises'     : 'showWorkoutExercises',
-      'me'                        : 'showProfile',
-      '*actions'                  : 'showLogin'
-    },
-
-    initialize: function() {
-      this.userModel = UserModel.getInstance();
+      'login'                : 'showLogin',
+      'workouts'             : 'showWorkouts',
+      'workout/add'          : 'addWorkout',
+      'workout/:id/exercises': 'showWorkoutExercises',
+      'me'                   : 'showProfile',
+      '*actions'             : 'showLogin'
     },
 
     // Check wheter the current route is private or public
     // and handles user authentication appropriately
     before: function(route) {
       route = $.trim(route);
-      this.removeActiveManager();
-      if(!AuthService.isUserLoggedIn() && this.isRoutePrivate(route)) {
+      this._removeActiveManager();
+      if(!AuthService.isUserLoggedIn() && this._isRoutePrivate(route)) {
         // If user is not logged in, then redirect to login page
         this.navigate('login', { trigger: true });
         return false;
-      } else if (AuthService.isUserLoggedIn() && !this.isRoutePrivate(route)) {
+      } else if (AuthService.isUserLoggedIn() && !this._isRoutePrivate(route)) {
         // If user is already logged in, but attemps to navigate
         // a public route, redirect to workouts
         this.navigate('workouts', { trigger: true });
@@ -57,45 +53,39 @@ define([
       }
     },
 
-    // Returns true if a route is private,
-    // false otherwise
-    isRoutePrivate: function(route) {
-      return (this.publicRoutes.indexOf(route) > -1) ? false : true;
-    },
-
     // Show login page (public)
     showLogin: function() {
-      var eventTrigger = 'login:show',
+      var eventName = 'login:show',
       loginManager = new LoginManager({
         router        : this,
-        eventTrigger  : eventTrigger,
-        userModel     : this.userModel,
+        eventName     : eventName,
+        userModel     : UserModel.getInstance(),
         managerClass  : 'login-page'
       });
       this.activeManager = loginManager;
-      this.trigger(eventTrigger);
+      this.trigger(eventName);
     },
 
     // Show user all workouts view (private)
     showWorkouts: function() {
-      var eventTrigger = 'workouts:show',
+      var eventName = 'workouts:show',
       workoutsHomeManager = new WorkoutsHomeManager({
         router              : this,
-        eventTrigger        : eventTrigger,
+        eventName           : eventName,
         workoutsCollection  : new WorkoutsCollection(),
         managerClass        : 'workouts-page'
       });
       this.activeManager = workoutsHomeManager;
-      this.trigger(eventTrigger);
+      this.trigger(eventName);
     },
 
     // Show add workout form (private)
     addWorkout: function() {
-      var eventTrigger = 'workout:add:show',
+      var eventName = 'workout:add:show',
       addWorkoutManager = new AddWorkoutManager({
         router              : this,
-        eventTrigger        : eventTrigger,
-        userModel           : this.userModel,
+        eventName           : eventName,
+        userModel           : UserModel.getInstance(),
         workoutModel        : new WorkoutModel(),
         workoutsCollection  : new WorkoutsCollection(),
         exerciseModel       : new ExerciseModel(),
@@ -103,7 +93,7 @@ define([
         managerClass        : 'workout-add-page'
       });
       this.activeManager = addWorkoutManager;
-      this.trigger(eventTrigger);
+      this.trigger(eventName);
     },
 
     // Show user exercises perform on a single workout (private)
@@ -111,17 +101,17 @@ define([
       var workoutsCollection = new WorkoutsCollection(),
           workoutModel = workoutsCollection.getWorkout(workoutId);
       if(workoutModel) {
-        var eventTrigger = 'exercises:show',
+        var eventName = 'exercises:show',
         viewWorkoutManager = new ViewWorkoutManager({
           router              : this,
-          eventTrigger        : eventTrigger,
+          eventName           : eventName,
           workoutId           : workoutId,
           workoutModel        : workoutModel,
           workoutsCollection  : workoutsCollection,
           managerClass        : 'workout-page'
         });
         this.activeManager = viewWorkoutManager;
-        this.trigger(eventTrigger);
+        this.trigger(eventName);
       } else {
         this.navigate('workouts', { trigger: true });
         return false;
@@ -130,15 +120,15 @@ define([
 
     // Show user profile (private)
     showProfile: function() {
-      var eventTrigger = 'profile:show',
+      var eventName = 'profile:show',
       profileManager = new ProfileManager({
         router        : this,
-        eventTrigger  : eventTrigger,
-        userModel     : this.userModel,
+        eventName     : eventName,
+        userModel     : UserModel.getInstance(),
         managerClass  : 'profile-page'
       });
       this.activeManager = profileManager;
-      this.trigger(eventTrigger);
+      this.trigger(eventName);
     }
 
   });

@@ -1,8 +1,4 @@
-/**
- * Author: Diego Castillo
- * Company: Workouter
- * Description: A model for an excercise.
- */
+// A model for an exercise
 
 /*global define*/
 define([
@@ -14,8 +10,7 @@ define([
 
   'use strict';
 
-  var Excercise = Backbone.Model.extend({
-
+  var Exercise = Backbone.Model.extend({
 
     validate: function (attrs) {
       var errors = [];
@@ -56,20 +51,10 @@ define([
     // Gets first exercise validation error if any
     firstValidationError: function() {
       return _.first(this.validate(this.toJSON()));
-    },
-
-    // Reset the model back to its defaults
-    resetExercise: function() {
-      this.clear();
-    },
-
-    // Returns exercise title
-    getExerciseTitle: function() {
-      return this.get('title');
     }
 
   });
 
-  return Excercise;
+  return Exercise;
 
 });

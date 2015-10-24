@@ -9,17 +9,21 @@ define([
 
   var BaseRouter = Backbone.Router.extend({
 
-    history: [],
-
     activeManager: null,
 
     // Removes active manager if any
-    removeActiveManager: function() {
+    _removeActiveManager: function() {
       if(this.activeManager) {
         this.activeManager.remove();
         this.activeManager = null;
       }
-    }
+    },
+
+    // Returns true if a route is private,
+    // false otherwise
+    _isRoutePrivate: function(route) {
+      return (this.publicRoutes.indexOf(route) > -1) ? false : true;
+    },
 
   });
 

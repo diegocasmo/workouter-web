@@ -16,23 +16,23 @@
 .bottom-menu-item {
   @include inline-block;
   list-style: none;
-  margin: -35px 0px 0px 50px;
+  margin: 0px 0px 0px 50px;
 
   @include _breakpoint(phablet) {
-    margin: -25px 0px 0px 100px;
+    margin: 0px 0px 0px 100px;
   }
 }
 
 .bottom-menu-item:first-child {
-  margin: -35px 50px 0px 0px;
+  margin: 0px 50px 0px 0px;
 
   @include _breakpoint(phablet) {
-    margin: -25px 100px 0px 0px;
+    margin: 0px 100px 0px 0px;
   }
 }
 
 .bottom-menu-icon {
-  @include border-radius(100%);
+  @include border-radius(30%);
   text-align: center;
   font-size: 22px;
   background-color: $light_gray;
@@ -47,7 +47,7 @@
   background-image: url('../images/workouter-logo-letter-small.png');
   background-repeat: no-repeat;
   background-position: center center;
-  margin: 0px 0px -20px;
+  margin: -25px 0px -20px;
   width: 38px;
   height: 35px;
 }
