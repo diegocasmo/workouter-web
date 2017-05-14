@@ -1,5 +1,5 @@
 # Workouter
-Workouter is a simple workout logger application I made to test a new [Backbone.js] (http://backbonejs.org/) architecture design.
+Workouter is a simple workout logger application I made to test a new [Backbone.js](http://backbonejs.org/) architecture design.
 
 ### Instructions
 + Clone repository
