@@ -1,0 +1,34 @@
+{
+  "workouts": [
+    {
+      "title": "Full Body",
+      "exercises": [
+        {
+          "title": "Burpees",
+          "measurement": "reps",
+          "quantity": 12
+        },
+        {
+          "title": "Crunches",
+          "measurement": "reps",
+          "quantity": 12
+        },
+        {
+          "title": "Squats",
+          "measurement": "reps",
+          "quantity": 15
+        },
+        {
+          "title": "Push Ups",
+          "measurement": "reps",
+          "quantity": 12
+        },
+        {
+          "title": "Jumping Jacks",
+          "measurement": "time",
+          "quantity": 40
+        }
+      ]
+    }
+  ]
+}
