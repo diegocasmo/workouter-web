@@ -2,6 +2,9 @@
   "workouts": [
     {
       "title": "Full Body",
+      "rounds": 4,
+      "restTimePerRound": 60,
+      "restTimePerExercise": 20,
       "exercises": [
         {
           "title": "Burpees",
