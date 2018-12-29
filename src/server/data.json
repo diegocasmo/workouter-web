@@ -1,7 +1,40 @@
 {
   "workouts": [
     {
-      "title": "Full Body",
+      "title": "Full Body I",
+      "rounds": 4,
+      "restTimePerRound": 60,
+      "restTimePerExercise": 20,
+      "exercises": [
+        {
+          "title": "Burpees",
+          "measurement": "reps",
+          "quantity": 12
+        },
+        {
+          "title": "Crunches",
+          "measurement": "reps",
+          "quantity": 12
+        },
+        {
+          "title": "Squats",
+          "measurement": "reps",
+          "quantity": 15
+        },
+        {
+          "title": "Push Ups",
+          "measurement": "reps",
+          "quantity": 12
+        },
+        {
+          "title": "Jumping Jacks",
+          "measurement": "time",
+          "quantity": 40
+        }
+      ]
+    },
+    {
+      "title": "Full Body II",
       "rounds": 4,
       "restTimePerRound": 60,
       "restTimePerExercise": 20,

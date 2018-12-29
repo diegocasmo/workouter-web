@@ -10,7 +10,9 @@ describe('<Home/>', () => {
 
   beforeEach(() => {
     props = {
-      onFetchWorkouts: sinon.spy()
+      onFetchWorkouts: sinon.spy(),
+      workouts: [{"title": "Full Body I"},{"title": "Full Body II"}],
+      hasFetchFailure: false
     };
   });
 
@@ -24,4 +26,15 @@ describe('<Home/>', () => {
     const wrapper = mount(<Home {...props}/>);
     expect(props.onFetchWorkouts.calledOnce).to.be.true;
   });
-})
+
+  it('renders error message when unable to fetch workouts', () => {
+    props.hasFetchFailure = true;
+    const wrapper = mount(<Home {...props}/>);
+    expect(wrapper.find('.wkr-error-msg')).to.have.lengthOf(1);
+  });
+
+  it('renders list of workouts', () => {
+    const wrapper = mount(<Home {...props}/>);
+    expect(wrapper.find('ul').children()).to.have.lengthOf(props.workouts.length);
+  });
+});
