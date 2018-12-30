@@ -9,7 +9,7 @@ describe('Workout Reducer', () => {
       .to.be.eql({
         value: [],
         isFetching: false,
-        hasFetchFailure: false
+        hasFetchFailed: false
       });
   });
 
@@ -18,7 +18,7 @@ describe('Workout Reducer', () => {
     expect(workoutReducer({}, action))
       .to.be.eql({
         isFetching: true,
-        hasFetchFailure: false
+        hasFetchFailed: false
       });
   });
 
@@ -29,7 +29,7 @@ describe('Workout Reducer', () => {
       .to.be.eql({
         value: data,
         isFetching: false,
-        hasFetchFailure: false
+        hasFetchFailed: false
       });
   });
 
@@ -38,7 +38,7 @@ describe('Workout Reducer', () => {
     expect(workoutReducer({}, action))
       .to.be.eql({
         isFetching: false,
-        hasFetchFailure: true
+        hasFetchFailed: true
       });
   });
 });

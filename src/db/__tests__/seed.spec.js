@@ -1,47 +1,8 @@
-// import db from '../db';
-import Dexie from 'dexie';
+import db from '../db';
 import {expect} from 'chai';
 import {createUnits, createExercises, createWorkout} from '../seed';
 
 describe('Seed', () => {
-
-  let db;
-  beforeEach(() => {
-    db = new Dexie('WorkouterDbTest', {
-      indexedDB: require('fake-indexeddb'),
-      IDBKeyRange: require('fake-indexeddb/lib/FDBKeyRange')
-    });
-
-    db.version(1).stores({
-      'units': '++id,&name',
-      'exercises': '++id,unitId',
-      'workouts': '++id,&name'
-    });
-
-    let Unit = db.units.defineClass({
-      id: Number,
-      name: String
-    });
-
-    let Exercise = db.exercises.defineClass({
-      id: Number,
-      name: String,
-      unit: Unit
-    });
-
-    let Workout = db.workouts.defineClass({
-      id: Number,
-      rounds: Number,
-      restTimePerRound: Number,
-      restTimePerExercise: Number,
-      exercises: [Exercise]
-    });
-
-    Exercise.prototype.includeUnit = function () {
-      return db.units.where({id: this.unitId})
-        .first((unit) => ({...this, unit: unit }));
-    };
-  });
 
   afterEach(() => {
     return db.units.clear()

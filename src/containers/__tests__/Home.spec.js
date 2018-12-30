@@ -12,7 +12,8 @@ describe('<Home/>', () => {
     props = {
       onFetchWorkouts: sinon.spy(),
       workouts: [{"title": "Full Body I"},{"title": "Full Body II"}],
-      hasFetchFailure: false
+      isFetching: false,
+      hasFetchFailed: false
     };
   });
 
@@ -27,8 +28,14 @@ describe('<Home/>', () => {
     expect(props.onFetchWorkouts.calledOnce).to.be.true;
   });
 
+  it('renders loading when fetching', () => {
+    props.isFetching = true;
+    const wrapper = mount(<Router><Home {...props}/></Router>);
+    expect(wrapper.find('.wkr-loading__text')).to.have.lengthOf(1);
+  });
+
   it('renders error message when unable to fetch workouts', () => {
-    props.hasFetchFailure = true;
+    props.hasFetchFailed = true;
     const wrapper = mount(<Router><Home {...props}/></Router>);
     expect(wrapper.find('.wkr-error-msg')).to.have.lengthOf(1);
   });
