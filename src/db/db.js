@@ -1,17 +1,12 @@
 import Dexie from 'dexie';
-import relationships from 'dexie-relationships'
+import {seedDatabase} from './seed';
+import {getSchema,getDbName} from './schema';
 
-const db = new Dexie('WorkouterDb', {addons: [relationships]});
+const db = new Dexie(getDbName());
 
-db.version(1).stores({
-  'measurements': '++id, &name',
-  'exercises': '++id, measurementId -> measurements.id, &name',
-  'workouts': '++id, &name', // rounds,restTimePerRound,restTimePerExercise
-  'workoutExercises': '++id, workoutId -> workouts.id,exerciseId -> exercises.id', // quantity
-});
+db.version(1).stores(getSchema());
 
-db.on('populate', function() {
-  db.measurements.bulkAdd([{name: 'reps'}, {name: 'time'}]);
-});
+// Seed the database with sample workouts and exercises
+db.on('populate', () => seedDatabase(db));
 
 export default db;

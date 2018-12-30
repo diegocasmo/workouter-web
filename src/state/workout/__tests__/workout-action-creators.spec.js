@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import * as api from '../../../server/api';
+import * as api from '../../../db/workout';
 import { WORKOUT } from '../workout-actions';
 import { fetchWorkouts } from '../workout-action-creators';
 

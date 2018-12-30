@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "dexie": "^2.0.4",
-    "dexie-relationships": "^1.2.10",
+    "fake-indexeddb": "^2.0.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.1.0",

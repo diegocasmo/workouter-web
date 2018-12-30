@@ -1,6 +1,5 @@
-import db from './db';
-
 // Return a list of workouts
-export function fetch() {
-  return db.table('workouts').toArray();
+export function fetch(db) {
+  return Promise.resolve([]);
+  // return db.table('workouts').toArray();
 }

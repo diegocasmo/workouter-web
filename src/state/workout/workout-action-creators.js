@@ -7,6 +7,6 @@ export function fetchWorkouts() {
     dispatch({ type: WORKOUT.FETCH_INIT });
     return fetch()
       .then((data) => dispatch({ type: WORKOUT.FETCH_SUCCESS, data }))
-      .catch(()    => dispatch({ type: WORKOUT.FETCH_FAILURE }))
+      .catch((err) => dispatch({ type: WORKOUT.FETCH_FAILURE }))
   }
 }

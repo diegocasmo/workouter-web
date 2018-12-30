@@ -7,8 +7,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 
 describe('<Home/>', () => {
 
-  let props = null;
-
+  let props;
   beforeEach(() => {
     props = {
       onFetchWorkouts: sinon.spy(),
