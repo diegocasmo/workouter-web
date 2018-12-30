@@ -1,26 +1,44 @@
 // Seed the database with sample workouts and exercises
 export function seedDatabase(db) {
-  return createMeasurements(db)
-    .then(() => createExercises(db));
+  return createUnits(db)
+    .then(() => createExercises(db))
+    .then(() => createWorkout(db));
 }
 
-// Create sample exercise measurements
-export function createMeasurements(db) {
-  return db.measurements.bulkAdd([{name: 'reps'}, {name: 'time'}]);
+// Create sample units
+export function createUnits(db) {
+  return db.units.bulkAdd([{name: 'reps'}, {name: 'sec'}]);
 }
 
 // Create sample exercises
 export function createExercises(db) {
-  return Promise.all([
-    db.measurements.where({name: 'reps'}).first(),
-    db.measurements.where({name: 'time'}).first()
-  ])
-  .then(([reps, time]) =>
-    db.exercises.bulkAdd([
-      {measurementId: reps.id, name: 'Burpees'},
-      {measurementId: reps.id, name: 'Push Ups'},
-      {measurementId: reps.id, name: 'Squats'},
-      {measurementId: time.id, name: 'Jumping Jacks'}
-    ])
-  );
+  return db.units.toArray()
+    .then(([reps, sec]) => {
+      return db.exercises.bulkAdd([
+        {name: 'Burpees', unitId: reps.id},
+        {name: 'Push Ups', unitId: reps.id},
+        {name: 'Squats', unitId: reps.id},
+        {name: 'Jumping Jacks', unitId: sec.id}
+      ]);
+    })
+}
+
+// Create a sample workout
+export function createWorkout(db) {
+  return db.exercises.toArray()
+    .then((res) => Promise.all(res.map((x) => x.includeUnit())))
+    .then(([burpess, pushUps, squats, jumpingJacks]) => {
+      return db.workouts.add({
+        'name': 'Full Body I',
+        'rounds': 4,
+        'restTimePerRound': 60,
+        'restTimePerExercise': 20,
+        'exercises': [
+          {...burpess, quantity: 12},
+          {...pushUps, quantity: 15},
+          {...squats, quantity: 20},
+          {...jumpingJacks, quantity: 45}
+        ]
+      })
+    });
 }
