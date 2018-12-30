@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {fetchWorkouts} from '../state/workout/workout-action-creators';
 import {Loading} from '../components/Loading';
 import {ErrorMsg} from '../components/ErrorMsg';
-import {WorkoutList} from '../components/WorkoutList';
+import {WorkoutList} from '../components/WorkoutList/WorkoutList';
 
 export class Home extends Component {
   componentDidMount() {

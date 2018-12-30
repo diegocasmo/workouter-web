@@ -6,7 +6,6 @@ import {WorkoutList} from '../WorkoutList';
 describe('<WorkoutList/>', () => {
 
   let props = null;
-
   beforeEach(() => {
     props = {
       workouts: [{'name': 'Full Body I'},{'name': 'Full Body II'}]
