@@ -15,6 +15,6 @@ describe('<WorkoutList/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<WorkoutList {...props}/>);
-    expect(wrapper.find('ul').children()).to.have.lengthOf(props.workouts.length);
+    expect(wrapper.find('.wkr-workout-list').children()).to.have.lengthOf(props.workouts.length);
   });
 })

@@ -1,9 +1,13 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-export const WorkoutItem = ({title}) => {
+export const WorkoutItem = ({id,title}) => {
   return (
     <li className="wkr-workout-item">
-      <span className="wkr-workout-item__title">{title}</span>
+      <Link to={`/workout/${id}`}
+        className="wkr-workout-item__title">
+        {title}
+      </Link>
     </li>
   )
 }

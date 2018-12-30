@@ -8,11 +8,12 @@ describe('<WorkoutItem/>', () => {
   let props = null;
 
   beforeEach(() => {
-    props = {"title": "Full Body I"};
+    props = {id: 1, "title": "Full Body I"};
   });
 
   it('renders', () => {
     const wrapper = shallow(<WorkoutItem {...props}/>);
-    expect(wrapper.find('.wkr-workout-item__title').text()).to.be.equal(props.title);
+    expect(wrapper.find('Link').props().to).to.be.equal(`/workout/${props.id}`);
+    expect(wrapper.find('.wkr-workout-item__title').props().children).to.be.equal(props.title);
   });
 })

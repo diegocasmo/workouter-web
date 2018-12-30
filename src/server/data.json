@@ -1,6 +1,7 @@
 {
   "workouts": [
     {
+      "id": 1,
       "title": "Full Body I",
       "rounds": 4,
       "restTimePerRound": 60,
@@ -34,6 +35,7 @@
       ]
     },
     {
+      "id": 2,
       "title": "Full Body II",
       "rounds": 4,
       "restTimePerRound": 60,
