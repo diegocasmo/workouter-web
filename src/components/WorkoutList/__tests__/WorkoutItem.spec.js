@@ -6,7 +6,6 @@ import {WorkoutItem} from '../WorkoutItem';
 describe('<WorkoutItem/>', () => {
 
   let props = null;
-
   beforeEach(() => {
     props = {id: 1, 'name': 'Full Body I'};
   });
