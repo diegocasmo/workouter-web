@@ -9,7 +9,7 @@ describe('<WorkoutList/>', () => {
 
   beforeEach(() => {
     props = {
-      workouts: [{"title": "Full Body I"},{"title": "Full Body II"}]
+      workouts: [{'name': 'Full Body I'},{'name': 'Full Body II'}]
     };
   });
 

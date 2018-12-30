@@ -1,5 +1,5 @@
 import React from 'react';
 
-export const Workout = ({ match }) => {
-  return (<p>Workout: {match.params.id}</p>)
-}
+export const Workout = ({match}) => (
+  <p>Workout: {match.params.id}</p>
+)

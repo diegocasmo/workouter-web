@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchWorkouts} from '../state/workout/workout-action-creators';
+import {Loading} from '../components/Loading';
 import {ErrorMsg} from '../components/ErrorMsg';
 import {WorkoutList} from '../components/WorkoutList';
 
@@ -10,11 +11,12 @@ export class Home extends Component {
   }
 
   render() {
-    const {hasFetchFailure, workouts} = this.props;
+    const {isFetching, workouts, hasFetchFailed} = this.props;
     return (
       <div>
         <h1>Home</h1>
-        {hasFetchFailure ? <ErrorMsg msg="Unable to fetch workouts"/> : null}
+        {isFetching ? <Loading/> : null}
+        {hasFetchFailed ? <ErrorMsg msg='Unable to fetch workouts'/> : null}
         <WorkoutList workouts={workouts}/>
       </div>
     );
@@ -25,7 +27,8 @@ function mapStateToProps(state, ownProps) {
   const {workoutStore} = state;
   return {
     workouts: workoutStore.value,
-    hasFetchFailure: workoutStore.hasFetchFailure
+    isFetching: workoutStore.isFetching,
+    hasFetchFailed: workoutStore.hasFetchFailed,
   };
 }
 
