@@ -1,5 +1,5 @@
-import { fetch } from '../../server/api';
-import { WORKOUT } from './workout-actions';
+import {fetch} from '../../db/workout';
+import {WORKOUT} from './workout-actions';
 
 // Fetch a list of workouts
 export function fetchWorkouts() {
