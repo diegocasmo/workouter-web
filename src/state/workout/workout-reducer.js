@@ -1,9 +1,9 @@
 import { WORKOUT } from './workout-actions';
 
 const initialState = {
-  value     : [],    // An array of fetched workouts
+  value: [],    // An array of fetched workouts
   isFetching: false, // True if more workouts are being fetched
-  hasError  : false, // True if an error has occurred
+  hasFetchFailure: false, // True if an error occurred while fetching
 }
 
 export function workoutReducer(state = initialState, action) {
@@ -11,18 +11,18 @@ export function workoutReducer(state = initialState, action) {
     case WORKOUT.FETCH_INIT:
       return { ...state,
         isFetching: true,
-        hasError: false
+        hasFetchFailure: false
       }
     case WORKOUT.FETCH_SUCCESS:
       return { ...state,
         value: action.data,
         isFetching: false,
-        hasError: false
+        hasFetchFailure: false
       }
     case WORKOUT.FETCH_FAILURE:
       return { ...state,
         isFetching: false,
-        hasError: true
+        hasFetchFailure: true
       }
     default:
       return state

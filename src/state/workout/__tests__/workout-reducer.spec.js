@@ -7,9 +7,9 @@ describe('Workout Reducer', () => {
   it('should return the initial state', () => {
     expect(workoutReducer(undefined, {}))
       .to.be.eql({
-        value     : [],
+        value: [],
         isFetching: false,
-        hasError  : false
+        hasFetchFailure: false
       });
   });
 
@@ -18,7 +18,7 @@ describe('Workout Reducer', () => {
     expect(workoutReducer({}, action))
       .to.be.eql({
         isFetching: true,
-        hasError: false
+        hasFetchFailure: false
       });
   });
 
@@ -29,7 +29,7 @@ describe('Workout Reducer', () => {
       .to.be.eql({
         value: data,
         isFetching: false,
-        hasError: false
+        hasFetchFailure: false
       });
   });
 
@@ -38,7 +38,7 @@ describe('Workout Reducer', () => {
     expect(workoutReducer({}, action))
       .to.be.eql({
         isFetching: false,
-        hasError: true
+        hasFetchFailure: true
       });
   });
 });
