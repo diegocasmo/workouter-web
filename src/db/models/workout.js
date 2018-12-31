@@ -1,6 +1,6 @@
-import connection from './db';
+import connection from '../db';
 
-// Return a list of workouts
+// Return an array of workouts
 export function fetch(db = connection) {
   return db.workouts.toArray();
 }

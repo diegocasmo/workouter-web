@@ -1,16 +1,14 @@
-import db from '../db';
+import db from '../../../db-mock';
 import {expect} from 'chai';
-import {seedDatabase} from '../seed';
+import {seedDatabase} from '../../seed';
 import {fetch} from '../workout';
 
 describe('Workout', () => {
 
-  beforeEach(() => {
-    return seedDatabase(db);
-  });
+  beforeEach(() => { return seedDatabase(db) });
 
   afterEach(() => {
-    return db.units.clear()
+    return db.measurements.clear()
       .then(() => db.exercises.clear())
       .then(() => db.workouts.clear());
   });

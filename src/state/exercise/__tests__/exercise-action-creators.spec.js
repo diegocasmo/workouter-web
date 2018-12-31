@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import sinon from 'sinon';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import * as exercise from '../../../db/exercise';
+import * as exercise from '../../../db/models/exercise';
 import {EXERCISE} from '../exercise-actions';
 import {fetchExercises} from '../exercise-action-creators';
 
@@ -18,11 +18,11 @@ describe('Exercise Action Creators', () => {
     });
 
     it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on exercises fetch success", () => {
-      const data = {exercises: [{id: 1}, {id :2}]};
+      const data = [{id: 1}, {id :2}];
       sinon.stub(exercise, 'fetch').resolves(data);
       const expectedActions = [
         {type: EXERCISE.FETCH_INIT},
-        {type: EXERCISE.FETCH_SUCCESS, data}
+        {type: EXERCISE.FETCH_SUCCESS, items: data}
       ];
 
       const store = mockStore({exerciseStore: {}});
@@ -32,10 +32,13 @@ describe('Exercise Action Creators', () => {
     });
 
     it("dispatches 'FETCH_ERROR' on exercises fetch failure", () => {
-      sinon.stub(exercise, 'fetch').rejects([]);
+      sinon.stub(exercise, 'fetch').rejects();
       const expectedActions = [
         {type: EXERCISE.FETCH_INIT},
-        {type: EXERCISE.FETCH_FAILURE}
+        {
+          type: EXERCISE.FETCH_FAILURE,
+          errorMsg: 'There was an error while fetching the exercises'
+        }
       ];
 
       const store = mockStore({exerciseStore: {}});
