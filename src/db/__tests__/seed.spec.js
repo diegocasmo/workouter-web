@@ -1,45 +1,45 @@
-import db from '../db';
+import db from '../../db-mock';
 import {expect} from 'chai';
-import {createUnits, createExercises, createWorkout} from '../seed';
+import {createMeasurements, createExercises, createWorkout} from '../seed';
 
 describe('Seed', () => {
 
   afterEach(() => {
-    return db.units.clear()
+    return db.measurements.clear()
       .then(() => db.exercises.clear())
       .then(() => db.workouts.clear());
   });
 
-  it('createUnits()', () => {
-    return createUnits(db)
-      .then(() => db.units.toArray())
-      .then(([reps, sec]) => {
+  it('createMeasurements()', () => {
+    return createMeasurements(db)
+      .then(() => db.measurements.toArray())
+      .then(([reps, time]) => {
         expect(reps.name).to.be.equal('reps');
-        expect(sec.name).to.be.equal('sec');
+        expect(time.name).to.be.equal('time');
       });
   });
 
   it('createExercises()', () => {
-    return createUnits(db)
+    return createMeasurements(db)
       .then(() => createExercises(db))
       .then(() => db.exercises.toArray())
-      .then((res) => Promise.all(res.map((x) => x.includeUnit())))
-      .then(([burpess, pushUps, squats, jumpingJacks]) => {
+      .then((exercises) => {
+        const [burpess, pushUps, squats, jumpingJacks] = exercises;
         // Check name is correct
         expect(burpess.name).to.be.equal('Burpees');
         expect(pushUps.name).to.be.equal('Push Ups');
         expect(squats.name).to.be.equal('Squats');
         expect(jumpingJacks.name).to.be.equal('Jumping Jacks');
-        // Check exercise unit is correct
-        expect(burpess.unit.name).to.be.equal('reps');
-        expect(pushUps.unit.name).to.be.equal('reps');
-        expect(squats.unit.name).to.be.equal('reps');
-        expect(jumpingJacks.unit.name).to.be.equal('sec');
+        // Check exercises a self-contained measurement with no id
+        exercises.forEach((exercise) => {
+          expect(exercise.measurement).to.be.an('object');
+          expect(exercise.measurement.id).to.be.equal(undefined);
+        });
       });
   });
 
   it('createWorkout()', () => {
-    return createUnits(db)
+    return createMeasurements(db)
       .then(() => createExercises(db))
       .then(() => createWorkout(db))
       .then(() => db.workouts.toArray())
@@ -49,6 +49,13 @@ describe('Seed', () => {
         expect(workout.restTimePerRound).to.be.equal(60);
         expect(workout.restTimePerExercise).to.be.equal(20);
         expect(workout.exercises.length).to.be.equal(4);
+
+        // Check exercises are self-contained
+        workout.exercises.forEach((exercise) => {
+          expect(exercise).to.be.an('object');
+          expect(exercise.id).to.be.equal(undefined);
+          expect(exercise.quantity).to.be.a('number');
+        });
       });
   });
 })

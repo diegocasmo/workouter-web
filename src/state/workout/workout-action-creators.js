@@ -1,4 +1,4 @@
-import {fetch} from '../../db/workout';
+import {fetch} from '../../db/models/workout';
 import {WORKOUT} from './workout-actions';
 
 // Fetch a list of workouts

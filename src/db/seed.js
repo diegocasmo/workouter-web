@@ -1,33 +1,43 @@
+import connection from './db';
+
 // Seed the database with sample workouts and exercises
-export function seedDatabase(db) {
-  return createUnits(db)
+export function seedDatabase(db = connection) {
+  return createMeasurements(db)
     .then(() => createExercises(db))
     .then(() => createWorkout(db));
 }
 
-// Create sample units
-export function createUnits(db) {
-  return db.units.bulkAdd([{name: 'reps'}, {name: 'sec'}]);
+// Create default measurements
+export function createMeasurements(db = connection) {
+  return db.measurements.bulkAdd([
+    {name: 'reps'},
+    {name: 'time'}
+  ]);
 }
 
 // Create sample exercises
-export function createExercises(db) {
-  return db.units.toArray()
-    .then(([reps, sec]) => {
+export function createExercises(db = connection) {
+  return db.measurements.toArray()
+    .then((measurements) => {
+      // Delete measurements' id
+      measurements.forEach((x) => delete x.id);
+      const [reps, time] = measurements;
       return db.exercises.bulkAdd([
-        {name: 'Burpees', unitId: reps.id},
-        {name: 'Push Ups', unitId: reps.id},
-        {name: 'Squats', unitId: reps.id},
-        {name: 'Jumping Jacks', unitId: sec.id}
+        {name: 'Burpees', measurement: reps},
+        {name: 'Push Ups', measurement: reps},
+        {name: 'Squats', measurement: reps},
+        {name: 'Jumping Jacks', measurement: time}
       ]);
-    })
+    });
 }
 
 // Create a sample workout
-export function createWorkout(db) {
+export function createWorkout(db = connection) {
   return db.exercises.toArray()
-    .then((res) => Promise.all(res.map((x) => x.includeUnit())))
-    .then(([burpess, pushUps, squats, jumpingJacks]) => {
+    .then((exercises) => {
+      // Delete exercises' id
+      exercises.forEach((x) => delete x.id);
+      const [burpess, pushUps, squats, jumpingJacks] = exercises;
       return db.workouts.add({
         'name': 'Full Body I',
         'rounds': 4,

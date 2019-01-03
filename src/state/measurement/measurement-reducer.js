@@ -1,17 +1,17 @@
-import {EXERCISE} from './exercise-actions'
+import {MEASUREMENT} from './measurement-actions'
 import {initialState} from '../utils/crud-initial-state'
 
-export function exerciseReducer(state = initialState, action) {
+export function measurementReducer(state = initialState, action) {
   switch (action.type) {
-    case EXERCISE.FETCH_INIT:
+    case MEASUREMENT.FETCH_INIT:
       return { ...state, isBusy: true, errorMsg: null}
-    case EXERCISE.FETCH_SUCCESS:
+    case MEASUREMENT.FETCH_SUCCESS:
       // Augment resources with meta info helpful for the client
       action.items.forEach((x) =>
         state.items[x.id] = {...x, _meta: {isBusy: false, errors: {}}}
       )
       return {...state, isBusy: false, errorMsg: null}
-    case EXERCISE.FETCH_FAILURE:
+    case MEASUREMENT.FETCH_FAILURE:
       return {...state, isBusy: false, errorMsg: action.errorMsg}
     default:
       return state
