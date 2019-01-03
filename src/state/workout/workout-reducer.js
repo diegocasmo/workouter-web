@@ -1,29 +1,18 @@
-import { WORKOUT } from './workout-actions';
+import {WORKOUT} from './workout-actions'
+import {getCRUDInitialState} from '../utils/crud-initial-state'
 
-const initialState = {
-  value: [],    // An array of fetched workouts
-  isFetching: false, // True if more workouts are being fetched
-  hasFetchFailed: false, // True if an error occurred while fetching
-}
-
-export function workoutReducer(state = initialState, action) {
+export function workoutReducer(state = getCRUDInitialState(), action) {
   switch (action.type) {
     case WORKOUT.FETCH_INIT:
-      return { ...state,
-        isFetching: true,
-        hasFetchFailed: false
-      }
+      return { ...state, isBusy: true, errorMsg: null}
     case WORKOUT.FETCH_SUCCESS:
-      return { ...state,
-        value: action.data,
-        isFetching: false,
-        hasFetchFailed: false
-      }
+      // Augment resources with meta info helpful for the client
+      action.items.forEach((x) =>
+        state.items[x.id] = {...x, _meta: {isBusy: false, errors: {}}}
+      )
+      return {...state, isBusy: false, errorMsg: null}
     case WORKOUT.FETCH_FAILURE:
-      return { ...state,
-        isFetching: false,
-        hasFetchFailed: true
-      }
+      return {...state, isBusy: false, errorMsg: action.errorMsg}
     default:
       return state
   }

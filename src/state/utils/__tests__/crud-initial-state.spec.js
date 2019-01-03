@@ -1,8 +1,8 @@
 import {expect} from 'chai'
-import {initialState} from '../crud-initial-state'
+import {getCRUDInitialState} from '../crud-initial-state'
 
-it('initialState', () => {
-  expect(initialState)
+it('getCRUDInitialState()', () => {
+  expect(getCRUDInitialState())
     .to.be.eql({
       items: {},
       isBusy: false,

@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { WORKOUT } from '../workout-actions';
+import {expect} from 'chai'
+import {WORKOUT} from '../workout-actions'
 
 describe('WORKOUT', () => {
 
@@ -8,9 +8,9 @@ describe('WORKOUT', () => {
       'FETCH_INIT'   : 'WORKOUT__FETCH_INIT',
       'FETCH_SUCCESS': 'WORKOUT__FETCH_SUCCESS',
       'FETCH_FAILURE': 'WORKOUT__FETCH_FAILURE'
-    };
-    for (const key in actions) {
-      expect(WORKOUT[key]).to.equal(actions[key]);
     }
-  });
-});
+    for (const key in actions) {
+      expect(WORKOUT[key]).to.equal(actions[key])
+    }
+  })
+})

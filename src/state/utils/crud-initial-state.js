@@ -1,3 +1,4 @@
+// TODO: Update with new CRUD format
 /**
  * Reducer state format:
  * items: { Map of resources to be accessed as a list, id, or cuid
@@ -5,7 +6,7 @@
  *     id: 1,
  *     _meta: { Additional info added by the client to handle resource updates
  *       isBusy: false,
- *       errors: {} Rails-like map of errors with attributes as key
+ *       errors: {} An object of errors
  *     }
  *   }
  * },
@@ -13,8 +14,8 @@
  * errorMsg: null Error message text if an error occurred while fetching
  * }
  */
-export const initialState = {
+export const getCRUDInitialState = () => ({
   items: {},
   isBusy: false,
   errorMsg: null
-}
+})
