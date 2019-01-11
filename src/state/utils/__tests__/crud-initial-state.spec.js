@@ -4,8 +4,7 @@ import {getCRUDInitialState} from '../crud-initial-state'
 it('getCRUDInitialState()', () => {
   expect(getCRUDInitialState())
     .to.be.eql({
-      items: {},
-      isBusy: false,
-      errorMsg: null
+      items  : {list:    [], errorMsg: null, isLoading: false},
+      newItem: {attrs: null, errors  :   {}, isLoading: false}
     })
 })

@@ -3,16 +3,37 @@ import {getCRUDInitialState} from '../utils/crud-initial-state'
 
 export function measurementReducer(state = getCRUDInitialState(), action) {
   switch (action.type) {
-    case MEASUREMENT.FETCH_INIT:
-      return { ...state, isBusy: true, errorMsg: null}
-    case MEASUREMENT.FETCH_SUCCESS:
-      // Augment resources with meta info helpful for the client
-      action.items.forEach((x) =>
-        state.items[x.id] = {...x, _meta: {isBusy: false, errors: {}}}
-      )
-      return {...state, isBusy: false, errorMsg: null}
-    case MEASUREMENT.FETCH_FAILURE:
-      return {...state, isBusy: false, errorMsg: action.errorMsg}
+    case MEASUREMENT.FETCH_INIT: {
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          errorMsg: null,
+          isLoading: true
+        }
+      }
+    }
+    case MEASUREMENT.FETCH_SUCCESS: {
+      return {
+        ...state,
+        items: {
+          list: state.items.list.concat(action.items),
+          errorMsg: null,
+          isLoading: false
+        }
+      }
+    }
+    case MEASUREMENT.FETCH_FAILURE: {
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          errorMsg: action.errorMsg,
+          isLoading: false
+        }
+      }
+    }
+
     default:
       return state
   }

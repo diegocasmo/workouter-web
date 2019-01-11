@@ -1,5 +1,6 @@
 import {expect} from 'chai'
-import {exerciseReducer, initialState} from '../exercise-reducer'
+import {exerciseReducer} from '../exercise-reducer'
+import {getCRUDInitialState} from '../../utils/crud-initial-state'
 import {EXERCISE} from '../exercise-actions'
 
 describe('Exercise Reducer', () => {
@@ -14,35 +15,35 @@ describe('Exercise Reducer', () => {
 
   it('FETCH_INIT', () => {
     const action  = {type: EXERCISE.FETCH_INIT}
-    expect(exerciseReducer(initialState, action))
+    expect(exerciseReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         items: {
-          ...initialState.items,
+          ...getCRUDInitialState().items,
           errorMsg: null,
           isLoading: true
-        },
+        }
       })
   })
 
   it('FETCH_SUCCESS', () => {
     const data = [{id: 1, title: 'Lorem'}, {id :2, title: 'Ipsum'}]
     const action  = {type: EXERCISE.FETCH_SUCCESS, items: data}
-    expect(exerciseReducer(initialState, action))
+    expect(exerciseReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
-        items: {list: data, errorMsg: null, isLoading: false},
+        ...getCRUDInitialState(),
+        items: {list: data, errorMsg: null, isLoading: false}
       })
   })
 
   it('FETCH_FAILURE', () => {
     const errorMsg = 'There was an error while fetching the exercises'
     const action  = {type: EXERCISE.FETCH_FAILURE, errorMsg}
-    expect(exerciseReducer(initialState, action))
+    expect(exerciseReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         items: {
-          ...initialState.items,
+          ...getCRUDInitialState().items,
           errorMsg: errorMsg,
           isLoading: false
         }
@@ -52,9 +53,9 @@ describe('Exercise Reducer', () => {
   it('CREATE_INIT', () => {
     const attrs = {'name': 'Abs','measurement': {'name': 'reps'}}
     const action  = {type: EXERCISE.CREATE_INIT, item: attrs}
-    expect(exerciseReducer(initialState, action))
+    expect(exerciseReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         newItem: {
           attrs,
           errors: {},
@@ -67,7 +68,7 @@ describe('Exercise Reducer', () => {
     // Set up initial state as if an exercise is being created
     const attrs = {'name': 'Abs','measurement': {'name': 'reps'}}
     const state = {
-      ...initialState,
+      ...getCRUDInitialState(),
       newItem: {
         attrs,
         errors: {},
@@ -78,12 +79,12 @@ describe('Exercise Reducer', () => {
     const action  = {type: EXERCISE.CREATE_SUCCESS, item: attrs}
     expect(exerciseReducer(state, action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         items: {
-          ...initialState.items,
+          ...getCRUDInitialState().items,
           list: [attrs]
         },
-        newItem: initialState.newItem
+        newItem: getCRUDInitialState().newItem
       })
   })
 
@@ -91,7 +92,7 @@ describe('Exercise Reducer', () => {
     // Set up initial state as if an exercise is being created
     const attrs = {'measurement': {'name': 'reps'}}
     const state = {
-      ...initialState,
+      ...getCRUDInitialState(),
       newItem: {
         attrs,
         errors: {},
@@ -103,7 +104,7 @@ describe('Exercise Reducer', () => {
     const action  = {type: EXERCISE.CREATE_FAILURE, item: attrs, errors}
     expect(exerciseReducer(state, action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         newItem: {
           attrs,
           errors,

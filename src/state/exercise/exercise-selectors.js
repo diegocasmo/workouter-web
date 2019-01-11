@@ -1,7 +1,5 @@
 // TODO: Test
-export const getExercises = ({exercises}) => (
-  exercises.items.list
-);
+export const getExercises = ({exercises}) => (exercises.items.list)
 
 export const areExercisesLoading = ({exercises}) => (exercises.isLoading)
 

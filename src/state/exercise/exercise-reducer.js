@@ -1,11 +1,7 @@
 import {EXERCISE} from './exercise-actions'
+import {getCRUDInitialState} from '../utils/crud-initial-state'
 
-export const initialState = {
-  items  : {list:    [], errorMsg: null, isLoading: false},
-  newItem: {attrs: null, errors  :   {}, isLoading: false}
-}
-
-export function exerciseReducer(state = initialState, action) {
+export function exerciseReducer(state = getCRUDInitialState(), action) {
   switch (action.type) {
     case EXERCISE.FETCH_INIT: {
       return {
@@ -55,7 +51,7 @@ export function exerciseReducer(state = initialState, action) {
           ...state.items,
           list: state.items.list.concat(action.item)
         },
-        newItem: initialState.newItem
+        newItem: getCRUDInitialState().newItem
       }
     }
     case EXERCISE.CREATE_FAILURE: {
