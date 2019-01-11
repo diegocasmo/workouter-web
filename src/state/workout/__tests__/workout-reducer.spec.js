@@ -8,8 +8,9 @@ describe('Workout Reducer', () => {
   it('should return the initial state', () => {
     expect(workoutReducer(undefined, {}))
       .to.be.eql({
-        items  : {list:    [], errorMsg: null, isLoading: false},
-        newItem: {attrs: null, errors  :   {}, isLoading: false}
+        items     : {list:    [], errorMsg: null, isLoading: false},
+        newItem   : {attrs: null, errors  :   {}, isLoading: false},
+        deleteItem: {id:    null, errors  :   {}, isLoading: false}
       })
   })
 
@@ -19,7 +20,7 @@ describe('Workout Reducer', () => {
       .to.be.eql({
         ...getCRUDInitialState(),
         items: {
-          ...getCRUDInitialState().items,
+          list: [],
           errorMsg: null,
           isLoading: true
         }

@@ -7,8 +7,7 @@ export function workoutReducer(state = getCRUDInitialState(), action) {
       return {
         ...state,
         items: {
-          ...state.items,
-          errorMsg: null,
+          ...getCRUDInitialState().items,
           isLoading: true
         }
       }

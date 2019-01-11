@@ -8,8 +8,9 @@ describe('Exercise Reducer', () => {
   it('should return the initial state', () => {
     expect(measurementReducer(undefined, {}))
       .to.be.eql({
-        items  : {list:    [], errorMsg: null, isLoading: false},
-        newItem: {attrs: null, errors  :   {}, isLoading: false}
+        items     : {list:    [], errorMsg: null, isLoading: false},
+        newItem   : {attrs: null, errors  :   {}, isLoading: false},
+        deleteItem: {id:    null, errors  :   {}, isLoading: false}
       })
   })
 
@@ -19,7 +20,7 @@ describe('Exercise Reducer', () => {
       .to.be.eql({
         ...getCRUDInitialState(),
         items: {
-          ...getCRUDInitialState().items,
+          list: [],
           errorMsg: null,
           isLoading: true
         }

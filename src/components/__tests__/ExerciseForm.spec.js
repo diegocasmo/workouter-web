@@ -12,6 +12,8 @@ describe('<ExerciseForm/>', () => {
     props = {
       exercise: {name: 'Push Ups', measurement: {name: 'Reps'}},
       measurements: [{name: 'Time'}, {name: 'Km'}],
+      isSubmitting: false,
+      submitText: 'Foo',
       handleSubmit: sinon.spy()
     }
   })
@@ -23,7 +25,14 @@ describe('<ExerciseForm/>', () => {
     expect(wrapper.find("input[name='name']")).to.have.lengthOf(1)
     expect(wrapper.find("select[name='measurement.name']")).to.have.lengthOf(1)
     expect(wrapper.find('option')).to.have.lengthOf(2)
-    expect(wrapper.find("button[type='submit']")).to.have.lengthOf(1)
+    expect(wrapper.find("button[type='submit']").props().disabled).to.be.false
+    expect(wrapper.find("button[type='submit']").text()).to.be.equal(props.submitText)
+  })
+
+  it('disables submit button when form is being submitted', () => {
+    props.isSubmitting = true
+    const wrapper = mount(<ExerciseForm {...props}/>)
+    expect(wrapper.find("button[type='submit']").props().disabled).to.be.true
   })
 
   it('renders a pre-filled form with an exercise', () => {

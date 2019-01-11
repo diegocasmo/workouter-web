@@ -12,6 +12,7 @@
  * }
 */
 export const getCRUDInitialState = () => ({
-  items  : {list:    [], errorMsg: null, isLoading: false},
-  newItem: {attrs: null, errors  :   {}, isLoading: false}
+  items     : {list:    [], errorMsg: null, isLoading: false},
+  newItem   : {attrs: null, errors  :   {}, isLoading: false},
+  deleteItem: {id:    null, errors  :   {}, isLoading: false}
 })

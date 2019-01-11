@@ -8,25 +8,31 @@ Model: Measurement
 Model: Exercise
   - id
   - name
-  - measurement: {}
+  - measurement: {
+  -   name
+  - }
 Model: Workout
   - id
   - name
   - rounds
   - restTimePerRound
   - restTimePerExercise
-  - exercises: [{}]
+  - exercises: [{
+  -   name
+  -   measurement: {
+  -     name
+  -   }
+  - }]
 */
 
 // Initialize Dexie DB
 const db = new Dexie('WorkouterDb');
 
-// Specify this DB's version schema, which only defines indexed keys
-// The & sign means the attribute must be unique across its table
+// Specify DB's version schema, which only defines indexed keys
 db.version(1).stores({
-  'measurements': '++id,&name',
-  'exercises': '++id,[name+measurement]',
-  'workouts': '++id,&name'
+  'measurements': '++id,name',
+  'exercises': '++id,name',
+  'workouts': '++id,name'
 });
 
 // Seed the database with sample workouts and exercises
