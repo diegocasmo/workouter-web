@@ -15,7 +15,6 @@ describe('<NewExercise/>', () => {
       exercise: null,
       exerciseErrors: [],
       measurements: [{'name': 'Burpees'},{'name': 'Push Ups'}],
-      hasMeasurements: true,
       areMeasurementsLoading: false,
       hasMeasurementsError: false,
       handleFetchMeasurements: sinon.spy()

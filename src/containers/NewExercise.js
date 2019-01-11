@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchMeasurements} from '../state/measurement/measurement-action-creators'
 import {createExercise} from '../state/exercise/exercise-action-creators'
-import {getMeasurements, hasMeasurements, areMeasurementsLoading, hasMeasurementsError} from '../state/measurement/measurement-selectors'
+import {getMeasurements, areMeasurementsLoading, hasMeasurementsError} from '../state/measurement/measurement-selectors'
 import {getNewExercise, getNewExerciseErrors} from '../state/exercise/exercise-selectors'
 import {Loading} from '../components/Loading'
 import {ErrorMsg} from '../components/ErrorMsg'
@@ -14,9 +14,8 @@ export class NewExercise extends Component {
   }
 
   renderExerciseForm() {
-    const {hasMeasurements, measurements, handleCreateExercise,
-      exercise, exerciseErrors} = this.props
-    if(hasMeasurements) {
+    const {measurements, handleCreateExercise, exercise, exerciseErrors} = this.props
+    if(measurements.length > 0) {
       return(
         <div>
           {exerciseErrors ?
@@ -52,7 +51,6 @@ const mapStateToProps = state => ({
   exercise: getNewExercise(state),
   exerciseErrors: getNewExerciseErrors(state),
   measurements: getMeasurements(state),
-  hasMeasurements: hasMeasurements(state),
   areMeasurementsLoading: areMeasurementsLoading(state),
   hasMeasurementsError: hasMeasurementsError(state)
 })
