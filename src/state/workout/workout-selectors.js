@@ -1,6 +1,6 @@
 // TODO: Test
 export const getWorkouts = ({workouts}) => (workouts.items.list)
 
-export const areWorkoutsLoading = ({workouts}) => (workouts.isLoading)
+export const areWorkoutsLoading = ({workouts}) => (workouts.items.isLoading)
 
-export const hasWorkoutsError = ({workouts}) => (workouts.errorMsg ? true : false)
+export const hasWorkoutsError = ({workouts}) => (workouts.items.errorMsg ? true : false)

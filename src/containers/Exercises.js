@@ -16,8 +16,8 @@ export class Exercises extends Component {
     return (
       <div>
         <h1>Exercises</h1>
-        {areExercisesLoading ? <Loading/> : null}
-        {hasExercisesError ? <ErrorMsg msg='Unable to fetch exercises'/> : null}
+        {areExercisesLoading && <Loading/>}
+        {hasExercisesError && <ErrorMsg msg='Unable to fetch exercises'/>}
         <ExerciseList exercises={exercises}/>
       </div>
     )

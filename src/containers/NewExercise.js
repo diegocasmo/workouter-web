@@ -14,34 +14,33 @@ export class NewExercise extends Component {
   }
 
   renderExerciseForm() {
-    const {measurements, handleCreateExercise, exercise, exerciseErrors} = this.props
-    if(measurements.length > 0) {
-      return(
+    if(this.props.areMeasurementsLoading) {
+      return (<Loading/>)
+    } else {
+      const {measurements, handleCreateExercise, exercise, exerciseErrors} = this.props
+      return (
         <div>
-          {exerciseErrors ?
-            <ul>{exerciseErrors.map((x, i) => <li key={i}><ErrorMsg msg={x}/></li>)}</ul> :
-            null}
-          <ExerciseForm
-            handleSubmit={handleCreateExercise}
-            exercise={exercise}
-            measurements={measurements}/>
+          {measurements.length === 0 ?
+            <p>Please, <a href="/">create an exercise measurement first</a></p> :
+            <div>
+              {exerciseErrors && <ul>{exerciseErrors.map((x, i) => <li key={i}><ErrorMsg msg={x}/></li>)}</ul>}
+              <ExerciseForm
+                handleSubmit={handleCreateExercise}
+                exercise={exercise}
+                measurements={measurements}/>
+            </div>}
         </div>
       )
-    } else {
-      return(<p>Please, <a href="/">create an exercise measurement first</a></p>)
     }
   }
 
   render() {
-    const {areMeasurementsLoading, hasMeasurementsError} = this.props
     return (
       <div>
         <h1>New Exercise</h1>
-        {areMeasurementsLoading ?
-          <Loading/> :
-          hasMeasurementsError ?
-            <ErrorMsg msg='Unable to fetch measurements'/> :
-            this.renderExerciseForm()}
+        {this.props.hasMeasurementsError ?
+          <ErrorMsg msg='Unable to fetch measurements'/> :
+          this.renderExerciseForm()}
       </div>
     )
   }

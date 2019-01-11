@@ -31,6 +31,6 @@ export function fetchExercises(db = connection) {
 // object of errors otherwise
 export function createExercise(attrs, db = connection) {
   return validateExercise(attrs)
-    .then((test) => db.exercises.add(cleanseExerciseAttrs(attrs)))
+    .then(() => db.exercises.add(cleanseExerciseAttrs(attrs)))
     .then((id) => db.exercises.get(id))
 }
