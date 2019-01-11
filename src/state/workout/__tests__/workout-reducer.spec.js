@@ -1,44 +1,53 @@
-import { expect } from 'chai';
-import { workoutReducer } from '../workout-reducer';
-import { WORKOUT } from '../workout-actions';
+import {expect} from 'chai'
+import {getCRUDInitialState} from '../../utils/crud-initial-state'
+import {workoutReducer} from '../workout-reducer'
+import {WORKOUT} from '../workout-actions'
 
 describe('Workout Reducer', () => {
 
   it('should return the initial state', () => {
     expect(workoutReducer(undefined, {}))
       .to.be.eql({
-        value: [],
-        isFetching: false,
-        hasFetchFailed: false
-      });
-  });
+        items: {},
+        isBusy: false,
+        errorMsg: null
+      })
+  })
 
   it('FETCH_INIT', () => {
-    const action  = {type: WORKOUT.FETCH_INIT};
-    expect(workoutReducer({}, action))
+    const action  = {type: WORKOUT.FETCH_INIT}
+    expect(workoutReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        isFetching: true,
-        hasFetchFailed: false
-      });
-  });
+        ...getCRUDInitialState(),
+        isBusy: true,
+        errorMsg: null
+      })
+  })
 
   it('FETCH_SUCCESS', () => {
-    const data = { workouts: [{ id: 1 }, { id :2 }] };
-    const action  = { type: WORKOUT.FETCH_SUCCESS, data };
-    expect(workoutReducer({}, action))
+    const data = [{id: 1, title: 'Lorem'}, {id :2, title: 'Ipsum'}]
+    const action  = {type: WORKOUT.FETCH_SUCCESS, items: data}
+    const expectedData = {
+      1: {...data[0], _meta: {isBusy: false, errors: {}}},
+      2: {...data[1], _meta: {isBusy: false, errors: {}}},
+    }
+    expect(workoutReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        value: data,
-        isFetching: false,
-        hasFetchFailed: false
-      });
-  });
+        ...getCRUDInitialState(),
+        items: expectedData,
+        isBusy: false,
+        errorMsg: null
+      })
+  })
 
   it('FETCH_FAILURE', () => {
-    const action  = { type: WORKOUT.FETCH_FAILURE };
-    expect(workoutReducer({}, action))
+    const errorMsg = 'There was an error while fetching the workouts'
+    const action  = {type: WORKOUT.FETCH_FAILURE, errorMsg}
+    expect(workoutReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        isFetching: false,
-        hasFetchFailed: true
-      });
-  });
-});
+        ...getCRUDInitialState(),
+        isBusy: false,
+        errorMsg: errorMsg
+      })
+  })
+})

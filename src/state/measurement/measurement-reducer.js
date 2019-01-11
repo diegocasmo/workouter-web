@@ -1,7 +1,7 @@
 import {MEASUREMENT} from './measurement-actions'
-import {initialState} from '../utils/crud-initial-state'
+import {getCRUDInitialState} from '../utils/crud-initial-state'
 
-export function measurementReducer(state = initialState, action) {
+export function measurementReducer(state = getCRUDInitialState(), action) {
   switch (action.type) {
     case MEASUREMENT.FETCH_INIT:
       return { ...state, isBusy: true, errorMsg: null}

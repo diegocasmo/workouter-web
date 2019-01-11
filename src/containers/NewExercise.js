@@ -1,39 +1,69 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchMeasurements} from '../state/measurement/measurement-action-creators'
-import {getAll, isLoading, hasError} from '../state/measurement/measurement-selectors'
+import {createExercise} from '../state/exercise/exercise-action-creators'
+import {getMeasurements, hasMeasurements, areMeasurementsLoading, hasMeasurementsError} from '../state/measurement/measurement-selectors'
+import {getNewExercise, getNewExerciseErrors} from '../state/exercise/exercise-selectors'
 import {Loading} from '../components/Loading'
 import {ErrorMsg} from '../components/ErrorMsg'
+import {ExerciseForm} from '../components/ExerciseForm'
 
 export class NewExercise extends Component {
   componentDidMount() {
     this.props.handleFetchMeasurements()
   }
 
+  renderExerciseForm() {
+    const {hasMeasurements, measurements, handleCreateExercise,
+      exercise, exerciseErrors} = this.props
+    if(hasMeasurements) {
+      return(
+        <div>
+          {exerciseErrors ?
+            <ul>{exerciseErrors.map((x, i) => <li key={i}><ErrorMsg msg={x}/></li>)}</ul> :
+            null}
+          <ExerciseForm
+            handleSubmit={handleCreateExercise}
+            exercise={exercise}
+            measurements={measurements}/>
+        </div>
+      )
+    } else {
+      return(<p>Please, <a href="/">create an exercise measurement first</a></p>)
+    }
+  }
+
   render() {
-    const {isLoading, hasError} = this.props
+    const {areMeasurementsLoading, hasMeasurementsError} = this.props
     return (
       <div>
-        <h1>Create Exercise</h1>
-        {isLoading ? <Loading/> : null}
-        {hasError ?
-          <ErrorMsg msg='Unable to fetch measurements'/> :
-          <p>ExerciseForm</p>}
+        <h1>New Exercise</h1>
+        {areMeasurementsLoading ?
+          <Loading/> :
+          hasMeasurementsError ?
+            <ErrorMsg msg='Unable to fetch measurements'/> :
+            this.renderExerciseForm()}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  measurements: getAll(state),
-  isLoading: isLoading(state),
-  hasError: hasError(state)
+  exercise: getNewExercise(state),
+  exerciseErrors: getNewExerciseErrors(state),
+  measurements: getMeasurements(state),
+  hasMeasurements: hasMeasurements(state),
+  areMeasurementsLoading: areMeasurementsLoading(state),
+  hasMeasurementsError: hasMeasurementsError(state)
 })
 
 const mapDispatchToProps = dispatch => {
   return {
     handleFetchMeasurements() {
       dispatch(fetchMeasurements())
+    },
+    handleCreateExercise(attrs) {
+      dispatch(createExercise(attrs))
     }
   }
 }

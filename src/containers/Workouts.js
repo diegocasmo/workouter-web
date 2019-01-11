@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchWorkouts} from '../state/workout/workout-action-creators'
+import {getWorkouts, areWorkoutsLoading, hasWorkoutsError} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
 import {ErrorMsg} from '../components/ErrorMsg'
 import {WorkoutList} from '../components/WorkoutList/WorkoutList'
@@ -11,12 +12,12 @@ export class Workouts extends Component {
   }
 
   render() {
-    const {isFetching, workouts, hasFetchFailed} = this.props
+    const {areWorkoutsLoading, workouts, hasWorkoutsError} = this.props
     return (
       <div>
         <h1>Workouts</h1>
-        {isFetching ? <Loading/> : null}
-        {hasFetchFailed ? <ErrorMsg msg='Unable to fetch workouts'/> : null}
+        {areWorkoutsLoading ? <Loading/> : null}
+        {hasWorkoutsError ? <ErrorMsg msg='Unable to fetch workouts'/> : null}
         <WorkoutList workouts={workouts}/>
       </div>
     )
@@ -24,9 +25,9 @@ export class Workouts extends Component {
 }
 
 const mapStateToProps = state => ({
-  workouts: state.workoutStore.value,
-  isFetching: state.workoutStore.isFetching,
-  hasFetchFailed: state.workoutStore.hasFetchFailed,
+  workouts: getWorkouts(state),
+  areWorkoutsLoading: areWorkoutsLoading(state),
+  hasWorkoutsError: hasWorkoutsError(state)
 })
 
 function mapDispatchToProps(dispatch, ownProps) {

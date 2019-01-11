@@ -6,9 +6,9 @@ const dbMock = new Dexie('WorkouterDbTest', {
 });
 
 dbMock.version(1).stores({
-  'measurements': '++id',
-  'exercises': '++id',
-  'workouts': '++id'
+  'measurements': '++id,&name',
+  'exercises': '++id,[name+measurement]',
+  'workouts': '++id,&name'
 });
 
 export default dbMock;

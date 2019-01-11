@@ -25,7 +25,7 @@ const db = new Dexie('WorkouterDb');
 // The & sign means the attribute must be unique across its table
 db.version(1).stores({
   'measurements': '++id,&name',
-  'exercises': '++id,name',
+  'exercises': '++id,[name+measurement]',
   'workouts': '++id,&name'
 });
 

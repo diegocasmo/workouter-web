@@ -1,6 +1,5 @@
 import {expect} from 'chai'
-import {initialState} from '../../utils/crud-initial-state'
-import {exerciseReducer} from '../exercise-reducer'
+import {exerciseReducer, initialState} from '../exercise-reducer'
 import {EXERCISE} from '../exercise-actions'
 
 describe('Exercise Reducer', () => {
@@ -8,9 +7,8 @@ describe('Exercise Reducer', () => {
   it('should return the initial state', () => {
     expect(exerciseReducer(undefined, {}))
       .to.be.eql({
-        items: {},
-        isBusy: false,
-        errorMsg: null
+        items  : {list:    [], errorMsg: null, isLoading: false},
+        newItem: {attrs: null, errors  :   {}, isLoading: false}
       })
   })
 
@@ -19,24 +17,21 @@ describe('Exercise Reducer', () => {
     expect(exerciseReducer(initialState, action))
       .to.be.eql({
         ...initialState,
-        isBusy: true,
-        errorMsg: null
+        items: {
+          ...initialState.items,
+          errorMsg: null,
+          isLoading: true
+        },
       })
   })
 
   it('FETCH_SUCCESS', () => {
     const data = [{id: 1, title: 'Lorem'}, {id :2, title: 'Ipsum'}]
     const action  = {type: EXERCISE.FETCH_SUCCESS, items: data}
-    const expectedData = {
-      1: {...data[0], _meta: {isBusy: false, errors: {}}},
-      2: {...data[1], _meta: {isBusy: false, errors: {}}},
-    }
     expect(exerciseReducer(initialState, action))
       .to.be.eql({
         ...initialState,
-        items: expectedData,
-        isBusy: false,
-        errorMsg: null
+        items: {list: data, errorMsg: null, isLoading: false},
       })
   })
 
@@ -46,8 +41,74 @@ describe('Exercise Reducer', () => {
     expect(exerciseReducer(initialState, action))
       .to.be.eql({
         ...initialState,
-        isBusy: false,
-        errorMsg: errorMsg
+        items: {
+          ...initialState.items,
+          errorMsg: errorMsg,
+          isLoading: false
+        }
+      })
+  })
+
+  it('CREATE_INIT', () => {
+    const attrs = {'name': 'Abs','measurement': {'name': 'reps'}}
+    const action  = {type: EXERCISE.CREATE_INIT, item: attrs}
+    expect(exerciseReducer(initialState, action))
+      .to.be.eql({
+        ...initialState,
+        newItem: {
+          attrs,
+          errors: {},
+          isLoading: true
+        }
+      })
+  })
+
+  it('CREATE_SUCCESS', () => {
+    // Set up initial state as if an exercise is being created
+    const attrs = {'name': 'Abs','measurement': {'name': 'reps'}}
+    const state = {
+      ...initialState,
+      newItem: {
+        attrs,
+        errors: {},
+        isLoading: true
+      }
+    }
+
+    const action  = {type: EXERCISE.CREATE_SUCCESS, item: attrs}
+    expect(exerciseReducer(state, action))
+      .to.be.eql({
+        ...initialState,
+        items: {
+          ...initialState.items,
+          list: [attrs]
+        },
+        newItem: initialState.newItem
+      })
+  })
+
+  it('CREATE_FAILURE', () => {
+    // Set up initial state as if an exercise is being created
+    const attrs = {'measurement': {'name': 'reps'}}
+    const state = {
+      ...initialState,
+      newItem: {
+        attrs,
+        errors: {},
+        isLoading: true
+      }
+    }
+
+    const errors = {'name': 'Name is required'}
+    const action  = {type: EXERCISE.CREATE_FAILURE, item: attrs, errors}
+    expect(exerciseReducer(state, action))
+      .to.be.eql({
+        ...initialState,
+        newItem: {
+          attrs,
+          errors,
+          isLoading: false
+        }
       })
   })
 })

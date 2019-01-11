@@ -2,18 +2,21 @@ import React from 'react'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
-import {Workouts} from '../Workouts'
 import {BrowserRouter as Router} from 'react-router-dom'
+import {Workouts} from '../Workouts'
+import {Loading} from '../../components/Loading'
+import {ErrorMsg} from '../../components/ErrorMsg'
+import {WorkoutItem} from '../../components/WorkoutList/WorkoutItem'
 
 describe('<Workouts/>', () => {
 
   let props
   beforeEach(() => {
     props = {
-      onFetchWorkouts: sinon.spy(),
-      workouts: [{"title": "Full Body I"},{"title": "Full Body II"}],
-      isFetching: false,
-      hasFetchFailed: false
+      workouts: [{'title': 'Full Body I'},{'title': 'Full Body II'}],
+      areWorkoutsLoading: false,
+      hasWorkoutsError: false,
+      onFetchWorkouts: sinon.spy()
     }
   })
 
@@ -28,20 +31,20 @@ describe('<Workouts/>', () => {
     expect(props.onFetchWorkouts.calledOnce).to.be.true
   })
 
-  it('renders loading when fetching', () => {
-    props.isFetching = true
+  it('renders <Loading/> when fetching workouts', () => {
+    props.areWorkoutsLoading = true
     const wrapper = mount(<Router><Workouts {...props}/></Router>)
-    expect(wrapper.find('.wkr-loading__text')).to.have.lengthOf(1)
+    expect(wrapper.find(Loading)).to.have.lengthOf(1)
   })
 
-  it('renders error message when unable to fetch workouts', () => {
-    props.hasFetchFailed = true
+  it('renders <ErrorMsg/> when unable to fetch exercises', () => {
+    props.hasWorkoutsError = true
     const wrapper = mount(<Router><Workouts {...props}/></Router>)
-    expect(wrapper.find('.wkr-error-msg')).to.have.lengthOf(1)
+    expect(wrapper.find(ErrorMsg)).to.have.lengthOf(1)
   })
 
   it('renders list of workouts', () => {
     const wrapper = mount(<Router><Workouts {...props}/></Router>)
-    expect(wrapper.find('.wkr-workout-list').children()).to.have.lengthOf(props.workouts.length)
+    expect(wrapper.find(WorkoutItem)).to.have.lengthOf(props.workouts.length)
   })
 })

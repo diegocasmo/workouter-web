@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 import {measurementReducer} from '../measurement-reducer'
-import {initialState} from '../../utils/crud-initial-state'
+import {getCRUDInitialState} from '../../utils/crud-initial-state'
 import {MEASUREMENT} from '../measurement-actions'
 
 describe('Measurement Reducer', () => {
@@ -16,9 +16,9 @@ describe('Measurement Reducer', () => {
 
   it('FETCH_INIT', () => {
     const action  = {type: MEASUREMENT.FETCH_INIT}
-    expect(measurementReducer(initialState, action))
+    expect(measurementReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         isBusy: true,
         errorMsg: null
       })
@@ -31,9 +31,9 @@ describe('Measurement Reducer', () => {
       1: {...data[0], _meta: {isBusy: false, errors: {}}},
       2: {...data[1], _meta: {isBusy: false, errors: {}}},
     }
-    expect(measurementReducer(initialState, action))
+    expect(measurementReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         items: expectedData,
         isBusy: false,
         errorMsg: null
@@ -43,9 +43,9 @@ describe('Measurement Reducer', () => {
   it('FETCH_FAILURE', () => {
     const errorMsg = 'There was an error while fetching the measurements'
     const action  = {type: MEASUREMENT.FETCH_FAILURE, errorMsg}
-    expect(measurementReducer(initialState, action))
+    expect(measurementReducer(getCRUDInitialState(), action))
       .to.be.eql({
-        ...initialState,
+        ...getCRUDInitialState(),
         isBusy: false,
         errorMsg: errorMsg
       })
