@@ -1,8 +1,6 @@
 // TODO: Test
-export const getWorkouts = ({workouts}) => (
-  Object.keys(workouts.items).map((k) => workouts.items[k])
-);
+export const getWorkouts = ({workouts}) => (workouts.items.list)
 
-export const areWorkoutsLoading = ({workouts}) => (workouts.isBusy)
+export const areWorkoutsLoading = ({workouts}) => (workouts.isLoading)
 
 export const hasWorkoutsError = ({workouts}) => (workouts.errorMsg ? true : false)

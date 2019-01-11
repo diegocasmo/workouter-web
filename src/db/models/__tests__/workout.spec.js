@@ -1,7 +1,7 @@
 import db from '../../../db-mock';
 import {expect} from 'chai';
 import {seedDatabase} from '../../seed';
-import {fetch} from '../workout';
+import {fetchWorkouts} from '../workout';
 
 describe('Workout', () => {
 
@@ -13,8 +13,8 @@ describe('Workout', () => {
       .then(() => db.workouts.clear());
   });
 
-  it('fetch()', () => {
-    return fetch(db)
+  it('fetchWorkouts()', () => {
+    return fetchWorkouts(db)
       .then((res) => expect(res.length).to.be.equal(1));
   });
 })

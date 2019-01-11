@@ -1,21 +1,17 @@
-// TODO: Update with new CRUD format
 /**
- * Reducer state format:
- * items: { Map of resources to be accessed as a list, id, or cuid
- *   1: {
- *     id: 1,
- *     _meta: { Additional info added by the client to handle resource updates
- *       isBusy: false,
- *       errors: {} An object of errors
- *     }
- *   }
+ * CRUD reducer state format:
+ * items: {
+ *   list: [], // An array of resources
+ *   errorMsg: null, // Error message text set if there was an error while fetching
+ *   isLoading: false // True if resources are being fetch
  * },
- * isBusy: false, True if a resource(s) is being fetch
- * errorMsg: null Error message text if an error occurred while fetching
+ * newItem: {
+ *   attrs: null, // The attributes of the new resource being created
+ *   errors : {}, // An object of errors if there was an error while creating the resource
+ *   isLoading: false // True if resource is being post
  * }
- */
+*/
 export const getCRUDInitialState = () => ({
-  items: {},
-  isBusy: false,
-  errorMsg: null
+  items  : {list:    [], errorMsg: null, isLoading: false},
+  newItem: {attrs: null, errors  :   {}, isLoading: false}
 })
