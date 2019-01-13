@@ -1,14 +1,14 @@
-import Dexie from 'dexie';
+import Dexie from 'dexie'
 
 const dbMock = new Dexie('WorkouterDbTest', {
   indexedDB: require('fake-indexeddb'),
   IDBKeyRange: require('fake-indexeddb/lib/FDBKeyRange')
-});
+})
 
 dbMock.version(1).stores({
-  'measurements': '++id,&name',
-  'exercises': '++id,[name+measurement]',
-  'workouts': '++id,&name'
-});
+  'measurements': '++id,name',
+  'exercises': '++id,name',
+  'workouts': '++id,name'
+})
 
-export default dbMock;
+export default dbMock
