@@ -1,4 +1,5 @@
 import React from 'react'
+import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
@@ -14,7 +15,7 @@ describe('<Exercises/>', () => {
   let props
   beforeEach(() => {
     props = {
-      exercises: [{id: 1, 'name': 'Burpees'},{id: 2, 'name': 'Push Ups'}],
+      exercises: Factory.buildList('exercise', 2),
       isLoading: false,
       hasError: false,
       handleFetchExercises: sinon.spy(),
