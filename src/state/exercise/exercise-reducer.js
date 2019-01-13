@@ -2,7 +2,7 @@ import {EXERCISE} from './exercise-actions'
 
 /**
  * CRUD reducer state format:
- * items: {
+ * getItems: {
  *   list: [], // An array of resources
  *   errorMsg: null, // Error message text set if there was an error while fetching
  *   isLoading: false // True if resources are being fetch
@@ -43,7 +43,7 @@ export function exerciseReducer(state = initialState, action) {
       return {
         ...state,
         getItems: {
-          ...initialState.getItems,
+          ...state.getItems,
           isLoading: true
         }
       }
@@ -66,6 +66,12 @@ export function exerciseReducer(state = initialState, action) {
           errorMsg: action.errorMsg,
           isLoading: false
         }
+      }
+    }
+    case EXERCISE.FETCH_RESET: {
+      return {
+        ...state,
+        getItems: initialState.getItems
       }
     }
 
@@ -120,11 +126,11 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.CREATE_SUCCESS: {
       return {
         ...state,
-        getItems: {
-          ...state.getItems,
-          list: state.getItems.list.concat(action.item)
-        },
-        postItem: initialState.postItem
+        postItem: {
+          ...state.postItem,
+          errors: {},
+          isLoading: false
+        }
       }
     }
     case EXERCISE.CREATE_FAILURE: {
@@ -158,13 +164,11 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.UPDATE_SUCCESS: {
       return {
         ...state,
-        getItems: {
-          ...state.getItems,
-          list: state.getItems.list
-                  .filter((x) => x.id !== action.item.id)
-                  .concat(action.item)
-        },
-        putItem: initialState.putItem
+        putItem: {
+          attrs: action.item,
+          errors: {},
+          isLoading: false
+        }
       }
     }
     case EXERCISE.UPDATE_FAILURE: {
@@ -198,11 +202,11 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.DELETE_SUCCESS: {
       return {
         ...state,
-        getItems: {
-          ...state.getItems,
-          list: state.getItems.list.filter((x) => x.id !== action.id)
-        },
-        deleteItem: initialState.deleteItem
+        deleteItem: {
+          id: action.id,
+          errors: {},
+          isLoading: false
+        }
       }
     }
     case EXERCISE.DELETE_FAILURE: {

@@ -15,12 +15,12 @@ describe('<Exercises/>', () => {
   beforeEach(() => {
     props = {
       exercises: [{id: 1, 'name': 'Burpees'},{id: 2, 'name': 'Push Ups'}],
-      areExercisesLoading: false,
-      hasExercisesError: false,
+      isLoading: false,
+      hasError: false,
       handleFetchExercises: sinon.spy(),
+      handleResetFetchExercises: sinon.spy(),
       handleDeleteExercise: sinon.spy(),
       handleResetDeleteExercise: sinon.spy()
-
     }
   })
 
@@ -38,10 +38,11 @@ describe('<Exercises/>', () => {
     expect(props.handleFetchExercises.calledOnce).to.be.true
   })
 
-  it("calls 'handleResetDeleteExercise()' on 'componentWillUnmount()'", () => {
+  it("calls 'handleResetFetchExercises()' and 'handleResetDeleteExercise()' on 'componentWillUnmount()'", () => {
     const wrapper = mount(<Router><Exercises {...props}/></Router>)
     expect(props.handleResetDeleteExercise.calledOnce).to.be.false
     wrapper.unmount()
+    expect(props.handleResetFetchExercises.calledOnce).to.be.true
     expect(props.handleResetDeleteExercise.calledOnce).to.be.true
   })
 
@@ -63,7 +64,7 @@ describe('<Exercises/>', () => {
   })
 
   it('renders <Loading/> when fetching exercises', () => {
-    props.areExercisesLoading = true
+    props.isLoading = true
     const wrapper = mount(<Router><Exercises {...props}/></Router>)
     expect(wrapper.find(Loading)).to.have.lengthOf(1)
     expect(wrapper.find(ErrorMsg)).to.have.lengthOf(0)
@@ -71,7 +72,7 @@ describe('<Exercises/>', () => {
   })
 
   it('renders <ErrorMsg/> when unable to fetch exercises', () => {
-    props.hasExercisesError = true
+    props.hasError = true
     const wrapper = mount(<Router><Exercises {...props}/></Router>)
     expect(wrapper.find(Loading)).to.have.lengthOf(0)
     expect(wrapper.find(ErrorMsg)).to.have.lengthOf(1)

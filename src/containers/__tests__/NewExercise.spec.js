@@ -19,6 +19,7 @@ describe('<NewExercise/>', () => {
       isLoading: false,
       hasLoadingError: false,
       handleFetchMeasurements: sinon.spy(),
+      handleResetFetchMeasurements: sinon.spy(),
       handleCreateExercise: sinon.spy(),
       handleResetCreateExercise: sinon.spy()
     }
@@ -39,11 +40,13 @@ describe('<NewExercise/>', () => {
     expect(props.handleFetchMeasurements.calledOnce).to.be.true
   })
 
-  it("calls 'handleResetCreateExercise()' on 'componentWillUnmount()'", () => {
+  it("calls 'handleResetCreateExercise()' and 'handleResetFetchMeasurements()' on 'componentWillUnmount()'", () => {
     const wrapper = mount(<NewExercise {...props}/>)
     expect(props.handleResetCreateExercise.calledOnce).to.be.false
+    expect(props.handleResetFetchMeasurements.calledOnce).to.be.false
     wrapper.unmount()
     expect(props.handleResetCreateExercise.calledOnce).to.be.true
+    expect(props.handleResetFetchMeasurements.calledOnce).to.be.true
   })
 
   it("calls 'handleCreateExercise()' on form submit", async () => {

@@ -18,12 +18,21 @@ describe('Exercise Reducer', () => {
   describe('FETCH', () => {
 
     it('FETCH_INIT', () => {
+      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const state = {
+        ...initialState,
+        getItems: {
+          ...initialState.getItems,
+          list: items
+        }
+      }
+
       const action = {type: EXERCISE.FETCH_INIT}
-      expect(exerciseReducer(initialState, action))
+      expect(exerciseReducer(state, action))
         .to.be.eql({
-          ...initialState,
+          ...state,
           getItems: {
-            list: [],
+            ...state.getItems,
             errorMsg: null,
             isLoading: true
           }
@@ -31,12 +40,16 @@ describe('Exercise Reducer', () => {
     })
 
     it('FETCH_SUCCESS', () => {
-      const data = [{id: 1, title: 'Lorem'}, {id :2, title: 'Ipsum'}]
-      const action = {type: EXERCISE.FETCH_SUCCESS, items: data}
+      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const action = {type: EXERCISE.FETCH_SUCCESS, items}
       expect(exerciseReducer(initialState, action))
         .to.be.eql({
           ...initialState,
-          getItems: {list: data, errorMsg: null, isLoading: false}
+          getItems: {
+            list: initialState.getItems.list.concat(items),
+            errorMsg: null,
+            isLoading: false
+          }
         })
     })
 
@@ -51,6 +64,25 @@ describe('Exercise Reducer', () => {
             errorMsg: errorMsg,
             isLoading: false
           }
+        })
+    })
+
+    it('FETCH_RESET', () => {
+      // Assume there are exercises in state
+      const state = {
+        ...initialState,
+        getItems: {
+          ...initialState.getItems,
+          list: [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+        }
+      }
+
+      // Reset such exercises
+      const action = {type: EXERCISE.FETCH_RESET}
+      expect(exerciseReducer(state, action))
+        .to.be.eql({
+          ...initialState,
+          getItems: initialState.getItems
         })
     })
   })
@@ -158,11 +190,11 @@ describe('Exercise Reducer', () => {
       expect(exerciseReducer(state, action))
         .to.be.eql({
           ...initialState,
-          getItems: {
-            ...initialState.getItems,
-            list: [attrs]
-          },
-          postItem: initialState.postItem
+          postItem: {
+            attrs,
+            errors: {},
+            isLoading: false
+          }
         })
     })
 
@@ -233,12 +265,8 @@ describe('Exercise Reducer', () => {
       const nextExercise = {id: 1, 'name': 'Foo','measurement': {'name': 'Bar'}}
       const state = {
         ...initialState,
-        getItems: {
-          ...initialState.getItems,
-          list: [prevExercise]
-        },
         putItem: {
-          attrs: nextExercise,
+          attrs: prevExercise,
           errors: {},
           isLoading: true
         }
@@ -248,11 +276,11 @@ describe('Exercise Reducer', () => {
       expect(exerciseReducer(state, action))
         .to.be.eql({
           ...initialState,
-          getItems: {
-            ...initialState.getItems,
-            list: [nextExercise]
-          },
-          putItem: initialState.putItem
+          putItem: {
+            attrs: nextExercise,
+            errors: {},
+            isLoading: false
+          }
         })
     })
 
@@ -331,10 +359,6 @@ describe('Exercise Reducer', () => {
       const item = {id: 123, name: 'Abs', 'measurement': {'name': 'reps'}}
       const state = {
         ...initialState,
-        getItems: {
-          ...initialState.getItems,
-          list: [item]
-        },
         deleteItem: {
           ...initialState.deleteItem,
           id: item.id,
@@ -344,7 +368,14 @@ describe('Exercise Reducer', () => {
 
       const action = {type: EXERCISE.DELETE_SUCCESS, id: item.id}
       expect(exerciseReducer(state, action))
-        .to.be.eql(initialState)
+        .to.be.eql({
+          ...initialState,
+          deleteItem: {
+            id: item.id,
+            errors: {},
+            isLoading: false
+          }
+        })
     })
 
     it('DELETE_FAILURE', () => {
@@ -353,10 +384,6 @@ describe('Exercise Reducer', () => {
       const item = {id: 123, name: 'Abs', 'measurement': {'name': 'reps'}}
       const state = {
         ...initialState,
-        getItems: {
-          ...initialState.getItems,
-          list: [item]
-        },
         deleteItem: {
           ...initialState.deleteItem,
           id,
@@ -369,10 +396,6 @@ describe('Exercise Reducer', () => {
       expect(exerciseReducer(state, action))
         .to.be.eql({
           ...initialState,
-          getItems: {
-            ...initialState.getItems,
-            list: [item]
-          },
           deleteItem: {
             id,
             errors,
@@ -382,7 +405,7 @@ describe('Exercise Reducer', () => {
     })
 
     it('DELETE_RESET', () => {
-      // Assume an exercise is going to be deleted
+      // Assume an exercise was deleted
       const state = {
         ...initialState,
         deleteItem: {

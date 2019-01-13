@@ -1,13 +1,25 @@
 import {MEASUREMENT} from './measurement-actions'
-import {getCRUDInitialState} from '../utils/crud-initial-state'
 
-export function measurementReducer(state = getCRUDInitialState(), action) {
+/**
+ * CRUD reducer state format:
+ * getItems: {
+ *   list: [], // An array of resources
+ *   errorMsg: null, // Error message text set if there was an error while fetching
+ *   isLoading: false // True if resources are being fetch
+ * }
+*/
+export const initialState = {
+  getItems: {list: [], errorMsg: null, isLoading: false}
+}
+
+export function measurementReducer(state = initialState, action) {
   switch (action.type) {
+    // Fetch actions
     case MEASUREMENT.FETCH_INIT: {
       return {
         ...state,
-        items: {
-          ...getCRUDInitialState().items,
+        getItems: {
+          ...state.getItems,
           isLoading: true
         }
       }
@@ -15,8 +27,8 @@ export function measurementReducer(state = getCRUDInitialState(), action) {
     case MEASUREMENT.FETCH_SUCCESS: {
       return {
         ...state,
-        items: {
-          list: state.items.list.concat(action.items),
+        getItems: {
+          list: state.getItems.list.concat(action.items),
           errorMsg: null,
           isLoading: false
         }
@@ -25,11 +37,17 @@ export function measurementReducer(state = getCRUDInitialState(), action) {
     case MEASUREMENT.FETCH_FAILURE: {
       return {
         ...state,
-        items: {
-          ...state.items,
+        getItems: {
+          ...state.getItems,
           errorMsg: action.errorMsg,
           isLoading: false
         }
+      }
+    }
+    case MEASUREMENT.FETCH_RESET: {
+      return {
+        ...state,
+        getItems: initialState.getItems
       }
     }
 

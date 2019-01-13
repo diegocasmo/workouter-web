@@ -5,8 +5,8 @@ import configureMockStore from 'redux-mock-store'
 import * as exercise from '../../../db/models/exercise'
 import {EXERCISE} from '../exercise-actions'
 import {
-  fetchExercises, getExercise, resetGetExercise, createExercise, resetCreateExercise,
-  deleteExercise, resetDeleteExercise, updateExercise, resetUpdateExercise
+  fetchExercises, resetFetchExercises, getExercise, resetGetExercise, createExercise,
+  resetCreateExercise, deleteExercise, resetDeleteExercise, updateExercise, resetUpdateExercise
 } from '../exercise-action-creators'
 
 const middlewares = [thunk]
@@ -46,6 +46,14 @@ describe('Exercise Action Creators', () => {
       const store = mockStore({exercises: {}})
       return store.dispatch(fetchExercises())
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
+    })
+  })
+
+  describe('resetFetchExercises()', () => {
+
+    it("dispatches 'FETCH_RESET'", () => {
+      const expectedAction = {type: EXERCISE.FETCH_RESET}
+      expect(resetFetchExercises()).to.be.eql(expectedAction)
     })
   })
 

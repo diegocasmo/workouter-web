@@ -14,6 +14,11 @@ export function fetchExercises() {
   }
 }
 
+// Reset fetch exercises
+export function resetFetchExercises() {
+  return {type: EXERCISE.FETCH_RESET}
+}
+
 // Get a single exercise from DB by its id
 export function getExercise(id) {
   return (dispatch) => {

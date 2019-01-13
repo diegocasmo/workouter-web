@@ -13,3 +13,8 @@ export function fetchWorkouts() {
       }))
   }
 }
+
+// Reset fetch workouts
+export function resetFetchWorkouts() {
+  return {type: WORKOUT.FETCH_RESET}
+}

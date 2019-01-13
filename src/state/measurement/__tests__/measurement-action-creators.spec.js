@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 import * as measurement from '../../../db/models/measurement'
 import {MEASUREMENT} from '../measurement-actions'
-import {fetchMeasurements} from '../measurement-action-creators'
+import {fetchMeasurements, resetFetchMeasurements} from '../measurement-action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -18,11 +18,11 @@ describe('Measurement Action Creators', () => {
     })
 
     it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on measurements fetch success", () => {
-      const data = [{id: 1}, {id :2}]
-      sinon.stub(measurement, 'fetchMeasurements').resolves(data)
+      const items = [{id: 1}, {id :2}]
+      sinon.stub(measurement, 'fetchMeasurements').resolves(items)
       const expectedActions = [
         {type: MEASUREMENT.FETCH_INIT},
-        {type: MEASUREMENT.FETCH_SUCCESS, items: data}
+        {type: MEASUREMENT.FETCH_SUCCESS, items}
       ]
 
       const store = mockStore({measurements: {}})
@@ -43,6 +43,14 @@ describe('Measurement Action Creators', () => {
       const store = mockStore({measurements: {}})
       return store.dispatch(fetchMeasurements())
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
+    })
+  })
+
+  describe('resetFetchMeasurements()', () => {
+
+    it("dispatches 'FETCH_RESET'", () => {
+      const expectedAction = {type: MEASUREMENT.FETCH_RESET}
+      expect(resetFetchMeasurements()).to.be.eql(expectedAction)
     })
   })
 })
