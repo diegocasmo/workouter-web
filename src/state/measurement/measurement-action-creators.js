@@ -13,3 +13,8 @@ export function fetchMeasurements() {
       }))
   }
 }
+
+// Reset fetch measurements
+export function resetFetchMeasurements() {
+  return {type: MEASUREMENT.FETCH_RESET}
+}

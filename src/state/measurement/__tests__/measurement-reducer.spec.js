@@ -1,53 +1,85 @@
 import {expect} from 'chai'
-import {measurementReducer} from '../measurement-reducer'
-import {getCRUDInitialState} from '../../utils/crud-initial-state'
+import {measurementReducer, initialState} from '../measurement-reducer'
 import {MEASUREMENT} from '../measurement-actions'
 
-describe('Exercise Reducer', () => {
+describe('Measurement Reducer', () => {
 
   it('should return the initial state', () => {
     expect(measurementReducer(undefined, {}))
       .to.be.eql({
-        items     : {list:    [], errorMsg: null, isLoading: false},
-        newItem   : {attrs: null, errors  :   {}, isLoading: false},
-        deleteItem: {id:    null, errors  :   {}, isLoading: false}
+        getItems: {list: [], errorMsg: null, isLoading: false}
       })
   })
 
-  it('FETCH_INIT', () => {
-    const action  = {type: MEASUREMENT.FETCH_INIT}
-    expect(measurementReducer(getCRUDInitialState(), action))
-      .to.be.eql({
-        ...getCRUDInitialState(),
-        items: {
-          list: [],
-          errorMsg: null,
-          isLoading: true
+  describe('FETCH', () => {
+
+    it('FETCH_INIT', () => {
+      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const state = {
+        ...initialState,
+        getItems: {
+          ...initialState.getItems,
+          list: items
         }
-      })
-  })
+      }
 
-  it('FETCH_SUCCESS', () => {
-    const data = [{id: 1, title: 'Lorem'}, {id :2, title: 'Ipsum'}]
-    const action  = {type: MEASUREMENT.FETCH_SUCCESS, items: data}
-    expect(measurementReducer(getCRUDInitialState(), action))
-      .to.be.eql({
-        ...getCRUDInitialState(),
-        items: {list: data, errorMsg: null, isLoading: false}
-      })
-  })
+      const action = {type: MEASUREMENT.FETCH_INIT}
+      expect(measurementReducer(state, action))
+        .to.be.eql({
+          ...state,
+          getItems: {
+            ...state.getItems,
+            errorMsg: null,
+            isLoading: true
+          }
+        })
+    })
 
-  it('FETCH_FAILURE', () => {
-    const errorMsg = 'There was an error while fetching the measurements'
-    const action  = {type: MEASUREMENT.FETCH_FAILURE, errorMsg}
-    expect(measurementReducer(getCRUDInitialState(), action))
-      .to.be.eql({
-        ...getCRUDInitialState(),
-        items: {
-          ...getCRUDInitialState().items,
-          errorMsg: errorMsg,
-          isLoading: false
+    it('FETCH_SUCCESS', () => {
+      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const action = {type: MEASUREMENT.FETCH_SUCCESS, items}
+      expect(measurementReducer(initialState, action))
+        .to.be.eql({
+          ...initialState,
+          getItems: {
+            list: initialState.getItems.list.concat(items),
+            errorMsg: null,
+            isLoading: false
+          }
+        })
+    })
+
+    it('FETCH_FAILURE', () => {
+      const errorMsg = 'There was an error while fetching the measurements'
+      const action = {type: MEASUREMENT.FETCH_FAILURE, errorMsg}
+      expect(measurementReducer(initialState, action))
+        .to.be.eql({
+          ...initialState,
+          getItems: {
+            ...initialState.getItems,
+            errorMsg: errorMsg,
+            isLoading: false
+          }
+        })
+    })
+
+    it('FETCH_RESET', () => {
+      // Assume there are measurements in state
+      const state = {
+        ...initialState,
+        getItems: {
+          ...initialState.getItems,
+          list: [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
         }
-      })
+      }
+
+      // Reset such measurements
+      const action = {type: MEASUREMENT.FETCH_RESET}
+      expect(measurementReducer(state, action))
+        .to.be.eql({
+          ...initialState,
+          getItems: initialState.getItems
+        })
+    })
   })
 })

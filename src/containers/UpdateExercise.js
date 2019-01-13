@@ -1,7 +1,6 @@
-// TODO: Test
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchMeasurements} from '../state/measurement/measurement-action-creators'
+import {fetchMeasurements, resetFetchMeasurements} from '../state/measurement/measurement-action-creators'
 import {getExercise, updateExercise, resetGetExercise, resetUpdateExercise} from '../state/exercise/exercise-action-creators'
 import {getMeasurements, areMeasurementsLoading, hasMeasurementsError} from '../state/measurement/measurement-selectors'
 import {
@@ -21,6 +20,7 @@ export class UpdateExercise extends Component {
   componentWillUnmount () {
     this.props.handleResetGetExercise()
     this.props.handleResetUpdateExercise()
+    this.props.handleResetFetchMeasurements()
   }
 
   renderExerciseForm() {
@@ -64,25 +64,26 @@ const mapStateToProps = (state, {match}) => ({
   hasLoadingError: hasMeasurementsError(state) || hasActiveExerciseError(state)
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleFetchMeasurements() {
-      dispatch(fetchMeasurements())
-    },
-    handleGetExercise(id) {
-      dispatch(getExercise(id))
-    },
-    handleUpdateExercise(attrs) {
-      dispatch(updateExercise(attrs))
-    },
-    handleResetGetExercise() {
-      dispatch(resetGetExercise())
-    },
-    handleResetUpdateExercise() {
-      dispatch(resetUpdateExercise())
-    }
+const mapDispatchToProps = dispatch => ({
+  handleFetchMeasurements() {
+    dispatch(fetchMeasurements())
+  },
+  handleResetFetchMeasurements() {
+    dispatch(resetFetchMeasurements())
+  },
+  handleGetExercise(id) {
+    dispatch(getExercise(id))
+  },
+  handleUpdateExercise(attrs) {
+    dispatch(updateExercise(attrs))
+  },
+  handleResetGetExercise() {
+    dispatch(resetGetExercise())
+  },
+  handleResetUpdateExercise() {
+    dispatch(resetUpdateExercise())
   }
-}
+})
 
 export const UpdateExerciseFromStore = connect(
   mapStateToProps, mapDispatchToProps

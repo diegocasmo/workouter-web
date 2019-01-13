@@ -20,6 +20,7 @@ describe('<UpdateExercise/>', () => {
       isLoading: false,
       hasLoadingError: false,
       handleFetchMeasurements: sinon.spy(),
+      handleResetFetchMeasurements: sinon.spy(),
       handleGetExercise: sinon.spy(),
       handleUpdateExercise: sinon.spy(),
       handleResetGetExercise: sinon.spy(),
@@ -44,13 +45,17 @@ describe('<UpdateExercise/>', () => {
     expect(props.handleGetExercise.calledWith(props.exerciseId)).to.be.true
   })
 
-  it("calls 'handleResetGetExercise()' and  'handleResetUpdateExercise()' on 'componentWillUnmount()'", () => {
+  it(`calls 'handleResetGetExercise()',
+    'handleResetUpdateExercise()', and
+    'handleResetFetchMeasurements()' on 'componentWillUnmount()'`, () => {
     const wrapper = mount(<UpdateExercise {...props}/>)
     expect(props.handleResetGetExercise.calledOnce).to.be.false
     expect(props.handleResetUpdateExercise.calledOnce).to.be.false
+    expect(props.handleResetFetchMeasurements.calledOnce).to.be.false
     wrapper.unmount()
     expect(props.handleResetGetExercise.calledOnce).to.be.true
     expect(props.handleResetUpdateExercise.calledOnce).to.be.true
+    expect(props.handleResetFetchMeasurements.calledOnce).to.be.true
   })
 
   it("calls 'handleUpdateExercise()' on form submit", async () => {
