@@ -360,6 +360,10 @@ describe('Exercise Reducer', () => {
       const item = Factory.build('exercise')
       const state = {
         ...initialState,
+        getItems: {
+          ...initialState.getItems,
+          list: [item]
+        },
         deleteItem: {
           ...initialState.deleteItem,
           id: item.id,
@@ -371,6 +375,10 @@ describe('Exercise Reducer', () => {
       expect(exerciseReducer(state, action))
         .to.be.eql({
           ...initialState,
+          getItems: {
+            ...initialState.getItems,
+            list: []
+          },
           deleteItem: {
             id: item.id,
             errors: {},
