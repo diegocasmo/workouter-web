@@ -4,14 +4,12 @@ import {seedDatabase} from './seed'
 // Initialize Dexie DB
 const db = new Dexie('WorkouterDb')
 const TABLES = {
-  MEASUREMENTS: 'measurements',
   EXERCISES: 'exercises',
   WORKOUTS: 'workouts'
 }
 
 // Specify DB's version schema, which only defines indexed keys
 let schema = {}
-schema[TABLES.MEASUREMENTS] = '++id,name'
 schema[TABLES.EXERCISES] = '++id,name'
 schema[TABLES.WORKOUTS] = '++id,name'
 db.version(1).stores(schema)

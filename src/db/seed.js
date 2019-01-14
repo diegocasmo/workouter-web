@@ -2,38 +2,18 @@ import connection from './db'
 
 // Seed the database with sample workouts and exercises
 export function seedDatabase(db = connection) {
-  return createMeasurements(db)
-    .then(() => createExercises(db))
+  return createExercises(db)
     .then(() => createWorkout(db))
-}
-
-// Create default measurements
-export function createMeasurements(db = connection) {
-  return db.measurements.bulkAdd([
-    {name: 'reps'},
-    {name: 'time'}
-  ])
 }
 
 // Create sample exercises
 export function createExercises(db = connection) {
-  return db.measurements.toArray()
-    .then((measurements) => {
-      // Delete unwanted attributes
-      const unwantedAttrs = ['id', 'createdAt', 'updatedAt']
-      measurements.forEach((x) => {
-        unwantedAttrs.forEach((attr) => delete x[attr])
-      })
-
-      // Add exercises
-      const [reps, time] = measurements
-      return db.exercises.bulkAdd([
-        {name: 'Burpees', measurement: reps},
-        {name: 'Push Ups', measurement: reps},
-        {name: 'Squats', measurement: reps},
-        {name: 'Jumping Jacks', measurement: time}
-      ])
-    })
+  return db.exercises.bulkAdd([
+    {name: 'Burpees'},
+    {name: 'Push Ups'},
+    {name: 'Squats'},
+    {name: 'Jumping Jacks'}
+  ])
 }
 
 // Create a sample workout

@@ -4,13 +4,11 @@ import {createStore, applyMiddleware, combineReducers} from 'redux'
 import {workoutReducer} from './workout/workout-reducer'
 import {exerciseReducer} from './exercise/exercise-reducer'
 import {exerciseMiddleware} from './exercise/exercise-middleware'
-import {measurementReducer} from './measurement/measurement-reducer'
 
 const store = createStore(
   combineReducers({
     workouts: workoutReducer,
     exercises: exerciseReducer,
-    measurements: measurementReducer
   }),
   applyMiddleware(thunk, logger, exerciseMiddleware)
 )

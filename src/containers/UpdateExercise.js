@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchMeasurements, resetFetchMeasurements} from '../state/measurement/measurement-action-creators'
 import {getExercise, updateExercise, resetGetExercise, resetUpdateExercise} from '../state/exercise/exercise-action-creators'
-import {getMeasurements, areMeasurementsLoading, hasMeasurementsError} from '../state/measurement/measurement-selectors'
 import {
   getActiveExercise, isActiveExerciseLoading, hasActiveExerciseError, getUpdateExerciseErrors,
   isUpdateExerciseSubmitting
@@ -13,14 +11,12 @@ import {ExerciseForm} from '../components/ExerciseForm'
 
 export class UpdateExercise extends Component {
   componentDidMount() {
-    this.props.handleFetchMeasurements()
     this.props.handleGetExercise(this.props.exerciseId)
   }
 
   componentWillUnmount () {
     this.props.handleResetGetExercise()
     this.props.handleResetUpdateExercise()
-    this.props.handleResetFetchMeasurements()
   }
 
   renderExerciseForm() {
@@ -35,8 +31,7 @@ export class UpdateExercise extends Component {
             submitText='Update'
             isSubmitting={this.props.isSubmitting}
             handleSubmit={(attrs) => this.props.handleUpdateExercise({...exercise, ...attrs})}
-            exercise={exercise}
-            measurements={this.props.measurements}/>
+            exercise={exercise}/>
         </div>
       )
     }
@@ -59,18 +54,11 @@ const mapStateToProps = (state, {match}) => ({
   exercise: getActiveExercise(state),
   isSubmitting: isUpdateExerciseSubmitting(state),
   errors: getUpdateExerciseErrors(state),
-  measurements: getMeasurements(state),
-  isLoading: areMeasurementsLoading(state) || isActiveExerciseLoading(state),
-  hasLoadingError: hasMeasurementsError(state) || hasActiveExerciseError(state)
+  isLoading: isActiveExerciseLoading(state),
+  hasLoadingError: hasActiveExerciseError(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleFetchMeasurements() {
-    dispatch(fetchMeasurements())
-  },
-  handleResetFetchMeasurements() {
-    dispatch(resetFetchMeasurements())
-  },
   handleGetExercise(id) {
     dispatch(getExercise(id))
   },

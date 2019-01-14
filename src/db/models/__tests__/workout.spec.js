@@ -8,8 +8,7 @@ describe('Workout', () => {
   beforeEach(() => { return seedDatabase(db) })
 
   afterEach(() => {
-    return db.measurements.clear()
-      .then(() => db.exercises.clear())
+    return db.exercises.clear()
       .then(() => db.workouts.clear())
   })
 

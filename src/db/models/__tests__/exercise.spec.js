@@ -12,8 +12,7 @@ describe('Exercise', () => {
   beforeEach(() => { return seedDatabase(db) })
 
   afterEach(() => {
-    return db.measurements.clear()
-      .then(() => db.exercises.clear())
+    return db.exercises.clear()
       .then(() => db.workouts.clear())
   })
 
@@ -30,37 +29,18 @@ describe('Exercise', () => {
       return validateExercise(invalidAttrs, db)
         .catch((errors) => expect(errors.type).to.be.equal('required'))
     })
-
-    it('returns an error if an exercise doesn\'t have a measurement', () => {
-      const invalidAttrs = Factory.build('exercise', {}, {except: ['id', 'measurement']})
-      return validateExercise(invalidAttrs, db)
-        .catch((errors) => expect(errors.type).to.be.equal('required'))
-    })
-
-    it('returns an error if an exercise doesn\'t have a measurement name', () => {
-      const invalidAttrs = Factory.build('exercise', {}, {except: ['id', 'measurement.name']})
-      return validateExercise(invalidAttrs, db)
-        .catch((errors) => expect(errors.type).to.be.equal('required'))
-    })
   })
 
   it('fetchExercises()', () => {
     return fetchExercises(db)
-      .then((exercises) => {
-        expect(exercises.length).to.be.equal(4)
-        // Check exercises has a self-contained measurement with no id
-        exercises.forEach((exercise) => {
-          expect(exercise.measurement).to.be.an('object')
-          expect(exercise.measurement.id).to.be.equal(undefined)
-        })
-      })
+      .then((res) => expect(res.length).to.be.equal(4))
   })
 
-  it('getExercise', () => {
+  it('getExercise()', () => {
     return db.exercises.toArray()
       .then(([exercise]) => {
-        getExercise(exercise.id, db)
-          .then((res) => expect(res).to.be.eql(exercise))
+        return getExercise(exercise.id, db)
+          .then((res) => expect(res).to.be.eql(res))
       })
   })
 
@@ -75,7 +55,7 @@ describe('Exercise', () => {
     it('doesn\'t allow to create an exercise with invalid attrs', () => {
       const invalidAttrs = Factory.build('exercise', {}, {except: ['id', 'name']})
       return createExercise(invalidAttrs, db)
-        .catch((errors) => expect(errors.type).to.be.equal('required'));
+        .catch((errors) => expect(errors.type).to.be.equal('required'))
     })
   })
 
@@ -112,15 +92,13 @@ describe('Exercise', () => {
           // Set a few attributes with valid values
           const attrs = {
             ...prevExercise,
-            name: 'Foo',
-            measurement: {name: 'Km'}
+            name: 'Foo'
           }
           return updateExercise(attrs, db)
             .then((nextExercise) => {
               // Verify exercise was successfully updated in DB
               expect(nextExercise.id).to.be.equal(prevExercise.id)
               expect(nextExercise.name).to.be.equal(attrs.name)
-              expect(nextExercise.measurement.name).to.be.equal(attrs.measurement.name)
             })
         })
     })
@@ -131,8 +109,7 @@ describe('Exercise', () => {
           // Set a few attributes with INvalid values
           return {
             ...exercise,
-            name: '',
-            measurement: {name: ''}
+            name: ''
           }
         })
         .then((attrs) => updateExercise(attrs, db))
