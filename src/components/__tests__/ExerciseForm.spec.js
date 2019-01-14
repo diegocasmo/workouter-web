@@ -10,8 +10,11 @@ describe('<ExerciseForm/>', () => {
 
   let props
   beforeEach(() => {
+    // Define an exercise which uses a measurement name not defined in measurements to verify
+    // that it still shows up as an option in the select input
+    const measurementName = 'a very unique name, unlikely to be randomly created by the measurements factory list'
     props = {
-      exercise: Factory.build('exercise'),
+      exercise: Factory.build('exercise', {measurement: {name: measurementName}}),
       measurements: Factory.buildList('measurement', 2),
       isSubmitting: false,
       submitText: 'Foo',
