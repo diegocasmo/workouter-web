@@ -10,9 +10,14 @@ describe('<ExerciseForm/>', () => {
 
   let props
   beforeEach(() => {
+    const measurements = Factory.buildList('measurement', 2)
+    // Define an exercise which uses a measurement name distinct to the ones defined
+    // in measurements. It does so by concatenating both measurements' names, so that
+    // it guarantees the exercise measurement name will always be distinct
+    const distinctMeasurementName = measurements.reduce((acc, x) => acc + x.name, '')
     props = {
-      exercise: Factory.build('exercise'),
-      measurements: Factory.buildList('measurement', 2),
+      exercise: Factory.build('exercise', {measurement: {name: distinctMeasurementName}}),
+      measurements,
       isSubmitting: false,
       submitText: 'Foo',
       handleSubmit: sinon.spy()
