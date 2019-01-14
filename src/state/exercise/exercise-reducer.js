@@ -202,6 +202,10 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.DELETE_SUCCESS: {
       return {
         ...state,
+        getItems: {
+          ...state.getItems,
+          list: state.getItems.list.filter((x) => x.id !== action.id)
+        },
         deleteItem: {
           id: action.id,
           errors: {},

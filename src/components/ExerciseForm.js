@@ -9,7 +9,6 @@ export const ExerciseForm = ({
   submitText,
   isSubmitting
 }) => {
-
   // Add exercise measurement if not already in measurements
   if(exercise && exercise.measurement &&
     !measurements.map((x) => x.name).includes(exercise.measurement.name)) {
