@@ -1,5 +1,5 @@
-import Dexie from 'dexie';
-import {seedDatabase} from './seed';
+import Dexie from 'dexie'
+import {seedDatabase} from './seed'
 
 /**
 Model: Measurement
@@ -26,16 +26,16 @@ Model: Workout
 */
 
 // Initialize Dexie DB
-const db = new Dexie('WorkouterDb');
+const db = new Dexie('WorkouterDb')
 
 // Specify DB's version schema, which only defines indexed keys
 db.version(1).stores({
   'measurements': '++id,name',
   'exercises': '++id,name',
   'workouts': '++id,name'
-});
+})
 
 // Seed the database with sample workouts and exercises
-db.on('populate', () => seedDatabase(db));
+db.on('populate', () => seedDatabase(db))
 
-export default db;
+export default db

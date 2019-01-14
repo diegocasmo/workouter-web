@@ -1,4 +1,5 @@
 import React from 'react'
+import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
@@ -13,10 +14,10 @@ describe('<UpdateExercise/>', () => {
   beforeEach(() => {
     props = {
       exerciseId: 99,
-      exercise: {id: 99, name: 'Running', measurement: {name: 'Km'}},
+      exercise: Factory.build('exercise'),
       isSubmitting: false,
       errors: [],
-      measurements: [{'name': 'time'},{'name': 'reps'}],
+      measurements: Factory.buildList('measurement', 2),
       isLoading: false,
       hasLoadingError: false,
       handleFetchMeasurements: sinon.spy(),

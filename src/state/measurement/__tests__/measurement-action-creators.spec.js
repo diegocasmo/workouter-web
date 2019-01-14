@@ -1,4 +1,5 @@
 import {expect} from 'chai'
+import {Factory} from 'rosie'
 import sinon from 'sinon'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
@@ -18,7 +19,7 @@ describe('Measurement Action Creators', () => {
     })
 
     it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on measurements fetch success", () => {
-      const items = [{id: 1}, {id :2}]
+      const items = Factory.buildList('measurement', 2)
       sinon.stub(measurement, 'fetchMeasurements').resolves(items)
       const expectedActions = [
         {type: MEASUREMENT.FETCH_INIT},

@@ -1,4 +1,5 @@
 import {expect} from 'chai'
+import {Factory} from 'rosie'
 import {measurementReducer, initialState} from '../measurement-reducer'
 import {MEASUREMENT} from '../measurement-actions'
 
@@ -14,7 +15,7 @@ describe('Measurement Reducer', () => {
   describe('FETCH', () => {
 
     it('FETCH_INIT', () => {
-      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const items = Factory.buildList('measurement', 2)
       const state = {
         ...initialState,
         getItems: {
@@ -36,7 +37,7 @@ describe('Measurement Reducer', () => {
     })
 
     it('FETCH_SUCCESS', () => {
-      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const items = Factory.buildList('measurement', 2)
       const action = {type: MEASUREMENT.FETCH_SUCCESS, items}
       expect(measurementReducer(initialState, action))
         .to.be.eql({
@@ -69,7 +70,7 @@ describe('Measurement Reducer', () => {
         ...initialState,
         getItems: {
           ...initialState.getItems,
-          list: [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+          list: Factory.buildList('measurement', 2)
         }
       }
 

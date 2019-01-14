@@ -1,4 +1,5 @@
 import {expect} from 'chai'
+import {Factory} from 'rosie'
 import {exerciseReducer, initialState} from '../exercise-reducer'
 import {EXERCISE} from '../exercise-actions'
 
@@ -18,7 +19,7 @@ describe('Exercise Reducer', () => {
   describe('FETCH', () => {
 
     it('FETCH_INIT', () => {
-      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const items = Factory.buildList('exercise', 2)
       const state = {
         ...initialState,
         getItems: {
@@ -40,7 +41,7 @@ describe('Exercise Reducer', () => {
     })
 
     it('FETCH_SUCCESS', () => {
-      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      const items = Factory.buildList('exercise', 2)
       const action = {type: EXERCISE.FETCH_SUCCESS, items}
       expect(exerciseReducer(initialState, action))
         .to.be.eql({
@@ -73,7 +74,7 @@ describe('Exercise Reducer', () => {
         ...initialState,
         getItems: {
           ...initialState.getItems,
-          list: [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+          list: Factory.buildList('exercise', 2)
         }
       }
 
@@ -111,7 +112,7 @@ describe('Exercise Reducer', () => {
         }
       }
 
-      const attrs = {id: 1, name: 'Lorem'}
+      const attrs = Factory.build('exercise')
       const action = {type: EXERCISE.GET_SUCCESS, item: attrs}
       expect(exerciseReducer(state, action))
         .to.be.eql({
@@ -144,7 +145,7 @@ describe('Exercise Reducer', () => {
         ...initialState,
         getItem: {
           ...initialState.getItem,
-          attrs: {name: 'Abs', measurement: {'name': 'reps'}},
+          attrs: Factory.build('exercise')
         }
       }
 
@@ -161,7 +162,7 @@ describe('Exercise Reducer', () => {
   describe('CREATE', () => {
 
     it('CREATE_INIT', () => {
-      const attrs = {'name': 'Abs','measurement': {'name': 'reps'}}
+      const attrs = Factory.build('exercise', {}, {except: ['id']})
       const action = {type: EXERCISE.CREATE_INIT, item: attrs}
       expect(exerciseReducer(initialState, action))
         .to.be.eql({
@@ -176,7 +177,7 @@ describe('Exercise Reducer', () => {
 
     it('CREATE_SUCCESS', () => {
       // Set up initial state as if an exercise is being created
-      const attrs = {'name': 'Abs','measurement': {'name': 'reps'}}
+      const attrs = Factory.build('exercise', {}, {except: ['id']})
       const state = {
         ...initialState,
         postItem: {
@@ -200,7 +201,7 @@ describe('Exercise Reducer', () => {
 
     it('CREATE_FAILURE', () => {
       // Set up initial state as if an exercise is being created
-      const attrs = {'measurement': {'name': 'reps'}}
+      const attrs = Factory.build('exercise', {}, {except: ['id']})
       const state = {
         ...initialState,
         postItem: {
@@ -229,7 +230,7 @@ describe('Exercise Reducer', () => {
         ...initialState,
         postItem: {
           ...initialState.postItem,
-          attrs: {name: 'Abs', measurement: {'name': 'reps'}},
+          attrs: Factory.build('exercise', {}, {except: ['id']})
         }
       }
 
@@ -246,7 +247,7 @@ describe('Exercise Reducer', () => {
   describe('UPDATE', () => {
 
     it('UPDATE_INIT', () => {
-      const attrs = {id: 1, 'name': 'Abs','measurement': {'name': 'time'}}
+      const attrs = Factory.build('exercise')
       const action = {type: EXERCISE.UPDATE_INIT, item: attrs}
       expect(exerciseReducer(initialState, action))
         .to.be.eql({
@@ -261,8 +262,8 @@ describe('Exercise Reducer', () => {
 
     it('UPDATE_SUCCESS', () => {
       // Set up initial state as if an exercise is in the processing of being update
-      const prevExercise = {id: 1, 'name': 'Abs','measurement': {'name': 'reps'}}
-      const nextExercise = {id: 1, 'name': 'Foo','measurement': {'name': 'Bar'}}
+      const prevExercise = Factory.build('exercise')
+      const nextExercise = {...prevExercise, 'name': 'Foo','measurement': {'name': 'Bar'}}
       const state = {
         ...initialState,
         putItem: {
@@ -286,7 +287,7 @@ describe('Exercise Reducer', () => {
 
     it('UPDATE_FAILURE', () => {
       // Set up initial state as if an exercise is in the process of being update
-      const attrs = {id: 1, name: 'Running', measurement: {'name': 'time'}}
+      const attrs = Factory.build('exercise')
       const state = {
         ...initialState,
         putItem: {
@@ -315,7 +316,7 @@ describe('Exercise Reducer', () => {
         ...initialState,
         putItem: {
           ...initialState.putItem,
-          attrs: {id: 2, name: 'Push Ups', measurement: {'name': 'time'}},
+          attrs: Factory.build('exercise')
         }
       }
 
@@ -333,7 +334,7 @@ describe('Exercise Reducer', () => {
 
     it('DELETE_INIT', () => {
       // Set up initial state as if an existing exercise is going to be deleted
-      const item = {id: 123, name: 'Abs', 'measurement': {'name': 'reps'}}
+      const item = Factory.build('exercise')
       const state = {
         ...initialState,
         getItems: {
@@ -356,7 +357,7 @@ describe('Exercise Reducer', () => {
 
     it('DELETE_SUCCESS', () => {
       // Set up initial state as if an existing exercise is in the process of being deleted
-      const item = {id: 123, name: 'Abs', 'measurement': {'name': 'reps'}}
+      const item = Factory.build('exercise')
       const state = {
         ...initialState,
         deleteItem: {
@@ -381,7 +382,7 @@ describe('Exercise Reducer', () => {
     it('DELETE_FAILURE', () => {
       // Set up initial state as if an existing exercise is in the process of being deleted
       const id = -1
-      const item = {id: 123, name: 'Abs', 'measurement': {'name': 'reps'}}
+      const item = Factory.build('exercise')
       const state = {
         ...initialState,
         deleteItem: {

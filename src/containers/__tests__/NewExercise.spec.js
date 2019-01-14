@@ -1,4 +1,5 @@
 import React from 'react'
+import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
@@ -15,7 +16,7 @@ describe('<NewExercise/>', () => {
       exercise: null,
       isSubmitting: false,
       errors: [],
-      measurements: [{'name': 'time'},{'name': 'reps'}],
+      measurements: Factory.buildList('measurement', 2),
       isLoading: false,
       hasLoadingError: false,
       handleFetchMeasurements: sinon.spy(),

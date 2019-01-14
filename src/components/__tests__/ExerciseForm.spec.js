@@ -1,4 +1,5 @@
 import React from 'react'
+import {Factory} from 'rosie'
 import {expect} from 'chai'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
@@ -10,8 +11,8 @@ describe('<ExerciseForm/>', () => {
   let props
   beforeEach(() => {
     props = {
-      exercise: {name: 'Push Ups', measurement: {name: 'Reps'}},
-      measurements: [{name: 'Time'}, {name: 'Km'}],
+      exercise: Factory.build('exercise'),
+      measurements: Factory.buildList('measurement', 2),
       isSubmitting: false,
       submitText: 'Foo',
       handleSubmit: sinon.spy()
