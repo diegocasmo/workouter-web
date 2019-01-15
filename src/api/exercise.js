@@ -1,5 +1,6 @@
-import connection from '../db'
+import connection from './db'
 import {string, object} from 'yup'
+import {transformYupToFormikError} from './utils/error-transform'
 
 // An exercise schema
 export const ExerciseSchema = object().shape({
@@ -8,10 +9,11 @@ export const ExerciseSchema = object().shape({
           .required('Name is required')
 })
 
-// Validate an exercise attributes. Return a Promise with a truth value if valid,
-// an error object otherwise
+// Validate an exercise attributes. Return a resolved Promise with with the
+// valid attrs, a Rails-like error object otherwise
 export function validateExercise(attrs) {
   return ExerciseSchema.validate(attrs)
+    .catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
 // Return an array of exercises
@@ -24,7 +26,7 @@ export function getExercise(id, db = connection) {
   return db.exercises.get(id)
 }
 
-// Returns a created exercise in DB if successful, a rejected Promise with an
+// Returns a created exercise in DB if successful, a rejected Promise with a Rails-like
 // object of errors otherwise
 export function createExercise(attrs, db = connection) {
   return validateExercise(attrs)
@@ -38,8 +40,8 @@ export function deleteExercise(id, db = connection) {
   return db.exercises.where({id}).delete()
 }
 
-// Returns an updated exercise from DB, a rejected Promise with an object of
-// errors otherwise
+// Returns an updated exercise from DB, a rejected Promise with a Rails-like
+// object of errors otherwise
 export function updateExercise({id, ...attrs}, db = connection) {
   return validateExercise(attrs)
     .then(() => db.exercises.update(id, attrs))

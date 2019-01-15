@@ -1,4 +1,5 @@
 import connection from './db'
+import {UNITS} from './unit'
 
 // Seed the database with sample workouts and exercises
 export function seedDatabase(db = connection) {
@@ -9,7 +10,7 @@ export function seedDatabase(db = connection) {
 // Create sample exercises
 export function createExercises(db = connection) {
   return db.exercises.bulkAdd([
-    {name: 'Burpees'},
+    {name: 'Running'},
     {name: 'Push Ups'},
     {name: 'Squats'},
     {name: 'Jumping Jacks'}
@@ -27,17 +28,37 @@ export function createWorkout(db = connection) {
       })
 
       // Add workout
-      const [burpess, pushUps, squats, jumpingJacks] = exercises
+      const [running, pushUps, squats, jumpingJacks] = exercises
       return db.workouts.add({
         'name': 'Full Body I',
         'rounds': 4,
-        'restTimePerRound': 60,
-        'restTimePerExercise': 20,
+        'restTimePerRound': 60, // Assumed to be in seconds
+        'restTimePerExercise': 20, // Assumed to be in seconds
         'exercises': [
-          {...burpess, quantity: 12},
-          {...pushUps, quantity: 15},
-          {...squats, quantity: 20},
-          {...jumpingJacks, quantity: 45}
+          {
+            ...running,
+            quantity: 0.2,
+            unit: UNITS.KM.value,
+            weight: null
+          },
+          {
+            ...pushUps,
+            quantity: 12,
+            unit: UNITS.REPS.value,
+            weight: null
+          },
+          {
+            ...squats,
+            quantity: 15,
+            unit: UNITS.REPS.value,
+            weight: 15
+          },
+          {
+            ...jumpingJacks,
+            quantity: 45,
+            unit: UNITS.SECONDS.value,
+            weight: null
+          }
         ]
       })
     })

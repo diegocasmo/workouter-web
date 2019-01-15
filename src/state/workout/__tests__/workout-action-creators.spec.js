@@ -1,10 +1,13 @@
 import {expect} from 'chai'
+import faker from 'faker'
+import {Factory} from 'rosie'
 import sinon from 'sinon'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
-import * as workout from '../../../db/models/workout'
+import * as workout from '../../../api/workout'
 import {WORKOUT} from '../workout-actions'
-import {fetchWorkouts, resetFetchWorkouts} from '../workout-action-creators'
+import {ERROR} from '../../error/error-actions'
+import {fetchWorkouts, getWorkout, deleteWorkout} from '../workout-action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -18,7 +21,7 @@ describe('Workout Action Creators', () => {
     })
 
     it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on workouts fetch success", () => {
-      const items = [{id: 1}, {id :2}]
+      const items = Factory.buildList('workout', 2)
       sinon.stub(workout, 'fetchWorkouts').resolves(items)
       const expectedActions = [
         {type: WORKOUT.FETCH_INIT},
@@ -30,27 +33,17 @@ describe('Workout Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'FETCH_ERROR' on workouts fetch failure", () => {
-      sinon.stub(workout, 'fetchWorkouts').rejects()
+    it("dispatches 'ERROR__ADD' on workouts fetch failure", () => {
+      const errorMsg = faker.lorem.words()
+      sinon.stub(workout, 'fetchWorkouts').rejects(new Error(errorMsg))
       const expectedActions = [
         {type: WORKOUT.FETCH_INIT},
-        {
-          type: WORKOUT.FETCH_FAILURE,
-          errorMsg: 'There was an error while fetching the workouts'
-        }
+        {type: ERROR.ADD, errorMsg}
       ]
 
       const store = mockStore({workouts: {}})
       return store.dispatch(fetchWorkouts())
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-  })
-
-  describe('resetFetchWorkouts()', () => {
-
-    it("dispatches 'FETCH_RESET'", () => {
-      const expectedAction = {type: WORKOUT.FETCH_RESET}
-      expect(resetFetchWorkouts()).to.be.eql(expectedAction)
     })
   })
 })
