@@ -5,6 +5,5 @@ export const Navigation = () => (
   <ul>
     <li><Link to="/workouts">Workouts</Link></li>
     <li><Link to="/exercises">Exercises</Link></li>
-    <li><Link to="/measurements">Measurements</Link></li>
   </ul>
 )

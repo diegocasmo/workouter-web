@@ -5,18 +5,13 @@ import {string, object} from 'yup'
 export const ExerciseSchema = object().shape({
   name: string()
           .trim('Name must be a trimmed string').strict()
-          .required('Name is required'),
-  measurement: object().shape({
-    name: string()
-            .trim('Measurement name must be a trimmed string').strict()
-            .required('Measurement name is required')
-  })
+          .required('Name is required')
 })
 
 // Validate an exercise attributes. Return a Promise with a truth value if valid,
 // an error object otherwise
 export function validateExercise(attrs) {
-  return ExerciseSchema.validate(attrs, {stripUnknown: true})
+  return ExerciseSchema.validate(attrs)
 }
 
 // Return an array of exercises

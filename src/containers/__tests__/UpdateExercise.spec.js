@@ -17,11 +17,8 @@ describe('<UpdateExercise/>', () => {
       exercise: Factory.build('exercise'),
       isSubmitting: false,
       errors: [],
-      measurements: Factory.buildList('measurement', 2),
       isLoading: false,
       hasLoadingError: false,
-      handleFetchMeasurements: sinon.spy(),
-      handleResetFetchMeasurements: sinon.spy(),
       handleGetExercise: sinon.spy(),
       handleUpdateExercise: sinon.spy(),
       handleResetGetExercise: sinon.spy(),
@@ -38,33 +35,28 @@ describe('<UpdateExercise/>', () => {
     expect(wrapper.find("button[type='submit']").text()).to.be.equal('Update')
   })
 
-  it("calls 'handleFetchMeasurements()' and 'handleGetExercise()' on 'componentDidMount()'", () => {
-    expect(props.handleFetchMeasurements.calledOnce).to.be.false
+  it("calls 'handleGetExercise()' on 'componentDidMount()'", () => {
+    expect(props.handleGetExercise.calledOnce).to.be.false
     const wrapper = mount(<UpdateExercise {...props}/>)
-    expect(props.handleFetchMeasurements.calledOnce).to.be.true
     expect(props.handleGetExercise.calledOnce).to.be.true
     expect(props.handleGetExercise.calledWith(props.exerciseId)).to.be.true
   })
 
-  it(`calls 'handleResetGetExercise()',
-    'handleResetUpdateExercise()', and
-    'handleResetFetchMeasurements()' on 'componentWillUnmount()'`, () => {
+  it(`calls 'handleResetGetExercise()', and
+    'handleResetUpdateExercise()' on 'componentWillUnmount()'`, () => {
     const wrapper = mount(<UpdateExercise {...props}/>)
     expect(props.handleResetGetExercise.calledOnce).to.be.false
     expect(props.handleResetUpdateExercise.calledOnce).to.be.false
-    expect(props.handleResetFetchMeasurements.calledOnce).to.be.false
     wrapper.unmount()
     expect(props.handleResetGetExercise.calledOnce).to.be.true
     expect(props.handleResetUpdateExercise.calledOnce).to.be.true
-    expect(props.handleResetFetchMeasurements.calledOnce).to.be.true
   })
 
   it("calls 'handleUpdateExercise()' on form submit", async () => {
     // Fill-in form with valid exercise attributes (different from the original in props.exercise)
     const wrapper = mount(<UpdateExercise {...props}/>)
-    const attrs = {name: 'Abs', measurement: {name: 'time'}}
+    const attrs = Factory.build('exercise', {}, {except: ['id']})
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
-    wrapper.find("select[name='measurement.name']").simulate('change', {target: {id: 'measurement.name', value : attrs.measurement.name}})
 
     // Submit form
     expect(props.handleUpdateExercise.calledOnce).to.be.false

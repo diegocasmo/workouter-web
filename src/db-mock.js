@@ -6,14 +6,12 @@ const dbMock = new Dexie('WorkouterDbTest', {
   IDBKeyRange: require('fake-indexeddb/lib/FDBKeyRange')
 })
 const TABLES = {
-  MEASUREMENTS: 'measurements',
   EXERCISES: 'exercises',
   WORKOUTS: 'workouts'
 }
 
 // Specify DB's version schema, which only defines indexed keys
 let schema = {}
-schema[TABLES.MEASUREMENTS] = '++id,name'
 schema[TABLES.EXERCISES] = '++id,name'
 schema[TABLES.WORKOUTS] = '++id,name'
 dbMock.version(1).stores(schema)

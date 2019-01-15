@@ -25,19 +25,9 @@ function removeUnwantedAttrs(obj={}, unwantedAttrs=[]) {
   return obj
 }
 
-Factory.define('measurement')
-  .sequence('id')
-  .attr('name', faker.lorem.words())
-  .attr('createdAt', new Date())
-  .attr('updatedAt', new Date())
-  .after((attrs, opts) => (removeUnwantedAttrs(attrs, opts.except)))
-
 Factory.define('exercise')
   .sequence('id')
   .attr('name', faker.lorem.words())
-  .attr('measurement', () =>
-    Factory.build('measurement', {}, {except: ['id']}) // Measurement must be self-container, no id
-  )
   .attr('createdAt', new Date())
   .attr('updatedAt', new Date())
   .after((attrs, opts) => (removeUnwantedAttrs(attrs, opts.except)))
@@ -52,7 +42,7 @@ Factory.define('workout')
     Factory.buildList('exercise',
       faker.random.number({min: 1, max: 10}), // Generate a random number of exercises in [1, 10]
       {quantity: faker.random.number({min: 1, max: 100})}, // Each exercise has a quantity in [1, 100]
-      {except: ['id']}) // Exercises must be self-container, no id
+      {except: ['id']}) // Exercises must be self-contained, no id
   )
   .attr('createdAt', new Date())
   .attr('updatedAt', new Date())
