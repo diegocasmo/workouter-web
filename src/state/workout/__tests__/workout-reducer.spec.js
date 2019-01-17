@@ -1,85 +1,53 @@
 import {expect} from 'chai'
+import {Factory} from 'rosie'
 import {workoutReducer, initialState} from '../workout-reducer'
 import {WORKOUT} from '../workout-actions'
+import {REQUEST_STATUS} from '../../utils/request-status'
 
 describe('Workout Reducer', () => {
 
   it('should return the initial state', () => {
     expect(workoutReducer(undefined, {}))
       .to.be.eql({
-        getItems: {list: [], errorMsg: null, isLoading: false}
+        items : {},
+        status: REQUEST_STATUS.NONE
       })
   })
 
   describe('FETCH', () => {
 
     it('FETCH_INIT', () => {
-      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
+      // Assume there are some workouts already in state
+      const workouts = Factory.buildList('workout', 2)
+      const items = workouts.reduce((acc, x) => ({...acc, [x.id]: x}), {})
       const state = {
         ...initialState,
-        getItems: {
-          ...initialState.getItems,
-          list: items
-        }
+        items
       }
 
       const action = {type: WORKOUT.FETCH_INIT}
       expect(workoutReducer(state, action))
         .to.be.eql({
           ...state,
-          getItems: {
-            ...state.getItems,
-            errorMsg: null,
-            isLoading: true
-          }
+          items,
+          status: REQUEST_STATUS.GET
         })
     })
 
     it('FETCH_SUCCESS', () => {
-      const items = [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
-      const action = {type: WORKOUT.FETCH_SUCCESS, items}
-      expect(workoutReducer(initialState, action))
-        .to.be.eql({
-          ...initialState,
-          getItems: {
-            list: initialState.getItems.list.concat(items),
-            errorMsg: null,
-            isLoading: false
-          }
-        })
-    })
+      const workouts = Factory.buildList('workout', 2)
+      const action = {type: WORKOUT.FETCH_SUCCESS, items: workouts}
 
-    it('FETCH_FAILURE', () => {
-      const errorMsg = 'There was an error while fetching the workouts'
-      const action = {type: WORKOUT.FETCH_FAILURE, errorMsg}
-      expect(workoutReducer(initialState, action))
-        .to.be.eql({
-          ...initialState,
-          getItems: {
-            ...initialState.getItems,
-            errorMsg: errorMsg,
-            isLoading: false
-          }
-        })
-    })
-
-    it('FETCH_RESET', () => {
-      // Assume there are workouts in state
-      const state = {
+      // Expect workouts to be added to the state by their ids
+      const items = workouts.reduce((acc, x) => ({...acc, [x.id]: x}), {})
+      const expectedState = {
         ...initialState,
-        getItems: {
-          ...initialState.getItems,
-          list: [{id: 1, name: 'Lorem'}, {id :2, name: 'Ipsum'}]
-        }
+        items,
+        status: REQUEST_STATUS.NONE
       }
 
-      // Reset such workouts
-      const action = {type: WORKOUT.FETCH_RESET}
-      expect(workoutReducer(state, action))
-        .to.be.eql({
-          ...initialState,
-          getItems: initialState.getItems
-        })
+      expect(workoutReducer(initialState, action))
+        .to.be.eql(expectedState)
     })
   })
 })

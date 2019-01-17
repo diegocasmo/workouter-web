@@ -4,7 +4,7 @@ import {expect} from 'chai'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
 import {ExerciseForm} from '../ExerciseForm'
-import {Formik, Field, Form, ErrorMessage} from 'formik'
+import {Formik, Form, ErrorMessage} from 'formik'
 
 describe('<ExerciseForm/>', () => {
 
@@ -12,9 +12,8 @@ describe('<ExerciseForm/>', () => {
   beforeEach(() => {
     props = {
       exercise: Factory.build('exercise'),
-      isSubmitting: false,
       submitText: 'Foo',
-      handleSubmit: sinon.spy()
+      handleSubmit: sinon.spy(() => Promise.resolve())
     }
   })
 
@@ -27,9 +26,11 @@ describe('<ExerciseForm/>', () => {
     expect(wrapper.find("button[type='submit']").text()).to.be.equal(props.submitText)
   })
 
-  it('disables submit button when form is being submitted', () => {
-    props.isSubmitting = true
+  it('disables submit button when form is being submitted', async () => {
     const wrapper = mount(<ExerciseForm {...props}/>)
+    expect(wrapper.find("button[type='submit']").props().disabled).to.be.false
+    wrapper.find('form').simulate('submit')
+    await tick()
     expect(wrapper.find("button[type='submit']").props().disabled).to.be.true
   })
 
@@ -46,6 +47,20 @@ describe('<ExerciseForm/>', () => {
     await tick()
     wrapper.update()
     expect(wrapper.find("p").first().text()).to.be.equal('Name is required')
+  })
+
+  it('renders API validation errors', async () => {
+    const apiErrorMsg = 'API error msg'
+    props.validationSchema = {}
+    props.handleSubmit = sinon.spy(() => Promise.reject({name: apiErrorMsg}))
+    const wrapper = mount(<ExerciseForm {...props}/>)
+
+    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: ''}})
+    wrapper.find('form').simulate('submit')
+    await tick()
+
+    wrapper.update()
+    expect(wrapper.find("p").first().text()).to.be.equal(apiErrorMsg)
   })
 
   it("calls 'handleSubmit' when user submits a valid exercise", async () => {

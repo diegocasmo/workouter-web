@@ -1,4 +1,5 @@
 import React from 'react'
+import {Factory} from 'rosie'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {WorkoutList} from '../WorkoutList'
@@ -6,10 +7,10 @@ import {WorkoutItem} from '../WorkoutItem'
 
 describe('<WorkoutList/>', () => {
 
-  let props = null
+  let props
   beforeEach(() => {
     props = {
-      workouts: [{'name': 'Full Body I'},{'name': 'Full Body II'}]
+      workouts: Factory.buildList('workout', 3)
     }
   })
 

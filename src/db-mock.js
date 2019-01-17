@@ -34,4 +34,10 @@ Object.keys(TABLES).forEach((k) => {
   dbMock[TABLES[k]].hook(HOOKS.UPDATE, (mods) => addUpdateTimestamp(mods))
 })
 
+// Clear all database tables
+export function clearDb(db = dbMock) {
+  return db.exercises.clear()
+    .then(() => db.workouts.clear())
+}
+
 export default dbMock

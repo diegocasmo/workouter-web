@@ -1,15 +1,9 @@
 import {WORKOUT} from './workout-actions'
+import {REQUEST_STATUS} from '../utils/request-status'
 
-/**
- * CRUD reducer state format:
- * getItems: {
- *   list: [], // An array of resources
- *   errorMsg: null, // Error message text set if there was an error while fetching
- *   isLoading: false // True if resources are being fetch
- * }
-*/
 export const initialState = {
-  getItems: {list: [], errorMsg: null, isLoading: false}
+  items : {},
+  status: REQUEST_STATUS.NONE
 }
 
 export function workoutReducer(state = initialState, action) {
@@ -18,36 +12,15 @@ export function workoutReducer(state = initialState, action) {
     case WORKOUT.FETCH_INIT: {
       return {
         ...state,
-        getItems: {
-          ...state.getItems,
-          isLoading: true
-        }
+        status: REQUEST_STATUS.GET
       }
     }
     case WORKOUT.FETCH_SUCCESS: {
+      const items = action.items.reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
       return {
         ...state,
-        getItems: {
-          list: state.getItems.list.concat(action.items),
-          errorMsg: null,
-          isLoading: false
-        }
-      }
-    }
-    case WORKOUT.FETCH_FAILURE: {
-      return {
-        ...state,
-        getItems: {
-          ...state.getItems,
-          errorMsg: action.errorMsg,
-          isLoading: false
-        }
-      }
-    }
-    case WORKOUT.FETCH_RESET: {
-      return {
-        ...state,
-        getItems: initialState.getItems
+        items,
+        status: REQUEST_STATUS.NONE
       }
     }
 

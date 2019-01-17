@@ -1,14 +1,13 @@
 import {expect} from 'chai'
+import faker from 'faker'
 import {Factory} from 'rosie'
 import sinon from 'sinon'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
-import * as exercise from '../../../db/models/exercise'
+import * as exercise from '../../../api/exercise'
 import {EXERCISE} from '../exercise-actions'
-import {
-  fetchExercises, resetFetchExercises, getExercise, resetGetExercise, createExercise,
-  resetCreateExercise, deleteExercise, resetDeleteExercise, updateExercise, resetUpdateExercise
-} from '../exercise-action-creators'
+import {ERROR} from '../../error/error-actions'
+import {fetchExercises, getExercise, deleteExercise} from '../exercise-action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -34,27 +33,17 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'FETCH_ERROR' on exercises fetch failure", () => {
-      sinon.stub(exercise, 'fetchExercises').rejects()
+    it("dispatches 'ERROR__ADD' on exercises fetch failure", () => {
+      const errorMsg = faker.lorem.words()
+      sinon.stub(exercise, 'fetchExercises').rejects(new Error(errorMsg))
       const expectedActions = [
         {type: EXERCISE.FETCH_INIT},
-        {
-          type: EXERCISE.FETCH_FAILURE,
-          errorMsg: 'There was an error while fetching the exercises'
-        }
+        {type: ERROR.ADD, errorMsg}
       ]
 
       const store = mockStore({exercises: {}})
       return store.dispatch(fetchExercises())
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-  })
-
-  describe('resetFetchExercises()', () => {
-
-    it("dispatches 'FETCH_RESET'", () => {
-      const expectedAction = {type: EXERCISE.FETCH_RESET}
-      expect(resetFetchExercises()).to.be.eql(expectedAction)
     })
   })
 
@@ -77,114 +66,17 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'GET_ERROR' on exercise get failure", () => {
-      const item = Factory.build('exercise')
-      sinon.stub(exercise, 'getExercise').rejects()
+    it("dispatches 'ERROR__ADD' on exercise get failure", () => {
+      const errorMsg = faker.lorem.words()
+      sinon.stub(exercise, 'getExercise').rejects(new Error(errorMsg))
       const expectedActions = [
         {type: EXERCISE.GET_INIT},
-        {
-          type: EXERCISE.GET_FAILURE,
-          errorMsg: `There was an error while fetching the exercise with id: ${item.id}`
-        }
+        {type: ERROR.ADD, errorMsg}
       ]
 
       const store = mockStore({exercises: {}})
-      return store.dispatch(getExercise(item.id))
+      return store.dispatch(getExercise(1))
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-  })
-
-  describe('resetGetExercise()', () => {
-
-    it("dispatches 'GET_RESET'", () => {
-      const expectedAction = {type: EXERCISE.GET_RESET}
-      expect(resetGetExercise()).to.be.eql(expectedAction)
-    })
-  })
-
-  describe('createExercise()', () => {
-
-    afterEach(() => {
-      exercise.createExercise.restore()
-    })
-
-    it("dispatches 'CREATE_INIT', 'CREATE_SUCCESS' on exercises create success", () => {
-      const attrs = Factory.build('exercise', {}, {except: ['id']})
-      const createdExercise = {id: 1, ...attrs}
-      sinon.stub(exercise, 'createExercise').resolves(createdExercise)
-      const expectedActions = [
-        {type: EXERCISE.CREATE_INIT, item: attrs},
-        {type: EXERCISE.CREATE_SUCCESS, item: createdExercise}
-      ]
-
-      const store = mockStore({exercises: {}})
-      return store.dispatch(createExercise(attrs))
-        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-
-    it("dispatches 'CREATE_ERROR' on exercise create failure", () => {
-      const attrs = Factory.build('exercise', {}, {except: ['id']})
-      const errors = {'name': 'Name is required'}
-      sinon.stub(exercise, 'createExercise').rejects(errors)
-      const expectedActions = [
-        {type: EXERCISE.CREATE_INIT, item: attrs},
-        {type: EXERCISE.CREATE_FAILURE, errors}
-      ]
-
-      const store = mockStore({exercises: {}})
-      return store.dispatch(createExercise(attrs))
-        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-  })
-
-  describe('resetCreateExercise()', () => {
-
-    it("dispatches 'CREATE_RESET'", () => {
-      const expectedAction = {type: EXERCISE.CREATE_RESET}
-      expect(resetCreateExercise()).to.be.eql(expectedAction)
-    })
-  })
-
-  describe('updateExercise()', () => {
-
-    afterEach(() => {
-      exercise.updateExercise.restore()
-    })
-
-    it("dispatches 'UPDATE_INIT', 'UPDATE_SUCCESS' on exercises update success", () => {
-      const prevExercise = Factory.build('exercise')
-      const nextExercise = {...prevExercise, name: 'Foo'}
-      sinon.stub(exercise, 'updateExercise').resolves(nextExercise)
-      const expectedActions = [
-        {type: EXERCISE.UPDATE_INIT, item: prevExercise},
-        {type: EXERCISE.UPDATE_SUCCESS, item: nextExercise}
-      ]
-
-      const store = mockStore({exercises: {}})
-      return store.dispatch(updateExercise(prevExercise))
-        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-
-    it("dispatches 'UPDATE_ERROR' on exercise update failure", () => {
-      const prevExercise = Factory.build('exercise')
-      const errors = {'name': 'Name is required'}
-      sinon.stub(exercise, 'updateExercise').rejects(errors)
-      const expectedActions = [
-        {type: EXERCISE.UPDATE_INIT, item: prevExercise},
-        {type: EXERCISE.UPDATE_FAILURE, errors}
-      ]
-
-      const store = mockStore({exercises: {}})
-      return store.dispatch(updateExercise(prevExercise))
-        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-  })
-
-  describe('resetUpdateExercise()', () => {
-
-    it("dispatches 'UPDATE_RESET'", () => {
-      const expectedAction = {type: EXERCISE.UPDATE_RESET}
-      expect(resetUpdateExercise()).to.be.eql(expectedAction)
     })
   })
 
@@ -198,7 +90,7 @@ describe('Exercise Action Creators', () => {
       const attrs = Factory.build('exercise')
       sinon.stub(exercise, 'deleteExercise').resolves(1)
       const expectedActions = [
-        {type: EXERCISE.DELETE_INIT, id: attrs.id},
+        {type: EXERCISE.DELETE_INIT},
         {type: EXERCISE.DELETE_SUCCESS, id: attrs.id}
       ]
 
@@ -207,26 +99,17 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'DELETE_ERROR' on exercise delete failure", () => {
-      const attrs = Factory.build('exercise')
-      const errors = {'id': 'Exercise id doesn\'t exist'}
-      sinon.stub(exercise, 'deleteExercise').rejects(errors)
+    it("dispatches 'ERROR__ADD' on exercises delete failure", () => {
+      const errorMsg = faker.lorem.words()
+      sinon.stub(exercise, 'deleteExercise').rejects(new Error(errorMsg))
       const expectedActions = [
-        {type: EXERCISE.DELETE_INIT, id: attrs.id},
-        {type: EXERCISE.DELETE_FAILURE, errors}
+        {type: EXERCISE.DELETE_INIT},
+        {type: ERROR.ADD, errorMsg}
       ]
 
       const store = mockStore({exercises: {}})
-      return store.dispatch(deleteExercise(attrs.id))
+      return store.dispatch(deleteExercise(1))
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
-    })
-  })
-
-  describe('resetDeleteExercise()', () => {
-
-    it("dispatches 'DELETE_RESET'", () => {
-      const expectedAction = {type: EXERCISE.DELETE_RESET}
-      expect(resetDeleteExercise()).to.be.eql(expectedAction)
     })
   })
 })

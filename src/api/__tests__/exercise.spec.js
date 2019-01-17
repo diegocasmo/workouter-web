@@ -1,7 +1,6 @@
-import db from '../../../db-mock'
+import db, {clearDb} from '../../db-mock'
 import {Factory} from 'rosie'
 import {expect} from 'chai'
-import {seedDatabase} from '../../seed'
 import {
   validateExercise, fetchExercises, getExercise, createExercise, deleteExercise,
   updateExercise
@@ -9,31 +8,28 @@ import {
 
 describe('Exercise', () => {
 
-  beforeEach(() => { return seedDatabase(db) })
+  beforeEach(() => (db.exercises.bulkAdd(Factory.buildList('exercise', 3))))
 
-  afterEach(() => {
-    return db.exercises.clear()
-      .then(() => db.workouts.clear())
+  afterEach(() => (clearDb(db)))
+
+  it('fetchExercises()', () => {
+    return fetchExercises(db)
+      .then((res) => expect(res.length).to.be.equal(3))
   })
 
   describe('validateExercise()', () => {
 
-    it('returns true if attrs are valid', () => {
+    it('returns the exercise if valid', () => {
       const attrs = Factory.build('exercise', {}, {except: ['id']})
-      return validateExercise(attrs, db)
+      return validateExercise(attrs)
         .then((res) => expect(res).to.be.eql(attrs))
     })
 
     it('returns an error if an exercise doesn\'t have a name', () => {
       const invalidAttrs = Factory.build('exercise', {}, {except: ['id', 'name']})
-      return validateExercise(invalidAttrs, db)
-        .catch((errors) => expect(errors.type).to.be.equal('required'))
+      return validateExercise(invalidAttrs)
+        .catch((errors) => expect(errors.name).to.be.equal('Name is required'))
     })
-  })
-
-  it('fetchExercises()', () => {
-    return fetchExercises(db)
-      .then((res) => expect(res.length).to.be.equal(4))
   })
 
   it('getExercise()', () => {
@@ -46,7 +42,7 @@ describe('Exercise', () => {
 
   describe('createExercise()', () => {
 
-    it('creates a cleansed valid exercise in DB', () => {
+    it('creates a valid exercise in DB', () => {
       const attrs = Factory.build('exercise', {}, {except: ['id']})
       return createExercise(attrs, db)
         .then((res) => expect(attrs).to.be.eql(res))
@@ -55,15 +51,15 @@ describe('Exercise', () => {
     it('doesn\'t allow to create an exercise with invalid attrs', () => {
       const invalidAttrs = Factory.build('exercise', {}, {except: ['id', 'name']})
       return createExercise(invalidAttrs, db)
-        .catch((errors) => expect(errors.type).to.be.equal('required'))
+        .catch((errors) => expect(errors.name).to.be.equal('Name is required'))
     })
   })
 
   describe('deleteExercise()', () => {
     it('deletes an existing exercise', () => {
       return db.exercises.toArray()
-        .then(([burpees, ...remaining]) => {
-          return deleteExercise(burpees.id, db)
+        .then(([exercise, ...remaining]) => {
+          return deleteExercise(exercise.id, db)
             // One exercise was deleted
             .then((res) => expect(res).to.be.equal(1))
             .then(() => db.exercises.toArray())
@@ -114,7 +110,7 @@ describe('Exercise', () => {
         })
         .then((attrs) => updateExercise(attrs, db))
         // A an error of type required is expected
-        .catch((errors) => expect(errors.type).to.be.equal('required'))
+        .catch((errors) => expect(errors.name).to.be.equal('Name is required'))
     })
   })
 })

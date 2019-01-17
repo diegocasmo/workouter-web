@@ -1,45 +1,22 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
-import {createExercise, resetCreateExercise} from '../state/exercise/exercise-action-creators'
-import {getNewExercise, isNewExerciseSubmitting, getNewExerciseErrors} from '../state/exercise/exercise-selectors'
-import {ErrorMsg} from '../components/ErrorMsg'
+import {createExercise} from '../api/exercise'
 import {ExerciseForm} from '../components/ExerciseForm'
 
-export class NewExercise extends Component {
-  componentWillUnmount () {
-    this.props.handleResetCreateExercise()
-  }
-
-  render() {
-    const {errors} = this.props
-    return (
-      <div>
-        <h1>New Exercise</h1>
-        {errors && <ul> {errors.map((x, i) => <li key={i}><ErrorMsg msg={x}/></li>)}</ul>}
-        <ExerciseForm
-          submitText='Create'
-          isSubmitting={this.props.isSubmitting}
-          handleSubmit={this.props.handleCreateExercise}
-          exercise={this.props.exercise}
-          measurements={this.props.measurements}/>
-      </div>
-    )
-  }
-}
+export const NewExercise = ({handleCreateExercise}) => (
+  <div>
+    <h1>New Exercise</h1>
+    <ExerciseForm
+      submitText='Create'
+      handleSubmit={handleCreateExercise}/>
+  </div>
+)
 
 const mapStateToProps = state => ({
-  exercise: getNewExercise(state),
-  isSubmitting: isNewExerciseSubmitting(state),
-  errors: getNewExerciseErrors(state)
+  handleCreateExercise: createExercise
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleCreateExercise(attrs) {
-    dispatch(createExercise(attrs))
-  },
-  handleResetCreateExercise() {
-    dispatch(resetCreateExercise())
-  }
 })
 
 export const NewExerciseFromStore = connect(

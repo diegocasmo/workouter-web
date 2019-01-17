@@ -1,5 +1,6 @@
-import * as workout from '../../db/models/workout'
+import * as workout from '../../api/workout'
 import {WORKOUT} from './workout-actions'
+import {addError} from '../error/error-action-creators'
 
 // Fetch a list of workouts
 export function fetchWorkouts() {
@@ -7,14 +8,6 @@ export function fetchWorkouts() {
     dispatch({type: WORKOUT.FETCH_INIT})
     return workout.fetchWorkouts()
       .then((data) => dispatch({type: WORKOUT.FETCH_SUCCESS, items: data}))
-      .catch(() => dispatch({
-        type: WORKOUT.FETCH_FAILURE,
-        errorMsg: 'There was an error while fetching the workouts'
-      }))
+      .catch((err) => dispatch(addError(err.message)))
   }
-}
-
-// Reset fetch workouts
-export function resetFetchWorkouts() {
-  return {type: WORKOUT.FETCH_RESET}
 }
