@@ -19,6 +19,8 @@ export class UpdateExercise extends Component {
           <Loading/> :
           <ExerciseForm
             submitText='Update'
+            history={this.props.history}
+            redirectTo='/exercises'
             handleSubmit={(attrs) =>
               this.props.handleUpdateExercise({...this.props.exercise, ...attrs})
             }

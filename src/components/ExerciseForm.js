@@ -6,6 +6,8 @@ import {ExerciseSchema} from '../api/exercise'
 export const ExerciseForm = ({
   exercise,
   submitText,
+  history,
+  redirectTo,
   validationSchema = ExerciseSchema,
   handleSubmit
 }) => (
@@ -16,6 +18,7 @@ export const ExerciseForm = ({
     validationSchema={validationSchema}
     onSubmit={(attrs, {setErrors}) =>
       handleSubmit(attrs)
+        .then(() => (history && redirectTo) ? history.push(redirectTo) : null)
         .catch((errors) => setErrors(errors))
     }
     render={({isSubmitting}) => (
