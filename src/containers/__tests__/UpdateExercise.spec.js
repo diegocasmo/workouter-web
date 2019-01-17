@@ -15,6 +15,9 @@ describe('<UpdateExercise/>', () => {
       exerciseId: 99,
       exercise: Factory.build('exercise', {id: 99}),
       isLoading: false,
+      history: {
+        push: sinon.spy()
+      },
       handleUpdateExercise: sinon.spy(() => Promise.resolve()),
       handleGetExercise: sinon.spy()
     }
@@ -49,6 +52,19 @@ describe('<UpdateExercise/>', () => {
     // Expect to be called with the update exercise attributes in form (but same id)
     expect(props.handleUpdateExercise.calledOnce).to.be.true
     expect(props.handleUpdateExercise.calledWith({...props.exercise, ...attrs})).to.be.true
+  })
+
+  it("redirects to '/exercises' if submission is successful", async () => {
+    // Submit a valid exercise
+    const wrapper = mount(<UpdateExercise {...props}/>)
+    expect(props.history.push.called).to.be.false
+    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: 'foo'}})
+    wrapper.find('form').simulate('submit')
+    await tick()
+
+    // Expect redirect
+    expect(props.history.push.calledOnce).to.be.true
+    expect(props.history.push.calledWith('/exercises')).to.be.true
   })
 
   it('renders <Loading/> when resources are being loaded', () => {

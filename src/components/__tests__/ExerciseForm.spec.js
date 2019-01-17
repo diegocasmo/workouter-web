@@ -13,6 +13,10 @@ describe('<ExerciseForm/>', () => {
     props = {
       exercise: Factory.build('exercise'),
       submitText: 'Foo',
+      history: {
+        push: sinon.spy()
+      },
+      redirectTo: '/foo/bar',
       handleSubmit: sinon.spy(() => Promise.resolve())
     }
   })
@@ -72,6 +76,36 @@ describe('<ExerciseForm/>', () => {
     await tick()
     expect(props.handleSubmit.calledOnce).to.be.true
     expect(props.handleSubmit.calledWith(attrs)).to.be.true
+  })
+
+  it("redirects if 'history' and 'redirectTo' are defined", async () => {
+    const attrs = Factory.build('exercise', {}, {except: ['id']})
+    expect(props.history.push.called).to.be.false
+
+    // Submit a valid exercise
+    const wrapper = mount(<ExerciseForm {...props}/>)
+    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
+    wrapper.find('form').simulate('submit')
+    await tick()
+
+    // Expect redirect
+    expect(props.history.push.calledOnce).to.be.true
+    expect(props.history.push.calledWith(props.redirectTo)).to.be.true
+  })
+
+  it("does not redirect if 'redirectTo' is undefined", async () => {
+    props.redirectTo = null
+    const attrs = Factory.build('exercise', {}, {except: ['id']})
+    expect(props.history.push.called).to.be.false
+
+    // Submit a valid exercise
+    const wrapper = mount(<ExerciseForm {...props}/>)
+    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
+    wrapper.find('form').simulate('submit')
+    await tick()
+
+    // Expect no redirect, since 'redirectTo' is null
+    expect(props.history.push.called).to.be.false
   })
 })
 

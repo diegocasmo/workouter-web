@@ -11,6 +11,9 @@ describe('<NewExercise/>', () => {
   let props
   beforeEach(() => {
     props = {
+      history: {
+        push: sinon.spy()
+      },
       handleCreateExercise: sinon.spy(() => Promise.resolve())
     }
   })
@@ -36,6 +39,19 @@ describe('<NewExercise/>', () => {
     // Expect to be called with the exercise attributes in form
     expect(props.handleCreateExercise.calledOnce).to.be.true
     expect(props.handleCreateExercise.calledWith(attrs)).to.be.true
+  })
+
+  it("redirects to '/exercises' if submission is successful", async () => {
+    // Submit a valid exercise
+    const wrapper = mount(<NewExercise {...props}/>)
+    expect(props.history.push.called).to.be.false
+    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: 'foo'}})
+    wrapper.find('form').simulate('submit')
+    await tick()
+
+    // Expect redirect
+    expect(props.history.push.calledOnce).to.be.true
+    expect(props.history.push.calledWith('/exercises')).to.be.true
   })
 })
 

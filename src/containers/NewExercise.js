@@ -3,11 +3,13 @@ import {connect} from 'react-redux'
 import {createExercise} from '../api/exercise'
 import {ExerciseForm} from '../components/ExerciseForm'
 
-export const NewExercise = ({handleCreateExercise}) => (
+export const NewExercise = ({handleCreateExercise, history}) => (
   <div>
     <h1>New Exercise</h1>
     <ExerciseForm
       submitText='Create'
+      history={history}
+      redirectTo='/exercises'
       handleSubmit={handleCreateExercise}/>
   </div>
 )
