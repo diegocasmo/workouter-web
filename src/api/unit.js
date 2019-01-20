@@ -3,7 +3,8 @@
 export const UNITS = {
   REPS: {text: 'Repetition(s)', value: 'reps'},
   SECONDS: {text: 'Second(s)', value: 'sec'},
-  KM: {text: 'Km', value: 'Km'}
+  KM: {text: 'Km', value: 'Km'},
+  KG: {text: 'Kg', value: 'Kg'}
 }
 
 // Return all defined UNITS as an array

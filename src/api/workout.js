@@ -1,38 +1,49 @@
 import connection from './db'
-import {string, number, array, object} from 'yup'
+import {string, number, array, object, mixed} from 'yup'
 import {transformYupToFormikError} from './utils/error-transform'
+import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg} from './utils/error-message'
+import {UNITS} from './unit'
+
+// Workout setup details schema
+export const WorkoutSetupSchema = object().shape({
+  name: string()
+          .trim(trimmedMsg('Name')).strict()
+          .required(requiredMsg('Name')),
+  rounds: number(numTypeMsg('Rounds'))
+            .positive(positiveNumMsg('Rounds'))
+            .required(requiredMsg('Rounds')),
+  restTimePerRound: number(numTypeMsg('Rest time per round'))
+                      .positive(positiveNumMsg('Rest time per round'))
+                      .required(requiredMsg('Rest time per round')),
+  restTimePerExercise: number(numTypeMsg('Rest time per exercise'))
+                      .positive(positiveNumMsg('Rest time per exercise'))
+                      .required(requiredMsg('Rest time per exercise')),
+})
 
 // A workout schema
-export const WorkoutSchema = object().shape({
-  name: string()
-          .trim('Name must be a trimmed string').strict()
-          .required('Name is required'),
-  rounds: number('Rounds must be a number')
-            .positive('Rounds must be a positive number')
-            .required('Rounds is required'),
-  restTimePerRound: number('Rest time per round must be a number')
-            .positive('Rest time per round must be a positive number')
-            .required('Rest time per round is required'),
-  restTimePerExercise: number('Rest time per exercise must be a number')
-            .positive('Rest time per exercise must be a positive number')
-            .required('Rest time per exercise is required'),
-  exercises: array().of(
-    object().shape({
-      name: string()
-              .trim('Exercise name must be a trimmed string').strict()
-              .required('Exercise name is required'),
-      quantity: number('Quantity must be a number')
-                .positive('Quantity must be a positive number')
-                .required('Quantity is required'),
-      unit: string()
-              .trim('Unit must be a trimmed string').strict()
-              .required('Unit is required'),
-      weight: number('Weight must be a number')
-                .positive('Weight must be a positive number')
-                .nullable(), // Maybe: https://github.com/jaredpalmer/formik/issues/284
-    })
-  ).required('Exercises are required')
-})
+export const WorkoutSchema = object()
+  .concat(WorkoutSetupSchema)
+  .shape({
+    exercises: array().of(object().shape({
+        name: string()
+                .trim(trimmedMsg('Exercise name')).strict()
+                .required(requiredMsg('Exercise name')),
+        quantity: number(numTypeMsg('Quantity'))
+                    .typeError(numTypeMsg('Quantity'))
+                    .positive(positiveNumMsg('Quantity'))
+                    .required(requiredMsg('Quantity')),
+        quantityUnit: string()
+                        .trim(trimmedMsg('Quantity unit')).strict()
+                        .required(requiredMsg('Quantity unit')),
+        weight: number(numTypeMsg('Weight'))
+                  .typeError(numTypeMsg('Weight'))
+                  .min(0, 'Weight must be at least 0')
+                  .required(requiredMsg('Weight')),
+        weightUnit: mixed().oneOf([UNITS.KG.value])
+                      .required(requiredMsg('Weight unit')),
+      })
+    ).required('A workout must have at least one exercise')
+  })
 
 // Validate a workout attributes. Return a resolved Promise with with the
 // valid attrs, a Rails-like error object otherwise

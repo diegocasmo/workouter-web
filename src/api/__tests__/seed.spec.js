@@ -14,7 +14,7 @@ describe('Seed', () => {
       .then(() => db.exercises.toArray())
       .then((exercises) => {
         // Check name is correct
-        const [running, pushUps, squats, jumpingJacks] = exercises
+        const [pushUps, running, squats, jumpingJacks] = exercises
         expect(running.name).to.be.equal('Running')
         expect(pushUps.name).to.be.equal('Push Ups')
         expect(squats.name).to.be.equal('Squats')
@@ -49,13 +49,14 @@ describe('Seed', () => {
 
           // A workout exercise details
           expect(exercise.quantity).to.be.a('number')
-          expect(exercise.unit).to.be.a('string')
+          expect(exercise.quantityUnit).to.be.a('string')
           // An exercise weight is either null or a number
           if(typeof exercise.weight === 'object') {
             expect(exercise.weight).to.be.null
           } else {
             expect(exercise.weight).to.be.a('number')
           }
+          expect(exercise.weightUnit).to.be.a('string')
 
           // Workout's exercise is self-contained
           expect(exercise.id).to.be.equal(undefined)

@@ -1,12 +1,13 @@
 import connection from './db'
 import {string, object} from 'yup'
 import {transformYupToFormikError} from './utils/error-transform'
+import {trimmedMsg, requiredMsg} from './utils/error-message'
 
 // An exercise schema
 export const ExerciseSchema = object().shape({
   name: string()
-          .trim('Name must be a trimmed string').strict()
-          .required('Name is required')
+          .trim(trimmedMsg('Name')).strict()
+          .required(requiredMsg('Name'))
 })
 
 // Validate an exercise attributes. Return a resolved Promise with with the

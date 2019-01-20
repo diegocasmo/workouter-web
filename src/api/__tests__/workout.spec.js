@@ -26,7 +26,9 @@ describe('Workout', () => {
       'exercises',
       'exercises[0].name',
       'exercises[0].quantity',
-      'exercises[0].unit'
+      'exercises[0].quantityUnit',
+      'exercises[0].weight',
+      'exercises[0].weightUnit'
     ].forEach((x) => {
       it(`does not allow to create a workout without '${x}'`, () => {
         const attrs = Factory.build('workout', {}, {except: ['id', x]})
@@ -34,22 +36,6 @@ describe('Workout', () => {
           .then(() => expect(true).to.be.false) // force catch to always be executed
           .catch((errors) => expect(errors[x]).to.be.a('string'))
       })
-    })
-
-    it("supports a null 'weight'", () => {
-      // Create a workout which contains exercises weight set to null
-      let withNullWeight = Factory.build('workout', {}, {except: ['id']})
-      withNullWeight.exercises.forEach((x) => x.weight = null)
-      return validateWorkout(withNullWeight)
-        .then((res) => expect(res).to.be.eql(withNullWeight))
-    })
-
-    it("supports a 'number' weight", () => {
-      // Create a workout which contains exercises weight set to a number
-      let withNumberWeight = Factory.build('workout', {}, {except: ['id']})
-      withNumberWeight.exercises.forEach((x) => x.weight = faker.random.number())
-      return validateWorkout(withNumberWeight)
-        .then((res) => expect(res).to.be.eql(withNumberWeight))
     })
 
     it('returns the workout if valid', () => {

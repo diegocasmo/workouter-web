@@ -1,66 +1,136 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Formik, Form, FieldArray} from 'formik'
 import {Input} from './Form/Input'
 import {Select} from './Form/Select'
-import {WorkoutSchema} from '../api/workout'
-import {getUnits} from '../api/unit'
+import {WorkoutSetupSchema, WorkoutSchema} from '../api/workout'
+import {UNITS, getUnits} from '../api/unit'
+import {Link} from 'react-router-dom'
 
-const emptyWorkoutExercise = {
-  name: '',
-  quantity: '',
-  unit: getUnits()[0].value,
-  weight: ''
+class Wizard extends Component {
+  static Page = ({children}) => children
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      pageNum: 0,
+      values: props.initialValues,
+    }
+  }
+
+  handleGoToNext = (values) => {
+    this.setState(({pageNum}) => ({
+      pageNum: Math.min(pageNum + 1, this.props.children.length - 1),
+      values,
+    }))
+  }
+
+  handleGoToPrevious = () => {
+    this.setState(({pageNum}) => ({
+      pageNum: Math.max(pageNum - 1, 0),
+    }))
+  }
+
+  handleSubmit = (values, bag) => {
+    const {pageNum} = this.state
+    const {children, onWizardSubmit} = this.props
+    const isLastPage = pageNum === React.Children.count(children) - 1
+    if (isLastPage) {
+      return onWizardSubmit(values, bag)
+    } else {
+      this.handleGoToNext(values)
+      bag.setTouched({})
+      bag.setSubmitting(false)
+    }
+  }
+
+  render() {
+    const {pageNum, values} = this.state
+    const {children, submitText} = this.props
+    const activePage = React.Children.toArray(children)[pageNum]
+    const isLastPage = pageNum === React.Children.count(children) - 1
+    return (
+      <Formik
+        initialValues={values}
+        enableReinitialize={false}
+        validationSchema={activePage.props.validationSchema}
+        onSubmit={this.handleSubmit}
+        render={({isSubmitting}) => (
+          <Form>
+            {activePage}
+            <div>
+              {pageNum > 0 && <button type='button' onClick={this.handleGoToPrevious}>« Previous</button>}
+              {!isLastPage && <button type='submit'>Next »</button>}
+              {isLastPage && <button type='submit' disabled={isSubmitting}>{submitText}</button>}
+            </div>
+          </Form>
+        )}/>
+    )
+  }
 }
 
-// TODO: This should be rendered in 'another page' (i.e., this should be a multi page form)
-// See more at: https://github.com/jaredpalmer/formik/blob/master/examples/MultistepWizard.js
-const WorkoutExercisesForm = ({exercises}) => (
-  <FieldArray
-    name="exercises"
-    render={({insert, remove, push}) => (
-      <div>
-        {exercises.length > 0 && exercises.map((_, idx) => (
-          <div key={idx}>
-            {/* Exercise name should be a select input, with the exercises the user as created (in the future a search-able select)*/}
-            <Input name={`exercises.${idx}.name`} label='Name' placeholder='Name' type='text'/>
-            <Input name={`exercises.${idx}.quantity`} label='Quantity' placeholder='10' type='number'/>
-            <Select name={`exercises.${idx}.unit`} label='Unit' options={getUnits()}/>
-            <Input name={`exercises.${idx}.weight`} label='Weight' placeholder='10' type='number'/>
-            <button type="button" onClick={() => remove(idx)}>X</button>
-          </div>
-        ))}
-        <button type="button" onClick={() => push(emptyWorkoutExercise)}>Add</button>
-      </div>
-    )}/>
-)
-
 export const WorkoutForm = ({
-  workout={},
-  handleSubmit,
+  workout,
+  exercises,
   submitText,
-  isSubmitting
+  history,
+  redirectTo,
+  handleSubmit
 }) => {
-  return (
-    <Formik
-      initialValues={{
-        // TODO: Any better way to do this?
-        name: (workout && workout.name) ? workout.name : '',
-        rounds: (workout && workout.rounds) ? workout.rounds : '',
-        restTimePerRound: (workout && workout.restTimePerRound) ? workout.restTimePerRound : '',
-        restTimePerExercise: (workout && workout.restTimePerExercise) ? workout.restTimePerExercise : '',
-        exercises: (workout && workout.exercises) ? workout.exercises : [emptyWorkoutExercise]
-      }}
-      validationSchema={WorkoutSchema}
-      onSubmit={attrs => handleSubmit(attrs)}
-      render={({values}) => (
-        <Form>
+  if(exercises && exercises.length > 0) {
+    const emptyWorkout = {
+      name: '',
+      rounds: 4,
+      restTimePerRound: 60,
+      restTimePerExercise: 20,
+      exercises: [{
+        name: exercises[0].name,
+        quantity: 10,
+        quantityUnit: getUnits()[0].value,
+        weight: 0,
+        weightUnit: UNITS.KG.value
+      }]
+    }
+    return (
+      <Wizard
+        initialValues={workout || emptyWorkout}
+        onWizardSubmit={(attrs, {setErrors}) =>
+          handleSubmit(attrs)
+            .then(() => (history && redirectTo) ? history.push(redirectTo) : null)
+            .catch((errors) => setErrors(errors))
+        }
+        submitText={submitText}>
+        {/* First page: Workout setup details (i.e., name, rounds, etc) */}
+        <Wizard.Page validationSchema={WorkoutSetupSchema}>
+          <h3>Workout Setup</h3>
           <Input name='name' label='Name' placeholder='Name' type='text'/>
           <Input name='rounds' label='Rounds' placeholder='4' type='number'/>
           <Input name='restTimePerRound' label='Rest time per round (seconds)' placeholder='60' type='number'/>
           <Input name='restTimePerExercise' label='Rest time per exercise (seconds)' placeholder='20' type='number'/>
-          <WorkoutExercisesForm exercises={values.exercises}/>
-          <button type='submit' disabled={isSubmitting}>{submitText}</button>
-        </Form>
-      )}/>
-  )
+        </Wizard.Page>
+        {/* Second page: Workout exercises */}
+        <Wizard.Page validationSchema={WorkoutSchema}>
+          <h3>Workout Exercises</h3>
+          <FieldArray
+            name='exercises'
+            render={({remove, push, form}) => (
+              <div>
+                {form.values.exercises.length > 0 && form.values.exercises.map((_, idx) => (
+                  <div key={idx}>
+                    <Select name={`exercises.${idx}.name`} label='Name' options={exercises.map((x) => ({text: x.name, value: x.name}))}/>
+                    <Input name={`exercises.${idx}.quantity`} label='Quantity' placeholder='10' type='number'/>
+                    <Select name={`exercises.${idx}.quantityUnit`} label='Quantity unit' options={getUnits()}/>
+                    <Input name={`exercises.${idx}.weight`} label='Weight' placeholder='0' type='number'/>
+                    <Input name={`exercises.${idx}.weightUnit`} label='Weight Unit' type='string' value={UNITS.KG.value} readOnly disabled/>
+                    {form.values.exercises.length > 1 && <button type='button' onClick={() => remove(idx)}>X</button>}
+                  </div>
+                ))}
+                <button type='button' onClick={() => push(emptyWorkout.exercises[0])}>Add</button>
+              </div>
+            )}/>
+        </Wizard.Page>
+      </Wizard>
+    )
+  } else {
+    return <p>Please, <Link to='/exercises/new'>create some exercises</Link> first</p>
+  }
 }

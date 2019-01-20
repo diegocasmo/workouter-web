@@ -65,9 +65,10 @@ Factory.define('workout')
       // The # of times the exercise will be performed in each round
       exercise.quantity = faker.random.number({min: 1, max: 100})
       // The unit used to measure the quantity attribute
-      exercise.unit = faker.random.arrayElement(Object.keys(UNITS).map((k) => UNITS[k].value))
-      // Weight is assumed to be in Kg (might be null)
-      exercise.weight = faker.random.arrayElement([faker.random.number({min: 1, max: 100}), null])
+      exercise.quantityUnit = faker.random.arrayElement(Object.keys(UNITS).map((k) => UNITS[k].value))
+      // Weight is assumed to be in Kg
+      exercise.weight = faker.random.number({min: 0, max: 100})
+      exercise.weightUnit = UNITS.KG.value
     })
 
     removeUnwantedAttrs(attrs, opts.except)
