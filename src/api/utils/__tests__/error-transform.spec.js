@@ -8,7 +8,10 @@ it('transformYupToFormikError()', () => {
     name: string().required(errorMsg)
   })
 
-  Schema.validate({})
+  return Schema.validate({})
     .then(() => expect(true).to.be.false) // force catch to always be executed
-    .catch((err) => expect(err.name).to.be.equal(errorMsg))
+    .catch((err) => {
+      expect(err.name).to.be.equal('ValidationError')
+      expect(transformYupToFormikError(err).name).to.be.equal(errorMsg)
+    })
 })

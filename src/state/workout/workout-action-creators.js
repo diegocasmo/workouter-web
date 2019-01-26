@@ -11,3 +11,13 @@ export function fetchWorkouts() {
       .catch((err) => dispatch(addError(err.message)))
   }
 }
+
+// Delete a workout
+export function deleteWorkout(id) {
+  return (dispatch) => {
+    dispatch({type: WORKOUT.DELETE_INIT})
+    return workout.deleteWorkout(id)
+      .then(() => dispatch({type: WORKOUT.DELETE_SUCCESS, id}))
+      .catch((err) => dispatch(addError(err.message)))
+  }
+}

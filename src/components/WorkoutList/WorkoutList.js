@@ -1,11 +1,15 @@
-import React from 'react';
-import {WorkoutItem} from './WorkoutItem';
+import React from 'react'
+import {WorkoutItem} from './WorkoutItem'
 
-export const WorkoutList = ({workouts}) => {
+export const WorkoutList = ({handleDeleteWorkout, workouts}) => {
   if(workouts.length > 0) {
     return (
       <ul className="wkr-workout-list">
-        {workouts.map((w,i) => <WorkoutItem key={i} {...w}/>)}
+        {workouts.map((w,i) =>
+            <WorkoutItem
+              key={i}
+              handleDeleteWorkout={handleDeleteWorkout}
+              workout={w}/>)}
       </ul>
     )
   } else {

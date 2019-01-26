@@ -41,13 +41,16 @@ describe('<Exercises/>', () => {
     })
 
     it("calls 'handleDeleteExercise()' when a user attempts to delete an exercise", () => {
-      sinon.stub(window, 'confirm').returns(true)
       const wrapper = mount(<Router><Exercises {...props}/></Router>)
       expect(props.handleDeleteExercise.calledOnce).to.be.false
+
+      // Click on delete item and confirm
+      sinon.stub(window, 'confirm').returns(true)
       wrapper.find('.wkr-exercise-item__action-delete').first().simulate('click', {preventDefault: () => {}})
+
+      // Expect 'handleDeleteExercise()' to be called with workout id
       expect(props.handleDeleteExercise.calledOnce).to.be.true
       expect(props.handleDeleteExercise.calledWith(props.exercises[0].id)).to.be.true
-
     })
   })
 
