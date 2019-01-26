@@ -46,4 +46,37 @@ describe('Workout Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
   })
+
+  describe('deleteWorkout()', () => {
+
+    afterEach(() => {
+      workout.deleteWorkout.restore()
+    })
+
+    it("dispatches 'DELETE_INIT', 'DELETE_SUCCESS' on workout delete success", () => {
+      const attrs = Factory.build('workout')
+      sinon.stub(workout, 'deleteWorkout').resolves(1)
+      const expectedActions = [
+        {type: WORKOUT.DELETE_INIT},
+        {type: WORKOUT.DELETE_SUCCESS, id: attrs.id}
+      ]
+
+      const store = mockStore({workouts: {}})
+      return store.dispatch(deleteWorkout(attrs.id))
+        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
+    })
+
+    it("dispatches 'ERROR__ADD' on workout delete failure", () => {
+      const errorMsg = faker.lorem.words()
+      sinon.stub(workout, 'deleteWorkout').rejects(new Error(errorMsg))
+      const expectedActions = [
+        {type: WORKOUT.DELETE_INIT},
+        {type: ERROR.ADD, errorMsg}
+      ]
+
+      const store = mockStore({workouts: {}})
+      return store.dispatch(deleteWorkout(1))
+        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
+    })
+  })
 })

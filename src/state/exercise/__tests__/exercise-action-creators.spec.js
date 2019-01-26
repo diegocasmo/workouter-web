@@ -86,7 +86,7 @@ describe('Exercise Action Creators', () => {
       exercise.deleteExercise.restore()
     })
 
-    it("dispatches 'DELETE_INIT', 'DELETE_SUCCESS' on exercises delete success", () => {
+    it("dispatches 'DELETE_INIT', 'DELETE_SUCCESS' on exercise delete success", () => {
       const attrs = Factory.build('exercise')
       sinon.stub(exercise, 'deleteExercise').resolves(1)
       const expectedActions = [
@@ -99,7 +99,7 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'ERROR__ADD' on exercises delete failure", () => {
+    it("dispatches 'ERROR__ADD' on exercise delete failure", () => {
       const errorMsg = faker.lorem.words()
       sinon.stub(exercise, 'deleteExercise').rejects(new Error(errorMsg))
       const expectedActions = [

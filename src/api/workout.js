@@ -64,3 +64,9 @@ export function createWorkout(attrs, db = connection) {
     .then(() => db.workouts.add(attrs))
     .then((id) => db.workouts.get(id))
 }
+
+// Delete a workout using its id from DB. Return a Promise with the number
+// of elements successfully deleted from DB
+export function deleteWorkout(id, db = connection) {
+  return db.workouts.where({id}).delete()
+}

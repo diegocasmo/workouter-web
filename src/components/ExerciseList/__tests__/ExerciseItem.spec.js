@@ -28,19 +28,27 @@ describe('<ExerciseItem/>', () => {
     })
 
     it("calls 'handleDeleteExercise' when action is clicked and confirmed", () => {
-      expect(props.handleDeleteExercise.called).to.be.false
-      sinon.stub(window, 'confirm').returns(true)
       const wrapper = shallow(<ExerciseItem {...props}/>)
+      expect(props.handleDeleteExercise.called).to.be.false
+
+      // Click on delete item and confirm
+      sinon.stub(window, 'confirm').returns(true)
       wrapper.find('.wkr-exercise-item__action-delete').simulate('click', {preventDefault: () => {}})
+
+      // Expect 'handleDeleteExercise()' to be called with exercise id
       expect(props.handleDeleteExercise.calledOnce).to.be.true
       expect(props.handleDeleteExercise.calledWith(props.exercise.id)).to.be.true
     })
 
-    it("doesn\'t call 'handleDeleteExercise' when action is clicked but unconfirmed", () => {
-      expect(props.handleDeleteExercise.called).to.be.false
-      sinon.stub(window, 'confirm').returns(false)
+    it("doesn\'t call 'handleDeleteExercise' when action is clicked but UNconfirmed", () => {
       const wrapper = shallow(<ExerciseItem {...props}/>)
+      expect(props.handleDeleteExercise.called).to.be.false
+
+      // Click on delete item and cancel
+      sinon.stub(window, 'confirm').returns(false)
       wrapper.find('.wkr-exercise-item__action-delete').simulate('click', {preventDefault: () => {}})
+
+      // Expect 'handleDeleteExercise()' not to be called at all
       expect(props.handleDeleteExercise.calledOnce).to.be.false
     })
   })

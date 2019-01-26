@@ -50,4 +50,51 @@ describe('Workout Reducer', () => {
         .to.be.eql(expectedState)
     })
   })
+
+  describe('DELETE', () => {
+
+    it('DELETE_INIT', () => {
+      // Set up initial state as if an existing workout is going to be deleted
+      const workouts = Factory.buildList('workout', 2)
+      const items = workouts.reduce((acc, x) => ({...acc, [x.id]: x}), {})
+
+      const state = {
+        ...initialState,
+        items
+      }
+
+      const action = {type: WORKOUT.DELETE_INIT}
+      expect(workoutReducer(state, action))
+        .to.be.eql({
+          ...state,
+          status: REQUEST_STATUS.DELETE
+        })
+    })
+
+    it('DELETE_SUCCESS', () => {
+      // Set up initial state as if an existing workout is going to be deleted
+      const workouts = Factory.buildList('workout', 2)
+      const id = workouts[0].id
+      const prevItems = workouts.reduce((acc, x) => ({...acc, [x.id]: x}), {})
+
+      const state = {
+        ...initialState,
+        items: prevItems
+      }
+
+      // Delete workout from items
+      const nextItems = workouts
+                        .filter((x) => x.id !== id)
+                        .reduce((acc, x) => ({...acc, [x.id]: x}), {})
+      const expectedState = {
+        ...initialState,
+        items: nextItems,
+        status: REQUEST_STATUS.NONE
+      }
+
+      const action = {type: WORKOUT.DELETE_SUCCESS, id}
+      expect(workoutReducer(state, action))
+        .to.be.eql(expectedState)
+    })
+  })
 })

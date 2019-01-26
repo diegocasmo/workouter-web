@@ -10,7 +10,8 @@ describe('<WorkoutList/>', () => {
   let props
   beforeEach(() => {
     props = {
-      workouts: Factory.buildList('workout', 3)
+      workouts: Factory.buildList('workout', 3),
+      handleDeleteWorkout: () => {}
     }
   })
 

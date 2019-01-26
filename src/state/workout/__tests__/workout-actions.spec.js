@@ -7,6 +7,9 @@ describe('WORKOUT', () => {
     const actions = {
       'FETCH_INIT'    : 'WORKOUT__FETCH_INIT',
       'FETCH_SUCCESS' : 'WORKOUT__FETCH_SUCCESS',
+
+      'DELETE_INIT'   : 'WORKOUT__DELETE_INIT',
+      'DELETE_SUCCESS': 'WORKOUT__DELETE_SUCCESS',
     }
     Object.keys(actions).forEach((k) => expect(WORKOUT[k]).to.equal(actions[k]))
   })
