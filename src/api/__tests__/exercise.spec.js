@@ -36,7 +36,7 @@ describe('Exercise', () => {
     return db.exercises.toArray()
       .then(([exercise]) => {
         return getExercise(exercise.id, db)
-          .then((res) => expect(res).to.be.eql(res))
+          .then((res) => expect(res).to.be.eql(exercise))
       })
   })
 

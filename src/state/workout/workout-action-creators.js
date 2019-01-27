@@ -12,6 +12,19 @@ export function fetchWorkouts() {
   }
 }
 
+// Get a single workout from DB by its id
+export function getWorkout(id) {
+  return async (dispatch) => {
+    dispatch({type: WORKOUT.GET_INIT})
+    try {
+      const item = await workout.getWorkout(id)
+      dispatch({type: WORKOUT.GET_SUCCESS, item})
+    } catch(err) {
+      dispatch(addError(err.message))
+    }
+  }
+}
+
 // Delete a workout
 export function deleteWorkout(id) {
   return (dispatch) => {

@@ -39,14 +39,14 @@ export function createWorkout(db = connection) {
             ...running,
             quantity: 0.2,
             quantityUnit: UNITS.KM.value,
-            weight: null,
+            weight: 0,
             weightUnit: UNITS.KG.value
           },
           {
             ...pushUps,
             quantity: 12,
             quantityUnit: UNITS.REPS.value,
-            weight: null,
+            weight: 0,
             weightUnit: UNITS.KG.value
           },
           {
@@ -60,7 +60,7 @@ export function createWorkout(db = connection) {
             ...jumpingJacks,
             quantity: 45,
             quantityUnit: UNITS.SECONDS.value,
-            weight: null,
+            weight: 0,
             weightUnit: UNITS.KG.value
           }
         ]

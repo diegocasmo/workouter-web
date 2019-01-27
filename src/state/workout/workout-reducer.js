@@ -24,6 +24,22 @@ export function workoutReducer(state = initialState, action) {
       }
     }
 
+    // Get actions
+    case WORKOUT.GET_INIT: {
+      return {
+        ...state,
+        status: REQUEST_STATUS.GET
+      }
+    }
+    case WORKOUT.GET_SUCCESS: {
+      const items = [action.item].reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      return {
+        ...state,
+        items,
+        status: REQUEST_STATUS.NONE
+      }
+    }
+
     // Delete actions
     case WORKOUT.DELETE_INIT: {
       return {

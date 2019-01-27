@@ -68,6 +68,30 @@ class Wizard extends Component {
   }
 }
 
+// Return an array of exercises available to choose from. This method takes
+// care of merging the array of all available `exercises` and the ones defined
+// in `workout.exercises` so that the resulting array has no duplicates
+function getExercisesOptions(workout, exercises) {
+  let options = []
+  // Add the exercises already defined in the workout as the first options
+  if (workout && workout.exercises && workout.exercises.length > 0) {
+    options =
+      workout.exercises.map(({name}) => ({text: name, value: name}))
+  }
+
+  // Augment exercises options with those not included in the workout
+  options = options.concat(
+    exercises
+      // Filter exercises already defined in the workout
+      .filter(({name}) =>
+        options.findIndex(({text}) => text === name) === -1
+      )
+      .map(({name}) => ({text: name, value: name}))
+  )
+
+  return options
+}
+
 export const WorkoutForm = ({
   workout,
   exercises,
@@ -76,61 +100,64 @@ export const WorkoutForm = ({
   redirectTo,
   handleSubmit
 }) => {
-  if(exercises && exercises.length > 0) {
-    const emptyWorkout = {
-      name: '',
-      rounds: 4,
-      restTimePerRound: 60,
-      restTimePerExercise: 20,
-      exercises: [{
-        name: exercises[0].name,
-        quantity: 10,
-        quantityUnit: getUnits()[0].value,
-        weight: 0,
-        weightUnit: UNITS.KG.value
-      }]
-    }
-    return (
-      <Wizard
-        initialValues={workout || emptyWorkout}
-        onWizardSubmit={(attrs, {setErrors}) =>
-          handleSubmit(attrs)
-            .then(() => (history && redirectTo) ? history.push(redirectTo) : null)
-            .catch((errors) => setErrors(errors))
-        }
-        submitText={submitText}>
-        {/* First page: Workout setup details (i.e., name, rounds, etc) */}
-        <Wizard.Page validationSchema={WorkoutSetupSchema}>
-          <h3>Workout Setup</h3>
-          <Input name='name' label='Name' placeholder='Name' type='text'/>
-          <Input name='rounds' label='Rounds' placeholder='4' type='number'/>
-          <Input name='restTimePerRound' label='Rest time per round (seconds)' placeholder='60' type='number'/>
-          <Input name='restTimePerExercise' label='Rest time per exercise (seconds)' placeholder='20' type='number'/>
-        </Wizard.Page>
-        {/* Second page: Workout exercises */}
-        <Wizard.Page validationSchema={WorkoutSchema}>
-          <h3>Workout Exercises</h3>
-          <FieldArray
-            name='exercises'
-            render={({remove, push, form}) => (
-              <div>
-                {form.values.exercises.length > 0 && form.values.exercises.map((_, idx) => (
-                  <div key={idx}>
-                    <Select name={`exercises.${idx}.name`} label='Name' options={exercises.map((x) => ({text: x.name, value: x.name}))}/>
-                    <Input name={`exercises.${idx}.quantity`} label='Quantity' placeholder='10' type='number'/>
-                    <Select name={`exercises.${idx}.quantityUnit`} label='Quantity unit' options={getUnits()}/>
-                    <Input name={`exercises.${idx}.weight`} label='Weight' placeholder='0' type='number'/>
-                    <Input name={`exercises.${idx}.weightUnit`} label='Weight Unit' type='string' value={UNITS.KG.value} readOnly disabled/>
-                    {form.values.exercises.length > 1 && <button type='button' onClick={() => remove(idx)}>X</button>}
-                  </div>
-                ))}
-                <button type='button' onClick={() => push(emptyWorkout.exercises[0])}>Add</button>
-              </div>
-            )}/>
-        </Wizard.Page>
-      </Wizard>
-    )
-  } else {
+  // A workout must have exercises
+  if(exercises.length === 0 && !workout) {
     return <p>Please, <Link to='/exercises/new'>create some exercises</Link> first</p>
   }
+  // Get an array of exercises options
+  const exercisesOptions = getExercisesOptions(workout, exercises)
+  // An empty workout to show if none has been created yet
+  const emptyWorkout = {
+    name: '',
+    rounds: 4,
+    restTimePerRound: 60,
+    restTimePerExercise: 20,
+    exercises: [{
+      name: exercisesOptions[0].value,
+      quantity: 10,
+      quantityUnit: getUnits()[0].value,
+      weight: 0,
+      weightUnit: UNITS.KG.value
+    }]
+  }
+  return (
+    <Wizard
+      initialValues={workout || emptyWorkout}
+      onWizardSubmit={(attrs, {setErrors}) =>
+        handleSubmit(attrs)
+          .then(() => (history && redirectTo) ? history.push(redirectTo) : null)
+          .catch((errors) => setErrors(errors))
+      }
+      submitText={submitText}>
+      {/* First page: Workout setup details (i.e., name, rounds, etc) */}
+      <Wizard.Page validationSchema={WorkoutSetupSchema}>
+        <h3>Workout Setup</h3>
+        <Input name='name' label='Name' placeholder='Name' type='text'/>
+        <Input name='rounds' label='Rounds' placeholder='4' type='number'/>
+        <Input name='restTimePerRound' label='Rest time per round (seconds)' placeholder='60' type='number'/>
+        <Input name='restTimePerExercise' label='Rest time per exercise (seconds)' placeholder='20' type='number'/>
+      </Wizard.Page>
+      {/* Second page: Workout exercises */}
+      <Wizard.Page validationSchema={WorkoutSchema}>
+        <h3>Workout Exercises</h3>
+        <FieldArray
+          name='exercises'
+          render={({remove, push, form}) => (
+            <div>
+              {form.values.exercises.length > 0 && form.values.exercises.map((_, idx) => (
+                <div key={idx}>
+                  <Select name={`exercises.${idx}.name`} label='Name' options={exercisesOptions}/>
+                  <Input name={`exercises.${idx}.quantity`} label='Quantity' placeholder='10' type='number'/>
+                  <Select name={`exercises.${idx}.quantityUnit`} label='Quantity unit' options={getUnits()}/>
+                  <Input name={`exercises.${idx}.weight`} label='Weight' placeholder='0' type='number'/>
+                  <Input name={`exercises.${idx}.weightUnit`} label='Weight Unit' type='string' value={UNITS.KG.value} readOnly disabled/>
+                  {form.values.exercises.length > 1 && <button type='button' onClick={() => remove(idx)}>X</button>}
+                </div>
+              ))}
+              <button type='button' onClick={() => push(emptyWorkout.exercises[0])}>Add</button>
+            </div>
+          )}/>
+      </Wizard.Page>
+    </Wizard>
+  )
 }

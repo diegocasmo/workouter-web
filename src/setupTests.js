@@ -39,17 +39,17 @@ function removeUnwantedAttrs(obj={}, unwantedAttrs=[]) {
 
 Factory.define('exercise')
   .sequence('id')
-  .attr('name', faker.lorem.words())
-  .attr('createdAt', new Date())
-  .attr('updatedAt', new Date())
+  .attr('name', () => faker.lorem.words())
+  .attr('createdAt', () => new Date())
+  .attr('updatedAt', () => new Date())
   .after((attrs, opts) => (removeUnwantedAttrs(attrs, opts.except)))
 
 Factory.define('workout')
   .sequence('id')
-  .attr('name', faker.lorem.words())
-  .attr('rounds', faker.random.number({min: 1, max: 20}))
-  .attr('restTimePerRound', faker.random.number({min: 0, max: 180})) // Assumed to be in seconds
-  .attr('restTimePerExercise', faker.random.number({min: 0, max: 180})) // Assumed to be in seconds
+  .attr('name', () => faker.lorem.words())
+  .attr('rounds', () => faker.random.number({min: 1, max: 20}))
+  .attr('restTimePerRound', () => faker.random.number({min: 0, max: 180})) // Assumed to be in seconds
+  .attr('restTimePerExercise', () => faker.random.number({min: 0, max: 180})) // Assumed to be in seconds
   .attr('exercises', () =>
     Factory.buildList('exercise',
       faker.random.number({min: 1, max: 10}), // Generate a random number of exercises in [1, 10]
@@ -57,8 +57,8 @@ Factory.define('workout')
       {except: ['id']} // Exercises must be self-contained
     )
   )
-  .attr('createdAt', new Date())
-  .attr('updatedAt', new Date())
+  .attr('createdAt', () => new Date())
+  .attr('updatedAt', () => new Date())
   .after((attrs, opts) => {
     // Augment each exercise with required attributes when added to a workout
     attrs.exercises.forEach((exercise) => {

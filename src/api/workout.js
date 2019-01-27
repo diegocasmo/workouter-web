@@ -47,7 +47,7 @@ export const WorkoutSchema = object()
 
 // Validate a workout attributes. Return a resolved Promise with with the
 // valid attrs, a Rails-like error object otherwise
-export function validateWorkout(attrs) {
+export async function validateWorkout(attrs) {
   return WorkoutSchema.validate(attrs)
     .catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
@@ -55,6 +55,11 @@ export function validateWorkout(attrs) {
 // Return an array of workouts
 export function fetchWorkouts(db = connection) {
   return db.workouts.toArray()
+}
+
+// Return an workout from DB
+export async function getWorkout(id, db = connection) {
+  return db.workouts.get(id)
 }
 
 // Returns a created workout in DB if successful, a rejected Promise with a Rails-like
@@ -69,4 +74,12 @@ export function createWorkout(attrs, db = connection) {
 // of elements successfully deleted from DB
 export function deleteWorkout(id, db = connection) {
   return db.workouts.where({id}).delete()
+}
+
+// Returns an updated workout from DB, a rejected Promise with a Rails-like
+// object of errors otherwise
+export async function updateWorkout({id, ...attrs}, db = connection) {
+  await validateWorkout(attrs)
+  await db.workouts.update(id, attrs)
+  return db.workouts.get(id)
 }

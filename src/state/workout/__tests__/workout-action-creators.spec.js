@@ -47,6 +47,39 @@ describe('Workout Action Creators', () => {
     })
   })
 
+  describe('getWorkout()', () => {
+
+    afterEach(() => {
+      workout.getWorkout.restore()
+    })
+
+    it("dispatches 'GET_INIT', 'GET_SUCCESS' on workout get success", async () => {
+      const item = Factory.build('workout')
+      sinon.stub(workout, 'getWorkout').resolves(item)
+      const expectedActions = [
+        {type: WORKOUT.GET_INIT},
+        {type: WORKOUT.GET_SUCCESS, item}
+      ]
+
+      let store = mockStore({workouts: {}})
+      await store.dispatch(getWorkout(item.id))
+      expect(store.getActions()).to.be.eql(expectedActions)
+    })
+
+    it("dispatches 'ERROR__ADD' on workout get failure", async () => {
+      const errorMsg = faker.lorem.words()
+      sinon.stub(workout, 'getWorkout').rejects(new Error(errorMsg))
+      const expectedActions = [
+        {type: WORKOUT.GET_INIT},
+        {type: ERROR.ADD, errorMsg}
+      ]
+
+      let store = mockStore({workouts: {}})
+      await store.dispatch(getWorkout(1))
+      expect(store.getActions()).to.be.eql(expectedActions)
+    })
+  })
+
   describe('deleteWorkout()', () => {
 
     afterEach(() => {

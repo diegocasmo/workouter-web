@@ -56,6 +56,7 @@ describe('<WorkoutForm/>', () => {
     // Submit valid workout
     wrapper.find('form').simulate('submit')
     await tick()
+    wrapper.update()
 
     expect(wrapper.find("button[type='submit']").props().disabled).to.be.true
     expect(props.handleSubmit.calledOnce).to.be.true

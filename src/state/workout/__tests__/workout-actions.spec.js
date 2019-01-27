@@ -8,6 +8,9 @@ describe('WORKOUT', () => {
       'FETCH_INIT'    : 'WORKOUT__FETCH_INIT',
       'FETCH_SUCCESS' : 'WORKOUT__FETCH_SUCCESS',
 
+      'GET_INIT'      : 'WORKOUT__GET_INIT',
+      'GET_SUCCESS'   : 'WORKOUT__GET_SUCCESS',
+
       'DELETE_INIT'   : 'WORKOUT__DELETE_INIT',
       'DELETE_SUCCESS': 'WORKOUT__DELETE_SUCCESS',
     }
