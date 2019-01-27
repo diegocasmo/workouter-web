@@ -30,9 +30,10 @@ export class UpdateExercise extends Component {
   }
 }
 
-const mapStateToProps = (state, {match}) => {
+const mapStateToProps = (state, {match, history}) => {
   const exerciseId = Number(match.params.exerciseId)
   return {
+    history,
     exerciseId,
     exercise: getExerciseFromState(state, exerciseId),
     isLoading: isLoading(state),

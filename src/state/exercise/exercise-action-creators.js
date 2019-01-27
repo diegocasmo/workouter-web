@@ -17,7 +17,7 @@ export function getExercise(id) {
   return (dispatch) => {
     dispatch({type: EXERCISE.GET_INIT})
     return exercise.getExercise(id)
-      .then((test) => dispatch({type: EXERCISE.GET_SUCCESS, item: test}))
+      .then((item) => dispatch({type: EXERCISE.GET_SUCCESS, item}))
       .catch((err) => dispatch(addError(err.message)))
   }
 }

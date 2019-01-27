@@ -50,12 +50,7 @@ describe('Seed', () => {
           // A workout exercise details
           expect(exercise.quantity).to.be.a('number')
           expect(exercise.quantityUnit).to.be.a('string')
-          // An exercise weight is either null or a number
-          if(typeof exercise.weight === 'object') {
-            expect(exercise.weight).to.be.null
-          } else {
-            expect(exercise.weight).to.be.a('number')
-          }
+          expect(exercise.weight).to.be.a('number')
           expect(exercise.weightUnit).to.be.a('string')
 
           // Workout's exercise is self-contained

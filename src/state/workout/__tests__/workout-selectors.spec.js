@@ -26,6 +26,20 @@ describe('Workout Selectors', () => {
     })
   })
 
+  describe('getWorkout()', () => {
+
+    it('returns an workout', () => {
+      const workouts = Factory.buildList('workout', 3)
+
+      state.workouts.items = workouts.reduce((acc, x) => {
+        acc[x.id] = x
+        return acc
+      }, {})
+
+      expect(getWorkout(state, workouts[0].id)).to.be.eql(workouts[0])
+    })
+  })
+
   describe('isLoading()', () => {
 
     it('returns true if workouts are being loaded', () => {
@@ -38,20 +52,6 @@ describe('Workout Selectors', () => {
       expect(isLoading(state)).to.be.false
       state.workouts.status = REQUEST_STATUS.DELETE
       expect(isLoading(state)).to.be.false
-    })
-  })
-
-  describe('getWorkout()', () => {
-
-    it('returns an workout', () => {
-      const workouts = Factory.buildList('workout', 3)
-
-      state.workouts.items = workouts.reduce((acc, x) => {
-        acc[x.id] = x
-        return acc
-      }, {})
-
-      expect(getWorkout(state, workouts[0].id)).to.be.eql(workouts[0])
     })
   })
 })

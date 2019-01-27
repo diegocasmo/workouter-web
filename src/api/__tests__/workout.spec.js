@@ -1,9 +1,9 @@
 import db, {clearDb} from '../../db-mock'
 import {Factory} from 'rosie'
-import faker from 'faker'
 import {expect} from 'chai'
 import {
-  fetchWorkouts, validateWorkout, createWorkout, deleteWorkout
+  fetchWorkouts, getWorkout, validateWorkout, createWorkout,
+  deleteWorkout, updateWorkout
 } from '../workout'
 
 describe('Workout', () => {
@@ -47,6 +47,12 @@ describe('Workout', () => {
     })
   })
 
+  it('getWorkout()', async () => {
+    const [workout] = await db.workouts.toArray()
+    const res = await getWorkout(workout.id, db)
+    expect(res).to.be.eql(workout)
+  })
+
   describe('createWorkout()', () => {
 
     it('creates a valid workout in DB', () => {
@@ -86,6 +92,34 @@ describe('Workout', () => {
             // All workouts are still there
             .then((res) => expect(res).to.be.lengthOf(all.length))
         })
+    })
+  })
+
+  describe('updateWorkout()', () => {
+    it('updates an workout with valid attrs', async () => {
+      const [prevWorkout] = await db.workouts.toArray()
+
+      // Update a few attributes with valid values
+      const attrs = {...prevWorkout, name: 'Foo'}
+      const nextExercise = await updateWorkout(attrs, db)
+
+      // Verify workout was successfully updated in DB
+      expect(nextExercise.id).to.be.equal(prevWorkout.id)
+      expect(nextExercise.name).to.be.equal(attrs.name)
+    })
+
+    it('doesn\'t update an workout with invalid attrs', async () => {
+      const [workout] = await db.workouts.toArray()
+
+      // Update a few attributes with INvalid values
+      const attrs = {...workout, name: ''}
+      try {
+        await updateWorkout(attrs, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(errors) {
+        // A an error of type required is expected
+        expect(errors.name).to.be.equal('Name is required')
+      }
     })
   })
 })

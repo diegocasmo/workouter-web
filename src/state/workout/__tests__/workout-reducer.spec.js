@@ -51,6 +51,36 @@ describe('Workout Reducer', () => {
     })
   })
 
+  describe('GET', () => {
+
+    it('GET_INIT', () => {
+      const action = {type: WORKOUT.GET_INIT}
+      expect(workoutReducer(initialState, action))
+        .to.be.eql({
+          ...initialState,
+          status: REQUEST_STATUS.GET
+        })
+    })
+
+    it('GET_SUCCESS', () => {
+      // Assume workout to be fetched was already in state (must be replaced anyways,
+      // it might be a new version of it)
+      const prevWorkout = Factory.build('workout', {id: 1})
+      const state = {
+        ...initialState,
+        items: {1: prevWorkout}
+      }
+
+      const nextWorkout = Factory.build('workout', {...prevWorkout, name: 'new version'})
+      const action = {type: WORKOUT.GET_SUCCESS, item: nextWorkout}
+      expect(workoutReducer(state, action))
+        .to.be.eql({
+          items: {1: nextWorkout},
+          status: REQUEST_STATUS.NONE
+        })
+    })
+  })
+
   describe('DELETE', () => {
 
     it('DELETE_INIT', () => {

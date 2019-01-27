@@ -26,6 +26,20 @@ describe('Exercise Selectors', () => {
     })
   })
 
+  describe('getExercise()', () => {
+
+    it('returns an exercise', () => {
+      const exercises = Factory.buildList('exercise', 3)
+
+      state.exercises.items = exercises.reduce((acc, x) => {
+        acc[x.id] = x
+        return acc
+      }, {})
+
+      expect(getExercise(state, exercises[0].id)).to.be.eql(exercises[0])
+    })
+  })
+
   describe('isLoading()', () => {
 
     it('returns true if exercises are being loaded', () => {
@@ -38,20 +52,6 @@ describe('Exercise Selectors', () => {
       expect(isLoading(state)).to.be.false
       state.exercises.status = REQUEST_STATUS.DELETE
       expect(isLoading(state)).to.be.false
-    })
-  })
-
-  describe('getExercise()', () => {
-
-    it('returns an exercise', () => {
-      const exercises = Factory.buildList('exercise', 3)
-
-      state.exercises.items = exercises.reduce((acc, x) => {
-        acc[x.id] = x
-        return acc
-      }, {})
-
-      expect(getExercise(state, exercises[0].id)).to.be.eql(exercises[0])
     })
   })
 })
