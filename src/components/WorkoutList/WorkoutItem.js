@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {WorkoutActions} from '../../components/WorkoutActions'
 
 export const WorkoutItem = ({workout, handleDeleteWorkout}) => (
   <li className="wkr-workout-item">
@@ -8,18 +9,8 @@ export const WorkoutItem = ({workout, handleDeleteWorkout}) => (
       to={`/workouts/${workout.id}`}>
       {workout.name} ({workout.exercises.length} exercises)
     </Link>
-    <span>
-      &nbsp;<Link to={`/workouts/update/${workout.id}`}>Update</Link>
-      &nbsp;<Link
-              className='wkr-workout-item__action-delete'
-              to={`/workouts`}
-              onClick={(e) => {
-                e.preventDefault()
-                const msg = `Are you sure you want to delete "${workout.name}"`
-                if(window.confirm(msg)) {
-                  handleDeleteWorkout(workout.id)
-                }
-              }}>Delete</Link>
-    </span>
+    <WorkoutActions
+      workout={workout}
+      handleDeleteWorkout={handleDeleteWorkout}/>
   </li>
 )

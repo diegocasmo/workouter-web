@@ -5,7 +5,7 @@ import {getWorkout} from '../state/workout/workout-action-creators'
 import {fetchExercises} from '../state/exercise/exercise-action-creators'
 import {getExercises, isLoading as isLoadingExercises} from '../state/exercise/exercise-selectors'
 import {
-  getWorkout as getWorkoutFromState,
+  getWorkout as getWorkoutSelector,
   isLoading as isLoadingWorkout
 } from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
@@ -40,7 +40,7 @@ const mapStateToProps = (state, {match, history}) => {
   return {
     history,
     workoutId,
-    workout: getWorkoutFromState(state, workoutId),
+    workout: getWorkoutSelector(state, workoutId),
     exercises: getExercises(state),
     isLoading: isLoadingWorkout(state) || isLoadingExercises(state),
     handleUpdateWorkout: updateWorkout

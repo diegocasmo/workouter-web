@@ -46,7 +46,7 @@ describe('<Workouts/>', () => {
 
       // Click on delete item and confirm
       sinon.stub(window, 'confirm').returns(true)
-      wrapper.find('.wkr-workout-item__action-delete').first().simulate('click', {preventDefault: () => {}})
+      wrapper.find('.wkr-workout-actions__delete').first().simulate('click', {preventDefault: () => {}})
 
       // Expect 'handleDeleteWorkout()' to be called with workout id
       expect(props.handleDeleteWorkout.calledOnce).to.be.true
