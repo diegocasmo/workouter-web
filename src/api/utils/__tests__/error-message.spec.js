@@ -1,6 +1,6 @@
 import faker from 'faker'
 import {expect} from 'chai'
-import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg} from '../error-message'
+import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from '../error-message'
 
 it('trimmedMsg()', () => {
   const attr = faker.lorem.word()
@@ -20,4 +20,10 @@ it('numTypeMsg()', () => {
 it('positiveNumMsg()', () => {
   const attr = faker.lorem.word()
   expect(positiveNumMsg(attr)).to.be.equal(`${attr} must be a positive number`)
+})
+
+it('atLeastNumMsg()', () => {
+  const attr = faker.lorem.word()
+  const num = 0
+  expect(atLeastNumMsg(attr, num)).to.be.equal(`${attr} must be at least ${num}`)
 })

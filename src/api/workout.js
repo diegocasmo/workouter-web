@@ -1,7 +1,7 @@
 import connection from './db'
 import {string, number, array, object, mixed} from 'yup'
 import {transformYupToFormikError} from './utils/error-transform'
-import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg} from './utils/error-message'
+import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from './utils/error-message'
 import {UNITS} from './unit'
 
 // Workout setup details schema
@@ -13,10 +13,10 @@ export const WorkoutSetupSchema = object().shape({
             .positive(positiveNumMsg('Rounds'))
             .required(requiredMsg('Rounds')),
   restTimePerRound: number(numTypeMsg('Rest time per round'))
-                      .positive(positiveNumMsg('Rest time per round'))
+                      .min(0, atLeastNumMsg('Rest time per round', 0))
                       .required(requiredMsg('Rest time per round')),
   restTimePerExercise: number(numTypeMsg('Rest time per exercise'))
-                      .positive(positiveNumMsg('Rest time per exercise'))
+                      .min(0, atLeastNumMsg('Rest time per exercise', 0))
                       .required(requiredMsg('Rest time per exercise')),
 })
 
@@ -37,7 +37,7 @@ export const WorkoutSchema = object()
                         .required(requiredMsg('Quantity unit')),
         weight: number(numTypeMsg('Weight'))
                   .typeError(numTypeMsg('Weight'))
-                  .min(0, 'Weight must be at least 0')
+                  .min(0, atLeastNumMsg('Weight', 0))
                   .required(requiredMsg('Weight')),
         weightUnit: mixed().oneOf([UNITS.KG.value])
                       .required(requiredMsg('Weight unit')),
