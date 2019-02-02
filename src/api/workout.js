@@ -57,9 +57,10 @@ export function fetchWorkouts(db = connection) {
   return db.workouts.toArray()
 }
 
-// Return an workout from DB
+// Return a workout from DB if it exists, otherwise reject with an error
 export async function getWorkout(id, db = connection) {
-  return db.workouts.get(id)
+  const workout = await db.workouts.get(id)
+  return workout ? workout : Promise.reject(new Error(`Workout ${id} doesn't exist`))
 }
 
 // Returns a created workout in DB if successful, a rejected Promise with a Rails-like
@@ -72,8 +73,9 @@ export function createWorkout(attrs, db = connection) {
 
 // Delete a workout using its id from DB. Return a Promise with the number
 // of elements successfully deleted from DB
-export function deleteWorkout(id, db = connection) {
-  return db.workouts.where({id}).delete()
+export async function deleteWorkout(id, db = connection) {
+  const deleted = await db.workouts.where({id}).delete()
+  return deleted ? deleted : Promise.reject(new Error(`Unable to delete workout ${id}`))
 }
 
 // Returns an updated workout from DB, a rejected Promise with a Rails-like

@@ -32,12 +32,22 @@ describe('Exercise', () => {
     })
   })
 
-  it('getExercise()', () => {
-    return db.exercises.toArray()
-      .then(([exercise]) => {
-        return getExercise(exercise.id, db)
-          .then((res) => expect(res).to.be.eql(exercise))
-      })
+  describe('getExercise()', () => {
+
+    it('returns exercise if it exists', async () => {
+      const [exercise] = await db.exercises.toArray()
+      const res = await getExercise(exercise.id, db)
+      expect(res).to.be.eql(exercise)
+    })
+
+    it('returns an error if exercise doens\'t exist', async () => {
+      try {
+        await getExercise(-1, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(error) {
+        expect(error.message).to.be.equal('Exercise -1 doesn\'t exist')
+      }
+    })
   })
 
   describe('createExercise()', () => {
@@ -68,16 +78,13 @@ describe('Exercise', () => {
         })
     })
 
-    it('does not delete any record if exercise doesn\'t exist', () => {
-      return db.exercises.toArray()
-        .then((all) => {
-          return deleteExercise(-1, db)
-            // No exercise was deleted
-            .then((res) => expect(res).to.be.equal(0))
-            .then(() => db.exercises.toArray())
-            // All exercises are still there
-            .then((res) => expect(res).to.be.lengthOf(all.length))
-        })
+    it('returns an error if exercise doesn\'t exist', async () => {
+      try {
+        await deleteExercise(-1, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(error) {
+        expect(error.message).to.be.equal('Unable to delete exercise -1')
+      }
     })
   })
 

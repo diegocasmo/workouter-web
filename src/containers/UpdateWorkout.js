@@ -17,19 +17,28 @@ export class UpdateWorkout extends Component {
     this.props.handleFetchExercises()
   }
 
+  renderWorkoutForm() {
+    const {workout, exercises, history, handleUpdateWorkout} = this.props
+    if(workout) {
+      return (
+        <WorkoutForm
+          submitText='Update'
+          history={history}
+          redirectTo='/workouts'
+          handleSubmit={handleUpdateWorkout}
+          workout={workout}
+          exercises={exercises}/>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         <h1>Update Workout</h1>
-        {this.props.isLoading ?
-          <Loading/> :
-          <WorkoutForm
-            submitText='Update'
-            history={this.props.history}
-            redirectTo='/workouts'
-            handleSubmit={this.props.handleUpdateWorkout}
-            workout={this.props.workout}
-            exercises={this.props.exercises}/>}
+        {this.props.isLoading
+          ? <Loading/>
+          : this.renderWorkoutForm()}
       </div>
     )
   }

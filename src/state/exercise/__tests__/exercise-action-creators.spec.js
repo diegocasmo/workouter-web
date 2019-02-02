@@ -33,11 +33,12 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'ERROR__ADD' on exercises fetch failure", () => {
+    it("dispatches 'FETCH_FAILURE' and 'ERROR__ADD' on exercises fetch failure", () => {
       const errorMsg = faker.lorem.words()
       sinon.stub(exercise, 'fetchExercises').rejects(new Error(errorMsg))
       const expectedActions = [
         {type: EXERCISE.FETCH_INIT},
+        {type: EXERCISE.FETCH_FAILURE},
         {type: ERROR.ADD, errorMsg}
       ]
 
@@ -66,11 +67,12 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'ERROR__ADD' on exercise get failure", () => {
+    it("dispatches 'GET_FAILURE' and 'ERROR__ADD' on exercise get failure", () => {
       const errorMsg = faker.lorem.words()
       sinon.stub(exercise, 'getExercise').rejects(new Error(errorMsg))
       const expectedActions = [
         {type: EXERCISE.GET_INIT},
+        {type: EXERCISE.GET_FAILURE},
         {type: ERROR.ADD, errorMsg}
       ]
 
@@ -99,11 +101,12 @@ describe('Exercise Action Creators', () => {
         .then(() => expect(store.getActions()).to.be.eql(expectedActions))
     })
 
-    it("dispatches 'ERROR__ADD' on exercise delete failure", () => {
+    it("dispatches 'DELETE_FAILURE' and 'ERROR__ADD' on exercise delete failure", () => {
       const errorMsg = faker.lorem.words()
       sinon.stub(exercise, 'deleteExercise').rejects(new Error(errorMsg))
       const expectedActions = [
         {type: EXERCISE.DELETE_INIT},
+        {type: EXERCISE.DELETE_FAILURE},
         {type: ERROR.ADD, errorMsg}
       ]
 

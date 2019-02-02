@@ -47,10 +47,22 @@ describe('Workout', () => {
     })
   })
 
-  it('getWorkout()', async () => {
-    const [workout] = await db.workouts.toArray()
-    const res = await getWorkout(workout.id, db)
-    expect(res).to.be.eql(workout)
+  describe('getWorkout()', () => {
+
+    it('returns workout if it exists', async () => {
+      const [workout] = await db.workouts.toArray()
+      const res = await getWorkout(workout.id, db)
+      expect(res).to.be.eql(workout)
+    })
+
+    it('returns an error if workout doens\'t exist', async () => {
+      try {
+        await getWorkout(-1, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(error) {
+        expect(error.message).to.be.equal('Workout -1 doesn\'t exist')
+      }
+    })
   })
 
   describe('createWorkout()', () => {
@@ -82,16 +94,13 @@ describe('Workout', () => {
         })
     })
 
-    it('doesn\'t delete any record if workout id doesn\'t exist', () => {
-      return db.workouts.toArray()
-        .then((all) => {
-          return deleteWorkout(-1, db)
-            // No workout was deleted
-            .then((res) => expect(res).to.be.equal(0))
-            .then(() => db.workouts.toArray())
-            // All workouts are still there
-            .then((res) => expect(res).to.be.lengthOf(all.length))
-        })
+    it('returns an error if workout doesn\'t exist', async () => {
+      try {
+        await deleteWorkout(-1, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(error) {
+        expect(error.message).to.be.equal('Unable to delete workout -1')
+      }
     })
   })
 

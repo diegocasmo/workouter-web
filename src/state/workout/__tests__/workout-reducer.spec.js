@@ -49,6 +49,21 @@ describe('Workout Reducer', () => {
       expect(workoutReducer(initialState, action))
         .to.be.eql(expectedState)
     })
+
+    it('FETCH_FAILURE', () => {
+      const action = {type: WORKOUT.FETCH_FAILURE}
+
+      const state = {
+        ...initialState,
+        status: REQUEST_STATUS.GET
+      }
+
+      expect(workoutReducer(state, action))
+        .to.be.eql({
+          ...state,
+          status: REQUEST_STATUS.NONE
+        })
+    })
   })
 
   describe('GET', () => {
@@ -76,6 +91,21 @@ describe('Workout Reducer', () => {
       expect(workoutReducer(state, action))
         .to.be.eql({
           items: {1: nextWorkout},
+          status: REQUEST_STATUS.NONE
+        })
+    })
+
+    it('GET_FAILURE', () => {
+      const action = {type: WORKOUT.GET_FAILURE}
+
+      const state = {
+        ...initialState,
+        status: REQUEST_STATUS.GET
+      }
+
+      expect(workoutReducer(state, action))
+        .to.be.eql({
+          ...state,
           status: REQUEST_STATUS.NONE
         })
     })
@@ -125,6 +155,21 @@ describe('Workout Reducer', () => {
       const action = {type: WORKOUT.DELETE_SUCCESS, id}
       expect(workoutReducer(state, action))
         .to.be.eql(expectedState)
+    })
+
+    it('DELETE_SUCCESS', () => {
+      const action = {type: WORKOUT.DELETE_SUCCESS}
+
+      const state = {
+        ...initialState,
+        status: REQUEST_STATUS.DELETE
+      }
+
+      expect(workoutReducer(state, action))
+        .to.be.eql({
+          ...state,
+          status: REQUEST_STATUS.NONE
+        })
     })
   })
 })

@@ -8,7 +8,10 @@ export function fetchExercises() {
     dispatch({type: EXERCISE.FETCH_INIT})
     return exercise.fetchExercises()
       .then((data) => dispatch({type: EXERCISE.FETCH_SUCCESS, items: data}))
-      .catch((err) => dispatch(addError(err.message)))
+      .catch((err) => {
+        dispatch({type: EXERCISE.FETCH_FAILURE})
+        dispatch(addError(err.message))
+      })
   }
 }
 
@@ -18,7 +21,10 @@ export function getExercise(id) {
     dispatch({type: EXERCISE.GET_INIT})
     return exercise.getExercise(id)
       .then((item) => dispatch({type: EXERCISE.GET_SUCCESS, item}))
-      .catch((err) => dispatch(addError(err.message)))
+      .catch((err) => {
+        dispatch({type: EXERCISE.GET_FAILURE})
+        dispatch(addError(err.message))
+      })
   }
 }
 
@@ -28,6 +34,9 @@ export function deleteExercise(id) {
     dispatch({type: EXERCISE.DELETE_INIT})
     return exercise.deleteExercise(id)
       .then(() => dispatch({type: EXERCISE.DELETE_SUCCESS, id}))
-      .catch((err) => dispatch(addError(err.message)))
+      .catch((err) => {
+        dispatch({type: EXERCISE.DELETE_FAILURE})
+        dispatch(addError(err.message))
+      })
   }
 }

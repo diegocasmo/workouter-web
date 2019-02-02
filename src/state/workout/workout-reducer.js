@@ -23,6 +23,12 @@ export function workoutReducer(state = initialState, action) {
         status: REQUEST_STATUS.NONE
       }
     }
+    case WORKOUT.FETCH_FAILURE: {
+      return {
+        ...state,
+        status: REQUEST_STATUS.NONE
+      }
+    }
 
     // Get actions
     case WORKOUT.GET_INIT: {
@@ -36,6 +42,12 @@ export function workoutReducer(state = initialState, action) {
       return {
         ...state,
         items,
+        status: REQUEST_STATUS.NONE
+      }
+    }
+    case WORKOUT.GET_FAILURE: {
+      return {
+        ...state,
         status: REQUEST_STATUS.NONE
       }
     }
@@ -55,6 +67,12 @@ export function workoutReducer(state = initialState, action) {
       return {
         ...state,
         items,
+        status: REQUEST_STATUS.NONE
+      }
+    }
+    case WORKOUT.DELETE_FAILURE: {
+      return {
+        ...state,
         status: REQUEST_STATUS.NONE
       }
     }

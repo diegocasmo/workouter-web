@@ -22,9 +22,10 @@ export function fetchExercises(db = connection) {
   return db.exercises.toArray()
 }
 
-// Return an exercise from DB
-export function getExercise(id, db = connection) {
-  return db.exercises.get(id)
+// Return an exercise from DB if it exists, otherwise reject with an error
+export async function getExercise(id, db = connection) {
+  const exercise = await db.exercises.get(id)
+  return exercise ? exercise : Promise.reject(new Error(`Exercise ${id} doesn't exist`))
 }
 
 // Returns a created exercise in DB if successful, a rejected Promise with a Rails-like
@@ -37,8 +38,9 @@ export function createExercise(attrs, db = connection) {
 
 // Delete an exercise using its id from DB. Return a Promise with the number
 // of elements successfully deleted from DB
-export function deleteExercise(id, db = connection) {
-  return db.exercises.where({id}).delete()
+export async function deleteExercise(id, db = connection) {
+  const deleted = await db.exercises.where({id}).delete()
+  return deleted ? deleted : Promise.reject(new Error(`Unable to delete exercise ${id}`))
 }
 
 // Returns an updated exercise from DB, a rejected Promise with a Rails-like

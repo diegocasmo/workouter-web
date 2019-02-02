@@ -11,20 +11,27 @@ export class UpdateExercise extends Component {
     this.props.handleGetExercise(this.props.exerciseId)
   }
 
+  renderExerciseForm() {
+    const {exercise, history, handleUpdateExercise} = this.props
+    if(exercise) {
+      return (
+        <ExerciseForm
+          submitText='Update'
+          history={history}
+          redirectTo='/exercises'
+          handleSubmit={(attrs) => handleUpdateExercise({...exercise, ...attrs})}
+          exercise={exercise}/>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         <h1>Update Exercise</h1>
-        {this.props.isLoading ?
-          <Loading/> :
-          <ExerciseForm
-            submitText='Update'
-            history={this.props.history}
-            redirectTo='/exercises'
-            handleSubmit={(attrs) =>
-              this.props.handleUpdateExercise({...this.props.exercise, ...attrs})
-            }
-            exercise={this.props.exercise}/>}
+        {this.props.isLoading
+          ? <Loading/>
+          : this.renderExerciseForm()}
       </div>
     )
   }

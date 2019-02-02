@@ -8,7 +8,10 @@ export function fetchWorkouts() {
     dispatch({type: WORKOUT.FETCH_INIT})
     return workout.fetchWorkouts()
       .then((data) => dispatch({type: WORKOUT.FETCH_SUCCESS, items: data}))
-      .catch((err) => dispatch(addError(err.message)))
+      .catch((err) => {
+        dispatch({type: WORKOUT.FETCH_FAILURE})
+        dispatch(addError(err.message))
+      })
   }
 }
 
@@ -20,6 +23,7 @@ export function getWorkout(id) {
       const item = await workout.getWorkout(id)
       dispatch({type: WORKOUT.GET_SUCCESS, item})
     } catch(err) {
+      dispatch({type: WORKOUT.GET_FAILURE})
       dispatch(addError(err.message))
     }
   }
@@ -31,6 +35,9 @@ export function deleteWorkout(id) {
     dispatch({type: WORKOUT.DELETE_INIT})
     return workout.deleteWorkout(id)
       .then(() => dispatch({type: WORKOUT.DELETE_SUCCESS, id}))
-      .catch((err) => dispatch(addError(err.message)))
+      .catch((err) => {
+        dispatch({type: WORKOUT.DELETE_FAILURE})
+        dispatch(addError(err.message))
+      })
   }
 }

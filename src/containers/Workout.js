@@ -13,7 +13,7 @@ export class Workout extends Component {
   }
 
   renderWorkoutDetails() {
-    const {workout} = this.props
+    const {workout, handleDeleteWorkout} = this.props
     if(workout) {
       return (
         <div>
@@ -21,7 +21,7 @@ export class Workout extends Component {
           <WorkoutExerciseList {...workout}/>
           <WorkoutActions
             workout={workout}
-            handleDeleteWorkout={this.props.handleDeleteWorkout}/>
+            handleDeleteWorkout={handleDeleteWorkout}/>
         </div>
       )
     }
