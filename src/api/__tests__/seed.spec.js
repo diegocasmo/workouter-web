@@ -1,4 +1,4 @@
-import db from '../../db-mock'
+import db from '../../test-utils/db-mock'
 import {expect} from 'chai'
 import {createExercises, createWorkout} from '../seed'
 const moment = require('moment')

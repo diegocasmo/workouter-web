@@ -1,4 +1,4 @@
-import db, {clearDb} from '../../db-mock'
+import db, {clearDb} from '../../test-utils/db-mock'
 import {Factory} from 'rosie'
 import {expect} from 'chai'
 import {

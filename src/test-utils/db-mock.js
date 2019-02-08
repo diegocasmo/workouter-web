@@ -1,4 +1,5 @@
 import Dexie from 'dexie'
+import {TABLES, SCHEMA, HOOKS, addCreateTimestamps, addUpdateTimestamp} from '../api/db'
 const moment = require('moment')
 
 // Initialize Dexie DB
@@ -6,30 +7,11 @@ const dbMock = new Dexie('WorkouterDbTest', {
   indexedDB: require('fake-indexeddb'),
   IDBKeyRange: require('fake-indexeddb/lib/FDBKeyRange')
 })
-const TABLES = {
-  EXERCISES: 'exercises',
-  WORKOUTS: 'workouts'
-}
 
 // Specify DB's version schema, which only defines indexed keys
-let schema = {}
-schema[TABLES.EXERCISES] = '++id,name'
-schema[TABLES.WORKOUTS] = '++id,name'
-dbMock.version(1).stores(schema)
-
-// Add 'createdAt' and 'updatedAt' timestamps to all tables' records
-function addCreateTimestamps(obj) {
-  obj.createdAt = moment().valueOf()
-  obj.updatedAt = null
-}
-
-// Update 'updatedAt' timestamp when a table record is being updated
-function addUpdateTimestamp(mods) {
-  mods.updatedAt = moment().valueOf()
-}
+dbMock.version(1).stores(SCHEMA)
 
 // Subscribe to table hooks to perform automatic operations
-const HOOKS = {CREATE: 'creating', UPDATE: 'updating'}
 Object.keys(TABLES).forEach((k) => {
   dbMock[TABLES[k]].hook(HOOKS.CREATE, (_, obj) => addCreateTimestamps(obj))
   dbMock[TABLES[k]].hook(HOOKS.UPDATE, (mods) => addUpdateTimestamp(mods))
@@ -39,6 +21,7 @@ Object.keys(TABLES).forEach((k) => {
 export function clearDb(db = dbMock) {
   return db.exercises.clear()
     .then(() => db.workouts.clear())
+    .then(() => db.sessions.clear())
 }
 
 export default dbMock

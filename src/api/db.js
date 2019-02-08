@@ -4,30 +4,33 @@ const moment = require('moment')
 
 // Initialize Dexie DB
 const db = new Dexie('WorkouterDb')
-const TABLES = {
+export const TABLES = {
   EXERCISES: 'exercises',
-  WORKOUTS: 'workouts'
+  WORKOUTS: 'workouts',
+  SESSIONS: 'sessions'
 }
 
 // Specify DB's version schema, which only defines indexed keys
-let schema = {}
-schema[TABLES.EXERCISES] = '++id,name'
-schema[TABLES.WORKOUTS] = '++id,name'
-db.version(1).stores(schema)
+export const SCHEMA = {
+  [TABLES.EXERCISES]: '++id,name',
+  [TABLES.WORKOUTS]: '++id,name',
+  [TABLES.SESSIONS]: '++id,name'
+}
+db.version(1).stores(SCHEMA)
 
 // Add 'createdAt' and 'updatedAt' timestamps to all tables' records
-function addCreateTimestamps(obj) {
+export function addCreateTimestamps(obj) {
   obj.createdAt = moment().valueOf()
   obj.updatedAt = null
 }
 
 // Update 'updatedAt' timestamp when a table record is being updated
-function addUpdateTimestamp(mods) {
+export function addUpdateTimestamp(mods) {
   mods.updatedAt = moment().valueOf()
 }
 
 // Subscribe to table hooks to perform automatic operations
-const HOOKS = {CREATE: 'creating', UPDATE: 'updating'}
+export const HOOKS = {CREATE: 'creating', UPDATE: 'updating'}
 Object.keys(TABLES).forEach((k) => {
   db[TABLES[k]].hook(HOOKS.CREATE, (_, obj) => addCreateTimestamps(obj))
   db[TABLES[k]].hook(HOOKS.UPDATE, (mods) => addUpdateTimestamp(mods))
