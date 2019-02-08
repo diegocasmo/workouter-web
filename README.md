@@ -1,7 +1,13 @@
 # Workouter
 
-An application which allows to create and do custom workouts
+Create and execute custom interval training style workouts.
 
 *Note: This is still work in progress. More documentation is on its way :).*
 
-### TODO: Installation
+### Installation
+  - Run `yarn install` to install dependencies
+  - Run `yarn start` to start the app in development mode
+
+### Testing
+  - Run `yarn test` to run the test watcher in an interactive mode
+    - By default, runs tests related to files changed since the last commit
