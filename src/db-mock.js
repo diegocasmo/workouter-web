@@ -1,4 +1,5 @@
 import Dexie from 'dexie'
+const moment = require('moment')
 
 // Initialize Dexie DB
 const dbMock = new Dexie('WorkouterDbTest', {
@@ -18,13 +19,13 @@ dbMock.version(1).stores(schema)
 
 // Add 'createdAt' and 'updatedAt' timestamps to all tables' records
 function addCreateTimestamps(obj) {
-  obj.createdAt = new Date()
+  obj.createdAt = moment().valueOf()
   obj.updatedAt = null
 }
 
 // Update 'updatedAt' timestamp when a table record is being updated
 function addUpdateTimestamp(mods) {
-  mods.updatedAt = new Date()
+  mods.updatedAt = moment().valueOf()
 }
 
 // Subscribe to table hooks to perform automatic operations

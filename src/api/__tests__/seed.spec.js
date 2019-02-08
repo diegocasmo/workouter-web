@@ -1,6 +1,7 @@
 import db from '../../db-mock'
 import {expect} from 'chai'
 import {createExercises, createWorkout} from '../seed'
+const moment = require('moment')
 
 describe('Seed', () => {
 
@@ -22,7 +23,7 @@ describe('Seed', () => {
 
         // Check each defines 'createdAt' and 'updatedAt'
         exercises.forEach((exercise) => {
-          expect(exercise.createdAt instanceof Date).to.be.true
+          expect(moment(exercise.createdAt).isValid()).to.be.true
           expect(exercise.updatedAt).to.be.null
         })
       })
@@ -38,7 +39,7 @@ describe('Seed', () => {
         expect(workout.restTimePerRound).to.be.equal(60)
         expect(workout.restTimePerExercise).to.be.equal(20)
         expect(workout.exercises.length).to.be.equal(4)
-        expect(workout.createdAt instanceof Date).to.be.true
+        expect(moment(workout.createdAt).isValid()).to.be.true
         expect(workout.updatedAt).to.be.null
 
         // Check workout has self-contained exercises

@@ -1,6 +1,7 @@
 import {configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import {UNITS} from './api/unit'
+const moment = require('moment')
 
 // TODO: Define factories somewhere else?
 import {Factory} from 'rosie'
@@ -40,8 +41,8 @@ function removeUnwantedAttrs(obj={}, unwantedAttrs=[]) {
 Factory.define('exercise')
   .sequence('id')
   .attr('name', () => faker.lorem.words())
-  .attr('createdAt', () => new Date())
-  .attr('updatedAt', () => new Date())
+  .attr('createdAt', () => moment().valueOf())
+  .attr('updatedAt', () => moment().valueOf())
   .after((attrs, opts) => (removeUnwantedAttrs(attrs, opts.except)))
 
 Factory.define('workout')
@@ -57,8 +58,8 @@ Factory.define('workout')
       {except: ['id']} // Exercises must be self-contained
     )
   )
-  .attr('createdAt', () => new Date())
-  .attr('updatedAt', () => new Date())
+  .attr('createdAt', () => moment().valueOf())
+  .attr('updatedAt', () => moment().valueOf())
   .after((attrs, opts) => {
     // Augment each exercise with required attributes when added to a workout
     attrs.exercises.forEach((exercise) => {
