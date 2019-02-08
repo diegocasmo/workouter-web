@@ -16,7 +16,7 @@ describe('<App/>', () => {
   beforeEach(() => {
     props = {
       errors: [],
-      handleRemoveError: sinon.spy()
+      removeError: sinon.spy()
     }
   })
 
@@ -35,12 +35,12 @@ describe('<App/>', () => {
     expect(wrapper.find(Routes)).to.have.lengthOf(1)
   })
 
-  it('calls handleRemoveError() when an <ErrorItem/> is clicked in the remove button', () => {
+  it('calls removeError() when an <ErrorItem/> is clicked in the remove button', () => {
     props.errors = [faker.lorem.words(), faker.lorem.words()]
     const wrapper = mount(<Provider store={getStore()}><App {...props}/></Provider>)
-    expect(props.handleRemoveError.called).to.be.false
+    expect(props.removeError.called).to.be.false
     wrapper.find("button[type='button']").first().simulate('click', {preventDefault: () => {}})
-    expect(props.handleRemoveError.calledOnce).to.be.true
-    expect(props.handleRemoveError.calledWith(0)).to.be.true
+    expect(props.removeError.calledOnce).to.be.true
+    expect(props.removeError.calledWith(0)).to.be.true
   })
 })

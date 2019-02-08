@@ -3,6 +3,7 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
+import {act} from 'react-dom/test-utils'
 import {UpdateExercise} from '../UpdateExercise'
 import {Loading} from '../../components/Loading'
 import {ExerciseForm} from '../../components/ExerciseForm'
@@ -18,8 +19,8 @@ describe('<UpdateExercise/>', () => {
       history: {
         push: sinon.spy()
       },
-      handleUpdateExercise: sinon.spy(() => Promise.resolve()),
-      handleGetExercise: sinon.spy()
+      updateExercise: sinon.spy(() => Promise.resolve()),
+      getExercise: sinon.spy()
     }
   })
 
@@ -31,27 +32,28 @@ describe('<UpdateExercise/>', () => {
     expect(wrapper.find("button[type='submit']").text()).to.be.equal('Update')
   })
 
-  it("calls 'handleGetExercise()' on 'componentDidMount()'", () => {
-    expect(props.handleGetExercise.calledOnce).to.be.false
-    const wrapper = mount(<UpdateExercise {...props}/>)
-    expect(props.handleGetExercise.calledOnce).to.be.true
-    expect(props.handleGetExercise.calledWith(props.exerciseId)).to.be.true
+  it("calls 'getExercise()'", () => {
+    expect(props.getExercise.calledOnce).to.be.false
+    let wrapper
+    act(() => { wrapper = mount(<UpdateExercise {...props}/>) })
+    expect(props.getExercise.calledOnce).to.be.true
+    expect(props.getExercise.calledWith(props.exerciseId)).to.be.true
   })
 
-  it("calls 'handleUpdateExercise()' on form submit", async () => {
+  it("calls 'updateExercise()' on form submit", async () => {
     // Fill-in form with valid exercise attributes (different from the original in props.exercise)
     const wrapper = mount(<UpdateExercise {...props}/>)
     const attrs = Factory.build('exercise', {}, {except: ['id']})
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
 
     // Submit form
-    expect(props.handleUpdateExercise.calledOnce).to.be.false
+    expect(props.updateExercise.calledOnce).to.be.false
     wrapper.find('form').simulate('submit')
     await tick()
 
     // Expect to be called with the update exercise attributes in form (but same id)
-    expect(props.handleUpdateExercise.calledOnce).to.be.true
-    expect(props.handleUpdateExercise.calledWith({...props.exercise, ...attrs})).to.be.true
+    expect(props.updateExercise.calledOnce).to.be.true
+    expect(props.updateExercise.calledWith({...props.exercise, ...attrs})).to.be.true
   })
 
   it("redirects to '/exercises' if submission is successful", async () => {

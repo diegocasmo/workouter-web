@@ -3,12 +3,14 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
+import {act} from 'react-dom/test-utils'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {NewWorkout} from '../NewWorkout'
 import {WorkoutForm} from '../../components/WorkoutForm'
 
 describe('<NewWorkout/>', () => {
 
+  let wrapper
   let props
   beforeEach(() => {
     props = {
@@ -17,23 +19,25 @@ describe('<NewWorkout/>', () => {
       history: {
         push: sinon.spy()
       },
-      handleCreateWorkout: sinon.spy(() => Promise.resolve()),
-      handleFetchExercises: sinon.spy(),
+      createWorkout: sinon.spy(() => Promise.resolve()),
+      fetchExercises: sinon.spy(),
     }
   })
 
   it('renders', () => {
-    const wrapper = mount(<Router><NewWorkout {...props}/></Router>)
-    expect(props.handleFetchExercises.calledOnce).to.be.true
+    act(() => { wrapper = mount(<Router><NewWorkout {...props}/></Router>) })
+    expect(props.fetchExercises.calledOnce).to.be.true
     expect(wrapper.find(NewWorkout).length).to.be.equal(1)
     expect(wrapper.find(WorkoutForm)).to.have.lengthOf(1)
   })
 
   it('can submit a valid form', async () => {
-    const wrapper = mount(<Router><NewWorkout {...props}/></Router>)
+    wrapper = mount(<Router><NewWorkout {...props}/></Router>)
 
     // Set a valid workout name
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: 'foo'}})
+    wrapper.find('form').simulate('submit')
+
     wrapper.find('form').simulate('submit')
     await tick()
     wrapper.update()
@@ -43,8 +47,8 @@ describe('<NewWorkout/>', () => {
     await tick()
 
     // Expect to be called with the exercise attributes in form
-    expect(props.handleCreateWorkout.calledOnce).to.be.true
-    expect(props.handleCreateWorkout.calledWith({
+    expect(props.createWorkout.calledOnce).to.be.true
+    expect(props.createWorkout.calledWith({
       name: 'foo',
       rounds: 4,
       restTimePerRound: 60,

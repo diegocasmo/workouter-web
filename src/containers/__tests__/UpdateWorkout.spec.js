@@ -1,4 +1,5 @@
 import React from 'react'
+import {act} from 'react-dom/test-utils'
 import sinon from 'sinon'
 import faker from 'faker'
 import {Factory} from 'rosie'
@@ -18,19 +19,26 @@ describe('<UpdateWorkout/>', () => {
       workout: Factory.build('workout', {id: 1}),
       exercises: Factory.buildList('exercise', 2),
       isLoading: false,
-      handleUpdateWorkout: sinon.spy(() => Promise.resolve()),
-      handleGetWorkout: sinon.spy(),
-      handleFetchExercises: sinon.spy(),
+      updateWorkout: sinon.spy(() => Promise.resolve()),
+      getWorkout: sinon.spy(),
+      fetchExercises: sinon.spy(),
     }
   })
 
   it('renders', () => {
     const wrapper = mount(<Router><UpdateWorkout {...props}/></Router>)
-    expect(props.handleGetWorkout.calledOnce).to.be.true
-    expect(props.handleGetWorkout.calledWith(props.workoutId)).to.be.true
-    expect(props.handleFetchExercises.calledOnce).to.be.true
     expect(wrapper.find(UpdateWorkout).length).to.be.equal(1)
     expect(wrapper.find(WorkoutForm)).to.have.lengthOf(1)
+  })
+
+  it("calls 'getWorkout()' and 'fetchExercises()'", () => {
+    expect(props.getWorkout.called).to.be.false
+    expect(props.fetchExercises.called).to.be.false
+    let wrapper
+    act(() => { wrapper = mount(<Router><UpdateWorkout {...props}/></Router>) })
+    expect(props.getWorkout.calledOnce).to.be.true
+    expect(props.getWorkout.calledWith(props.workoutId)).to.be.true
+    expect(props.fetchExercises.calledOnce).to.be.true
   })
 
   it('can update a workout', async () => {
@@ -73,8 +81,8 @@ describe('<UpdateWorkout/>', () => {
     await tick()
 
     // Expect to be called with the update workout in form
-    expect(props.handleUpdateWorkout.calledOnce).to.be.true
-    expect(props.handleUpdateWorkout.calledWith({
+    expect(props.updateWorkout.calledOnce).to.be.true
+    expect(props.updateWorkout.calledWith({
       ...props.workout,
       name: updatedWorkout.name,
       rounds: updatedWorkout.rounds,

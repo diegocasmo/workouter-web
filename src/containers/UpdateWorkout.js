@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {useEffect} from 'react'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateWorkout} from '../api/workout'
 import {getWorkout} from '../state/workout/workout-action-creators'
@@ -11,37 +12,33 @@ import {
 import {Loading} from '../components/Loading'
 import {WorkoutForm} from '../components/WorkoutForm'
 
-export class UpdateWorkout extends Component {
-  componentDidMount() {
-    this.props.handleGetWorkout(this.props.workoutId)
-    this.props.handleFetchExercises()
-  }
+export function UpdateWorkout ({
+  history,
+  workoutId,
+  workout,
+  exercises,
+  isLoading,
+  updateWorkout,
+  getWorkout,
+  fetchExercises
+}) {
+  useEffect(() => { getWorkout(workoutId) }, [])
+  useEffect(() => { fetchExercises() }, [])
 
-  renderWorkoutForm() {
-    const {workout, exercises, history, handleUpdateWorkout} = this.props
-    if(workout) {
-      return (
-        <WorkoutForm
-          submitText='Update'
-          history={history}
-          redirectTo='/workouts'
-          handleSubmit={handleUpdateWorkout}
-          workout={workout}
-          exercises={exercises}/>
-      )
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Update Workout</h1>
-        {this.props.isLoading
-          ? <Loading/>
-          : this.renderWorkoutForm()}
-      </div>
-    )
-  }
+  return (
+    <>
+      <h1>Update Workout</h1>
+      {isLoading
+        ? <Loading/>
+        : workout && <WorkoutForm
+            submitText='Update'
+            history={history}
+            redirectTo='/workouts'
+            handleSubmit={updateWorkout}
+            workout={workout}
+            exercises={exercises}/>}
+    </>
+  )
 }
 
 const mapStateToProps = (state, {match, history}) => {
@@ -52,18 +49,13 @@ const mapStateToProps = (state, {match, history}) => {
     workout: getWorkoutSelector(state, workoutId),
     exercises: getExercises(state),
     isLoading: isLoadingWorkout(state) || isLoadingExercises(state),
-    handleUpdateWorkout: updateWorkout
+    updateWorkout: updateWorkout
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  handleGetWorkout(id) {
-    dispatch(getWorkout(id))
-  },
-  handleFetchExercises() {
-    dispatch(fetchExercises())
-  }
-})
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({getWorkout, fetchExercises}, dispatch)
+)
 
 export const UpdateWorkoutFromStore = connect(
   mapStateToProps, mapDispatchToProps

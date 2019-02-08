@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {useEffect} from 'react'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {fetchExercises} from '../state/exercise/exercise-action-creators'
 import {getExercises, isLoading} from '../state/exercise/exercise-selectors'
@@ -6,40 +7,40 @@ import {createWorkout} from '../api/workout'
 import {Loading} from '../components/Loading'
 import {WorkoutForm} from '../components/WorkoutForm'
 
-export class NewWorkout extends Component {
-  componentDidMount() {
-    this.props.handleFetchExercises()
-  }
+export function NewWorkout ({
+  history,
+  exercises,
+  isLoading,
+  fetchExercises,
+  createWorkout
+}) {
+  useEffect(() => { fetchExercises() }, [])
 
-  render() {
-    return (
-      <div>
-        <h1>New Workout</h1>
-        {this.props.isLoading ?
-          <Loading/> :
-          <WorkoutForm
-            history={this.props.history}
+  return (
+    <>
+      <h1>New Workout</h1>
+      {isLoading
+        ? <Loading/>
+        : <WorkoutForm
+            history={history}
             redirectTo='/workouts'
-            exercises={this.props.exercises}
-            handleSubmit={this.props.handleCreateWorkout}
+            exercises={exercises}
+            handleSubmit={createWorkout}
             submitText="Create Workout"/>}
-      </div>
-    )
-  }
+    </>
+  )
 }
 
 const mapStateToProps = (state, {history}) => ({
   history,
   exercises: getExercises(state),
   isLoading: isLoading(state),
-  handleCreateWorkout: createWorkout
+  createWorkout: createWorkout
 })
 
-const mapDispatchToProps = dispatch => ({
-  handleFetchExercises() {
-    dispatch(fetchExercises())
-  }
-})
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({fetchExercises}, dispatch)
+)
 
 export const NewWorkoutFromStore = connect(
   mapStateToProps, mapDispatchToProps

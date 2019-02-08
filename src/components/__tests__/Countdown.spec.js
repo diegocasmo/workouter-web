@@ -27,35 +27,25 @@ describe('<Countdown/>', () => {
   })
 
   it('renders', () => {
-    act(() => {
-      wrapper = mount(<Countdown {...props}/>)
-    })
+    wrapper = mount(<Countdown {...props}/>)
     expect(wrapper.find('.wkr-countdown__hours').text()).to.be.equal('00')
     expect(wrapper.find('.wkr-countdown__minutes').text()).to.be.equal('00')
     expect(wrapper.find('.wkr-countdown__seconds').text()).to.be.equal('10')
   })
 
   it('updates countdown', () => {
-    act(() => {
-      wrapper = mount(<Countdown {...props}/>)
-    })
+    wrapper = mount(<Countdown {...props}/>)
     expect(wrapper.find('.wkr-countdown__seconds').text()).to.be.equal('10')
     // Assume 1.5 seconds have passed
-    act(() => {
-      clock.tick(1.5 * 1000)
-    })
+    act(() => { clock.tick(1.5 * 1000) })
     expect(wrapper.find('.wkr-countdown__seconds').text()).to.be.equal('09')
   })
 
   it("calls 'onCountdownComplete' when countdown is finished", () => {
-    act(() => {
-      wrapper = mount(<Countdown {...props}/>)
-    })
+    wrapper = mount(<Countdown {...props}/>)
     expect(props.onCountdownComplete.called).to.be.false
     // Assume 12 seconds have passed
-    act(() => {
-      clock.tick(12 * 1000)
-    })
+    act(() => { clock.tick(12 * 1000) })
     expect(props.onCountdownComplete.calledOnce).to.be.true
   })
 })

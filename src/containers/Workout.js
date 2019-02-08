@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {useEffect} from 'react'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {getWorkout, deleteWorkout} from '../state/workout/workout-action-creators'
 import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
@@ -7,36 +8,29 @@ import {WorkoutSetup} from '../components/WorkoutDetail/WorkoutSetup'
 import {WorkoutExerciseList} from '../components/WorkoutDetail/WorkoutExerciseList'
 import {WorkoutActions} from '../components/WorkoutActions'
 
-export class Workout extends Component {
-  componentDidMount() {
-    this.props.handleGetWorkout(this.props.workoutId)
-  }
+export function Workout ({
+  workoutId,
+  workout,
+  isLoading,
+  getWorkout,
+  deleteWorkout
+}) {
+  useEffect(() => { getWorkout(workoutId) }, [])
 
-  renderWorkoutDetails() {
-    const {workout, handleDeleteWorkout} = this.props
-    if(workout) {
-      return (
-        <div>
-          <WorkoutSetup {...workout}/>
-          <WorkoutExerciseList {...workout}/>
-          <WorkoutActions
-            workout={workout}
-            handleDeleteWorkout={handleDeleteWorkout}/>
-        </div>
-      )
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Workout Details</h1>
-        {this.props.isLoading
-          ? <Loading/>
-          : this.renderWorkoutDetails()}
-      </div>
-    )
-  }
+  return (
+    <>
+      <h1>Workout Details</h1>
+      {isLoading
+        ? <Loading/>
+        : workout && <div>
+            <WorkoutSetup {...workout}/>
+            <WorkoutExerciseList {...workout}/>
+            <WorkoutActions
+              workout={workout}
+              handleDeleteWorkout={deleteWorkout}/>
+          </div>}
+    </>
+  )
 }
 
 const mapStateToProps = (state, {match}) => {
@@ -48,14 +42,9 @@ const mapStateToProps = (state, {match}) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  handleGetWorkout(id) {
-    dispatch(getWorkout(id))
-  },
-  handleDeleteWorkout(id) {
-    dispatch(deleteWorkout(id))
-  }
-})
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({getWorkout, deleteWorkout}, dispatch)
+)
 
 export const WorkoutFromStore = connect(
   mapStateToProps, mapDispatchToProps

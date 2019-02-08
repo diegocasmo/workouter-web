@@ -1,4 +1,5 @@
 import React from 'react'
+import {act} from 'react-dom/test-utils'
 import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
@@ -18,8 +19,8 @@ describe('<Workout>', () => {
       workoutId: 6,
       workout: Factory.build('workout', {id: 6}),
       isLoading: false,
-      handleGetWorkout: sinon.spy(),
-      handleDeleteWorkout: sinon.spy()
+      getWorkout: sinon.spy(),
+      deleteWorkout: sinon.spy()
     }
   })
 
@@ -31,30 +32,31 @@ describe('<Workout>', () => {
     expect(wrapper.find(WorkoutActions)).to.have.lengthOf(1)
   })
 
-  it("calls 'handleGetWorkout()' on 'componentDidMount()'", () => {
-    expect(props.handleGetWorkout.calledOnce).to.be.false
-    const wrapper = mount(<Router><Workout {...props}/></Router>)
-    expect(props.handleGetWorkout.calledOnce).to.be.true
-    expect(props.handleGetWorkout.calledWith(props.workoutId)).to.be.true
+  it("calls 'getWorkout()'", () => {
+    expect(props.getWorkout.calledOnce).to.be.false
+    let wrapper
+    act(() => { wrapper = mount(<Router><Workout {...props}/></Router>) })
+    expect(props.getWorkout.calledOnce).to.be.true
+    expect(props.getWorkout.calledWith(props.workoutId)).to.be.true
   })
 
-  describe('handleDeleteWorkout()', () => {
+  describe('deleteWorkout()', () => {
 
     afterEach(() => {
       window.confirm.restore()
     })
 
-    it("calls 'handleDeleteWorkout()' when a user attempts to delete a workout", () => {
+    it("calls 'deleteWorkout()' when a user attempts to delete a workout", () => {
       const wrapper = mount(<Router><Workout {...props}/></Router>)
-      expect(props.handleDeleteWorkout.calledOnce).to.be.false
+      expect(props.deleteWorkout.calledOnce).to.be.false
 
       // Click on delete item and confirm
       sinon.stub(window, 'confirm').returns(true)
       wrapper.find('.wkr-workout-actions__delete').first().simulate('click', {preventDefault: () => {}})
 
-      // Expect 'handleDeleteWorkout()' to be called with workout id
-      expect(props.handleDeleteWorkout.calledOnce).to.be.true
-      expect(props.handleDeleteWorkout.calledWith(props.workout.id)).to.be.true
+      // Expect 'deleteWorkout()' to be called with workout id
+      expect(props.deleteWorkout.calledOnce).to.be.true
+      expect(props.deleteWorkout.calledWith(props.workout.id)).to.be.true
     })
   })
 
