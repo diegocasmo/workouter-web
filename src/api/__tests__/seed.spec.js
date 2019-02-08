@@ -1,14 +1,11 @@
-import db from '../../test-utils/db-mock'
+import db, {clearDb} from '../../test-utils/db-mock'
 import {expect} from 'chai'
 import {createExercises, createWorkout} from '../seed'
 const moment = require('moment')
 
 describe('Seed', () => {
 
-  afterEach(() => {
-    return db.exercises.clear()
-      .then(() => db.workouts.clear())
-  })
+  afterEach(() => (clearDb(db)))
 
   it('createExercises()', () => {
     return createExercises(db)
