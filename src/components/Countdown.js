@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react'
 const moment = require('moment')
 
-export function Countdown ({finishAt, onCountdownCompleted}) {
+export function Countdown ({finishAt, onCountdownCompleted, extraThreshold = 0.5}) {
+  // Add a few seconds of excess to avoid skipping the countdown start
+  finishAt = moment(finishAt).add(extraThreshold, 'seconds')
   const [now, setNow] = useState(moment().valueOf())
   useEffect(() => {
-    if(moment(now).isAfter(moment(finishAt))) {
+    if(moment(now).isAfter(finishAt)) {
       onCountdownCompleted()
     } else {
       const id = setInterval(() => setNow(moment().valueOf()), 1000)

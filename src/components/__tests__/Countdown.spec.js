@@ -15,7 +15,8 @@ describe('<Countdown/>', () => {
     const now = moment()
     props = {
       finishAt: moment(now).add(10, 'seconds').valueOf(),
-      onCountdownCompleted: sinon.spy()
+      onCountdownCompleted: sinon.spy(),
+      extraThreshold: 0
     }
     clock = sinon.useFakeTimers({now: now.valueOf()})
   })
