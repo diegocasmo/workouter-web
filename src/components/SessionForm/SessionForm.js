@@ -15,7 +15,7 @@ export function SessionForm ({workout, init = initializeState}) {
       return (
         <SessionExercise
           startedAt={startedAt}
-          workoutExercise={workout.exercises[currExercise]}
+          exercise={workout.exercises[currExercise]}
           onExerciseCompleted={() => dispatch({type: ACTIONS.EXERCISE_COMPLETED})}/>
       )
     case SESSION_STATUS.EXERCISE_REST:

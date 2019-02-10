@@ -44,7 +44,6 @@ describe('<SessionForm/>', () => {
     wrapper.update()
 
     expect(wrapper.find(SessionExercise)).to.have.lengthOf(1)
-    expect(wrapper.find(Countdown)).to.have.lengthOf(0)
   })
 
   it('renders active exercise', () => {
@@ -52,7 +51,8 @@ describe('<SessionForm/>', () => {
       ...props,
       init: () => ({
         ...initializeState(props.workout),
-        status: SESSION_STATUS.EXERCISE
+        status: SESSION_STATUS.EXERCISE,
+        currExercise: 0
       })
     }
     wrapper = mount(<SessionForm {...props}/>)
