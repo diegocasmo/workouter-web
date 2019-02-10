@@ -1,24 +1,20 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
+import {useInterval} from '../hooks/effects/interval'
 const moment = require('moment')
 
 export function Countdown ({finishAt, onCountdownCompleted, extraThreshold = 0.5}) {
-  // Add a few seconds of excess to avoid skipping the countdown start
+  // Add a few additional seconds to avoid skipping the countdown start
   finishAt = moment(finishAt).add(extraThreshold, 'seconds')
-  const [now, setNow] = useState(moment().valueOf())
-  useEffect(() => {
-    if(moment(now).isAfter(finishAt)) {
+  const [now, setNow] = useState(moment())
+
+  useInterval(_ => {
+    const nextNow = moment()
+    if(nextNow.isAfter(finishAt)) {
       onCountdownCompleted()
     } else {
-      const id = setInterval(() => {
-        if(moment(now).isBefore(finishAt)) {
-          setNow(moment().valueOf())
-        } else {
-          onCountdownCompleted()
-        }
-      }, 1000)
-      return () => clearInterval(id)
+      setNow(nextNow)
     }
-  }, [now])
+  }, 1000)
 
   const elapsedMs = moment.duration(finishAt - now, 'milliseconds')
   const hours = moment.duration(elapsedMs).hours()

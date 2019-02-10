@@ -36,6 +36,6 @@ describe('<SessionRoundRest/>', () => {
 
     // Assume 7 seconds have passed
     act(() => { clock.tick(7 * 1000) })
-    expect(props.onRoundRestCompleted.calledOnce).to.be.true
+    expect(props.onRoundRestCompleted.called).to.be.true
   })
 })

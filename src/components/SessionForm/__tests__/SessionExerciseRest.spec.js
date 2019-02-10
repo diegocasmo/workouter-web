@@ -36,6 +36,6 @@ describe('<SessionExerciseRest/>', () => {
 
     // Assume 7 seconds have passed
     act(() => { clock.tick(7 * 1000) })
-    expect(props.onExerciseRestCompleted.calledOnce).to.be.true
+    expect(props.onExerciseRestCompleted.called).to.be.true
   })
 })

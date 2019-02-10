@@ -14,7 +14,7 @@ describe('<Countdown/>', () => {
   beforeEach(() => {
     const now = moment()
     props = {
-      finishAt: moment(now).add(10, 'seconds').valueOf(),
+      finishAt: moment(now).add(10, 'seconds'),
       onCountdownCompleted: sinon.spy(),
       extraThreshold: 0
     }
@@ -47,6 +47,6 @@ describe('<Countdown/>', () => {
     expect(props.onCountdownCompleted.called).to.be.false
     // Assume 12 seconds have passed
     act(() => { clock.tick(12 * 1000) })
-    expect(props.onCountdownCompleted.calledOnce).to.be.true
+    expect(props.onCountdownCompleted.called).to.be.true
   })
 })

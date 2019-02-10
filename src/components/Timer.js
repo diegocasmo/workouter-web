@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
+import {useInterval} from '../hooks/effects/interval'
 const moment = require('moment')
 
 export function Timer ({startedAt}) {
-  const [now, setNow] = useState(moment().valueOf())
-  useEffect(() => {
-    const id = setInterval(() => setNow(moment().valueOf()), 1000)
-    return () => clearInterval(id)
-  }, [now])
+  const [now, setNow] = useState(moment())
+  useInterval(_ => setNow(moment()), 1000)
 
   const elapsedMs = moment.duration(now - startedAt, 'milliseconds')
   const hours = moment.duration(elapsedMs).hours()
