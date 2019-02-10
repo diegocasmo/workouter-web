@@ -49,7 +49,7 @@ Factory.define('workout')
   .attr('restTimePerExercise', () => faker.random.number({min: 0, max: 180})) // Assumed to be in seconds
   .attr('exercises', () =>
     Factory.buildList('exercise',
-      faker.random.number({min: 1, max: 10}), // Generate a random number of exercises in [1, 10]
+      faker.random.number({min: 2, max: 10}), // Generate a random number of exercises in [1, 10]
       {},
       {except: ['id']} // Exercises must be self-contained
     )

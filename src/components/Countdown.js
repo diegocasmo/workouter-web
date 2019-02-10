@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 const moment = require('moment')
 
-export function Countdown ({finishAt, onCountdownComplete}) {
+export function Countdown ({finishAt, onCountdownCompleted}) {
   const [now, setNow] = useState(moment().valueOf())
   useEffect(() => {
     if(moment(now).isAfter(moment(finishAt))) {
-      onCountdownComplete()
+      onCountdownCompleted()
     } else {
       const id = setInterval(() => setNow(moment().valueOf()), 1000)
       return () => clearInterval(id)

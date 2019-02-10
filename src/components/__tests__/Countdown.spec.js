@@ -15,7 +15,7 @@ describe('<Countdown/>', () => {
     const now = moment()
     props = {
       finishAt: moment(now).add(10, 'seconds').valueOf(),
-      onCountdownComplete: sinon.spy()
+      onCountdownCompleted: sinon.spy()
     }
     clock = sinon.useFakeTimers({now: now.valueOf()})
   })
@@ -41,11 +41,11 @@ describe('<Countdown/>', () => {
     expect(wrapper.find('.wkr-countdown__seconds').text()).to.be.equal('09')
   })
 
-  it("calls 'onCountdownComplete' when countdown is finished", () => {
+  it("calls 'onCountdownCompleted' when countdown is finished", () => {
     wrapper = mount(<Countdown {...props}/>)
-    expect(props.onCountdownComplete.called).to.be.false
+    expect(props.onCountdownCompleted.called).to.be.false
     // Assume 12 seconds have passed
     act(() => { clock.tick(12 * 1000) })
-    expect(props.onCountdownComplete.calledOnce).to.be.true
+    expect(props.onCountdownCompleted.calledOnce).to.be.true
   })
 })

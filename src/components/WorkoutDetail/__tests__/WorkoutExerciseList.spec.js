@@ -17,4 +17,11 @@ describe('<WorkoutExerciseList/>', () => {
     expect(wrapper.find('.wkr-workout-exercise-list__title').text()).to.be.equal('Exercises:')
     expect(wrapper.find(WorkoutExerciseItem)).to.have.lengthOf(props.exercises.length)
   })
+
+  it('renders a message when there are no exercises', () => {
+    props.exercises = []
+    const wrapper = shallow(<WorkoutExerciseList {...props}/>)
+    expect(wrapper.find(WorkoutExerciseItem)).to.have.lengthOf(0)
+    expect(wrapper.find('p').text()).to.be.equal('There are no exercises to show')
+  })
 })

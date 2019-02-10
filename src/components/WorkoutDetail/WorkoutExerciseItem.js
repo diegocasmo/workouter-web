@@ -7,7 +7,7 @@ export const WorkoutExerciseItem = ({
   weight,
   weightUnit
 }) => (
-  <li className="wrk-workout-exercise-item__title">
+  <span className="wrk-workout-exercise-item__title">
     {name} x{quantity} {quantityUnit} {weight > 0 ? `@${weight} ${weightUnit}` : null}
-  </li>
+  </span>
 )
