@@ -16,21 +16,19 @@ function parseAttrPath(path) {
 
 // Remove unwanted attributes from an object
 function removeUnwantedAttrs(obj={}, unwantedAttrs=[]) {
-  if(unwantedAttrs && unwantedAttrs.length > 0) {
-    // If the 'id' attr is in the 'unwantedAttrs' array, then 'createdAt' and
-    // 'updatedAt' must also be removed (i.e., a record that hasn't been created
-    // yet, can't have timestamps)
-    if(unwantedAttrs.find((x) => x === 'id')) {
-      unwantedAttrs = unwantedAttrs.concat(['createdAt', 'updatedAt'])
-    }
-    // Remove all unwanted attrs from the object
-    unwantedAttrs.forEach((path) => {
-      const attrs = parseAttrPath(path)
-      const attr = attrs.pop()
-      let parent = attrs.reduce((o, k) => o[k], obj)
-      delete parent[attr]
-    })
+  // If the 'id' attr is in the 'unwantedAttrs' array, then 'createdAt' and
+  // 'updatedAt' must also be removed (i.e., a record that hasn't been created
+  // yet, can't have timestamps)
+  if(unwantedAttrs.find((x) => x === 'id')) {
+    unwantedAttrs = unwantedAttrs.concat(['createdAt', 'updatedAt'])
   }
+  // Remove all unwanted attrs from the object
+  unwantedAttrs.forEach((path) => {
+    const attrs = parseAttrPath(path)
+    const attr = attrs.pop()
+    let parent = attrs.reduce((o, k) => o[k], obj)
+    delete parent[attr]
+  })
   return obj
 }
 
@@ -76,3 +74,7 @@ Factory.define('session')
   .sequence('id')
   .attr('startedAt', () => moment().valueOf())
   .attr('finishedAt', () => moment().valueOf())
+  .after((attrs, opts) => {
+    attrs.roundsCompleted = faker.random.number({min: 0, max: attrs.rounds})
+    removeUnwantedAttrs(attrs, opts.except)
+  })

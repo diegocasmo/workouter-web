@@ -7,14 +7,20 @@ import {SessionCompleted} from './SessionCompleted'
 import {Countdown} from '../Countdown'
 const moment = require('moment')
 
-export function SessionForm ({workout, init = initializeState}) {
+export function SessionForm ({
+  onCreateSession,
+  onCreateSessionSuccess,
+  onCreateSessionFailure,
+  workout,
+  init = initializeState
+}) {
   const [state, dispatch] = useReducer(newSessionReducer, workout, init)
-  const {status, currExercise, startedAt} = state
+  const {status, currExercise, ...session} = state
   switch(status) {
     case SESSION_STATUS.EXERCISE:
       return (
         <SessionExercise
-          startedAt={startedAt}
+          startedAt={session.startedAt}
           exercise={workout.exercises[currExercise]}
           onExerciseCompleted={() => dispatch({type: ACTIONS.EXERCISE_COMPLETED})}/>
       )
@@ -31,7 +37,11 @@ export function SessionForm ({workout, init = initializeState}) {
           onRoundRestCompleted={() => dispatch({type: ACTIONS.ROUND_REST_COMPETED})}/>
       )
     case SESSION_STATUS.COMPLETED:
-      return <SessionCompleted/>
+      return <SessionCompleted
+              session={session}
+              onSubmit={onCreateSession}
+              onSubmitSuccess={onCreateSessionSuccess}
+              onSubmitFailure={onCreateSessionFailure}/>
     default:
       return (
         <Countdown

@@ -9,7 +9,13 @@ export function Countdown ({finishAt, onCountdownCompleted, extraThreshold = 0.5
     if(moment(now).isAfter(finishAt)) {
       onCountdownCompleted()
     } else {
-      const id = setInterval(() => setNow(moment().valueOf()), 1000)
+      const id = setInterval(() => {
+        if(moment(now).isBefore(finishAt)) {
+          setNow(moment().valueOf())
+        } else {
+          onCountdownCompleted()
+        }
+      }, 1000)
       return () => clearInterval(id)
     }
   }, [now])

@@ -1,7 +1,7 @@
 import db, {clearDb} from '../../test-utils/db-mock'
 import {Factory} from 'rosie'
 import {expect} from 'chai'
-import {validateSession} from '../session'
+import {validateSession, createSession} from '../session'
 
 describe('Session', () => {
 
@@ -19,6 +19,7 @@ describe('Session', () => {
       'exercises[0].quantityUnit',
       'exercises[0].weight',
       'exercises[0].weightUnit',
+      'roundsCompleted',
       'startedAt',
       'finishedAt'
     ].forEach((x) => {
@@ -34,6 +35,25 @@ describe('Session', () => {
       const attrs = Factory.build('session', {}, {except: ['id']})
       return validateSession(attrs)
         .then((res) => expect(res).to.be.eql(attrs))
+    })
+  })
+
+  describe('createSession()', () => {
+
+    it('creates a valid session in DB', async () => {
+      const attrs = Factory.build('session', {}, {except: ['id']})
+      const id = await createSession(attrs, db)
+      expect(id).to.be.a('number')
+    })
+
+    it('doesn\'t allow to create an session with invalid attrs', async () => {
+      const invalidAttrs = Factory.build('session', {}, {except: ['id', 'name']})
+      try {
+        await createSession(invalidAttrs, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(errors) {
+        expect(errors.name).to.be.equal('Name is required')
+      }
     })
   })
 })

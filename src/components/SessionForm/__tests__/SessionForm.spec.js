@@ -20,7 +20,10 @@ describe('<SessionForm/>', () => {
   let clock
   beforeEach(() => {
     props = {
-      workout: Factory.build('workout')
+      workout: Factory.build('workout'),
+      onCreateSession: () => {},
+      onCreateSessionSuccess: () => {},
+      onCreateSessionFailure: () => {}
     }
     clock = sinon.useFakeTimers({now: moment().valueOf()})
   })
@@ -93,5 +96,12 @@ describe('<SessionForm/>', () => {
     }
     wrapper = mount(<SessionForm {...props}/>)
     expect(wrapper.find(SessionCompleted)).to.have.lengthOf(1)
+
+    // Check props passed to <SessionCompleted/> are correct
+    const {status, currExercise, ...session} = props.init()
+    expect(wrapper.find(SessionCompleted).props().session).to.be.eql(session)
+    expect(wrapper.find(SessionCompleted).props().onSubmit).to.be.equal(props.onCreateSession)
+    expect(wrapper.find(SessionCompleted).props().onSubmitSuccess).to.be.equal(props.onCreateSessionSuccess)
+    expect(wrapper.find(SessionCompleted).props().onSubmitFailure).to.be.equal(props.onCreateSessionFailure)
   })
 })
