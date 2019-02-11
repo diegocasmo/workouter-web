@@ -69,52 +69,98 @@ describe('New Session Reducer', () => {
 
   describe('EXERCISE_COMPLETED', () => {
 
-    it('is the last exercise of a round', () => {
-      const state = {
-        ...initializeState(workout),
-        status: SESSION_STATUS.EXERCISE,
-        currExercise: workout.exercises.length - 1
-      }
+    describe('when it\'s the last exercise of a round', () => {
 
-      const action = {type: ACTIONS.EXERCISE_COMPLETED}
-      expect(newSessionReducer(state, action)).to.be.eql({
-        ...state,
-        status: SESSION_STATUS.ROUND_REST,
-        currExercise: 0,
-        roundsCompleted: state.roundsCompleted + 1
+      let state = null
+      beforeEach(() => {
+        state = {
+          ...initializeState(workout),
+          status: SESSION_STATUS.EXERCISE,
+          currExercise: workout.exercises.length - 1
+        }
+      })
+
+      it('starts round rest and sets current exercise to 0', () => {
+        const action = {type: ACTIONS.EXERCISE_COMPLETED}
+        expect(newSessionReducer(state, action)).to.be.eql({
+          ...state,
+          status: SESSION_STATUS.ROUND_REST,
+          currExercise: 0,
+          roundsCompleted: state.roundsCompleted + 1
+        })
+      })
+
+      it("sets status to 'EXERCISE' if round rest is equal to 0", () => {
+        state = {
+          ...state,
+          restTimePerRound: 0
+        }
+        const action = {type: ACTIONS.EXERCISE_COMPLETED}
+        expect(newSessionReducer(state, action)).to.be.eql({
+          ...state,
+          status: SESSION_STATUS.EXERCISE,
+          currExercise: 0,
+          roundsCompleted: state.roundsCompleted + 1
+        })
       })
     })
 
-    it('is the last exercise and last round', () => {
-      const state = {
-        ...initializeState(workout),
-        status: SESSION_STATUS.EXERCISE,
-        currExercise: workout.exercises.length - 1,
-        roundsCompleted: workout.rounds - 1
-      }
+    describe('when it\'s the last exercise of a session', () => {
 
-      const action = {type: ACTIONS.EXERCISE_COMPLETED}
-      expect(newSessionReducer(state, action)).to.be.eql({
-        ...state,
-        status: SESSION_STATUS.COMPLETED,
-        currExercise: null,
-        roundsCompleted: state.roundsCompleted + 1,
-        finishedAt: moment().valueOf()
+      let state = null
+      beforeEach(() => {
+        state = {
+          ...initializeState(workout),
+          status: SESSION_STATUS.EXERCISE,
+          currExercise: workout.exercises.length - 1,
+          roundsCompleted: workout.rounds - 1
+        }
       })
+
+      it('sets session as completed and sets current exercise to null', () => {
+        const action = {type: ACTIONS.EXERCISE_COMPLETED}
+        expect(newSessionReducer(state, action)).to.be.eql({
+          ...state,
+          status: SESSION_STATUS.COMPLETED,
+          currExercise: null,
+          roundsCompleted: state.roundsCompleted + 1,
+          finishedAt: moment().valueOf()
+        })
+      })
+
     })
 
-    it('is not the last exercise nor the last round', () => {
-      const state = {
-        ...initializeState(workout),
-        status: SESSION_STATUS.EXERCISE,
-        currExercise: 0
-      }
+    describe('when it\'s not the last exercise nor the last round', () => {
 
-      const action = {type: ACTIONS.EXERCISE_COMPLETED}
-      expect(newSessionReducer(state, action)).to.be.eql({
-        ...state,
-        status: SESSION_STATUS.EXERCISE_REST,
-        currExercise: state.currExercise + 1
+      let state = null
+      beforeEach(() => {
+        state = {
+          ...initializeState(workout),
+          status: SESSION_STATUS.EXERCISE,
+          currExercise: 0
+        }
+      })
+
+      it('starts exercise rest and increments current exercise', () => {
+        const action = {type: ACTIONS.EXERCISE_COMPLETED}
+        expect(newSessionReducer(state, action)).to.be.eql({
+          ...state,
+          status: SESSION_STATUS.EXERCISE_REST,
+          currExercise: state.currExercise + 1
+        })
+      })
+
+      it("sets status to 'EXERCISE' if exercise rest is equal to 0", () => {
+        state = {
+          ...state,
+          restTimePerExercise: 0
+        }
+        const action = {type: ACTIONS.EXERCISE_COMPLETED}
+        expect(newSessionReducer(state, action)).to.be.eql({
+          ...state,
+          status: SESSION_STATUS.EXERCISE,
+          currExercise: state.currExercise + 1
+        })
       })
     })
   })

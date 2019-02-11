@@ -9,7 +9,7 @@ import {SessionExercise} from '../SessionExercise'
 import {SessionExerciseRest} from '../SessionExerciseRest'
 import {SessionRoundRest} from '../SessionRoundRest'
 import {SessionCompleted} from '../SessionCompleted'
-import {Countdown} from '../../Countdown'
+import {SessionStartup} from '../SessionStartup'
 import {initializeState, SESSION_STATUS} from '../../../hooks/reducers/new-session-reducer'
 const moment = require('moment')
 
@@ -36,7 +36,10 @@ describe('<SessionForm/>', () => {
     wrapper = mount(<SessionForm {...props}/>)
     expect(wrapper.find(SessionForm)).to.have.lengthOf(1)
     expect(wrapper.find(SessionExercise)).to.have.lengthOf(0)
-    expect(wrapper.find(Countdown)).to.have.lengthOf(1)
+    expect(wrapper.find(SessionStartup)).to.have.lengthOf(1)
+    // Verify first exercise is correctly passed to <SessionStartup/>
+    const [firstExercise] = props.workout.exercises
+    expect(wrapper.find(SessionStartup).props().nextExercise).to.be.eql(firstExercise)
   })
 
   it('starts session once initial countdown is finished', () => {
@@ -67,11 +70,15 @@ describe('<SessionForm/>', () => {
       ...props,
       init: () => ({
         ...initializeState(props.workout),
-        status: SESSION_STATUS.EXERCISE_REST
+        status: SESSION_STATUS.EXERCISE_REST,
+        currExercise: 0
       })
     }
     wrapper = mount(<SessionForm {...props}/>)
     expect(wrapper.find(SessionExerciseRest)).to.have.lengthOf(1)
+    // Verify upcoming exercise is correctly passed to <SessionExerciseRest/>
+    const {currExercise, exercises} = props.init()
+    expect(wrapper.find(SessionExerciseRest).props().nextExercise).to.be.eql(exercises[currExercise])
   })
 
   it('renders rest time per round', () => {
@@ -84,6 +91,9 @@ describe('<SessionForm/>', () => {
     }
     wrapper = mount(<SessionForm {...props}/>)
     expect(wrapper.find(SessionRoundRest)).to.have.lengthOf(1)
+    // Verify upcoming exercise is correctly passed to <SessionRoundRest/>
+    const [firstExercise] = props.init().exercises
+    expect(wrapper.find(SessionRoundRest).props().nextExercise).to.be.eql(firstExercise)
   })
 
   it('renders completed session', () => {

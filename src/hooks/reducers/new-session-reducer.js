@@ -54,14 +54,18 @@ export const newSessionReducer = (state, action) => {
       } else if(isLastExercise) {
         return {
           ...state,
-          status: SESSION_STATUS.ROUND_REST,
+          status: state.restTimePerRound === 0
+                    ? SESSION_STATUS.EXERCISE
+                    : SESSION_STATUS.ROUND_REST,
           currExercise: 0,
           roundsCompleted: state.roundsCompleted + 1
         }
       } else {
         return {
           ...state,
-          status: SESSION_STATUS.EXERCISE_REST,
+          status: state.restTimePerExercise === 0
+                    ? SESSION_STATUS.EXERCISE
+                    : SESSION_STATUS.EXERCISE_REST,
           currExercise: state.currExercise + 1
         }
       }
