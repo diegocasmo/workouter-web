@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
 import {act} from 'react-dom/test-utils'
+import {BrowserRouter as Router} from 'react-router-dom'
 import {UpdateExercise} from '../UpdateExercise'
 import {Loading} from '../../components/Loading'
 import {ExerciseForm} from '../../components/ExerciseForm'
@@ -25,7 +26,7 @@ describe('<UpdateExercise/>', () => {
   })
 
   it('renders', () => {
-    const wrapper = mount(<UpdateExercise {...props}/>)
+    const wrapper = mount(<Router><UpdateExercise {...props}/></Router>)
     expect(wrapper.find(UpdateExercise).length).to.be.equal(1)
     expect(wrapper.find(Loading)).to.have.lengthOf(0)
     expect(wrapper.find(ExerciseForm)).to.have.lengthOf(1)
@@ -35,14 +36,14 @@ describe('<UpdateExercise/>', () => {
   it("calls 'getExercise()'", () => {
     expect(props.getExercise.calledOnce).to.be.false
     let wrapper
-    act(() => { wrapper = mount(<UpdateExercise {...props}/>) })
+    act(() => { wrapper = mount(<Router><UpdateExercise {...props}/></Router>) })
     expect(props.getExercise.calledOnce).to.be.true
     expect(props.getExercise.calledWith(props.exerciseId)).to.be.true
   })
 
   it("calls 'updateExercise()' on form submit", async () => {
     // Fill-in form with valid exercise attributes (different from the original in props.exercise)
-    const wrapper = mount(<UpdateExercise {...props}/>)
+    const wrapper = mount(<Router><UpdateExercise {...props}/></Router>)
     const attrs = Factory.build('exercise', {}, {except: ['id']})
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
 
@@ -58,7 +59,7 @@ describe('<UpdateExercise/>', () => {
 
   it("redirects to '/exercises' if submission is successful", async () => {
     // Submit a valid exercise
-    const wrapper = mount(<UpdateExercise {...props}/>)
+    const wrapper = mount(<Router><UpdateExercise {...props}/></Router>)
     expect(props.history.push.called).to.be.false
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: 'foo'}})
     wrapper.find('form').simulate('submit')
@@ -71,14 +72,10 @@ describe('<UpdateExercise/>', () => {
 
   it('renders <Loading/> when resources are being loaded', () => {
     props.isLoading = true
-    const wrapper = mount(<UpdateExercise {...props}/>)
+    const wrapper = mount(<Router><UpdateExercise {...props}/></Router>)
     expect(wrapper.find(Loading)).to.have.lengthOf(1)
     expect(wrapper.find(ExerciseForm)).to.have.lengthOf(0)
   })
 })
 
-function tick() {
-  return new Promise(resolve => {
-    setTimeout(resolve, 0)
-  })
-}
+const tick = _ => (new Promise(resolve =>setTimeout(resolve, 0)))

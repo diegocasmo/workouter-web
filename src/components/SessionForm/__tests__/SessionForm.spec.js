@@ -4,6 +4,7 @@ import {Factory} from 'rosie'
 import {expect} from 'chai'
 import {act} from 'react-dom/test-utils'
 import {mount} from 'enzyme'
+import {BrowserRouter as Router, Prompt} from 'react-router-dom'
 import {SessionForm} from '../SessionForm'
 import {SessionExercise} from '../SessionExercise'
 import {SessionExerciseRest} from '../SessionExerciseRest'
@@ -33,7 +34,9 @@ describe('<SessionForm/>', () => {
   })
 
   it('renders', () => {
-    wrapper = mount(<SessionForm {...props}/>)
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
+    expect(wrapper.find(Prompt).props().when).to.be.true
+    expect(wrapper.find(Prompt).props().message).to.be.equal('Are you sure you want to quit this session?')
     expect(wrapper.find(SessionForm)).to.have.lengthOf(1)
     expect(wrapper.find(SessionExercise)).to.have.lengthOf(0)
     expect(wrapper.find(SessionStartup)).to.have.lengthOf(1)
@@ -43,7 +46,7 @@ describe('<SessionForm/>', () => {
   })
 
   it('starts session once initial countdown is finished', () => {
-    wrapper = mount(<SessionForm {...props}/>)
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
 
     // Assume initial countdown is finished
     act(() => { clock.tick(12 * 1000) })
@@ -61,7 +64,7 @@ describe('<SessionForm/>', () => {
         currExercise: 0
       })
     }
-    wrapper = mount(<SessionForm {...props}/>)
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
     expect(wrapper.find(SessionExercise)).to.have.lengthOf(1)
   })
 
@@ -74,7 +77,7 @@ describe('<SessionForm/>', () => {
         currExercise: 0
       })
     }
-    wrapper = mount(<SessionForm {...props}/>)
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
     expect(wrapper.find(SessionExerciseRest)).to.have.lengthOf(1)
     // Verify upcoming exercise is correctly passed to <SessionExerciseRest/>
     const {currExercise, exercises} = props.init()
@@ -89,7 +92,7 @@ describe('<SessionForm/>', () => {
         status: SESSION_STATUS.ROUND_REST
       })
     }
-    wrapper = mount(<SessionForm {...props}/>)
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
     expect(wrapper.find(SessionRoundRest)).to.have.lengthOf(1)
     // Verify upcoming exercise is correctly passed to <SessionRoundRest/>
     const [firstExercise] = props.init().exercises
@@ -104,7 +107,7 @@ describe('<SessionForm/>', () => {
         status: SESSION_STATUS.COMPLETED
       })
     }
-    wrapper = mount(<SessionForm {...props}/>)
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
     expect(wrapper.find(SessionCompleted)).to.have.lengthOf(1)
 
     // Check props passed to <SessionCompleted/> are correct

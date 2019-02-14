@@ -3,6 +3,7 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
+import {BrowserRouter as Router} from 'react-router-dom'
 import {NewExercise} from '../NewExercise'
 import {ExerciseForm} from '../../components/ExerciseForm'
 
@@ -19,7 +20,7 @@ describe('<NewExercise/>', () => {
   })
 
   it('renders', () => {
-    const wrapper = mount(<NewExercise {...props}/>)
+    const wrapper = mount(<Router><NewExercise {...props}/></Router>)
     expect(wrapper.find(NewExercise).length).to.be.equal(1)
     expect(wrapper.find(ExerciseForm)).to.have.lengthOf(1)
     expect(wrapper.find("button[type='submit']").text()).to.be.equal('Create')
@@ -27,7 +28,7 @@ describe('<NewExercise/>', () => {
 
   it("calls 'handleCreateExercise()' on form submit", async () => {
     // Fill-in form with valid exercise attributes
-    const wrapper = mount(<NewExercise {...props}/>)
+    const wrapper = mount(<Router><NewExercise {...props}/></Router>)
     const attrs = Factory.build('exercise', {}, {except: ['id']})
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
 
@@ -43,7 +44,7 @@ describe('<NewExercise/>', () => {
 
   it("redirects to '/exercises' if submission is successful", async () => {
     // Submit a valid exercise
-    const wrapper = mount(<NewExercise {...props}/>)
+    const wrapper = mount(<Router><NewExercise {...props}/></Router>)
     expect(props.history.push.called).to.be.false
     wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: 'foo'}})
     wrapper.find('form').simulate('submit')
@@ -55,8 +56,4 @@ describe('<NewExercise/>', () => {
   })
 })
 
-function tick() {
-  return new Promise(resolve => {
-    setTimeout(resolve, 0)
-  })
-}
+const tick = _ => (new Promise(resolve => setTimeout(resolve, 0)))

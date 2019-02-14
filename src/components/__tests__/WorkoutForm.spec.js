@@ -3,7 +3,7 @@ import {Factory} from 'rosie'
 import {expect} from 'chai'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
-import {BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, Prompt} from 'react-router-dom'
 import {WorkoutForm} from '../WorkoutForm'
 import {Formik, Form, ErrorMessage} from 'formik'
 
@@ -17,6 +17,12 @@ describe('<WorkoutForm/>', () => {
       submitText: 'Foo',
       handleSubmit: sinon.spy(() => Promise.resolve()),
     }
+  })
+
+  it('renders <Prompt/>', () => {
+    const wrapper = mount(<Router><WorkoutForm {...props}/></Router>)
+    expect(wrapper.find(Prompt).props().when).to.be.false
+    expect(wrapper.find(Prompt).props().message).to.be.equal('You have unsaved changes. Are you sure you want to leave?')
   })
 
   it('it allows to create a valid workout', async () => {
@@ -37,6 +43,9 @@ describe('<WorkoutForm/>', () => {
     wrapper.find('form').simulate('submit')
     await tick()
     wrapper.update()
+
+    // Expect <Prompt/> to be truthy
+    expect(wrapper.find(Prompt).props().when).to.be.true
 
     // Shows '« Previous' and submit buttons
     expect(wrapper.find("button[type='button']").last().props().children).to.be.equal('« Previous')

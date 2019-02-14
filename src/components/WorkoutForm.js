@@ -4,7 +4,7 @@ import {Input} from './Form/Input'
 import {Select} from './Form/Select'
 import {WorkoutSetupSchema, WorkoutSchema} from '../api/workout'
 import {UNITS, getUnits} from '../api/unit'
-import {Link} from 'react-router-dom'
+import {Link, Prompt} from 'react-router-dom'
 
 class Wizard extends Component {
   static Page = ({children}) => children
@@ -45,7 +45,7 @@ class Wizard extends Component {
 
   render() {
     const {pageNum, values} = this.state
-    const {children, submitText} = this.props
+    const {children, submitText, initialValues} = this.props
     const activePage = React.Children.toArray(children)[pageNum]
     const isLastPage = pageNum === React.Children.count(children) - 1
     return (
@@ -54,15 +54,20 @@ class Wizard extends Component {
         enableReinitialize={false}
         validationSchema={activePage.props.validationSchema}
         onSubmit={this.handleSubmit}
-        render={({isSubmitting}) => (
-          <Form>
-            {activePage}
-            <div>
-              {pageNum > 0 && <button type='button' onClick={this.handleGoToPrevious}>« Previous</button>}
-              {!isLastPage && <button type='submit'>Next »</button>}
-              {isLastPage && <button type='submit' disabled={isSubmitting}>{submitText}</button>}
-            </div>
-          </Form>
+        render={({isSubmitting, values}) => (
+          <>
+            <Prompt
+              when={JSON.stringify(values) !== JSON.stringify(initialValues)}
+              message='You have unsaved changes. Are you sure you want to leave?'/>
+            <Form>
+              {activePage}
+              <div>
+                {pageNum > 0 && <button type='button' onClick={this.handleGoToPrevious}>« Previous</button>}
+                {!isLastPage && <button type='submit'>Next »</button>}
+                {isLastPage && <button type='submit' disabled={isSubmitting}>{submitText}</button>}
+              </div>
+            </Form>
+          </>
         )}/>
     )
   }
