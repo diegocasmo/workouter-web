@@ -1,5 +1,5 @@
 import React from 'react'
-import {Countdown} from '../Countdown'
+import {Countdown} from '../Clock/Countdown'
 import {WorkoutExerciseItem} from '../WorkoutDetail/WorkoutExerciseItem'
 
 export const SessionExerciseRest = ({nextExercise, finishAt, onExerciseRestCompleted}) => (

@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {SessionCompleted} from '../SessionCompleted'
+import {SessionStatistics} from '../SessionStatistics'
 
 describe('<SessionCompleted/>', () => {
 
@@ -22,6 +23,7 @@ describe('<SessionCompleted/>', () => {
     wrapper = shallow(<SessionCompleted {...props}/>)
     expect(wrapper.find("button[type='submit']").text()).to.be.equal('Save')
     expect(wrapper.find("button[type='submit']").props().disabled).to.be.false
+    expect(wrapper.find(SessionStatistics).props().session).to.be.eql(props.session)
   })
 
   it("calls 'onSubmitSuccess()' when session is valid", async () => {

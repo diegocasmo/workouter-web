@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {SessionStatistics} from './SessionStatistics'
 
 export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFailure}) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -16,7 +17,7 @@ export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFa
   }
   return (
     <>
-      <p>TODO: Show statistics</p>
+      <SessionStatistics session={session}/>
       <button
         type='submit'
         disabled={isSubmitting}
