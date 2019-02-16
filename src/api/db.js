@@ -1,5 +1,5 @@
 import Dexie from 'dexie'
-import {seedDatabase} from './seed'
+import {seedDatabase} from './seed/seed'
 const moment = require('moment')
 
 // Initialize Dexie DB
