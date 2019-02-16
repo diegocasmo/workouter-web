@@ -33,7 +33,7 @@ export function UpdateWorkout ({
         : workout && <WorkoutForm
             submitText='Update'
             history={history}
-            redirectTo='/workouts'
+            redirectTo={`/workouts/${workoutId}`}
             handleSubmit={updateWorkout}
             workout={workout}
             exercises={exercises}/>}

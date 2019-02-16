@@ -43,7 +43,7 @@ describe('<UpdateWorkout/>', () => {
 
   it('can update a workout', async () => {
     const wrapper = mount(<Router><UpdateWorkout {...props}/></Router>)
-    const updatedWorkout = Factory.build('workout')
+    const updatedWorkout = Factory.build('workout', {'id': props.workoutId})
 
     // Helper method to facilitate building `simulate` events
     const getEvent = (id, v) => ({target: {id: id, value: v}})
@@ -93,7 +93,7 @@ describe('<UpdateWorkout/>', () => {
 
     // Expect redirect
     expect(props.history.push.calledOnce).to.be.true
-    expect(props.history.push.calledWith('/workouts')).to.be.true
+    expect(props.history.push.calledWith(`/workouts/${props.workoutId}`)).to.be.true
   })
 })
 
