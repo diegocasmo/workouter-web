@@ -67,6 +67,8 @@ describe('<WorkoutForm/>', () => {
     await tick()
     wrapper.update()
 
+    // <Prompt/> shouldn't show message when submitting a valid workout
+    expect(wrapper.find(Prompt).props().when).to.be.false
     expect(wrapper.find("button[type='submit']").props().disabled).to.be.true
     expect(props.handleSubmit.calledOnce).to.be.true
     expect(props.handleSubmit.calledWith({

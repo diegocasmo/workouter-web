@@ -37,9 +37,9 @@ class Wizard extends Component {
     if (isLastPage) {
       return onWizardSubmit(values, bag)
     } else {
-      this.handleGoToNext(values)
       bag.setTouched({})
       bag.setSubmitting(false)
+      this.handleGoToNext(values)
     }
   }
 
@@ -57,7 +57,7 @@ class Wizard extends Component {
         render={({isSubmitting, values}) => (
           <>
             <Prompt
-              when={JSON.stringify(values) !== JSON.stringify(initialValues)}
+              when={!isSubmitting && JSON.stringify(values) !== JSON.stringify(initialValues)}
               message='You have unsaved changes. Are you sure you want to leave?'/>
             <Form>
               {activePage}

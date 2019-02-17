@@ -89,6 +89,8 @@ describe('<ExerciseForm/>', () => {
     await tick()
     expect(props.handleSubmit.calledOnce).to.be.true
     expect(props.handleSubmit.calledWith(attrs)).to.be.true
+    // <Prompt/> shouldn't show message when submitting a valid exercise
+    expect(wrapper.find(Prompt).props().when).to.be.false
   })
 
   it("redirects if 'history' and 'redirectTo' are defined", async () => {

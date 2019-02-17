@@ -27,7 +27,7 @@ export const ExerciseForm = ({
       render={({isSubmitting, values}) => (
         <>
           <Prompt
-            when={JSON.stringify(values) !== JSON.stringify(initialValues)}
+            when={!isSubmitting && JSON.stringify(values) !== JSON.stringify(initialValues)}
             message='You have unsaved changes. Are you sure you want to leave?'/>
           <Form>
             <Input name='name' label='Name' placeholder='Name' type='text'/>
