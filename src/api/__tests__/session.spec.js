@@ -1,7 +1,7 @@
 import db, {clearDb} from '../../test-utils/db-mock'
 import {Factory} from 'rosie'
 import {expect} from 'chai'
-import {validateSession, createSession} from '../session'
+import {fetchSessions, validateSession, createSession} from '../session'
 
 describe('Session', () => {
 
@@ -35,6 +35,25 @@ describe('Session', () => {
       const attrs = Factory.build('session', {}, {except: ['id']})
       return validateSession(attrs)
         .then((res) => expect(res).to.be.eql(attrs))
+    })
+  })
+
+  describe('fetchSessions()', () => {
+
+    it('returns paginated sessions', async () => {
+      // Retrieve the 20 items paginated into 2 pages
+      await db.sessions.bulkAdd(Factory.buildList('session', 20, {}, {except: ['id']}))
+      const firstPage = await fetchSessions({pageNum: 0, perPage: 10, db})
+      const secondPage = await fetchSessions({pageNum: 1, perPage: 10, db})
+
+      // Verify each page contains 10 elements
+      expect(firstPage.length).to.be.equal(10)
+      expect(secondPage.length).to.be.equal(10)
+
+      // Check every page contains the right elements
+      const allSessions = await db.sessions.toArray()
+      expect(firstPage).to.be.eql(allSessions.slice(0, 10))
+      expect(secondPage).to.be.eql(allSessions.slice(10))
     })
   })
 

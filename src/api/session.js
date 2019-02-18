@@ -28,6 +28,17 @@ export async function validateSession(attrs) {
   }
 }
 
+// Return a paginated array of sessions
+export async function fetchSessions(opts = {}) {
+  // Assign defaults to pagination if arguments are not provided
+  const {pageNum = 0, perPage = 10, db = connection} = opts
+  // Return paginated results
+  return db.sessions.orderBy('id')
+    .offset(pageNum * perPage)
+    .limit(perPage)
+    .toArray()
+}
+
 // Returns the id of the created session in DB if successful, a rejected Promise with a
 // Rails-like object of errors otherwise
 export async function createSession(attrs, db = connection) {
