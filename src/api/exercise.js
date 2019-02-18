@@ -17,9 +17,22 @@ export function validateExercise(attrs) {
     .catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-// Return an array of exercises
-export function fetchExercises(db = connection) {
-  return db.exercises.toArray()
+// Return a paginated array of exercises optionally filtered by exercises that have a name
+// which includes the specified name query (case-insensitive)
+export async function fetchExercises(opts = {}) {
+  // Assign defaults to pagination if arguments are not provided
+  const {name = null, pageNum = 0, perPage = 10, db = connection} = opts
+  // Perform case-insensitive search if a name query is provided
+  const lowerCaseName = name ? name.toLowerCase() : null
+  // Return paginated results filtered by an optional name query
+  return db.exercises
+    .orderBy('id')
+    .filter(x => name
+      ? `${x.name}`.toLowerCase().includes(lowerCaseName)
+      : true)
+    .offset(pageNum * perPage)
+    .limit(perPage)
+    .toArray()
 }
 
 // Return an exercise from DB if it exists, otherwise reject with an error

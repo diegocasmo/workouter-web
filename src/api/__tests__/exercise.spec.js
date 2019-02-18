@@ -8,13 +8,42 @@ import {
 
 describe('Exercise', () => {
 
-  beforeEach(() => (db.exercises.bulkAdd(Factory.buildList('exercise', 3))))
+  afterEach(async () => (clearDb(db)))
 
-  afterEach(() => (clearDb(db)))
+  describe('fetchExercises()', () => {
 
-  it('fetchExercises()', () => {
-    return fetchExercises(db)
-      .then((res) => expect(res.length).to.be.equal(3))
+    it('returns paginated exercises', async () => {
+      // Retrieve the 20 items paginated into 2 pages
+      await db.exercises.bulkAdd(Factory.buildList('exercise', 20, {}, {except: ['id']}))
+      const firstPage = await fetchExercises({pageNum: 0, perPage: 10, db})
+      const secondPage = await fetchExercises({pageNum: 1, perPage: 10, db})
+
+      // Verify each page contains 10 elements
+      expect(firstPage.length).to.be.equal(10)
+      expect(secondPage.length).to.be.equal(10)
+
+      // Check every page contains the right elements
+      const allExercises = await db.exercises.toArray()
+      expect(firstPage).to.be.eql(allExercises.slice(0, 10))
+      expect(secondPage).to.be.eql(allExercises.slice(10))
+    })
+
+    it('returns paginated exercises filtered by name', async () => {
+      // Create a few exercises with similar names to make sure the query returns multiple results
+      const names = ['a', 'aa', 'aaa', 'aaaa', 'aaaaa']
+      let exercises = Factory.buildList('exercise', 5, {}, {except: ['id']})
+      exercises.forEach((_, i) => { exercises[i].name = names[i] })
+      await db.exercises.bulkAdd(exercises)
+
+      // Retrieve paginated exercises filtered by their names
+      const firstPage = await fetchExercises({name: 'a', pageNum: 0, perPage: 3, db})
+      const secondPage = await fetchExercises({name: 'a', pageNum: 1, perPage: 3, db})
+
+      // Check every page contains the right elements
+      const allExercises = await db.exercises.toArray()
+      expect(firstPage).to.be.eql(allExercises.slice(0, 3))
+      expect(secondPage).to.be.eql(allExercises.slice(3))
+    })
   })
 
   describe('validateExercise()', () => {
@@ -34,6 +63,8 @@ describe('Exercise', () => {
 
   describe('getExercise()', () => {
 
+    beforeEach(async () => (db.exercises.bulkAdd(Factory.buildList('exercise', 3))))
+
     it('returns exercise if it exists', async () => {
       const [exercise] = await db.exercises.toArray()
       const res = await getExercise(exercise.id, db)
@@ -52,6 +83,8 @@ describe('Exercise', () => {
 
   describe('createExercise()', () => {
 
+    beforeEach(async () => (db.exercises.bulkAdd(Factory.buildList('exercise', 3))))
+
     it('creates a valid exercise in DB', () => {
       const attrs = Factory.build('exercise', {}, {except: ['id']})
       return createExercise(attrs, db)
@@ -66,6 +99,9 @@ describe('Exercise', () => {
   })
 
   describe('deleteExercise()', () => {
+
+    beforeEach(async () => (db.exercises.bulkAdd(Factory.buildList('exercise', 3))))
+
     it('deletes an existing exercise', () => {
       return db.exercises.toArray()
         .then(([exercise, ...remaining]) => {
@@ -89,6 +125,9 @@ describe('Exercise', () => {
   })
 
   describe('updateExercise()', () => {
+
+    beforeEach(async () => (db.exercises.bulkAdd(Factory.buildList('exercise', 3))))
+
     it('updates an exercise with valid attrs', () => {
       return db.exercises.toArray()
         .then(([prevExercise]) => {

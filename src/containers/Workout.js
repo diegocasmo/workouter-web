@@ -8,13 +8,7 @@ import {WorkoutSetup} from '../components/WorkoutDetail/WorkoutSetup'
 import {WorkoutExerciseList} from '../components/WorkoutDetail/WorkoutExerciseList'
 import {WorkoutActions} from '../components/WorkoutActions'
 
-export function Workout ({
-  workoutId,
-  workout,
-  isLoading,
-  getWorkout,
-  deleteWorkout
-}) {
+export const Workout = ({workoutId, workout, isLoading, getWorkout, deleteWorkout}) => {
   useEffect(() => { getWorkout(workoutId) }, [])
 
   return (

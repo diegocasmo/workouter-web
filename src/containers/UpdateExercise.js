@@ -7,14 +7,14 @@ import {getExercise as getExerciseSelector, isLoading} from '../state/exercise/e
 import {Loading} from '../components/Loading'
 import {ExerciseForm} from '../components/ExerciseForm'
 
-export function UpdateExercise ({
+export const UpdateExercise = ({
   history,
   exerciseId,
   exercise,
   isLoading,
   updateExercise,
   getExercise
-}) {
+}) => {
   useEffect(() => { getExercise(exerciseId) }, [])
 
   return (

@@ -8,7 +8,7 @@ import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/work
 import {Loading} from '../components/Loading'
 import {SessionForm} from '../components/SessionForm/SessionForm'
 
-export function NewSession ({
+export const NewSession = ({
   history,
   workoutId,
   workout,
@@ -16,7 +16,7 @@ export function NewSession ({
   getWorkout,
   createSession,
   addError
-}) {
+}) => {
   useEffect(() => { getWorkout(workoutId) }, [])
   return (
     <>

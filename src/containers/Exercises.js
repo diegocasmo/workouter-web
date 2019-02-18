@@ -6,12 +6,7 @@ import {getExercises, isLoading} from '../state/exercise/exercise-selectors'
 import {Loading} from '../components/Loading'
 import {ExerciseList} from '../components/ExerciseList/ExerciseList'
 
-export function Exercises ({
-  exercises,
-  isLoading,
-  fetchExercises,
-  deleteExercise
-}) {
+export const Exercises = ({exercises, isLoading, fetchExercises, deleteExercise}) => {
   useEffect(() => { fetchExercises() }, [])
 
   return (

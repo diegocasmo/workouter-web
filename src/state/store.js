@@ -6,7 +6,7 @@ import {exerciseReducer} from './exercise/exercise-reducer'
 import {errorReducer} from './error/error-reducer'
 
 let middleware = [thunk]
-if (process && process.env && process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   middleware.push(logger)
 }
 
