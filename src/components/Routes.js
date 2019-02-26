@@ -12,7 +12,7 @@ import {UpdateExerciseFromStore} from '../containers/UpdateExercise'
 
 export const Routes = () => (
   <Switch>
-    <Route path='/(|sessions)' component={SessionsFromStore}/>
+    <Route exact path='/(|sessions)' component={SessionsFromStore}/>
     <Route exact path='/sessions/new/:workoutId' component={NewSessionFromStore}/>
     <Route exact path='/workouts' component={WorkoutsFromStore}/>
     <Route exact path='/workouts/new' component={NewWorkoutFromStore}/>
