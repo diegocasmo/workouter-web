@@ -23,7 +23,7 @@ describe('<SessionForm/>', () => {
     props = {
       workout: Factory.build('workout'),
       onCreateSession: () => {},
-      onCreateSessionSuccess: () => {},
+      onCreateSessionSuccess: sinon.spy(),
       onCreateSessionFailure: () => {}
     }
     clock = sinon.useFakeTimers({now: moment().valueOf()})
@@ -64,7 +64,10 @@ describe('<SessionForm/>', () => {
         currExercise: 0
       })
     }
+
     wrapper = mount(<Router><SessionForm {...props}/></Router>)
+
+    expect(wrapper.find(Prompt).props().when).to.be.true
     expect(wrapper.find(SessionExercise)).to.have.lengthOf(1)
   })
 
@@ -77,7 +80,10 @@ describe('<SessionForm/>', () => {
         currExercise: 0
       })
     }
+
     wrapper = mount(<Router><SessionForm {...props}/></Router>)
+
+    expect(wrapper.find(Prompt).props().when).to.be.true
     expect(wrapper.find(SessionExerciseRest)).to.have.lengthOf(1)
     // Verify upcoming exercise is correctly passed to <SessionExerciseRest/>
     const {currExercise, exercises} = props.init()
@@ -92,7 +98,10 @@ describe('<SessionForm/>', () => {
         status: SESSION_STATUS.ROUND_REST
       })
     }
+
     wrapper = mount(<Router><SessionForm {...props}/></Router>)
+
+    expect(wrapper.find(Prompt).props().when).to.be.true
     expect(wrapper.find(SessionRoundRest)).to.have.lengthOf(1)
     // Verify upcoming exercise is correctly passed to <SessionRoundRest/>
     const [firstExercise] = props.init().exercises
@@ -107,14 +116,37 @@ describe('<SessionForm/>', () => {
         status: SESSION_STATUS.COMPLETED
       })
     }
+
     wrapper = mount(<Router><SessionForm {...props}/></Router>)
+
+    expect(wrapper.find(Prompt).props().when).to.be.true
     expect(wrapper.find(SessionCompleted)).to.have.lengthOf(1)
 
     // Check props passed to <SessionCompleted/> are correct
     const {status, currExercise, ...session} = props.init()
     expect(wrapper.find(SessionCompleted).props().session).to.be.eql(session)
     expect(wrapper.find(SessionCompleted).props().onSubmit).to.be.equal(props.onCreateSession)
-    expect(wrapper.find(SessionCompleted).props().onSubmitSuccess).to.be.equal(props.onCreateSessionSuccess)
     expect(wrapper.find(SessionCompleted).props().onSubmitFailure).to.be.equal(props.onCreateSessionFailure)
+  })
+
+  it('doesn\'t render prompt when a session is successfully created', () => {
+    props = {
+      ...props,
+      init: () => ({
+        ...initializeState(props.workout),
+        status: SESSION_STATUS.COMPLETED
+      })
+    }
+
+    wrapper = mount(<Router><SessionForm {...props}/></Router>)
+    expect(wrapper.find(Prompt).props().when).to.be.true
+    expect(props.onCreateSessionSuccess.called).to.be.false
+
+    // Assume session was successfully submitted
+    act(() => { wrapper.find(SessionCompleted).props().onSubmitSuccess() })
+    wrapper.update()
+
+    expect(wrapper.find(Prompt).props().when).to.be.false
+    expect(props.onCreateSessionSuccess.calledOnce).to.be.true
   })
 })

@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react'
+import React, {useReducer, useState} from 'react'
 import {Prompt} from 'react-router-dom'
 import {newSessionReducer, initializeState, SESSION_STATUS, ACTIONS} from '../../hooks/reducers/new-session-reducer'
 import {SessionExercise} from './SessionExercise'
@@ -16,8 +16,9 @@ export function SessionForm ({
   init = initializeState
 }) {
   const [state, dispatch] = useReducer(newSessionReducer, workout, init)
+  const [showPrompt, setShowPrompt] = useState(true)
   const {status, currExercise, ...session} = state
-  const getContent = _ => {
+  const getSessionStatusForm = () => {
     switch(status) {
       case SESSION_STATUS.EXERCISE:
         return (
@@ -45,7 +46,11 @@ export function SessionForm ({
           <SessionCompleted
             session={session}
             onSubmit={onCreateSession}
-            onSubmitSuccess={onCreateSessionSuccess}
+            onSubmitSuccess={() => {
+              // Session was successfully created, no need to show unsaved changes prompt
+              setShowPrompt(false)
+              onCreateSessionSuccess()
+            }}
             onSubmitFailure={onCreateSessionFailure}/>
         )
       default:
@@ -59,8 +64,8 @@ export function SessionForm ({
   }
   return (
     <>
-      <Prompt when message='Are you sure you want to quit this session?'/>
-      {getContent()}
+      <Prompt when={showPrompt} message='Are you sure you want to quit this session?'/>
+      {getSessionStatusForm()}
     </>
   )
 }
