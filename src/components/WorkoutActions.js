@@ -5,6 +5,10 @@ export const WorkoutActions = ({workout, handleDeleteWorkout}) => (
   <span>
     &nbsp;
     <Link
+      className="wkr-workout-actions__start"
+      to={`/sessions/new/${workout.id}`}>Start</Link>
+    &nbsp;
+    <Link
       className="wkr-workout-actions__update"
       to={`/workouts/update/${workout.id}`}>Update</Link>
     &nbsp;

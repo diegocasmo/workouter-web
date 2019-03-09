@@ -18,10 +18,17 @@ describe('<WorkoutActions/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<WorkoutActions {...props}/>)
+    // Start session link
+    expect(wrapper.find('.wkr-workout-actions__start').props().children)
+      .to.be.equal('Start')
+    expect(wrapper.find('.wkr-workout-actions__start').props().to)
+      .to.be.equal(`/sessions/new/${props.workout.id}`)
+    // Update link
     expect(wrapper.find('.wkr-workout-actions__update').props().children)
       .to.be.equal('Update')
     expect(wrapper.find('.wkr-workout-actions__update').props().to)
       .to.be.equal(`/workouts/update/${props.workout.id}`)
+    // Delete link
     expect(wrapper.find('.wkr-workout-actions__delete').props().children)
       .to.be.equal('Delete')
     expect(wrapper.find('.wkr-workout-actions__delete').props().to)
