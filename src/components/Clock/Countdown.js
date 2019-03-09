@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useInterval} from '../../hooks/effects/interval'
+import {useCountdownSpeakEffect} from '../../hooks/effects/countdown-speak'
 import {Duration} from './Duration'
 const moment = require('moment')
 
@@ -16,6 +17,11 @@ export function Countdown ({finishAt, onCountdownCompleted, extraThreshold = 0.5
       setNow(nextNow)
     }
   }, 1000)
+
+  const elapsedMs = moment.duration(finishAt - now, 'milliseconds')
+
+  // Use countdown effect to "speak" seconds left in countdown
+  useCountdownSpeakEffect(moment.duration(elapsedMs).seconds())
 
   return <Duration start={now} stop={finishAt}/>
 }
