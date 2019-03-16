@@ -4,9 +4,7 @@ import {connect} from 'react-redux'
 import {getWorkout, deleteWorkout} from '../state/workout/workout-action-creators'
 import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
-import {WorkoutSetup} from '../components/WorkoutDetail/WorkoutSetup'
-import {WorkoutExerciseList} from '../components/WorkoutDetail/WorkoutExerciseList'
-import {WorkoutActions} from '../components/WorkoutActions'
+import {WorkoutView} from '../components/Workout/View/View'
 
 export const Workout = ({workoutId, workout, isLoading, getWorkout, deleteWorkout}) => {
   useEffect(() => { getWorkout(workoutId) }, [])
@@ -16,13 +14,7 @@ export const Workout = ({workoutId, workout, isLoading, getWorkout, deleteWorkou
       <h1>Workout Details</h1>
       {isLoading
         ? <Loading/>
-        : workout && <div>
-            <WorkoutSetup {...workout}/>
-            <WorkoutExerciseList {...workout}/>
-            <WorkoutActions
-              workout={workout}
-              handleDeleteWorkout={deleteWorkout}/>
-          </div>}
+        : workout && <WorkoutView workout={workout} deleteWorkout={deleteWorkout}/>}
     </>
   )
 }

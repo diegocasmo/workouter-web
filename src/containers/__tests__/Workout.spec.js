@@ -7,9 +7,7 @@ import {expect} from 'chai'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Workout} from '../Workout'
 import {Loading} from '../../components/Loading'
-import {WorkoutSetup} from '../../components/WorkoutDetail/WorkoutSetup'
-import {WorkoutExerciseList} from '../../components/WorkoutDetail/WorkoutExerciseList'
-import {WorkoutActions} from '../../components/WorkoutActions'
+import {WorkoutView} from '../../components/Workout/View/View'
 
 describe('<Workout>', () => {
 
@@ -26,10 +24,12 @@ describe('<Workout>', () => {
 
   it('renders', () => {
     const wrapper = mount(<Router><Workout {...props}/></Router>)
+    // <Loading/>
     expect(wrapper.find(Loading)).to.have.lengthOf(0)
-    expect(wrapper.find(WorkoutSetup)).to.have.lengthOf(1)
-    expect(wrapper.find(WorkoutExerciseList)).to.have.lengthOf(1)
-    expect(wrapper.find(WorkoutActions)).to.have.lengthOf(1)
+
+    // <WorkoutView/>
+    expect(wrapper.find(WorkoutView).props().workout).to.be.eql(props.workout)
+    expect(wrapper.find(WorkoutView).props().deleteWorkout).to.be.equal(props.deleteWorkout)
   })
 
   it("calls 'getWorkout()'", () => {
@@ -63,9 +63,10 @@ describe('<Workout>', () => {
   it('renders <Loading/> when fetching workout', () => {
     props.isLoading = true
     const wrapper = mount(<Router><Workout {...props}/></Router>)
+    // <Loading/>
     expect(wrapper.find(Loading)).to.have.lengthOf(1)
-    expect(wrapper.find(WorkoutSetup)).to.have.lengthOf(0)
-    expect(wrapper.find(WorkoutExerciseList)).to.have.lengthOf(0)
-    expect(wrapper.find(WorkoutActions)).to.have.lengthOf(0)
+
+    // <WorkoutView/>
+    expect(wrapper.find(WorkoutView)).to.have.lengthOf(0)
   })
 })

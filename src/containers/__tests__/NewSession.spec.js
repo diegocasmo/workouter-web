@@ -7,7 +7,7 @@ import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {NewSession} from '../NewSession'
 import {Loading} from '../../components/Loading'
-import {SessionForm} from '../../components/SessionForm/SessionForm'
+import {SessionForm} from '../../components/Session/Form/Form'
 
 describe('<NewSession/>', () => {
 

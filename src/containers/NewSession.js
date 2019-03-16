@@ -6,7 +6,7 @@ import {addError} from '../state/error/error-action-creators'
 import {createSession} from '../api/session'
 import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
-import {SessionForm} from '../components/SessionForm/SessionForm'
+import {SessionForm} from '../components/Session/Form/Form'
 
 export const NewSession = ({
   history,

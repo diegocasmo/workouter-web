@@ -6,8 +6,8 @@ import {mount} from 'enzyme'
 import {act} from 'react-dom/test-utils'
 import {Sessions} from '../Sessions'
 import {Loading} from '../../components/Loading'
-import {SessionList} from '../../components/SessionList/SessionList'
-import {SessionItem} from '../../components/SessionList/SessionItem'
+import {SessionList} from '../../components/Session/List/List'
+import {SessionItem} from '../../components/Session/List/Item'
 
 describe('<Sessions/>', () => {
 

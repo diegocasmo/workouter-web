@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchSessions} from '../state/session/session-action-creators'
 import {getSessions, isLoadingSessions} from '../state/session/session-selectors'
 import {Loading} from '../components/Loading'
-import {SessionList} from '../components/SessionList/SessionList'
+import {SessionList} from '../components/Session/List/List'
 
 export const Sessions = ({sessions, isLoading, fetchSessions}) => {
   useEffect(() => { fetchSessions() }, [])
