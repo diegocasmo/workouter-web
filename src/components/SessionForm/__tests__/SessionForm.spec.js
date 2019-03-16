@@ -103,9 +103,12 @@ describe('<SessionForm/>', () => {
 
     expect(wrapper.find(Prompt).props().when).to.be.true
     expect(wrapper.find(SessionRoundRest)).to.have.lengthOf(1)
-    // Verify upcoming exercise is correctly passed to <SessionRoundRest/>
-    const [firstExercise] = props.init().exercises
-    expect(wrapper.find(SessionRoundRest).props().nextExercise).to.be.eql(firstExercise)
+
+    // Verify <SessionRoundRest/> receives correct props
+    const {exercises, rounds, roundsCompleted} = props.init()
+    expect(wrapper.find(SessionRoundRest).props().nextExercise).to.be.eql(exercises[0])
+    expect(wrapper.find(SessionRoundRest).props().rounds).to.be.equal(rounds)
+    expect(wrapper.find(SessionRoundRest).props().roundsCompleted).to.be.equal(roundsCompleted)
   })
 
   it('renders completed session', () => {

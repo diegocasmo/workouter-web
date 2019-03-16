@@ -37,6 +37,8 @@ export function SessionForm ({
       case SESSION_STATUS.ROUND_REST:
         return (
           <SessionRoundRest
+            rounds={session.rounds}
+            roundsCompleted={session.roundsCompleted}
             nextExercise={session.exercises[0]}
             finishAt={moment().add(workout.restTimePerRound, 'seconds')}
             onRoundRestCompleted={() => dispatch({type: ACTIONS.ROUND_REST_COMPETED})}/>
