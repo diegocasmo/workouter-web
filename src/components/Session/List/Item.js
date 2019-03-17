@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Duration} from '../../Clock/Duration'
+import {Duration} from '../../Time/Duration'
 const moment = require('moment')
 
 export const SessionItem = ({session}) => (

@@ -6,7 +6,7 @@ import {expect} from 'chai'
 import {shallow, mount} from 'enzyme'
 import {SessionRoundRest} from '../RoundRest'
 import {RoundsCompleted} from '../../View/RoundsCompleted'
-import {Countdown} from '../../../Clock/Countdown'
+import {Countdown} from '../../../Time/Countdown'
 import {WorkoutExerciseItem} from '../../../Workout/View/ExerciseItem'
 const moment = require('moment')
 

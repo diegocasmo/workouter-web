@@ -1,5 +1,5 @@
 import React from 'react'
-import {Countdown} from '../../Clock/Countdown'
+import {Countdown} from '../../Time/Countdown'
 import {WorkoutExerciseItem} from '../../Workout/View/ExerciseItem'
 import {RoundsCompleted} from '../View/RoundsCompleted'
 

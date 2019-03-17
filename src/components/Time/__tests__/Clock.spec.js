@@ -3,10 +3,10 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {act} from 'react-dom/test-utils'
 import {mount} from 'enzyme'
-import {Timer} from '../Timer'
+import {Clock} from '../Clock'
 const moment = require('moment')
 
-describe('<Timer/>', () => {
+describe('<Clock/>', () => {
 
   let clock
   let props
@@ -26,14 +26,14 @@ describe('<Timer/>', () => {
   })
 
   it('renders', () => {
-    wrapper = mount(<Timer {...props}/>)
+    wrapper = mount(<Clock {...props}/>)
     expect(wrapper.find('.wkr-duration__hours').text()).to.be.equal('00')
     expect(wrapper.find('.wkr-duration__minutes').text()).to.be.equal('00')
     expect(wrapper.find('.wkr-duration__seconds').text()).to.be.equal('00')
   })
 
   it('updates timer', () => {
-    wrapper = mount(<Timer {...props}/>)
+    wrapper = mount(<Clock {...props}/>)
 
     // Assume 1.5 seconds have passed
     act(() => { clock.tick(1.5 * 1000) })

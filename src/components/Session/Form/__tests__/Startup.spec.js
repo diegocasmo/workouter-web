@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {shallow, mount} from 'enzyme'
 import {SessionStartup} from '../Startup'
-import {Countdown} from '../../../Clock/Countdown'
+import {Countdown} from '../../../Time/Countdown'
 import {WorkoutExerciseItem} from '../../../Workout/View/ExerciseItem'
 const moment = require('moment')
 

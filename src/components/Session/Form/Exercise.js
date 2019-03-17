@@ -1,6 +1,6 @@
 import React from 'react'
-import {Timer} from '../../Clock/Timer'
-import {Countdown} from '../../Clock/Countdown'
+import {Clock} from '../../Time/Clock'
+import {Countdown} from '../../Time/Countdown'
 import {WorkoutExerciseItem} from '../../Workout/View/ExerciseItem'
 import {UNITS} from '../../../api/unit'
 const moment = require('moment')
@@ -13,7 +13,7 @@ export const SessionExercise = ({startedAt, exercise, onExerciseCompleted}) => (
           finishAt={moment().add(exercise.quantity, 'seconds')}
           onCountdownCompleted={onExerciseCompleted}/>
       : <>
-          <Timer startedAt={startedAt}/>
+          <Clock startedAt={startedAt}/>
           <button onClick={(e) => {
             e.preventDefault()
             onExerciseCompleted()

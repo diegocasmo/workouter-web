@@ -5,7 +5,7 @@ import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {SessionItem} from '../Item'
 import {Link} from 'react-router-dom'
-import {Duration} from '../../../Clock/Duration'
+import {Duration} from '../../../Time/Duration'
 const moment = require('moment')
 
 describe('<SessionItem/>', () => {

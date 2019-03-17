@@ -1,5 +1,5 @@
 import React from 'react'
-import {Duration} from '../../Clock/Duration'
+import {Duration} from '../../Time/Duration'
 import {RoundsCompleted} from './RoundsCompleted'
 import {WorkoutSetup} from '../../Workout/View/Setup'
 import {WorkoutExerciseList} from '../../Workout/View/ExerciseList'

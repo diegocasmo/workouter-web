@@ -4,7 +4,7 @@ import {Factory} from 'rosie'
 import {expect} from 'chai'
 import {SessionStatistics} from '../Statistics'
 import {RoundsCompleted} from '../RoundsCompleted'
-import {Duration} from '../../../Clock/Duration'
+import {Duration} from '../../../Time/Duration'
 
 describe('<SessionStatistics/>', () => {
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Duration} from '../../Clock/Duration'
+import {Duration} from '../../Time/Duration'
 import {RoundsCompleted} from './RoundsCompleted'
 
 export const SessionStatistics = ({session}) => (
