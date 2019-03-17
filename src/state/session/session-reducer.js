@@ -30,6 +30,27 @@ export function sessionReducer(state = initialState, action) {
       }
     }
 
+    // Get actions
+    case SESSION.GET_INIT: {
+      return {
+        ...state,
+        status: REQUEST_STATUS.GET
+      }
+    }
+    case SESSION.GET_SUCCESS: {
+      const items = [action.item].reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      return {
+        ...state,
+        items,
+        status: REQUEST_STATUS.NONE
+      }
+    }
+    case SESSION.GET_FAILURE: {
+      return {
+        ...state,
+        status: REQUEST_STATUS.NONE
+      }
+    }
     default:
       return state
   }

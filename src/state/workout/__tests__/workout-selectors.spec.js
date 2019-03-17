@@ -28,7 +28,7 @@ describe('Workout Selectors', () => {
 
   describe('getWorkout()', () => {
 
-    it('returns an workout', () => {
+    it('returns a workout', () => {
       const workouts = Factory.buildList('workout', 3)
 
       state.workouts.items = workouts.reduce((acc, x) => {

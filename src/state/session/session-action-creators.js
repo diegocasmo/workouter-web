@@ -15,3 +15,17 @@ export function fetchSessions() {
     }
   }
 }
+
+// Get a single session from DB by its id
+export function getSession(id) {
+  return async (dispatch) => {
+    dispatch({type: SESSION.GET_INIT})
+    try {
+      const item = await session.getSession(id)
+      dispatch({type: SESSION.GET_SUCCESS, item})
+    } catch(err) {
+      dispatch({type: SESSION.GET_FAILURE})
+      dispatch(addError(err.message))
+    }
+  }
+}

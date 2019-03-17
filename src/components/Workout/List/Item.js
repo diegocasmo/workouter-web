@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {WorkoutActions} from '../../components/WorkoutActions'
+import {WorkoutActions} from '../../../components/WorkoutActions'
 
 export const WorkoutItem = ({workout, handleDeleteWorkout}) => (
   <li className="wkr-workout-item">

@@ -1,7 +1,7 @@
 import db, {clearDb} from '../../test-utils/db-mock'
 import {Factory} from 'rosie'
 import {expect} from 'chai'
-import {fetchSessions, validateSession, createSession} from '../session'
+import {validateSession, fetchSessions, getSession, createSession} from '../session'
 
 describe('Session', () => {
 
@@ -54,6 +54,26 @@ describe('Session', () => {
       const allSessions = await db.sessions.toArray()
       expect(firstPage).to.be.eql(allSessions.slice(0, 10))
       expect(secondPage).to.be.eql(allSessions.slice(10))
+    })
+  })
+
+  describe('getSession()', () => {
+
+    beforeEach(async () => (db.sessions.bulkAdd(Factory.buildList('session', 3))))
+
+    it('returns session if it exists', async () => {
+      const [session] = await db.sessions.toArray()
+      const res = await getSession(session.id, db)
+      expect(res).to.be.eql(session)
+    })
+
+    it('returns an error if session doesn\'t exist', async () => {
+      try {
+        await getSession(-1, db)
+        expect(true).to.be.false // force catch to always be executed
+      } catch(error) {
+        expect(error.message).to.be.equal('Session -1 doesn\'t exist')
+      }
     })
   })
 

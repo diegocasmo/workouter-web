@@ -1,6 +1,7 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {SessionsFromStore} from '../containers/Sessions'
+import {SessionFromStore} from '../containers/Session'
 import {NewSessionFromStore} from '../containers/NewSession'
 import {WorkoutsFromStore} from '../containers/Workouts'
 import {WorkoutFromStore} from '../containers/Workout'
@@ -14,6 +15,7 @@ export const Routes = () => (
   <Switch>
     <Route exact path='/(|sessions)' component={SessionsFromStore}/>
     <Route exact path='/sessions/new/:workoutId' component={NewSessionFromStore}/>
+    <Route exact path='/sessions/:sessionId' component={SessionFromStore}/>
     <Route exact path='/workouts' component={WorkoutsFromStore}/>
     <Route exact path='/workouts/new' component={NewWorkoutFromStore}/>
     <Route exact path='/workouts/update/:workoutId' component={UpdateWorkoutFromStore}/>

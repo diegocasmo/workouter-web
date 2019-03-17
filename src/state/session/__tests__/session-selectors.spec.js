@@ -2,7 +2,7 @@ import {expect} from 'chai'
 import {Factory} from 'rosie'
 import {initialState} from '../session-reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getSessions, isLoadingSessions} from '../session-selectors'
+import {getSessions, getSession, isLoadingSessions} from '../session-selectors'
 
 describe('Session Selectors', () => {
 
@@ -22,6 +22,20 @@ describe('Session Selectors', () => {
       }, {})
 
       expect(getSessions(state)).to.be.eql(sessions)
+    })
+  })
+
+  describe('getSession()', () => {
+
+    it('returns a session', () => {
+      const sessions = Factory.buildList('session', 3)
+
+      state.sessions.items = sessions.reduce((acc, x) => {
+        acc[x.id] = x
+        return acc
+      }, {})
+
+      expect(getSession(state, sessions[0].id)).to.be.eql(sessions[0])
     })
   })
 

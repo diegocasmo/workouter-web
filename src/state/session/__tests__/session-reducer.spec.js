@@ -64,4 +64,49 @@ describe('Session Reducer', () => {
         })
     })
   })
+
+  describe('GET', () => {
+
+    it('GET_INIT', () => {
+      const action = {type: SESSION.GET_INIT}
+      expect(sessionReducer(initialState, action))
+        .to.be.eql({
+          ...initialState,
+          status: REQUEST_STATUS.GET
+        })
+    })
+
+    it('GET_SUCCESS', () => {
+      // Assume session to be fetched was already in state (must be replaced anyways,
+      // it might be a new version of it)
+      const prevSession = Factory.build('session', {id: 1})
+      const state = {
+        ...initialState,
+        items: {1: prevSession}
+      }
+
+      const nextSession = Factory.build('session', {...prevSession, name: 'new version'})
+      const action = {type: SESSION.GET_SUCCESS, item: nextSession}
+      expect(sessionReducer(state, action))
+        .to.be.eql({
+          items: {1: nextSession},
+          status: REQUEST_STATUS.NONE
+        })
+    })
+
+    it('GET_FAILURE', () => {
+      const action = {type: SESSION.GET_FAILURE}
+
+      const state = {
+        ...initialState,
+        status: REQUEST_STATUS.GET
+      }
+
+      expect(sessionReducer(state, action))
+        .to.be.eql({
+          ...state,
+          status: REQUEST_STATUS.NONE
+        })
+    })
+  })
 })

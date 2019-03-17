@@ -1,5 +1,5 @@
 import React from 'react'
-import {WorkoutItem} from './WorkoutItem'
+import {WorkoutItem} from './Item'
 
 export const WorkoutList = ({handleDeleteWorkout, workouts}) => {
   if(workouts.length > 0) {

@@ -39,6 +39,12 @@ export async function fetchSessions(opts = {}) {
     .toArray()
 }
 
+// Return a session from DB if it exists, otherwise reject with an error
+export async function getSession(id, db = connection) {
+  const session = await db.sessions.get(id)
+  return session ? session : Promise.reject(new Error(`Session ${id} doesn't exist`))
+}
+
 // Returns the id of the created session in DB if successful, a rejected Promise with a
 // Rails-like object of errors otherwise
 export async function createSession(attrs, db = connection) {

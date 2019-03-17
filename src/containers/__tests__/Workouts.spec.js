@@ -7,8 +7,8 @@ import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Workouts} from '../Workouts'
 import {Loading} from '../../components/Loading'
-import {WorkoutList} from '../../components/WorkoutList/WorkoutList'
-import {WorkoutItem} from '../../components/WorkoutList/WorkoutItem'
+import {WorkoutList} from '../../components/Workout/List/List'
+import {WorkoutItem} from '../../components/Workout/List/Item'
 
 describe('<Workouts/>', () => {
 

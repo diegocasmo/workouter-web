@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {SessionItem} from '../Item'
+import {Link} from 'react-router-dom'
 import {Duration} from '../../../Clock/Duration'
 const moment = require('moment')
 
@@ -25,6 +26,7 @@ describe('<SessionItem/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<SessionItem {...props}/>)
+    expect(wrapper.find(Link).props().to).to.be.equal(`/sessions/${props.session.id}`)
     expect(wrapper.find('.wkr-session-item__name').text()).to.be.equal(props.session.name)
     expect(wrapper.find(Duration)).to.have.lengthOf(1)
     expect(wrapper.find(Duration).props().start).to.be.equal(props.session.startedAt)

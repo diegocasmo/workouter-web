@@ -4,6 +4,7 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
 import {act} from 'react-dom/test-utils'
+import {BrowserRouter as Router} from 'react-router-dom'
 import {Sessions} from '../Sessions'
 import {Loading} from '../../components/Loading'
 import {SessionList} from '../../components/Session/List/List'
@@ -27,7 +28,7 @@ describe('<Sessions/>', () => {
   })
 
   it('renders', () => {
-    wrapper = mount(<Sessions {...props}/>)
+    wrapper = mount(<Router><Sessions {...props}/></Router>)
     expect(wrapper.find(Sessions).length).to.be.equal(1)
     expect(wrapper.find(Loading)).to.have.lengthOf(0)
     expect(wrapper.find(SessionList)).to.have.lengthOf(1)
@@ -36,13 +37,13 @@ describe('<Sessions/>', () => {
 
   it("calls 'fetchSessions()'", () => {
     expect(props.fetchSessions.calledOnce).to.be.false
-    act(() => { wrapper = mount(<Sessions {...props}/>) })
+    act(() => { wrapper = mount(<Router><Sessions {...props}/></Router>) })
     expect(props.fetchSessions.calledOnce).to.be.true
   })
 
   it('renders <Loading/> when fetching sessions', () => {
     props.isLoading = true
-    wrapper = mount(<Sessions {...props}/>)
+    wrapper = mount(<Router><Sessions {...props}/></Router>)
     expect(wrapper.find(Loading)).to.have.lengthOf(1)
     expect(wrapper.find(SessionList)).to.have.lengthOf(0)
   })

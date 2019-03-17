@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchWorkouts, deleteWorkout} from '../state/workout/workout-action-creators'
 import {getWorkouts, isLoading} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
-import {WorkoutList} from '../components/WorkoutList/WorkoutList'
+import {WorkoutList} from '../components/Workout/List/List'
 
 export const Workouts = ({workouts, isLoading, fetchWorkouts, deleteWorkout}) => {
   useEffect(() => { fetchWorkouts() }, [])
