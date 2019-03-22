@@ -6,7 +6,7 @@ import {fetchExercises} from '../api/exercise'
 import {getWorkout} from '../state/workout/workout-action-creators'
 import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
-import {WorkoutForm} from '../components/WorkoutForm'
+import {WorkoutForm} from '../components/Workout/Form/Form'
 
 export const UpdateWorkout = ({
   history,

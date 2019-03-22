@@ -6,7 +6,7 @@ import {expect} from 'chai'
 import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {UpdateWorkout} from '../UpdateWorkout'
-import {WorkoutForm} from '../../components/WorkoutForm'
+import {WorkoutForm} from '../../components/Workout/Form/Form'
 
 describe('<UpdateWorkout/>', () => {
 

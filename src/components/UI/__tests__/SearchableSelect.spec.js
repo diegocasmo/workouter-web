@@ -3,6 +3,7 @@ import {expect} from 'chai'
 import faker from 'faker'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
+import AsyncSelect from 'react-select/lib/Async'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import {SearchableSelect} from '../SearchableSelect'
 
@@ -12,7 +13,7 @@ describe('<SearchableSelect/>', () => {
   let options = null
   const makeOption = () => ({value: faker.lorem.words(), label: faker.lorem.words()})
   beforeEach(() => {
-    options = new Array(10).fill(null).map(() => makeOption())
+    options = new Array(10).fill({}).map(() => makeOption())
     props = {
       defaultOptions: true,
       name: 'fieldName',
@@ -71,6 +72,20 @@ describe('<SearchableSelect/>', () => {
     // It should render default options (no fetch)
     expect(wrapper.find('.wkr-searchable-select__option')).to.have.lengthOf(1)
     expect(wrapper.find('.wkr-searchable-select__option').first().text()).to.be.equal(props.defaultOptions[0].label)
+  })
+
+  it('renders value prop when provided', () => {
+    const {value, label} = makeOption()
+    props = {
+      ...props,
+      value,
+      defaultOptions: [{value, label}]
+    }
+
+    const wrapper = mount(<Formik render={() => (<Form><SearchableSelect {...props}/></Form>)}/>)
+
+    // Verify currently selected option is equal to `value` prop
+    expect(wrapper.find(AsyncSelect).props().value).to.be.eql({value, label: value})
   })
 })
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import {FieldArray} from 'formik'
-import {MultistepWizard} from './UI/MultistepWizard'
-import {Input} from './UI/Input'
-import {Select} from './UI/Select'
-import {SearchableSelect} from './UI/SearchableSelect'
-import {WorkoutSetupSchema, WorkoutSchema} from '../api/workout'
-import {UNITS, getUnits} from '../api/unit'
+import {MultistepWizard} from '../../UI/MultistepWizard'
+import {Input} from '../../UI/Input'
+import {Select} from '../../UI/Select'
+import {SearchableSelect} from '../../UI/SearchableSelect'
+import {WorkoutSetupSchema, WorkoutSchema} from '../../../api/workout'
+import {UNITS, getUnits} from '../../../api/unit'
 
 export const WorkoutForm = ({
   workout,
@@ -61,7 +61,7 @@ export const WorkoutForm = ({
                   <SearchableSelect
                     label='Name'
                     name={`exercises.${idx}.name`}
-                    defaultValue={form.values.exercises[idx].name}
+                    value={form.values.exercises[idx].name}
                     defaultOptions
                     onLoadOptions={async (query) => {
                       const res = await fetchExercises({name: query})

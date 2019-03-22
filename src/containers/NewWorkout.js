@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {createWorkout} from '../api/workout'
 import {fetchExercises} from '../api/exercise'
-import {WorkoutForm} from '../components/WorkoutForm'
+import {WorkoutForm} from '../components/Workout/Form/Form'
 
 export const NewWorkout = ({history, fetchExercises, createWorkout}) => (
   <>

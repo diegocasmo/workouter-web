@@ -4,7 +4,7 @@ import {mount} from 'enzyme'
 import {act} from 'react-dom/test-utils'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {NewWorkout} from '../NewWorkout'
-import {WorkoutForm} from '../../components/WorkoutForm'
+import {WorkoutForm} from '../../components/Workout/Form/Form'
 
 describe('<NewWorkout/>', () => {
 

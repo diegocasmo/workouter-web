@@ -4,7 +4,7 @@ import {expect} from 'chai'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
 import {BrowserRouter as Router, Prompt} from 'react-router-dom'
-import {WorkoutForm} from '../WorkoutForm'
+import {WorkoutForm} from '../Form'
 import AsyncSelect from 'react-select/lib/Async'
 import {Formik, Form, ErrorMessage} from 'formik'
 
