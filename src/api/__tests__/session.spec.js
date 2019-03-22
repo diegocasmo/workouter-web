@@ -52,8 +52,10 @@ describe('Session', () => {
 
       // Check every page contains the right elements
       const allSessions = await db.sessions.toArray()
-      expect(firstPage).to.be.eql(allSessions.slice(0, 10))
-      expect(secondPage).to.be.eql(allSessions.slice(10))
+
+      // Verify pages contain the expected sorted documents (latest first)
+      expect(firstPage).to.be.eql([...allSessions.slice(10)].sort((a, b) => b.id - a.id))
+      expect(secondPage).to.be.eql([...allSessions.slice(0, 10)].sort((a, b) => b.id - a.id))
     })
   })
 

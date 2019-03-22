@@ -21,7 +21,10 @@ describe('Session Selectors', () => {
         return acc
       }, {})
 
-      expect(getSessions(state)).to.be.eql(sessions)
+      // Make sure sessions are sorted in descending order (latest first)
+      const expected = [...sessions].sort((a, b) => b.id - a.id)
+      const actual = getSessions(state)
+      expect(actual).to.be.eql(expected)
     })
   })
 

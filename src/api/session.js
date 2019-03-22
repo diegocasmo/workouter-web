@@ -28,12 +28,13 @@ export async function validateSession(attrs) {
   }
 }
 
-// Return a paginated array of sessions
+// Return a paginated array of sessions, where newest sessions are returned first (descending order)
 export async function fetchSessions(opts = {}) {
   // Assign defaults to pagination if arguments are not provided
   const {pageNum = 0, perPage = 10, db = connection} = opts
   // Return paginated results
   return db.sessions.orderBy('id')
+    .reverse()
     .offset(pageNum * perPage)
     .limit(perPage)
     .toArray()
