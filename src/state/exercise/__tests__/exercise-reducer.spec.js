@@ -9,6 +9,9 @@ describe('Exercise Reducer', () => {
   it('should return the initial state', () => {
     expect(exerciseReducer(undefined, {}))
       .to.be.eql({
+        pageNum: 0,
+        perPage: 12,
+        hasMore: true,
         items : {},
         status: REQUEST_STATUS.NONE
       })
@@ -35,13 +38,16 @@ describe('Exercise Reducer', () => {
     })
 
     it('FETCH_SUCCESS', () => {
-      const exercises = Factory.buildList('exercise', 2)
+      const exercises = Factory.buildList('exercise', 20)
       const action = {type: EXERCISE.FETCH_SUCCESS, items: exercises}
 
       // Expect exercises to be added to the state by their ids
       const items = exercises.reduce((acc, x) => ({...acc, [x.id]: x}), {})
+      const {pageNum, perPage} = initialState
       const expectedState = {
         ...initialState,
+        pageNum: exercises.length >= perPage ? pageNum + 1 : pageNum,
+        hasMore: exercises.length >= perPage,
         items,
         status: REQUEST_STATUS.NONE
       }
@@ -62,6 +68,18 @@ describe('Exercise Reducer', () => {
           ...state,
           status: REQUEST_STATUS.NONE
         })
+    })
+
+    it('FETCH_CLEAR', () => {
+      // Assume there are some exercises already in state
+      const exercises = Factory.buildList('exercise', 10)
+      const items = exercises.reduce((acc, x) => ({...acc, [x.id]: x}), {})
+      const state = {...initialState, items}
+
+      const action = {type: EXERCISE.FETCH_CLEAR}
+      const expected = initialState
+      const actual = exerciseReducer(state, action)
+      expect(actual).to.be.eql(expected)
     })
   })
 
@@ -88,6 +106,7 @@ describe('Exercise Reducer', () => {
       const action = {type: EXERCISE.GET_SUCCESS, item: nextExercise}
       expect(exerciseReducer(state, action))
         .to.be.eql({
+          ...state,
           items: {1: nextExercise},
           status: REQUEST_STATUS.NONE
         })

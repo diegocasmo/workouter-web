@@ -3,37 +3,42 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {mount} from 'enzyme'
-import {act} from 'react-dom/test-utils'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Exercises} from '../Exercises'
-import {Loading} from '../../components/Loading'
-import {ExerciseList} from '../../components/ExerciseList/ExerciseList'
-import {ExerciseItem} from '../../components/ExerciseList/ExerciseItem'
+import {ExerciseList} from '../../components/Exercise/List/List'
+import {ExerciseItem} from '../../components/Exercise/List/Item'
+import InfiniteScroll from 'react-infinite-scroller'
 
 describe('<Exercises/>', () => {
 
   let props
+  let wrapper
   beforeEach(() => {
+    const exercises = Factory.buildList('exercise', 10)
     props = {
-      exercises: Factory.buildList('exercise', 2),
-      isLoading: false,
-      fetchExercises: sinon.spy(),
-      deleteExercise: sinon.spy(),
+      pageNum: 0,
+      canLoadMore: true,
+      exercises,
+      fetchExercises: sinon.spy(() => Promise.resolve(exercises)),
+      fetchClear: sinon.spy(),
+      deleteExercise: sinon.spy(() => Promise.resolve())
     }
   })
 
   it('renders', () => {
     const wrapper = mount(<Router><Exercises {...props}/></Router>)
     expect(wrapper.find(Exercises).length).to.be.equal(1)
-    expect(wrapper.find(Loading)).to.have.lengthOf(0)
+    expect(wrapper.find(InfiniteScroll).props().loadMore).to.be.equal(props.fetchExercises)
+    expect(wrapper.find(InfiniteScroll).props().hasMore).to.be.equal(props.canLoadMore)
     expect(wrapper.find(ExerciseList)).to.have.lengthOf(1)
+    expect(wrapper.find(ExerciseItem)).to.have.lengthOf(props.exercises.length)
   })
 
-  it("calls 'fetchExercises()'", () => {
-    expect(props.fetchExercises.calledOnce).to.be.false
-    let wrapper
-    act(() => { wrapper = mount(<Router><Exercises {...props}/></Router>) })
-    expect(props.fetchExercises.calledOnce).to.be.true
+  it("calls 'fetchClear' when component will unmount", () => {
+    const wrapper = mount(<Router><Exercises {...props}/></Router>)
+    expect(props.fetchClear.calledOnce).to.be.false
+    wrapper.unmount()
+    expect(props.fetchClear.calledOnce).to.be.true
   })
 
   describe('deleteExercise()', () => {
@@ -54,18 +59,5 @@ describe('<Exercises/>', () => {
       expect(props.deleteExercise.calledOnce).to.be.true
       expect(props.deleteExercise.calledWith(props.exercises[0].id)).to.be.true
     })
-  })
-
-  it('renders <Loading/> when fetching exercises', () => {
-    props.isLoading = true
-    const wrapper = mount(<Router><Exercises {...props}/></Router>)
-    expect(wrapper.find(Loading)).to.have.lengthOf(1)
-    expect(wrapper.find(ExerciseList)).to.have.lengthOf(0)
-  })
-
-  it('renders list of exercises', () => {
-    const wrapper = mount(<Router><Exercises {...props}/></Router>)
-    expect(wrapper.find(Loading)).to.have.lengthOf(0)
-    expect(wrapper.find(ExerciseItem)).to.have.lengthOf(props.exercises.length)
   })
 })

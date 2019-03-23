@@ -5,5 +5,5 @@ export const getSessions = ({sessions}) =>
     .sort((a, b) => b - a) // Sort sessions by latest first
     .map((k) => sessions.items[k])
 
-export const getSession = ({sessions}, id) => (sessions.items[id])
+export const getSession = ({sessions}, id) => sessions.items[id]
 export const isLoadingSessions = ({sessions}) => sessions.status === REQUEST_STATUS.GET

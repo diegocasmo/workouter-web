@@ -1,33 +1,49 @@
 import React, {useEffect} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {fetchExercises, deleteExercise} from '../state/exercise/exercise-action-creators'
-import {getExercises, isLoading} from '../state/exercise/exercise-selectors'
+import {fetchExercises, fetchClear, deleteExercise} from '../state/exercise/exercise-action-creators'
+import {getExercises, canLoadMore} from '../state/exercise/exercise-selectors'
 import {Loading} from '../components/Loading'
-import {ExerciseList} from '../components/ExerciseList/ExerciseList'
+import {ExerciseList} from '../components/Exercise/List/List'
+import InfiniteScroll from 'react-infinite-scroller'
 
-export const Exercises = ({exercises, isLoading, fetchExercises, deleteExercise}) => {
-  useEffect(() => { fetchExercises() }, [])
+export const Exercises = ({
+  pageNum,
+  canLoadMore,
+  exercises,
+  fetchExercises,
+  fetchClear,
+  deleteExercise
+}) => {
+  // Clear fetched exercises on component unmount
+  useEffect(() => {
+    return () => { fetchClear() }
+  }, [])
 
   return (
     <>
       <h1>Exercises</h1>
-      {isLoading
-        ? <Loading/>
-        : exercises && <ExerciseList
-            handleDeleteExercise={deleteExercise}
-            exercises={exercises}/>}
+      <InfiniteScroll
+        loadMore={fetchExercises}
+        hasMore={canLoadMore}
+        loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
+                                      <InfiniteScroll/> warning about unique key prop */}
+        <ExerciseList
+          exercises={exercises}
+          handleDeleteExercise={deleteExercise}/>
+      </InfiniteScroll>
     </>
   )
 }
 
 const mapStateToProps = state => ({
-  exercises: getExercises(state),
-  isLoading: isLoading(state)
+  pageNum: state.exercises.pageNum,
+  canLoadMore: canLoadMore(state),
+  exercises: getExercises(state)
 })
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({fetchExercises, deleteExercise}, dispatch)
+  bindActionCreators({fetchExercises, fetchClear, deleteExercise}, dispatch)
 )
 
 export const ExercisesFromStore = connect(

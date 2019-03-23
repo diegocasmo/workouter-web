@@ -3,7 +3,7 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
-import {ExerciseItem} from '../ExerciseItem'
+import {ExerciseItem} from '../Item'
 import {Link} from 'react-router-dom'
 
 describe('<ExerciseItem/>', () => {

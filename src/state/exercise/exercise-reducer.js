@@ -2,6 +2,9 @@ import {EXERCISE} from './exercise-actions'
 import {REQUEST_STATUS} from '../utils/request-status'
 
 export const initialState = {
+  pageNum: 0,
+  perPage: 12,
+  hasMore: true,
   items : {},
   status: REQUEST_STATUS.NONE
 }
@@ -17,8 +20,11 @@ export function exerciseReducer(state = initialState, action) {
     }
     case EXERCISE.FETCH_SUCCESS: {
       const items = action.items.reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      const {pageNum, perPage} = state
       return {
         ...state,
+        pageNum: action.items.length >= perPage ? pageNum + 1 : pageNum,
+        hasMore: action.items.length >= perPage,
         items,
         status: REQUEST_STATUS.NONE
       }
@@ -28,6 +34,9 @@ export function exerciseReducer(state = initialState, action) {
         ...state,
         status: REQUEST_STATUS.NONE
       }
+    }
+    case EXERCISE.FETCH_CLEAR: {
+      return initialState
     }
 
     // Get actions

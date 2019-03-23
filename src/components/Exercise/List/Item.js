@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 export const ExerciseItem = ({handleDeleteExercise, exercise}) => (
-  <li className='wkr-exercise-item'>
+  <div className='wkr-exercise-item'>
     <span className='wkr-exercise-item__name'>{exercise.name}</span>
     <span>
       &nbsp;<Link to={`/exercises/update/${exercise.id}`}>Update</Link>
@@ -17,5 +17,5 @@ export const ExerciseItem = ({handleDeleteExercise, exercise}) => (
                 }
               }}>Delete</Link>
     </span>
-  </li>
+  </div>
 )

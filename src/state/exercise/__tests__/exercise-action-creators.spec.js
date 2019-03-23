@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import * as exercise from '../../../api/exercise'
 import {EXERCISE} from '../exercise-actions'
 import {ERROR} from '../../error/error-actions'
-import {fetchExercises, getExercise, deleteExercise} from '../exercise-action-creators'
+import {fetchExercises, fetchClear, getExercise, deleteExercise} from '../exercise-action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -20,20 +20,26 @@ describe('Exercise Action Creators', () => {
       exercise.fetchExercises.restore()
     })
 
-    it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on exercises fetch success", () => {
+    it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on exercises fetch success", async () => {
       const items = Factory.buildList('exercise', 2)
-      sinon.stub(exercise, 'fetchExercises').resolves(items)
+      sinon.stub(exercise, 'fetchExercises').callsFake(sinon.spy(() => Promise.resolve(items)))
       const expectedActions = [
         {type: EXERCISE.FETCH_INIT},
         {type: EXERCISE.FETCH_SUCCESS, items}
       ]
 
-      const store = mockStore({exercises: {}})
-      return store.dispatch(fetchExercises())
-        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
+      const store = mockStore({exercises: {pageNum: 12, perPage: 45}})
+      await store.dispatch(fetchExercises())
+
+      expect(exercise.fetchExercises.calledOnce).to.be.true
+      expect(exercise.fetchExercises.calledWith({
+        pageNum: 12,
+        perPage: 45
+      })).to.be.true
+      expect(store.getActions()).to.be.eql(expectedActions)
     })
 
-    it("dispatches 'FETCH_FAILURE' and 'ERROR__ADD' on exercises fetch failure", () => {
+    it("dispatches 'FETCH_FAILURE' and 'ERROR__ADD' on exercises fetch failure", async () => {
       const errorMsg = faker.lorem.words()
       sinon.stub(exercise, 'fetchExercises').rejects(new Error(errorMsg))
       const expectedActions = [
@@ -43,8 +49,18 @@ describe('Exercise Action Creators', () => {
       ]
 
       const store = mockStore({exercises: {}})
-      return store.dispatch(fetchExercises())
-        .then(() => expect(store.getActions()).to.be.eql(expectedActions))
+      await store.dispatch(fetchExercises())
+
+      expect(store.getActions()).to.be.eql(expectedActions)
+    })
+  })
+
+  describe('fetchClear()', () => {
+
+    it("dispatches 'FETCH_CLEAR'", () => {
+      const expected = {type: EXERCISE.FETCH_CLEAR}
+      const actual = fetchClear()
+      expect(actual).to.be.eql(expected)
     })
   })
 

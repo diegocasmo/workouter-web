@@ -3,7 +3,7 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {initialState} from '../exercise-reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getExercises, isLoading, getExercise} from '../exercise-selectors'
+import {getExercises, isLoading, getExercise, canLoadMore} from '../exercise-selectors'
 
 describe('Exercise Selectors', () => {
 
@@ -22,7 +22,10 @@ describe('Exercise Selectors', () => {
         return acc
       }, {})
 
-      expect(getExercises(state)).to.be.eql(exercises)
+      // Make sure exercises are sorted by their name in ascending order
+      const expected = [...exercises].sort((a, b) => a.name.localeCompare(b.name))
+      const actual = getExercises(state)
+      expect(actual).to.be.eql(expected)
     })
   })
 
@@ -52,6 +55,40 @@ describe('Exercise Selectors', () => {
       expect(isLoading(state)).to.be.false
       state.exercises.status = REQUEST_STATUS.DELETE
       expect(isLoading(state)).to.be.false
+    })
+  })
+
+  describe('canLoadMore', () => {
+
+    it('returns true if there are more exercises to load and no exercises are being fetched', () => {
+      const state = {
+        exercises: {
+          ...initialState,
+          hasMore: true,
+          status: REQUEST_STATUS.NONE
+        }
+      }
+      expect(canLoadMore(state)).to.be.true
+    })
+
+    it('returns false if there are no more exercises to load', () => {
+      const state = {
+        exercises: {
+          ...initialState,
+          hasMore: false
+        }
+      }
+      expect(canLoadMore(state)).to.be.false
+    })
+
+    it('returns false if exercises are being fetched', () => {
+      const state = {
+        exercises: {
+          ...initialState,
+          status: REQUEST_STATUS.GET
+        }
+      }
+      expect(canLoadMore(state)).to.be.false
     })
   })
 })

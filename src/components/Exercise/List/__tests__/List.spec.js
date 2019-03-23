@@ -2,8 +2,8 @@ import React from 'react'
 import {Factory} from 'rosie'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
-import {ExerciseList} from '../ExerciseList'
-import {ExerciseItem} from '../ExerciseItem'
+import {ExerciseList} from '../List'
+import {ExerciseItem} from '../Item'
 
 describe('<ExerciseList/>', () => {
 

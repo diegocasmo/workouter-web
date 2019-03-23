@@ -22,10 +22,11 @@ describe('Exercise', () => {
       expect(firstPage.length).to.be.equal(10)
       expect(secondPage.length).to.be.equal(10)
 
-      // Check every page contains the right elements
+      // Verify pages contain exercises sorted by ascending name
       const allExercises = await db.exercises.toArray()
-      expect(firstPage).to.be.eql(allExercises.slice(0, 10))
-      expect(secondPage).to.be.eql(allExercises.slice(10))
+      const sortedExercises = [...allExercises].sort((a, b) => a.name.localeCompare(b.name))
+      expect(firstPage).to.be.eql(sortedExercises.slice(0, 10))
+      expect(secondPage).to.be.eql(sortedExercises.slice(10))
     })
 
     it('returns paginated exercises filtered by name', async () => {

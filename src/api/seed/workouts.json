@@ -1,0 +1,100 @@
+{
+  "workouts": [{
+      "name": "Full Body I",
+      "restTimePerExercise": 30,
+      "restTimePerRound": 60,
+      "rounds": 4,
+      "exercises": [{
+        "name": "Inclined pull ups",
+        "quantity": 6,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Ab roll-out on knees",
+        "quantity": 6,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Inclined chin ups",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Glute bridge",
+        "quantity": 20,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Hand stand wall assisted",
+        "quantity": 15,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Side lunges (each leg)",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Plank",
+        "quantity": 25,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }]
+    }, {
+      "name": "Full Body II",
+      "restTimePerExercise": 30,
+      "restTimePerRound": 60,
+      "rounds": 4,
+      "exercises": [{
+        "name": "Diamond push ups",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Bulgarian split squats (each leg)",
+        "quantity": 12,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Hollow hold",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Pike push ups",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Assisted pistol squats (each leg)",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Contra lateral limb raises",
+        "quantity": 16,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Frog stand hold",
+        "quantity": 10,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }]
+    }
+  ]
+}
