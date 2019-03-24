@@ -95,6 +95,204 @@
         "weight": 0,
         "weightUnit": "Kg"
       }]
+    }, {
+      "name": "Horizontal pull/push superset",
+      "restTimePerExercise": 0,
+      "restTimePerRound": 120,
+      "rounds": 4,
+      "exercises": [{
+        "name": "Inclined pull ups",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Single leg push ups (right)",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Single leg push ups (left)",
+        "quantity": 8,
+        "quantityUnit": "reps",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }]
+    }, {
+      "name": "Stretch session",
+      "restTimePerExercise": 10,
+      "restTimePerRound": 0,
+      "rounds": 1,
+      "exercises": [{
+        "name": "Upward stretch",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Triceps stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Triceps stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Upwards wrist pull stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Upwards wrist pull stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Shoulder stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Shoulder stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Downwards wrist pull stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Downwards wrist pull stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Standing quad stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Standing quad stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Knee to chest (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Knee to chest (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Runner's stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Runner's stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Standing hamstring stretch",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Lunging hip flexor stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Lunging hip flexor stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Seated one leg hamstring stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Seated one leg hamstring stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Knee across the body (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Knee across the body (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Leg-up hamstring stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Leg-up hamstring stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Knee to chest stretch (right)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Knee to chest stretch (left)",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Butterfly stretch",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }, {
+        "name": "Full squat with adductor stretch",
+        "quantity": 20,
+        "quantityUnit": "sec",
+        "weight": 0,
+        "weightUnit": "Kg"
+      }]
     }
   ]
 }
