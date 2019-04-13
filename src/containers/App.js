@@ -32,4 +32,3 @@ const mapDispatchToProps = dispatch => (
 export const AppFromStore = connect(
   mapStateToProps, mapDispatchToProps
 )(App)
-
