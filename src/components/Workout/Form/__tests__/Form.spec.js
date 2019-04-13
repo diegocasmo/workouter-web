@@ -7,11 +7,13 @@ import {BrowserRouter as Router, Prompt} from 'react-router-dom'
 import {WorkoutForm} from '../Form'
 import AsyncSelect from 'react-select/lib/Async'
 import {Formik, Form, ErrorMessage} from 'formik'
+import {wrapInTestContext} from 'react-dnd-test-utils'
 
 describe('<WorkoutForm/>', () => {
 
-  let props
+  let props = null
   const exercises = Factory.buildList('exercise', 10)
+  const DnDContext = wrapInTestContext(WorkoutForm)
   beforeEach(async () => {
     props = {
       workout: null,
@@ -24,13 +26,13 @@ describe('<WorkoutForm/>', () => {
   })
 
   it('renders <Prompt/>', () => {
-    const wrapper = mount(<Router><WorkoutForm {...props}/></Router>)
+    const wrapper = mount(<Router><DnDContext {...props}/></Router>)
     expect(wrapper.find(Prompt).props().when).to.be.false
     expect(wrapper.find(Prompt).props().message).to.be.equal('You have unsaved changes. Are you sure you want to leave?')
   })
 
-  it('it can create a valid workout', async () => {
-    const wrapper = mount(<Router><WorkoutForm {...props}/></Router>)
+  it('can create a valid workout', async () => {
+    const wrapper = mount(<Router><DnDContext {...props}/></Router>)
     expect(wrapper.find(Form)).to.have.lengthOf(1)
 
     // Check default values are set
@@ -100,7 +102,7 @@ describe('<WorkoutForm/>', () => {
 
   it('can update an existing workout', async () => {
     props = {...props, workout: Factory.build('workout')}
-    const wrapper = mount(<Router><WorkoutForm {...props}/></Router>)
+    const wrapper = mount(<Router><DnDContext {...props}/></Router>)
     const oldWorkout = {...props.workout}
     const newWorkout = Factory.build('workout', {id: oldWorkout.id})
     const getEvent = (id, value) => ({target: {id, value}})

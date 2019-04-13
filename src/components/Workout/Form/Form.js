@@ -2,10 +2,10 @@ import React from 'react'
 import {FieldArray} from 'formik'
 import {MultistepWizard} from '../../UI/MultistepWizard'
 import {Input} from '../../UI/Input'
-import {Select} from '../../UI/Select'
-import {SearchableSelect} from '../../UI/SearchableSelect'
 import {WorkoutSetupSchema, WorkoutSchema} from '../../../api/workout'
-import {UNITS, getUnits} from '../../../api/unit'
+import {UNITS} from '../../../api/unit'
+import {WorkoutExerciseForm} from './Exercise'
+import {SortableItem} from '../../UI/SortableItem'
 
 export const WorkoutForm = ({
   workout,
@@ -54,26 +54,23 @@ export const WorkoutForm = ({
         <h3>Workout Exercises</h3>
         <FieldArray
           name='exercises'
-          render={({remove, push, form}) => (
+          render={({remove, push, swap, form}) => (
             <>
-              {form.values.exercises.map((_, idx) => (
-                <div key={idx}>
-                  <SearchableSelect
-                    label='Name'
-                    name={`exercises.${idx}.name`}
-                    value={form.values.exercises[idx].name}
-                    defaultOptions
-                    onLoadOptions={async (query) => {
-                      const res = await fetchExercises({name: query})
-                      return res.map(({name}) => ({value: name, label: name}))
-                    }}/>
-                  <Input name={`exercises.${idx}.quantity`} label='Quantity' placeholder='10' type='number'/>
-                  <Select name={`exercises.${idx}.quantityUnit`} label='Quantity unit' options={getUnits()}/>
-                  <Input name={`exercises.${idx}.weight`} label='Weight' placeholder='0' type='number'/>
-                  <Input name={`exercises.${idx}.weightUnit`} label='Weight Unit' type='string' value={UNITS.KG.value} readOnly disabled/>
-                  {form.values.exercises.length > 1 && <button type='button' onClick={() => remove(idx)}>X</button>}
-                </div>
-              ))}
+              {form.values.exercises.map((_, index) =>
+                <SortableItem
+                  type='WorkoutExerciseForm'
+                  key={index}
+                  index={index}
+                  onSortableItemMoved={swap}>
+                  <WorkoutExerciseForm
+                    index={index}
+                    exerciseName={form.values.exercises[index].name}
+                    onRemove={() => remove(index)}
+                    push={push}
+                    fetchExercises={fetchExercises}
+                    canRemove={form.values.exercises.length > 1}/>
+                </SortableItem>
+              )}
               <button type='button' onClick={() => push(emptyWorkout.exercises[0])}>Add</button>
             </>
           )}/>
