@@ -21,7 +21,7 @@ describe('Unit', () => {
   })
 
   it('getUnitFromUnitValue()', () => {
-    expect(getUnitFromUnitValue(UNITS.SECONDS.value)).to.be.eql(UNITS.SECONDS})
+    expect(getUnitFromUnitValue(UNITS.SECONDS.value)).to.be.eql(UNITS.SECONDS)
     expect(getUnitFromUnitValue(UNITS.KM.value)).to.be.eql(UNITS.KM)
     expect(getUnitFromUnitValue('foo bar')).to.be.equal(undefined)
   })
