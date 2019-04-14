@@ -7,15 +7,15 @@ export const WorkoutSetup = ({
   restTimePerRound,
   restTimePerExercise
 }) => (
-  <div className="wkr-workout-setup">
-    <h3 className="wkr-workout-setup__title">Setup:</h3>
-    <p className="wrk-workout-setup__workout-name">Name: {name}</p>
-    <p className="wrk-workout-setup__workout-rounds">Rounds: {rounds}</p>
-    <p className="wrk-workout-setup__workout-rest-time-per-round">
-      Rest time per round: {restTimePerRound} {UNITS.SECONDS.value}
+  <div className='wkr-workout-setup'>
+    <h3 className='wkr-workout-setup__title'>Setup:</h3>
+    <p className='wrk-workout-setup__workout-name'>Name: {name}</p>
+    <p className='wrk-workout-setup__workout-rounds'>Rounds: {rounds}</p>
+    <p className='wrk-workout-setup__workout-rest-time-per-round'>
+      Rest time per round: {restTimePerRound} {UNITS.SECONDS.text}
     </p>
-    <p className="wrk-workout-setup__workout-rest-time-per-exercise">
-      Rest time per exercise: {restTimePerExercise} {UNITS.SECONDS.value}
+    <p className='wrk-workout-setup__workout-rest-time-per-exercise'>
+      Rest time per exercise: {restTimePerExercise} {UNITS.SECONDS.text}
     </p>
   </div>
 )

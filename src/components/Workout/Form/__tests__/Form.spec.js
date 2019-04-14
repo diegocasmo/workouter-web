@@ -8,6 +8,7 @@ import {WorkoutForm} from '../Form'
 import AsyncSelect from 'react-select/lib/Async'
 import {Formik, Form, ErrorMessage} from 'formik'
 import {wrapInTestContext} from 'react-dnd-test-utils'
+import {UNITS} from '../../../../api/unit'
 
 describe('<WorkoutForm/>', () => {
 
@@ -64,9 +65,9 @@ describe('<WorkoutForm/>', () => {
     // Verify workout exercises' default values
     expect(wrapper.find(AsyncSelect).text()).to.be.equal('Select...')
     expect(wrapper.find("input[name='exercises.0.quantity']").props().value).to.be.equal(10)
-    expect(wrapper.find(`select[name='exercises.0.quantityUnit']`).props().value).to.be.equal('reps')
+    expect(wrapper.find(`select[name='exercises.0.quantityUnit']`).props().value).to.be.equal(UNITS.REPS.value)
     expect(wrapper.find("input[name='exercises.0.weight']").props().value).to.be.equal(0)
-    expect(wrapper.find("input[name='exercises.0.weightUnit']").props().value).to.be.equal('Kg')
+    expect(wrapper.find("input[name='exercises.0.weightUnit']").props().value).to.be.equal(UNITS.KG.value)
 
     // Select a valid exercise
     wrapper.find('.wkr-searchable-select__dropdown-indicator').first().simulate('mouseDown', {button: 0})
@@ -92,9 +93,9 @@ describe('<WorkoutForm/>', () => {
       exercises: [{
         name: exercises[0].name,
         quantity: 10,
-        quantityUnit: 'reps',
+        quantityUnit: UNITS.REPS.value,
         weight: 0,
-        weightUnit: 'Kg'
+        weightUnit: UNITS.KG.value
       }]
     })).to.be.true
     expect(props.history.push.calledWith(props.redirectTo)).to.be.true

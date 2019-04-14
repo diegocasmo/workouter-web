@@ -3,6 +3,7 @@ import {Factory} from 'rosie'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {WorkoutExerciseItem} from '../ExerciseItem'
+import {getUnitFromUnitValue} from '../../../../api/unit'
 
 describe('<WorkoutExerciseItem/>', () => {
 
@@ -13,10 +14,10 @@ describe('<WorkoutExerciseItem/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<WorkoutExerciseItem {...props}/>)
-    const {name, quantity, quantityUnit, weight, weightUnit} = props
+    const {name, quantity, weight, quantityUnit, weightUnit} = props
     const title = weight > 0
-      ? `${name} x${quantity} ${quantityUnit} @${weight} ${weightUnit}`
-      : `${name} x${quantity} ${quantityUnit}`
+      ? `${name} x${quantity} ${getUnitFromUnitValue(quantityUnit).text} @${weight} ${weightUnit}`
+      : `${name} x${quantity} ${getUnitFromUnitValue(quantityUnit).text}`
     expect(wrapper.find('.wrk-workout-exercise-item__title').text()).to.be.equal(title)
   })
 })

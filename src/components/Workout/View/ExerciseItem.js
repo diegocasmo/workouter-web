@@ -1,4 +1,5 @@
 import React from 'react'
+import {getUnitFromUnitValue} from '../../../api/unit'
 
 export const WorkoutExerciseItem = ({
   name,
@@ -7,7 +8,7 @@ export const WorkoutExerciseItem = ({
   weight,
   weightUnit
 }) => (
-  <span className="wrk-workout-exercise-item__title">
-    {name} x{quantity} {quantityUnit} {weight > 0 ? `@${weight} ${weightUnit}` : null}
+  <span className='wrk-workout-exercise-item__title'>
+    {name} <span style={{textTransform: 'lowercase'}}>x{quantity} {getUnitFromUnitValue(quantityUnit).text} {weight > 0 ? `@${weight} ${weightUnit}` : null}</span>
   </span>
 )
