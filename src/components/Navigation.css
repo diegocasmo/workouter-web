@@ -1,0 +1,30 @@
+.wkr-navigation {
+  padding: 15px 0px;
+  width: 100%;
+  background-color: #FDFFFC;
+  box-shadow: 0 0.2rem 0.5rem rgba(190, 24, 45, .05), inset 0 -1px 0 rgba(190, 24, 45, .1);
+  border-bottom: 3px solid #BE182D;
+}
+
+a.wkr-navigation__link {
+  color: #161616;
+  font-weight: bold;
+}
+
+a.wkr-navigation__link:hover,
+a.wkr-navigation__link:active,
+a.wkr-navigation__link:focus {
+  opacity: 0.8;
+}
+
+a.wkr-navigation__link.active {
+  color: #161616;
+  border-bottom: 2px solid #BE182D;
+  margin-bottom: -2px;
+}
+
+a.wkr-navigation__link.active:hover,
+a.wkr-navigation__link.active:active,
+a.wkr-navigation__link.active:focus {
+  opacity: 1;
+}

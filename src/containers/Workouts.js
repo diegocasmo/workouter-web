@@ -10,14 +10,11 @@ export const Workouts = ({workouts, isLoading, fetchWorkouts, deleteWorkout}) =>
   useEffect(() => { fetchWorkouts() }, [])
 
   return (
-    <>
-      <h1>Workouts</h1>
-      {isLoading
-        ? <Loading/>
-        : <WorkoutList
-            handleDeleteWorkout={deleteWorkout}
-            workouts={workouts}/>}
-    </>
+    isLoading
+      ? <Loading/>
+      : <WorkoutList
+          handleDeleteWorkout={deleteWorkout}
+          workouts={workouts}/>
   )
 }
 

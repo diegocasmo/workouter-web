@@ -4,7 +4,7 @@ import {Duration} from '../../Time/Duration'
 const moment = require('moment')
 
 export const SessionItem = ({session}) => (
-  <li className='wkr-session-item'>
+  <li className='wkr-session-item list-group-item'>
     <Link to={`/sessions/${session.id}`}>
       <span className='wkr-session-item__name'>{session.name}</span>&nbsp;-
       (<div style={{display: 'inline-block'}}>

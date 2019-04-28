@@ -1,21 +1,35 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import './Item.css'
 
 export const ExerciseItem = ({handleDeleteExercise, exercise}) => (
   <div className='wkr-exercise-item'>
     <span className='wkr-exercise-item__name'>{exercise.name}</span>
-    <span>
-      &nbsp;<Link to={`/exercises/update/${exercise.id}`}>Update</Link>
-      &nbsp;<Link
-              className='wkr-exercise-item__action-delete'
-              to={`/exercises`}
-              onClick={(e) => {
-                e.preventDefault()
-                const msg = `Are you sure you want to delete "${exercise.name}"`
-                if(window.confirm(msg)) {
-                  handleDeleteExercise(exercise.id)
-                }
-              }}>Delete</Link>
+    <span className='wkr-exercise-item__dropdown dropdown'>
+      <button
+        className='wkr-exercise-item__dropdown-btn btn btn-sm dropdown-toggle'
+        type='button'
+        id='dropdownMenuButton'
+        data-toggle='dropdown'
+        aria-haspopup='true'
+        aria-expanded='false'/>
+      <div
+        className='dropdown-menu dropdown-menu-right'
+        aria-labelledby='dropdownMenuButton'>
+        <Link
+          className='dropdown-item'
+          to={`/exercises/update/${exercise.id}`}>Update</Link>
+        <Link
+            className='wkr-exercise-item__action-delete dropdown-item text-danger'
+            to={`/exercises`}
+            onClick={(e) => {
+              e.preventDefault()
+              const msg = `Are you sure you want to delete "${exercise.name}"`
+              if(window.confirm(msg)) {
+                handleDeleteExercise(exercise.id)
+              }
+            }}>Delete</Link>
+      </div>
     </span>
   </div>
 )

@@ -1,12 +1,34 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
+import './Navigation.css'
 
 export const Navigation = () => (
-  <ul>
-    <li><Link to='/sessions'>Sessions</Link></li>
-    <li><Link to='/workouts'>Workouts</Link></li>
-    <li><Link to='/workouts/new'>Create Workout</Link></li>
-    <li><Link to='/exercises'>Exercises</Link></li>
-    <li><Link to='/exercises/new'>Create Exercise</Link></li>
-  </ul>
+  <nav className='wkr-navigation navbar sticky-top justify-content-center'>
+    <ul className='nav  nav-fill'>
+      <li className='nav-item'>
+        <NavLink
+          to='/sessions'
+          className='wkr-navigation__link nav-link'
+          activeClassName='active'>
+          Sessions
+        </NavLink>
+      </li>
+      <li className='nav-item'>
+        <NavLink
+          to='/workouts'
+          className='wkr-navigation__link nav-link'
+          activeClassName='active'>
+          Workouts
+        </NavLink>
+      </li>
+      <li className='nav-item'>
+        <NavLink
+          to='/exercises'
+          className='wkr-navigation__link nav-link'
+          activeClassName='active'>
+          Exercises
+        </NavLink>
+      </li>
+    </ul>
+  </nav>
 )

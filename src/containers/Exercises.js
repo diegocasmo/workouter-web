@@ -21,18 +21,15 @@ export const Exercises = ({
   }, [])
 
   return (
-    <>
-      <h1>Exercises</h1>
-      <InfiniteScroll
-        loadMore={fetchExercises}
-        hasMore={canLoadMore}
-        loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
-                                      <InfiniteScroll/> warning about unique key prop */}
-        <ExerciseList
-          exercises={exercises}
-          handleDeleteExercise={deleteExercise}/>
-      </InfiniteScroll>
-    </>
+    <InfiniteScroll
+      loadMore={fetchExercises}
+      hasMore={canLoadMore}
+      loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
+                                    <InfiniteScroll/> warning about unique key prop */}
+      <ExerciseList
+        exercises={exercises}
+        handleDeleteExercise={deleteExercise}/>
+    </InfiniteScroll>
   )
 }
 

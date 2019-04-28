@@ -3,14 +3,16 @@ import {ExerciseItem} from './Item'
 
 export const ExerciseList = ({handleDeleteExercise, exercises}) => (
   exercises.length > 0
-    ? <ul className="wkr-exercise-list">
+    ? <ul className='wkr-exercise-list list-group list-group-flush'>
         {exercises.map((e,i) =>
-          <li key={i}>
+          <li
+          key={i}
+          className='list-group-item'>
             <ExerciseItem
               key={i}
               handleDeleteExercise={handleDeleteExercise}
               exercise={e}/>
           </li>)}
       </ul>
-    : <p>There are no exercises to show</p>
+    : <p className='text-center mt-2 mb-0'>There are no exercises to show</p>
 )

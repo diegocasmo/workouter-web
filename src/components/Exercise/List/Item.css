@@ -1,0 +1,22 @@
+.wkr-exercise-item__name {
+  display: inline-block;
+  max-width: 80%;
+}
+
+.wkr-exercise-item__dropdown {
+  float: right;
+}
+
+.wkr-exercise-item__dropdown-btn.btn {
+  border: 1px solid #011627;
+  background-color: #011627;
+  color: #FDFFFC;
+}
+
+.wkr-exercise-item__dropdown-btn.btn:hover,
+.wkr-exercise-item__dropdown-btn.btn:focus
+.wkr-exercise-item__dropdown-btn.btn:active {
+  border: 1px solid #011627;
+  background-color: #FDFFFC;
+  color: #011627;
+}

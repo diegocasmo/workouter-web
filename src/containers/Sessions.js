@@ -10,12 +10,9 @@ export const Sessions = ({sessions, isLoading, fetchSessions}) => {
   useEffect(() => { fetchSessions() }, [])
 
   return (
-    <>
-      <h1>Sessions</h1>
-      {isLoading
-        ? <Loading/>
-        : sessions && <SessionList sessions={sessions}/>}
-    </>
+    isLoading
+      ? <Loading/>
+      : sessions && <SessionList sessions={sessions}/>
   )
 }
 

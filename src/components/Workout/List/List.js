@@ -1,20 +1,14 @@
 import React from 'react'
 import {WorkoutItem} from './Item'
 
-export const WorkoutList = ({handleDeleteWorkout, workouts}) => {
-  if(workouts.length > 0) {
-    return (
-      <ul className="wkr-workout-list">
+export const WorkoutList = ({handleDeleteWorkout, workouts}) => (
+  workouts.length > 0
+    ? <ul className='wkr-workout-list list-group list-group-flush'>
         {workouts.map((w,i) =>
             <WorkoutItem
               key={i}
               handleDeleteWorkout={handleDeleteWorkout}
               workout={w}/>)}
       </ul>
-    )
-  } else {
-    return (
-      <p>There are no workouts to show</p>
-    )
-  }
-}
+    : <p className='text-center mt-2 mb-0'>There are no workouts to show</p>
+)
