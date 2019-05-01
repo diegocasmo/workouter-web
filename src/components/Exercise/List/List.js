@@ -7,7 +7,7 @@ export const ExerciseList = ({handleDeleteExercise, exercises}) => (
         {exercises.map((e,i) =>
           <li
           key={i}
-          className='list-group-item pt-0 pb-0'>
+          className='list-group-item'>
             <ExerciseItem
               key={i}
               handleDeleteExercise={handleDeleteExercise}

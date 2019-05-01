@@ -7,8 +7,8 @@ describe('<Navigation/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<Navigation/>)
-    expect(wrapper.find({to: '/sessions'})).to.have.lengthOf(1)
-    expect(wrapper.find({to: '/workouts'})).to.have.lengthOf(1)
-    expect(wrapper.find({to: '/exercises'})).to.have.lengthOf(1)
+    expect(wrapper.find({to: '/'}).props().children).to.equal('Sessions')
+    expect(wrapper.find({to: '/workouts'}).props().children).to.equal('Workouts')
+    expect(wrapper.find({to: '/exercises'}).props().children).to.equal('Exercises')
   })
 })

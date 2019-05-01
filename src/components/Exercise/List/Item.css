@@ -1,14 +1,10 @@
 .wkr-exercise-item__name {
   display: inline-block;
-  max-width: 90%;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
+  max-width: 80%;
 }
 
 .wkr-exercise-item__dropdown {
   float: right;
-  line-height: 50px;
 }
 
 .wkr-exercise-item__dropdown-btn.btn {

@@ -13,7 +13,7 @@ import {UpdateExerciseFromStore} from '../containers/UpdateExercise'
 
 export const Routes = () => (
   <Switch>
-    <Route exact path='/(|sessions)' component={SessionsFromStore}/>
+    <Route exact path='/' component={SessionsFromStore}/>
     <Route exact path='/sessions/new/:workoutId' component={NewSessionFromStore}/>
     <Route exact path='/sessions/:sessionId' component={SessionFromStore}/>
     <Route exact path='/workouts' component={WorkoutsFromStore}/>
@@ -23,7 +23,5 @@ export const Routes = () => (
     <Route exact path='/exercises' component={ExercisesFromStore}/>
     <Route exact path='/exercises/new' component={NewExerciseFromStore}/>
     <Route exact path='/exercises/update/:exerciseId' component={UpdateExerciseFromStore}/>
-    {/* Render <Sessions/> container if no route matches */}
-    <Route component={SessionsFromStore}/>
   </Switch>
 )

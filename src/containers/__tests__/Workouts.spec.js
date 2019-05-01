@@ -17,8 +17,7 @@ describe('<Workouts/>', () => {
     props = {
       workouts: Factory.buildList('workout', 2),
       isLoading: false,
-      fetchWorkouts: sinon.spy(),
-      deleteWorkout: sinon.spy()
+      fetchWorkouts: sinon.spy()
     }
   })
 
@@ -34,26 +33,6 @@ describe('<Workouts/>', () => {
     let wrapper
     act(() => { wrapper = mount(<Router><Workouts {...props}/></Router>) })
     expect(props.fetchWorkouts.calledOnce).to.be.true
-  })
-
-  describe('deleteWorkout()', () => {
-
-    afterEach(() => {
-      window.confirm.restore()
-    })
-
-    it("calls 'deleteWorkout()' when a user attempts to delete a workout", () => {
-      const wrapper = mount(<Router><Workouts {...props}/></Router>)
-      expect(props.deleteWorkout.calledOnce).to.be.false
-
-      // Click on delete item and confirm
-      sinon.stub(window, 'confirm').returns(true)
-      wrapper.find('.wkr-workout-item-actions__delete-link').first().simulate('click', {preventDefault: () => {}})
-
-      // Expect 'deleteWorkout()' to be called with workout id
-      expect(props.deleteWorkout.calledOnce).to.be.true
-      expect(props.deleteWorkout.calledWith(props.workouts[0].id)).to.be.true
-    })
   })
 
   it('renders <Loading/> when fetching workouts', () => {

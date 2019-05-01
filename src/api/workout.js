@@ -54,7 +54,7 @@ export async function validateWorkout(attrs) {
 
 // Return an array of workouts
 export function fetchWorkouts(db = connection) {
-  return db.workouts.toArray()
+  return db.workouts.orderBy('name').toArray()
 }
 
 // Return a workout from DB if it exists, otherwise reject with an error
