@@ -22,7 +22,10 @@ describe('Workout Selectors', () => {
         return acc
       }, {})
 
-      expect(getWorkouts(state)).to.be.eql(workouts)
+      // Make sure workouts are sorted by their name in ascending order
+      const expected = [...workouts].sort((a, b) => a.name.localeCompare(b.name))
+      const actual = getWorkouts(state)
+      expect(actual).to.be.eql(expected)
     })
   })
 

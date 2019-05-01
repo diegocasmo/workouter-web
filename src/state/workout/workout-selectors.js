@@ -1,5 +1,8 @@
 import {REQUEST_STATUS} from '../utils/request-status'
 
-export const getWorkouts = ({workouts}) => (Object.keys(workouts.items).map((k) => workouts.items[k]))
+export const getWorkouts = ({workouts}) =>
+  Object.entries(workouts.items)
+    .map((x) => x[1])
+    .sort((a, b) => a.name.localeCompare(b.name)) // Sort workouts by ascending name
 export const getWorkout = ({workouts}, id) => (workouts.items[id])
 export const isLoading = ({workouts}) => (workouts.status === REQUEST_STATUS.GET)
