@@ -1,0 +1,18 @@
+.wkr-workout-item-actions__dropdown {
+  float: right;
+  line-height: 50px;
+}
+
+.wkr-workout-item-actions__dropdown-btn.btn {
+  border: 1px solid #011627;
+  background-color: #011627;
+  color: #FDFFFC;
+}
+
+.wkr-workout-item-actions__dropdown-btn.btn:hover,
+.wkr-workout-item-actions__dropdown-btn.btn:focus
+.wkr-workout-item-actions__dropdown-btn.btn:active {
+  border: 1px solid #011627;
+  background-color: #FDFFFC;
+  color: #011627;
+}

@@ -18,6 +18,13 @@ p, a, button, span, input {
   color: #161616;
 }
 
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: #161616;
+}
+
 /*Force app to be 100% height*/
 #root, .wrk-app {
   width: 100%;

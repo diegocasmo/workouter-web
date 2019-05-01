@@ -4,7 +4,7 @@ import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {WorkoutItem} from '../Item'
 import {Link} from 'react-router-dom'
-import {WorkoutActions} from '../../../../components/WorkoutActions'
+import {WorkoutItemActions} from '../ItemActions'
 
 describe('<WorkoutItem/>', () => {
 
@@ -23,8 +23,8 @@ describe('<WorkoutItem/>', () => {
     expect(wrapper.find(Link).props().children.join(''))
       .to.be.equal(`${props.workout.name} (${props.workout.exercises.length} exercises)`)
 
-    // <WorkoutActions/>
-    expect(wrapper.find(WorkoutActions).props().workout).to.be.eql(props.workout)
-    expect(wrapper.find(WorkoutActions).props().handleDeleteWorkout).to.be.equal(props.handleDeleteWorkout)
+    // <WorkoutItemActions/>
+    expect(wrapper.find(WorkoutItemActions).props().workout).to.be.eql(props.workout)
+    expect(wrapper.find(WorkoutItemActions).props().handleDeleteWorkout).to.be.equal(props.handleDeleteWorkout)
   })
 })

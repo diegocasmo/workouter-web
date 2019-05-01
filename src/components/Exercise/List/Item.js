@@ -9,13 +9,13 @@ export const ExerciseItem = ({handleDeleteExercise, exercise}) => (
       <button
         className='wkr-exercise-item__dropdown-btn btn btn-sm dropdown-toggle'
         type='button'
-        id='dropdownMenuButton'
+        id='wkr-exercise-item__dropdown-menu-button'
         data-toggle='dropdown'
         aria-haspopup='true'
         aria-expanded='false'/>
       <div
         className='dropdown-menu dropdown-menu-right'
-        aria-labelledby='dropdownMenuButton'>
+        aria-labelledby='wkr-exercise-item__dropdown-menu-button'>
         <Link
           className='dropdown-item'
           to={`/exercises/update/${exercise.id}`}>Update</Link>
