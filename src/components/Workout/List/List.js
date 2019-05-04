@@ -5,7 +5,9 @@ export const WorkoutList = ({workouts}) => (
   workouts.length > 0
     ? <ul className='wkr-workout-list list-group list-group-flush'>
         {workouts.map((w,i) =>
-          <li key={i}>
+          <li
+            key={i}
+            className='list-group-item'>
             <WorkoutItem workout={w}/>
           </li>)}
       </ul>
