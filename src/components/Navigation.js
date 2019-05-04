@@ -7,16 +7,17 @@ export const Navigation = () => (
     <ul className='nav  nav-fill'>
       <li className='nav-item'>
         <NavLink
-          exact
           to='/'
           className='wkr-navigation__link nav-link'
-          activeClassName='active'>
+          activeClassName='active'
+          isActive={(_, {pathname}) => (
+            pathname === '/' || pathname.indexOf('sessions') >= 0
+          )}>
           Sessions
         </NavLink>
       </li>
       <li className='nav-item'>
         <NavLink
-          exact
           to='/workouts'
           className='wkr-navigation__link nav-link'
           activeClassName='active'>
@@ -25,7 +26,6 @@ export const Navigation = () => (
       </li>
       <li className='nav-item'>
         <NavLink
-          exact
           to='/exercises'
           className='wkr-navigation__link nav-link'
           activeClassName='active'>
