@@ -4,13 +4,13 @@ import {Duration} from '../../Time/Duration'
 const moment = require('moment')
 
 export const SessionItem = ({session}) => (
-  <li className='wkr-session-item list-group-item'>
-    <Link to={`/sessions/${session.id}`}>
-      <span className='wkr-session-item__name'>{session.name}</span>&nbsp;-
-      (<div style={{display: 'inline-block'}}>
-        <Duration start={session.startedAt} stop={session.finishedAt}/>
-      </div>)&nbsp;-&nbsp;
-      <span className='wkr-session-item__time-ago'>{moment(session.finishedAt).fromNow()}</span>
-    </Link>
-  </li>
+  <Link
+    className='list-group-item'
+    to={`/sessions/${session.id}`}>
+    <span className='wkr-session-item__name'>{session.name}</span>&nbsp;-
+    (<div style={{display: 'inline-block'}}>
+      <Duration start={session.startedAt} stop={session.finishedAt}/>
+    </div>)&nbsp;-&nbsp;
+    <span className='wkr-session-item__time-ago'>{moment(session.finishedAt).fromNow()}</span>
+  </Link>
 )

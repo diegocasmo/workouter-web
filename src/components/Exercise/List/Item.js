@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import './Item.css'
 
 export const ExerciseItem = ({handleDeleteExercise, exercise}) => (
-  <div className='wkr-exercise-item'>
+  <div className='wkr-exercise-item list-group-item'>
     <span className='wkr-exercise-item__name'>{exercise.name}</span>
     <span className='wkr-exercise-item__dropdown dropdown'>
       <button
