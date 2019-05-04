@@ -8,6 +8,7 @@ import {SessionExerciseRest} from './ExerciseRest'
 import {SessionRoundRest} from './RoundRest'
 import {SessionCompleted} from './Completed'
 import {SessionStartup} from './Startup'
+import './Form.css'
 const moment = require('moment')
 
 export function SessionForm ({
@@ -67,9 +68,9 @@ export function SessionForm ({
     }
   }
   return (
-    <>
+    <div className='wkr-session-form'>
       <Prompt when={showPrompt} message='Are you sure you want to quit this session?'/>
       {getSessionStatusForm()}
-    </>
+    </div>
   )
 }

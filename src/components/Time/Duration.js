@@ -8,7 +8,7 @@ export function Duration ({start, stop}) {
   const seconds = moment.duration(elapsedMs).seconds()
   const zeroPad = (x) => x > 9 ? x : `0${x}`
   return (
-    <div>
+    <div className='wkr-duration__container'>
       <span className='wkr-duration__hours'>{zeroPad(hours)}</span>:
       <span className='wkr-duration__minutes'>{zeroPad(minutes)}</span>:
       <span className='wkr-duration__seconds'>{zeroPad(seconds)}</span>

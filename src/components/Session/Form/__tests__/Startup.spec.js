@@ -32,7 +32,8 @@ describe('<SessionStartup/>', () => {
     const wrapper = shallow(<SessionStartup {...props}/>)
     expect(wrapper.find(Countdown)).to.have.lengthOf(1)
     expect(wrapper.find(WorkoutExerciseItem)).to.have.lengthOf(1)
-    expect(wrapper.find(WorkoutExerciseItem).props()).to.be.eql(props.nextExercise)
+    const {className, ...exercise} = wrapper.find(WorkoutExerciseItem).props()
+    expect(exercise).to.be.eql(props.nextExercise)
   })
 
   it('calls onSessionStartupCompleted() when countdown is finished', () => {

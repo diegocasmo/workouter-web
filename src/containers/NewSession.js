@@ -20,7 +20,6 @@ export const NewSession = ({
   useEffect(() => { getWorkout(workoutId) }, [])
   return (
     <>
-      <h1>New Session</h1>
       {isLoading
         ? <Loading/>
         : workout && <SessionForm

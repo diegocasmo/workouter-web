@@ -15,6 +15,6 @@ describe('<RoundsCompleted/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<RoundsCompleted {...props}/>)
-    expect(wrapper.text()).to.be.equal(`${props.roundsCompleted}/${props.rounds} rounds`)
+    expect(wrapper.text()).to.be.equal(`${props.roundsCompleted}/${props.rounds} rounds completed`)
   })
 })

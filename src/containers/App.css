@@ -14,7 +14,6 @@ h1, h2, h3, h4, h5, h6 {
 p, a, button, span, input {
   outline: 0;
   box-shadow: none;
-  font-weight: normal;
   color: #161616;
 }
 
@@ -43,4 +42,5 @@ a:active {
   min-height: 100%;
   background-color: #FDFFFC;
   padding: 0px;
+  position: relative;
 }

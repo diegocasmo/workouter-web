@@ -7,17 +7,26 @@ const moment = require('moment')
 
 export const SessionExercise = ({startedAt, exercise, onExerciseCompleted}) => (
   <>
-    <WorkoutExerciseItem {...exercise}/>
+    <WorkoutExerciseItem
+      className='h1 text-center font-weight-bold d-block'
+      {...exercise}/>
     {exercise.quantityUnit === UNITS.SECONDS.value
-      ? <Countdown
-          finishAt={moment().add(exercise.quantity, 'seconds')}
-          onCountdownCompleted={onExerciseCompleted}/>
-      : <>
-          <Clock startedAt={startedAt}/>
-          <button onClick={(e) => {
-            e.preventDefault()
-            onExerciseCompleted()
-          }}>Done</button>
-        </>}
+      ? <div className='h3 text-center'>
+          <Countdown
+            finishAt={moment().add(exercise.quantity, 'seconds')}
+            onCountdownCompleted={onExerciseCompleted}/>
+        </div>
+      : <div className='text-center'>
+          <div className='h3'>
+            <Clock startedAt={startedAt}/>
+          </div>
+          <button className='btn btn-primary btn-lg'
+            onClick={(e) => {
+              e.preventDefault()
+              onExerciseCompleted()
+            }}>
+            Done
+          </button>
+        </div>}
   </>
 )
