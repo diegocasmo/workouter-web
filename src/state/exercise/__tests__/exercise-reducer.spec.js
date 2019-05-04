@@ -9,7 +9,6 @@ describe('Exercise Reducer', () => {
   it('should return the initial state', () => {
     expect(exerciseReducer(undefined, {}))
       .to.be.eql({
-        pageNum: 0,
         perPage: 12,
         hasMore: true,
         items : {},
@@ -43,11 +42,9 @@ describe('Exercise Reducer', () => {
 
       // Expect exercises to be added to the state by their ids
       const items = exercises.reduce((acc, x) => ({...acc, [x.id]: x}), {})
-      const {pageNum, perPage} = initialState
       const expectedState = {
         ...initialState,
-        pageNum: exercises.length >= perPage ? pageNum + 1 : pageNum,
-        hasMore: exercises.length >= perPage,
+        hasMore: exercises.length >= initialState.perPage,
         items,
         status: REQUEST_STATUS.NONE
       }

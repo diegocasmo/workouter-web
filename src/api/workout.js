@@ -52,9 +52,20 @@ export async function validateWorkout(attrs) {
     .catch((yupError) => Promise.reject(transformYupToFormikError(yupError)))
 }
 
-// Return an array of workouts
-export function fetchWorkouts(db = connection) {
-  return db.workouts.orderBy('name').toArray()
+// Return a paginated array of workouts sorted by ascending name, optionally filtered by
+// workouts that have a name which includes the specified name query (case-insensitive)
+export async function fetchWorkouts(opts = {}) {
+  const {name = null, pageNum = 0, perPage = 10, db = connection} = opts
+  // Perform case-insensitive search if a name query is provided
+  const lowerCaseName = name ? name.toLowerCase() : null
+  // Return paginated results filtered by an optional name query
+  return db.workouts.orderBy('name')
+    .filter(x => name
+      ? `${x.name}`.toLowerCase().includes(lowerCaseName)
+      : true)
+    .offset(pageNum * perPage)
+    .limit(perPage)
+    .toArray()
 }
 
 // Return a workout from DB if it exists, otherwise reject with an error

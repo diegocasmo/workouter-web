@@ -28,12 +28,13 @@ describe('Exercise Action Creators', () => {
         {type: EXERCISE.FETCH_SUCCESS, items}
       ]
 
-      const store = mockStore({exercises: {pageNum: 12, perPage: 45}})
-      await store.dispatch(fetchExercises())
+      const store = mockStore({exercises: {perPage: 45}})
+      const pageNum = 15
+      await store.dispatch(fetchExercises(pageNum))
 
       expect(exercise.fetchExercises.calledOnce).to.be.true
       expect(exercise.fetchExercises.calledWith({
-        pageNum: 12,
+        pageNum,
         perPage: 45
       })).to.be.true
       expect(store.getActions()).to.be.eql(expectedActions)

@@ -16,7 +16,6 @@ describe('<Exercises/>', () => {
   beforeEach(() => {
     const exercises = Factory.buildList('exercise', 10)
     props = {
-      pageNum: 0,
       canLoadMore: true,
       exercises,
       fetchExercises: sinon.spy(() => Promise.resolve(exercises)),
@@ -28,8 +27,11 @@ describe('<Exercises/>', () => {
   it('renders', () => {
     const wrapper = mount(<Router><Exercises {...props}/></Router>)
     expect(wrapper.find(Exercises).length).to.be.equal(1)
+
+    expect(wrapper.find(InfiniteScroll).props().pageStart).to.be.equal(-1)
     expect(wrapper.find(InfiniteScroll).props().loadMore).to.be.equal(props.fetchExercises)
     expect(wrapper.find(InfiniteScroll).props().hasMore).to.be.equal(props.canLoadMore)
+
     expect(wrapper.find(ExerciseList)).to.have.lengthOf(1)
     expect(wrapper.find(ExerciseItem)).to.have.lengthOf(props.exercises.length)
   })

@@ -7,3 +7,4 @@ export const getSessions = ({sessions}) =>
 
 export const getSession = ({sessions}, id) => sessions.items[id]
 export const isLoadingSessions = ({sessions}) => sessions.status === REQUEST_STATUS.GET
+export const canLoadMore = ({sessions}) => sessions.hasMore && !isLoadingSessions({sessions})

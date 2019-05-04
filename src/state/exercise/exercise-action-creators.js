@@ -3,11 +3,11 @@ import {EXERCISE} from './exercise-actions'
 import {addError} from '../error/error-action-creators'
 
 // Fetch exercises from API
-export function fetchExercises() {
+export function fetchExercises(pageNum = 0) {
   return async (dispatch, getState) => {
+    const {perPage} = getState().exercises
     dispatch({type: EXERCISE.FETCH_INIT})
     try {
-      const {pageNum, perPage} = getState().exercises
       const items = await exercise.fetchExercises({pageNum, perPage})
       dispatch({type: EXERCISE.FETCH_SUCCESS, items})
     } catch (err) {

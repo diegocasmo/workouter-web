@@ -8,7 +8,6 @@ import {ExerciseList} from '../components/Exercise/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
 export const Exercises = ({
-  pageNum,
   canLoadMore,
   exercises,
   fetchExercises,
@@ -22,6 +21,7 @@ export const Exercises = ({
 
   return (
     <InfiniteScroll
+      pageStart={-1}
       loadMore={fetchExercises}
       hasMore={canLoadMore}
       loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
@@ -34,7 +34,6 @@ export const Exercises = ({
 }
 
 const mapStateToProps = state => ({
-  pageNum: state.exercises.pageNum,
   canLoadMore: canLoadMore(state),
   exercises: getExercises(state)
 })

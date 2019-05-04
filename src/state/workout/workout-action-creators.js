@@ -2,17 +2,24 @@ import * as workout from '../../api/workout'
 import {WORKOUT} from './workout-actions'
 import {addError} from '../error/error-action-creators'
 
-// Fetch a list of workouts
-export function fetchWorkouts() {
-  return (dispatch) => {
+// Fetch workouts from API
+export function fetchWorkouts(pageNum = 0) {
+  return async (dispatch, getState) => {
+    const {perPage} = getState().workouts
     dispatch({type: WORKOUT.FETCH_INIT})
-    return workout.fetchWorkouts()
-      .then((data) => dispatch({type: WORKOUT.FETCH_SUCCESS, items: data}))
-      .catch((err) => {
-        dispatch({type: WORKOUT.FETCH_FAILURE})
-        dispatch(addError(err.message))
-      })
+    try {
+      const items = await workout.fetchWorkouts({pageNum, perPage})
+      dispatch({type: WORKOUT.FETCH_SUCCESS, items})
+    } catch (err) {
+      dispatch({type: WORKOUT.FETCH_FAILURE})
+      dispatch(addError(err.message))
+    }
   }
+}
+
+// Clear workouts that have been fetched
+export function fetchClear() {
+  return {type: WORKOUT.FETCH_CLEAR}
 }
 
 // Get a single workout from DB by its id

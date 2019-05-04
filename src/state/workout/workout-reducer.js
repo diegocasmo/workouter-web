@@ -2,6 +2,8 @@ import {WORKOUT} from './workout-actions'
 import {REQUEST_STATUS} from '../utils/request-status'
 
 export const initialState = {
+  perPage: 12,
+  hasMore: true,
   items : {},
   status: REQUEST_STATUS.NONE
 }
@@ -19,6 +21,7 @@ export function workoutReducer(state = initialState, action) {
       const items = action.items.reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
       return {
         ...state,
+        hasMore: action.items.length >= state.perPage,
         items,
         status: REQUEST_STATUS.NONE
       }
@@ -28,6 +31,9 @@ export function workoutReducer(state = initialState, action) {
         ...state,
         status: REQUEST_STATUS.NONE
       }
+    }
+    case WORKOUT.FETCH_CLEAR: {
+      return initialState
     }
 
     // Get actions

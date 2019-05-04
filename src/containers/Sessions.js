@@ -1,28 +1,43 @@
 import React, {useEffect} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {fetchSessions} from '../state/session/session-action-creators'
-import {getSessions, isLoadingSessions} from '../state/session/session-selectors'
+import {fetchSessions, fetchClear} from '../state/session/session-action-creators'
+import {getSessions, canLoadMore} from '../state/session/session-selectors'
 import {Loading} from '../components/Loading'
 import {SessionList} from '../components/Session/List/List'
+import InfiniteScroll from 'react-infinite-scroller'
 
-export const Sessions = ({sessions, isLoading, fetchSessions}) => {
-  useEffect(() => { fetchSessions() }, [])
+export const Sessions = ({
+  canLoadMore,
+  sessions,
+  fetchSessions,
+  fetchClear
+}) => {
+
+  // Clear fetched sessions on component unmount
+  useEffect(() => {
+    return () => { fetchClear() }
+  }, [])
 
   return (
-    isLoading
-      ? <Loading/>
-      : sessions && <SessionList sessions={sessions}/>
+    <InfiniteScroll
+      pageStart={-1}
+      loadMore={fetchSessions}
+      hasMore={canLoadMore}
+      loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
+                                    <InfiniteScroll/> warning about unique key prop */}
+      <SessionList sessions={sessions}/>
+    </InfiniteScroll>
   )
 }
 
 const mapStateToProps = state => ({
-  sessions: getSessions(state),
-  isLoading: isLoadingSessions(state)
+  canLoadMore: canLoadMore(state),
+  sessions: getSessions(state)
 })
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({fetchSessions}, dispatch)
+  bindActionCreators({fetchSessions, fetchClear}, dispatch)
 )
 
 export const SessionsFromStore = connect(

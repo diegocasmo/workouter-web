@@ -3,7 +3,7 @@ import {Factory} from 'rosie'
 import sinon from 'sinon'
 import {initialState} from '../workout-reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getWorkouts, isLoading, getWorkout} from '../workout-selectors'
+import {getWorkouts, isLoading, getWorkout, canLoadMore} from '../workout-selectors'
 
 describe('Workout Selectors', () => {
 
@@ -55,6 +55,40 @@ describe('Workout Selectors', () => {
       expect(isLoading(state)).to.be.false
       state.workouts.status = REQUEST_STATUS.DELETE
       expect(isLoading(state)).to.be.false
+    })
+  })
+
+  describe('canLoadMore', () => {
+
+    it('returns true if there are more workouts to load and no workouts are being fetched', () => {
+      const state = {
+        workouts: {
+          ...initialState,
+          hasMore: true,
+          status: REQUEST_STATUS.NONE
+        }
+      }
+      expect(canLoadMore(state)).to.be.true
+    })
+
+    it('returns false if there are no more workouts to load', () => {
+      const state = {
+        workouts: {
+          ...initialState,
+          hasMore: false
+        }
+      }
+      expect(canLoadMore(state)).to.be.false
+    })
+
+    it('returns false if workouts are being fetched', () => {
+      const state = {
+        workouts: {
+          ...initialState,
+          status: REQUEST_STATUS.GET
+        }
+      }
+      expect(canLoadMore(state)).to.be.false
     })
   })
 })

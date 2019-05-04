@@ -7,7 +7,7 @@ import configureMockStore from 'redux-mock-store'
 import * as session from '../../../api/session'
 import {SESSION} from '../session-actions'
 import {ERROR} from '../../error/error-actions'
-import {fetchSessions, getSession} from '../session-action-creators'
+import {fetchSessions, fetchClear, getSession} from '../session-action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -22,14 +22,21 @@ describe('Session Action Creators', () => {
 
     it("dispatches 'FETCH_INIT', 'FETCH_SUCCESS' on sessions fetch success", async () => {
       const items = Factory.buildList('session', 2)
-      sinon.stub(session, 'fetchSessions').resolves(items)
+      sinon.stub(session, 'fetchSessions').callsFake(sinon.spy(() => Promise.resolve(items)))
       const expectedActions = [
         {type: SESSION.FETCH_INIT},
         {type: SESSION.FETCH_SUCCESS, items}
       ]
 
-      const store = mockStore({sessions: {}})
-      await store.dispatch(fetchSessions())
+      const store = mockStore({sessions: {perPage: 45}})
+      const pageNum = 15
+      await store.dispatch(fetchSessions(pageNum))
+
+      expect(session.fetchSessions.calledOnce).to.be.true
+      expect(session.fetchSessions.calledWith({
+        pageNum,
+        perPage: 45
+      })).to.be.true
       expect(store.getActions()).to.be.eql(expectedActions)
     })
 
@@ -44,7 +51,17 @@ describe('Session Action Creators', () => {
 
       const store = mockStore({sessions: {}})
       await store.dispatch(fetchSessions())
+
       expect(store.getActions()).to.be.eql(expectedActions)
+    })
+  })
+
+  describe('fetchClear()', () => {
+
+    it("dispatches 'FETCH_CLEAR'", () => {
+      const expected = {type: SESSION.FETCH_CLEAR}
+      const actual = fetchClear()
+      expect(actual).to.be.eql(expected)
     })
   })
 

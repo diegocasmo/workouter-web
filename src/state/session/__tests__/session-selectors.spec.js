@@ -2,7 +2,7 @@ import {expect} from 'chai'
 import {Factory} from 'rosie'
 import {initialState} from '../session-reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getSessions, getSession, isLoadingSessions} from '../session-selectors'
+import {getSessions, getSession, isLoadingSessions, canLoadMore} from '../session-selectors'
 
 describe('Session Selectors', () => {
 
@@ -54,6 +54,40 @@ describe('Session Selectors', () => {
       expect(isLoadingSessions(state)).to.be.false
       state.sessions.status = REQUEST_STATUS.DELETE
       expect(isLoadingSessions(state)).to.be.false
+    })
+  })
+
+  describe('canLoadMore', () => {
+
+    it('returns true if there are more sessions to load and no sessions are being fetched', () => {
+      const state = {
+        sessions: {
+          ...initialState,
+          hasMore: true,
+          status: REQUEST_STATUS.NONE
+        }
+      }
+      expect(canLoadMore(state)).to.be.true
+    })
+
+    it('returns false if there are no more sessions to load', () => {
+      const state = {
+        sessions: {
+          ...initialState,
+          hasMore: false
+        }
+      }
+      expect(canLoadMore(state)).to.be.false
+    })
+
+    it('returns false if sessions are being fetched', () => {
+      const state = {
+        sessions: {
+          ...initialState,
+          status: REQUEST_STATUS.GET
+        }
+      }
+      expect(canLoadMore(state)).to.be.false
     })
   })
 })

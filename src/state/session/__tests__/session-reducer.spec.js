@@ -9,6 +9,8 @@ describe('Session Reducer', () => {
   it('should return the initial state', () => {
     expect(sessionReducer(undefined, {}))
       .to.be.eql({
+        perPage: 12,
+        hasMore: true,
         items : {},
         status: REQUEST_STATUS.NONE
       })
@@ -35,13 +37,14 @@ describe('Session Reducer', () => {
     })
 
     it('FETCH_SUCCESS', () => {
-      const sessions = Factory.buildList('session', 2)
+      const sessions = Factory.buildList('session', 20)
       const action = {type: SESSION.FETCH_SUCCESS, items: sessions}
 
       // Expect sessions to be added to the state by their ids
       const items = sessions.reduce((acc, x) => ({...acc, [x.id]: x}), {})
       const expectedState = {
         ...initialState,
+        hasMore: sessions.length >= initialState.perPage,
         items,
         status: REQUEST_STATUS.NONE
       }
@@ -62,6 +65,18 @@ describe('Session Reducer', () => {
           ...state,
           status: REQUEST_STATUS.NONE
         })
+    })
+
+    it('FETCH_CLEAR', () => {
+      // Assume there are some sessions already in state
+      const sessions = Factory.buildList('session', 10)
+      const items = sessions.reduce((acc, x) => ({...acc, [x.id]: x}), {})
+      const state = {...initialState, items}
+
+      const action = {type: SESSION.FETCH_CLEAR}
+      const expected = initialState
+      const actual = sessionReducer(state, action)
+      expect(actual).to.be.eql(expected)
     })
   })
 
@@ -89,6 +104,7 @@ describe('Session Reducer', () => {
       const action = {type: SESSION.GET_SUCCESS, item: nextSession}
       expect(sessionReducer(state, action))
         .to.be.eql({
+          ...state,
           items: {1: nextSession},
           status: REQUEST_STATUS.NONE
         })
