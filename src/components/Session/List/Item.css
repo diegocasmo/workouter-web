@@ -1,0 +1,10 @@
+.wkr-session-item:hover,
+.wkr-session-item:focus,
+.wkr-session-item:active {
+  opacity: 0.8;
+}
+
+.wkr-session-item__time-ago {
+  color: #FDFFFC;
+  background-color: #011627;
+}

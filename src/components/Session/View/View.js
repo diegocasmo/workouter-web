@@ -1,13 +1,11 @@
 import React from 'react'
-import {Duration} from '../../Time/Duration'
-import {RoundsCompleted} from './RoundsCompleted'
 import {WorkoutSetup} from '../../Workout/View/Setup'
 import {WorkoutExerciseList} from '../../Workout/View/ExerciseList'
+import {SessionStatistics} from './Statistics'
 
 export const SessionView = ({session}) => (
   <>
-    <RoundsCompleted rounds={session.rounds} roundsCompleted={session.roundsCompleted}/>
-    <Duration start={session.startedAt} stop={session.finishedAt}/>
+    <SessionStatistics session={session}/>
     <WorkoutSetup {...session}/>
     <WorkoutExerciseList {...session}/>
   </>

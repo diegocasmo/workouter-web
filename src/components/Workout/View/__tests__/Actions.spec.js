@@ -4,7 +4,7 @@ import {expect} from 'chai'
 import sinon from 'sinon'
 import {shallow} from 'enzyme'
 import {Link} from 'react-router-dom'
-import {WorkoutActions} from '../WorkoutActions'
+import {WorkoutActions} from '../Actions'
 
 describe('<WorkoutActions/>', () => {
 

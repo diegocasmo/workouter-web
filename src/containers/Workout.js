@@ -10,12 +10,11 @@ export const Workout = ({workoutId, workout, isLoading, getWorkout, deleteWorkou
   useEffect(() => { getWorkout(workoutId) }, [])
 
   return (
-    <>
-      <h1>Workout Details</h1>
+    <div className='p-3'>
       {isLoading
         ? <Loading/>
         : workout && <WorkoutView workout={workout} deleteWorkout={deleteWorkout}/>}
-    </>
+    </div>
   )
 }
 

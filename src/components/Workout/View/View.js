@@ -1,7 +1,7 @@
 import React from 'react'
 import {WorkoutSetup} from './Setup'
 import {WorkoutExerciseList} from './ExerciseList'
-import {WorkoutActions} from '../../WorkoutActions'
+import {WorkoutActions} from './Actions'
 
 export const WorkoutView = ({workout, deleteWorkout}) => (
   <>

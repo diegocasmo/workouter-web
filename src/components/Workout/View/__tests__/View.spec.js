@@ -5,7 +5,7 @@ import {expect} from 'chai'
 import {WorkoutView} from '../View'
 import {WorkoutSetup} from '../Setup'
 import {WorkoutExerciseList} from '../ExerciseList'
-import {WorkoutActions} from '../../../WorkoutActions'
+import {WorkoutActions} from '../Actions'
 
 describe('<WorkoutView>', () => {
 

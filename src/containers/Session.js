@@ -10,12 +10,11 @@ export const Session = ({sessionId, session, isLoading, getSession}) => {
   useEffect(() => { getSession(sessionId) }, [])
 
   return (
-    <>
-      <h1>Session Details</h1>
+    <div className='p-3'>
       {isLoading
         ? <Loading/>
         : session && <SessionView session={session}/>}
-    </>
+    </div>
   )
 }
 

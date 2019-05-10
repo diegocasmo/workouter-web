@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {SessionStatistics} from '../View/Statistics'
-import './Completed.css';
+import './Completed.css'
 
 export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFailure}) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,9 +18,10 @@ export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFa
   }
   return (
     <div className='wkr-session-completed text-center'>
+      <p className='h1 text-center'>{session.name}</p>
       <SessionStatistics session={session}/>
       <button
-        className='btn btn-success btn-lg'
+        className='btn btn-outline-success btn-lg'
         type='submit'
         disabled={isSubmitting}
         onClick={handleSubmit}>Save</button>

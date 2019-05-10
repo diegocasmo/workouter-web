@@ -18,7 +18,8 @@ describe('<WorkoutItem/>', () => {
     const wrapper = shallow(<WorkoutItem {...props}/>)
     // <Link/>
     expect(wrapper.find(Link).props().to).to.be.equal(`/workouts/${props.workout.id}`)
-    expect(wrapper.find(Link).props().children.join(''))
-      .to.be.equal(`${props.workout.name} (${props.workout.exercises.length} exercises)`)
+    expect(wrapper.find('.wkr-workout-item__name').text()).to.be.equal(props.workout.name)
+    expect(wrapper.find('.wkr-workout-item__exercise-count').text())
+      .to.be.equal(`${props.workout.exercises.length} exercises`)
   })
 })

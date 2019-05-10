@@ -1,5 +1,10 @@
-.wkr-workout-item__name:hover,
-.wkr-workout-item__name:focus,
-.wkr-workout-item__name:active {
+.wkr-workout-item:hover,
+.wkr-workout-item:focus,
+.wkr-workout-item:active {
   opacity: 0.8;
+}
+
+.wkr-workout-item__exercise-count {
+  color: #FDFFFC;
+  background-color: #011627;
 }

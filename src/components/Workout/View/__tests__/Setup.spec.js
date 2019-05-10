@@ -14,7 +14,7 @@ describe('<WorkoutSetup/>', () => {
 
   it('renders', () => {
     const wrapper = shallow(<WorkoutSetup {...props}/>)
-    expect(wrapper.find('.wkr-workout-setup__title').text()).to.be.equal('Setup:')
+    expect(wrapper.find('.wkr-workout-setup__title').text()).to.be.equal('Setup')
     expect(wrapper.find('.wrk-workout-setup__workout-name').text()).to.be.equal(`Name: ${props.name}`)
     expect(wrapper.find('.wrk-workout-setup__workout-rounds').text()).to.be.equal(`Rounds: ${props.rounds}`)
     expect(wrapper.find('.wrk-workout-setup__workout-rest-time-per-round').text())
