@@ -18,10 +18,8 @@ export function Countdown ({finishAt, onCountdownCompleted, extraThreshold = 0.5
     }
   }, 1000)
 
-  const elapsedMs = moment.duration(finishAt - now, 'milliseconds')
-
   // Use countdown effect to "speak" seconds left in countdown
-  useCountdownSpeakEffect(moment.duration(elapsedMs).seconds())
+  useCountdownSpeakEffect(finishAt, now)
 
   return <Duration start={now} stop={finishAt}/>
 }
