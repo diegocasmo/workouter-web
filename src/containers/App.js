@@ -12,7 +12,7 @@ import './App.css'
 export const App = ({errors, removeError}) => (
   <Router>
     <div className='wrk-app'>
-      <div className='col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-md-3 wrk-app__container'>
+      <div className='col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 wrk-app__container'>
         <Navigation/>
         <ErrorList
           errors={errors}
