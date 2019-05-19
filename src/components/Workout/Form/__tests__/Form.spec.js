@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import {mount} from 'enzyme'
 import {BrowserRouter as Router, Prompt} from 'react-router-dom'
 import {WorkoutForm} from '../Form'
-import AsyncSelect from 'react-select/lib/Async'
+import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable'
 import {Formik, Form, ErrorMessage} from 'formik'
 import {wrapInTestContext} from 'react-dnd-test-utils'
 import {UNITS} from '../../../../api/unit'
@@ -22,6 +22,7 @@ describe('<WorkoutForm/>', () => {
       history: {push: sinon.spy()},
       redirectTo: 'fooBar',
       fetchExercises: sinon.spy(() => Promise.resolve(exercises)),
+      createExercise: sinon.spy(() => Promise.resolve()),
       handleSubmit: sinon.spy(() => Promise.resolve())
     }
   })
@@ -63,7 +64,7 @@ describe('<WorkoutForm/>', () => {
     expect(wrapper.find("button[type='button']").first().props().children).to.be.equal('Add')
 
     // Verify workout exercises' default values
-    expect(wrapper.find(AsyncSelect).text()).to.be.equal('Select...')
+    expect(wrapper.find(AsyncCreatableSelect).text()).to.be.equal('Select...')
     expect(wrapper.find("input[name='exercises.0.quantity']").props().value).to.be.equal(10)
     expect(wrapper.find(`select[name='exercises.0.quantityUnit']`).props().value).to.be.equal(UNITS.REPS.value)
     expect(wrapper.find("input[name='exercises.0.weight']").props().value).to.be.equal(0)
@@ -74,7 +75,7 @@ describe('<WorkoutForm/>', () => {
     await tick()
     wrapper.update()
     wrapper.find('.wkr-searchable-select__option').first().simulate('click')
-    expect(wrapper.find(AsyncSelect).text()).to.be.equal(exercises[0].name)
+    expect(wrapper.find(AsyncCreatableSelect).text()).to.be.equal(exercises[0].name)
 
     // Submit valid workout
     wrapper.find('form').simulate('submit')

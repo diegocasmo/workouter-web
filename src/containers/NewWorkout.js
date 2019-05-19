@@ -2,10 +2,15 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {createWorkout} from '../api/workout'
-import {fetchExercises} from '../api/exercise'
+import {fetchExercises, createExercise} from '../api/exercise'
 import {WorkoutForm} from '../components/Workout/Form/Form'
 
-export const NewWorkout = ({history, fetchExercises, createWorkout}) => (
+export const NewWorkout = ({
+  history,
+  fetchExercises,
+  createExercise,
+  createWorkout
+}) => (
   <>
     <h1>New Workout</h1>
     <WorkoutForm
@@ -13,6 +18,7 @@ export const NewWorkout = ({history, fetchExercises, createWorkout}) => (
       history={history}
       redirectTo='/workouts'
       fetchExercises={fetchExercises}
+      createExercise={createExercise}
       handleSubmit={createWorkout}/>
   </>
 )
@@ -20,7 +26,8 @@ export const NewWorkout = ({history, fetchExercises, createWorkout}) => (
 const mapStateToProps = (state, {history}) => ({
   history,
   fetchExercises,
-  createWorkout
+  createWorkout,
+  createExercise
 })
 
 const mapDispatchToProps = dispatch => (

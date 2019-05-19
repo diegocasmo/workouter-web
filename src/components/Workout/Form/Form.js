@@ -13,6 +13,7 @@ export const WorkoutForm = ({
   history,
   redirectTo,
   fetchExercises,
+  createExercise,
   handleSubmit
 }) => {
   // An empty workout to show if none has been created yet
@@ -68,6 +69,7 @@ export const WorkoutForm = ({
                     onRemove={() => remove(index)}
                     push={push}
                     fetchExercises={fetchExercises}
+                    createExercise={createExercise}
                     canRemove={form.values.exercises.length > 1}/>
                 </SortableItem>
               )}

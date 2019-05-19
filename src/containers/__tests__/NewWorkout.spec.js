@@ -14,7 +14,8 @@ describe('<NewWorkout/>', () => {
     props = {
       history: {push: () => {}},
       createWorkout: () => {},
-      fetchExercises: () => {}
+      fetchExercises: () => {},
+      createExercise: () => {}
     }
   })
 
@@ -26,6 +27,7 @@ describe('<NewWorkout/>', () => {
     expect(wrapper.find(WorkoutForm).props().history).to.be.eql(props.history)
     expect(wrapper.find(WorkoutForm).props().redirectTo).to.be.equal('/workouts')
     expect(wrapper.find(WorkoutForm).props().fetchExercises).to.be.equal(props.fetchExercises)
+    expect(wrapper.find(WorkoutForm).props().createExercise).to.be.equal(props.createExercise)
     expect(wrapper.find(WorkoutForm).props().handleSubmit).to.be.equal(props.createWorkout)
   })
 })

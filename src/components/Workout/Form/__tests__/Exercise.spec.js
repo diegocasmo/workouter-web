@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 import {WorkoutExerciseForm} from '../Exercise'
-import {SearchableSelect} from '../../../UI/SearchableSelect'
+import {AsyncCreateSelect} from '../../../UI/AsyncCreateSelect'
 import {UNITS, getUnits} from '../../../../api/unit'
 
 describe('<WorkoutExerciseForm/>', () => {
@@ -14,8 +14,9 @@ describe('<WorkoutExerciseForm/>', () => {
     props = {
       index: 0,
       exerciseName: 'foo bar',
-      onRemove: sinon.spy(() => (Promise.resolve())),
-      fetchExercises: sinon.spy(() => (Promise.resolve())),
+      onRemove: sinon.spy(() => Promise.resolve()),
+      fetchExercises: sinon.spy(() => Promise.resolve()),
+      createExercise: sinon.spy(() => Promise.resolve()),
       canRemove: true
     }
   })
@@ -23,11 +24,11 @@ describe('<WorkoutExerciseForm/>', () => {
   it('renders', () => {
     wrapper = shallow(<WorkoutExerciseForm {...props}/>)
 
-    // <SearchableSelect/>
-    expect(wrapper.find(SearchableSelect).props().label).to.be.equal('Name')
-    expect(wrapper.find(SearchableSelect).props().name).to.be.equal(`exercises.${props.index}.name`)
-    expect(wrapper.find(SearchableSelect).props().value).to.be.equal(props.exerciseName)
-    expect(wrapper.find(SearchableSelect).props().defaultOptions).to.be.true
+    // <AsyncCreateSelect/>
+    expect(wrapper.find(AsyncCreateSelect).props().label).to.be.equal('Name')
+    expect(wrapper.find(AsyncCreateSelect).props().name).to.be.equal(`exercises.${props.index}.name`)
+    expect(wrapper.find(AsyncCreateSelect).props().value).to.be.equal(props.exerciseName)
+    expect(wrapper.find(AsyncCreateSelect).props().defaultOptions).to.be.true
 
     // Quantity <Input/>
     const Quantity = wrapper.findWhere(c => c.props().name === `exercises.${props.index}.quantity`)
