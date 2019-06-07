@@ -15,7 +15,10 @@ export const UpdateExercise = ({
   updateExercise,
   getExercise
 }) => {
-  useEffect(() => { getExercise(exerciseId) }, [])
+  useEffect(
+    () => { getExercise(exerciseId) },
+    [getExercise, exerciseId]
+  )
 
   return (
     <>

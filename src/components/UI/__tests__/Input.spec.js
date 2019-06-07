@@ -63,12 +63,13 @@ describe('<Input/>', () => {
         })}
         render={() => (<Form><Input {...props}/></Form>)}/>)
 
-    expect(wrapper.find(ErrorMessage).text()).to.be.null
+    expect(wrapper.find(ErrorMessage).text()).to.be.equal('')
 
     // Simulate an invalid username has been set
     wrapper.find("input[name='username']").simulate('change', {target: {id: 'username', value: ''}})
     wrapper.find('form').simulate('submit')
     await tick()
+    wrapper.update()
 
     // Expect an error message to be rendered
     expect(wrapper.find(ErrorMessage).text()).to.be.equal('username is a required field')

@@ -17,7 +17,10 @@ export const UpdateWorkout = ({
   isLoading,
   getWorkout
 }) => {
-  useEffect(() => { getWorkout(workoutId) }, [])
+  useEffect(
+    () => { getWorkout(workoutId) },
+    [getWorkout, workoutId]
+  )
 
   return (
     <>

@@ -17,7 +17,11 @@ export const NewSession = ({
   createSession,
   addError
 }) => {
-  useEffect(() => { getWorkout(workoutId) }, [])
+  useEffect(
+    () => { getWorkout(workoutId) },
+    [getWorkout, workoutId]
+  )
+
   return (
     <>
       {isLoading

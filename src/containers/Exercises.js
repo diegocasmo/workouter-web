@@ -17,7 +17,7 @@ export const Exercises = ({
   // Clear fetched exercises on component unmount
   useEffect(() => {
     return () => { fetchClear() }
-  }, [])
+  }, [fetchClear])
 
   return (
     <InfiniteScroll

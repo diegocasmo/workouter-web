@@ -7,7 +7,10 @@ import {Loading} from '../components/Loading'
 import {SessionView} from '../components/Session/View/View'
 
 export const Session = ({sessionId, session, isLoading, getSession}) => {
-  useEffect(() => { getSession(sessionId) }, [])
+  useEffect(
+    () => { getSession(sessionId) },
+    [getSession, sessionId]
+  )
 
   return (
     <div className='p-3'>

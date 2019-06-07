@@ -17,7 +17,7 @@ export const Sessions = ({
   // Clear fetched sessions on component unmount
   useEffect(() => {
     return () => { fetchClear() }
-  }, [])
+  }, [fetchClear])
 
   return (
     <InfiniteScroll

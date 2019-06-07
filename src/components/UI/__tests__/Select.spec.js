@@ -76,12 +76,13 @@ describe('<Select/>', () => {
         })}
         render={() => (<Form><Select {...props}/></Form>)}/>)
 
-    expect(wrapper.find(ErrorMessage).text()).to.be.null
+    expect(wrapper.find(ErrorMessage).text()).to.be.equal('')
 
     // Simulate an invalid (negative) number is selected
     wrapper.find('select').simulate('change', {target: {id: 'number', value: -3}})
     wrapper.find('form').simulate('submit')
     await tick()
+    wrapper.update()
 
     // Expect an error message to be rendered
     expect(wrapper.find(ErrorMessage).text()).to.be.equal('number must be a positive number')

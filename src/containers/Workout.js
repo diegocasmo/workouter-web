@@ -7,7 +7,10 @@ import {Loading} from '../components/Loading'
 import {WorkoutView} from '../components/Workout/View/View'
 
 export const Workout = ({workoutId, workout, isLoading, getWorkout, deleteWorkout}) => {
-  useEffect(() => { getWorkout(workoutId) }, [])
+  useEffect(
+    () => { getWorkout(workoutId) },
+    [getWorkout, workoutId]
+  )
 
   return (
     <div className='p-3'>
