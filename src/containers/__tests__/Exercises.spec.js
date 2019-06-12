@@ -5,6 +5,7 @@ import {expect} from 'chai'
 import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Exercises} from '../Exercises'
+import {ExerciseListHeader} from '../../components/Exercise/List/Header'
 import {ExerciseList} from '../../components/Exercise/List/List'
 import {ExerciseItem} from '../../components/Exercise/List/Item'
 import InfiniteScroll from 'react-infinite-scroller'
@@ -28,10 +29,15 @@ describe('<Exercises/>', () => {
     const wrapper = mount(<Router><Exercises {...props}/></Router>)
     expect(wrapper.find(Exercises).length).to.be.equal(1)
 
+    // Exercises header
+    expect(wrapper.find(ExerciseListHeader)).to.have.lengthOf(1)
+
+    // Infinite scroll
     expect(wrapper.find(InfiniteScroll).props().pageStart).to.be.equal(-1)
     expect(wrapper.find(InfiniteScroll).props().loadMore).to.be.equal(props.fetchExercises)
     expect(wrapper.find(InfiniteScroll).props().hasMore).to.be.equal(props.canLoadMore)
 
+    // Exercises list
     expect(wrapper.find(ExerciseList)).to.have.lengthOf(1)
     expect(wrapper.find(ExerciseItem)).to.have.lengthOf(props.exercises.length)
   })

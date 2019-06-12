@@ -13,7 +13,9 @@ describe('<Input/>', () => {
       name: 'foo',
       label: 'bar',
       placeholder: 'at',
-      type: 'text'
+      type: 'text',
+      errors: {},
+      touched: false
     }
   })
 
@@ -21,8 +23,13 @@ describe('<Input/>', () => {
     const wrapper = mount(
       <Formik
         initialValues={{}}
-        validationSchema={{}}
-        render={() => (<Form><Input {...props}/></Form>)}/>)
+        validationSchema={{}}>
+        <Form>
+          <Input {...props}/>
+        </Form>
+      </Formik>
+    )
+
     // label component
     expect(wrapper.find('label').text()).to.be.equal(props.label)
     expect(wrapper.find('label').props().htmlFor).to.be.equal(props.name)
@@ -38,11 +45,17 @@ describe('<Input/>', () => {
       readOnly: true,
       disabled: true
     }
+
     const wrapper = mount(
       <Formik
         initialValues={{}}
-        validationSchema={{}}
-        render={() => (<Form><Input {...props}/></Form>)}/>)
+        validationSchema={{}}>
+        <Form>
+          <Input {...props}/>
+        </Form>
+      </Formik>
+    )
+
     expect(wrapper.find(Field).props().readOnly).to.be.equal(props.readOnly)
     expect(wrapper.find(Field).props().disabled).to.be.equal(props.disabled)
   })
@@ -60,8 +73,12 @@ describe('<Input/>', () => {
         initialValues={{username: ''}}
         validationSchema={object().shape({
           username: string().trim().required()
-        })}
-        render={() => (<Form><Input {...props}/></Form>)}/>)
+        })}>
+        <Form>
+          <Input {...props}/>
+        </Form>
+      </Formik>
+      )
 
     expect(wrapper.find(ErrorMessage).text()).to.be.equal('')
 
@@ -73,6 +90,27 @@ describe('<Input/>', () => {
 
     // Expect an error message to be rendered
     expect(wrapper.find(ErrorMessage).text()).to.be.equal('username is a required field')
+  })
+
+  it('renders invalid input validation classes correctly', () => {
+    props = {
+      ...props,
+      touched: true,
+      errors: { [props.name]: 'error message' }
+    }
+
+    const wrapper = mount(
+      <Formik
+        initialValues={{}}
+        validationSchema={{}}>
+        <Form>
+          <Input {...props}/>
+        </Form>
+      </Formik>
+    )
+
+    expect(wrapper.find(Field).props().className).to.include('is-invalid')
+    expect(wrapper.find(ErrorMessage).props().className).to.include('invalid-feedback')
   })
 })
 

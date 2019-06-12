@@ -20,7 +20,7 @@ export const SessionExercise = ({startedAt, exercise, onExerciseCompleted}) => (
           <div className='h3'>
             <Clock startedAt={startedAt}/>
           </div>
-          <button className='btn btn-outline-primary btn-lg'
+          <button className='btn btn-primary btn-lg'
             onClick={(e) => {
               e.preventDefault()
               onExerciseCompleted()

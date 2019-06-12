@@ -13,7 +13,8 @@ export const Navigation = ({ className }) => (
           isActive={(_, {pathname}) => (
             pathname === '/' || pathname.indexOf('sessions') >= 0
           )}>
-          Sessions
+          <i className='fas fa-history'/>
+          <p className='wkr-navigation__link-text'>Sessions</p>
         </NavLink>
       </li>
       <li className='nav-item'>
@@ -21,7 +22,8 @@ export const Navigation = ({ className }) => (
           to='/workouts'
           className='wkr-navigation__link nav-link'
           activeClassName='active'>
-          Workouts
+          <i className='far fa-play-circle'/>
+          <p className='wkr-navigation__link-text'>Workouts</p>
         </NavLink>
       </li>
       <li className='nav-item'>
@@ -29,7 +31,8 @@ export const Navigation = ({ className }) => (
           to='/exercises'
           className='wkr-navigation__link nav-link'
           activeClassName='active'>
-          Exercises
+          <i className='fas fa-dumbbell'/>
+          <p className='wkr-navigation__link-text'>Exercises</p>
         </NavLink>
       </li>
     </ul>

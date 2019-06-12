@@ -5,14 +5,14 @@ import {createExercise} from '../api/exercise'
 import {ExerciseForm} from '../components/ExerciseForm'
 
 export const NewExercise = ({handleCreateExercise, history}) => (
-  <>
+  <div className='container pt-2'>
     <h1>New Exercise</h1>
     <ExerciseForm
       submitText='Create'
       history={history}
       redirectTo='/exercises'
       handleSubmit={handleCreateExercise}/>
-  </>
+  </div>
 )
 
 const mapStateToProps = state => ({

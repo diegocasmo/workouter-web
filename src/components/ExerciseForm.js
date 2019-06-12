@@ -24,16 +24,34 @@ export const ExerciseForm = ({
           .then(() => (history && redirectTo) ? history.push(redirectTo) : null)
           .catch((errors) => setErrors(errors))
       }
-      render={({isSubmitting, values}) => (
+      render={({isSubmitting, values, errors, touched}) => {
+        return (
         <>
           <Prompt
             when={!isSubmitting && JSON.stringify(values) !== JSON.stringify(initialValues)}
             message='You have unsaved changes. Are you sure you want to leave?'/>
           <Form>
-            <Input name='name' label='Name' placeholder='Name' type='text'/>
-            <button type='submit' disabled={isSubmitting}>{submitText}</button>
+            <div className='row'>
+              <div className='col-sm-8'>
+                <Input
+                  autoFocus
+                  name='name'
+                  label='Name'
+                  placeholder='Exercise name...'
+                  type='text'
+                  errors={errors.name}
+                  touched={touched.name}/>
+              </div>
+            </div>
+            <button
+              className='btn btn-primary my-1'
+              type='submit'
+              disabled={isSubmitting}>
+              {submitText}
+            </button>
           </Form>
         </>
-      )}/>
+        )
+      }}/>
   )
 }

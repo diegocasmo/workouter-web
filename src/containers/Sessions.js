@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {fetchSessions, fetchClear} from '../state/session/session-action-creators'
 import {getSessions, canLoadMore} from '../state/session/session-selectors'
 import {Loading} from '../components/Loading'
+import {SessionListHeader} from '../components/Session/List/Header'
 import {SessionList} from '../components/Session/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -20,14 +21,17 @@ export const Sessions = ({
   }, [fetchClear])
 
   return (
-    <InfiniteScroll
-      pageStart={-1}
-      loadMore={fetchSessions}
-      hasMore={canLoadMore}
-      loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
-                                    <InfiniteScroll/> warning about unique key prop */}
-      <SessionList sessions={sessions}/>
-    </InfiniteScroll>
+    <div>
+      <SessionListHeader/>
+      <InfiniteScroll
+        pageStart={-1}
+        loadMore={fetchSessions}
+        hasMore={canLoadMore}
+        loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
+                                      <InfiniteScroll/> warning about unique key prop */}
+        <SessionList sessions={sessions}/>
+      </InfiniteScroll>
+    </div>
   )
 }
 

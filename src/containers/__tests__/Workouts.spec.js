@@ -6,6 +6,7 @@ import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Workouts} from '../Workouts'
 import {Loading} from '../../components/Loading'
+import {WorkoutListHeader} from '../../components/Workout/List/Header'
 import {WorkoutList} from '../../components/Workout/List/List'
 import {WorkoutItem} from '../../components/Workout/List/Item'
 import InfiniteScroll from 'react-infinite-scroller'
@@ -28,10 +29,15 @@ describe('<Workouts/>', () => {
     const wrapper = mount(<Router><Workouts {...props}/></Router>)
     expect(wrapper.find(Workouts).length).to.be.equal(1)
 
+    // Workouts header
+    expect(wrapper.find(WorkoutListHeader)).to.have.lengthOf(1)
+
+    // Infinite scroll
     expect(wrapper.find(InfiniteScroll).props().pageStart).to.be.equal(-1)
     expect(wrapper.find(InfiniteScroll).props().loadMore).to.be.equal(props.fetchWorkouts)
     expect(wrapper.find(InfiniteScroll).props().hasMore).to.be.equal(props.canLoadMore)
 
+    // Workouts list
     expect(wrapper.find(WorkoutList)).to.have.lengthOf(1)
     expect(wrapper.find(WorkoutItem)).to.have.lengthOf(props.workouts.length)
   })

@@ -21,7 +21,7 @@ export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFa
       <p className='h1 text-center'>{session.name}</p>
       <SessionStatistics session={session}/>
       <button
-        className='btn btn-outline-success btn-lg'
+        className='btn btn-success btn-lg'
         type='submit'
         disabled={isSubmitting}
         onClick={handleSubmit}>Save</button>

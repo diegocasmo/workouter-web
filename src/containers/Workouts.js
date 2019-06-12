@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {fetchWorkouts, fetchClear} from '../state/workout/workout-action-creators'
 import {getWorkouts, canLoadMore} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
+import {WorkoutListHeader} from '../components/Workout/List/Header'
 import {WorkoutList} from '../components/Workout/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -20,14 +21,17 @@ export const Workouts = ({
   }, [fetchClear])
 
   return (
-    <InfiniteScroll
-      pageStart={-1}
-      loadMore={fetchWorkouts}
-      hasMore={canLoadMore}
-      loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
-                                    <InfiniteScroll/> warning about unique key prop */}
-      <WorkoutList workouts={workouts}/>
-    </InfiniteScroll>
+    <div>
+      <WorkoutListHeader/>
+      <InfiniteScroll
+        pageStart={-1}
+        loadMore={fetchWorkouts}
+        hasMore={canLoadMore}
+        loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
+                                      <InfiniteScroll/> warning about unique key prop */}
+        <WorkoutList workouts={workouts}/>
+      </InfiniteScroll>
+    </div>
   )
 }
 
