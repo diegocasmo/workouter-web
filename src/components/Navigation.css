@@ -1,9 +1,13 @@
 .wkr-navigation {
-  padding: 15px 0px;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1020;
   width: 100%;
+  padding: 15px 0px;
   background-color: #FDFFFC;
-  box-shadow: 0 0.2rem 0.5rem rgba(190, 24, 45, .05), inset 0 -1px 0 rgba(190, 24, 45, .1);
-  border-bottom: 3px solid #BE182D;
+  border-top: 3px solid #BE182D;
 }
 
 a.wkr-navigation__link {

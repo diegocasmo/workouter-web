@@ -31,16 +31,10 @@ a:active {
   min-height: 100%;
 }
 
-.wrk-app {
-  margin: 0px auto;
-  min-width: 320px;
-  max-width: 1224px;
-}
-
 .wrk-app__container {
   height: auto;
   min-height: 100%;
   background-color: #FDFFFC;
-  padding: 0px;
+  padding: 0px 0px 73px;
   position: relative;
 }

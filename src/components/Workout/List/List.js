@@ -6,5 +6,5 @@ export const WorkoutList = ({workouts}) => (
     ? <div className='list-group list-group-flush'>
         {workouts.map((w,i) => <WorkoutItem key={i} workout={w}/>)}
       </div>
-    : <p className='text-center mt-2 mb-0'>There are no workouts to show</p>
+    : <p className='text-center m-0 pt-3'>There are no workouts to show</p>
 )

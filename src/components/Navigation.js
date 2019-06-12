@@ -2,8 +2,8 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import './Navigation.css'
 
-export const Navigation = () => (
-  <nav className='wkr-navigation navbar sticky-top justify-content-center'>
+export const Navigation = ({ className }) => (
+  <nav className={`wkr-navigation navbar justify-content-center ${className ? className : ''}`}>
     <ul className='nav  nav-fill'>
       <li className='nav-item'>
         <NavLink

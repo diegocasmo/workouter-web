@@ -10,5 +10,5 @@ export const ExerciseList = ({handleDeleteExercise, exercises}) => (
             handleDeleteExercise={handleDeleteExercise}
             exercise={e}/>)}
       </div>
-    : <p className='text-center mt-2 mb-0'>There are no exercises to show</p>
+    : <p className='text-center m-0 pt-3'>There are no exercises to show</p>
 )
