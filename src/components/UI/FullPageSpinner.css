@@ -1,0 +1,8 @@
+.wkr-full-page-spinner__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 0px 10px;
+}

@@ -1,40 +1,42 @@
 import React from 'react'
 import {expect} from 'chai'
-import faker from 'faker'
-import {shallow} from 'enzyme'
+import {mount} from 'enzyme'
+import {UserProvider} from '../../context/user-context'
+import {Provider} from 'react-redux'
+import configureMockStore from 'redux-mock-store'
+import {reducers} from '../../test-utils/store-mock'
 import {App} from '../App'
-import {ErrorList} from '../../components/ErrorList/ErrorList'
-import {Navigation} from '../../components/Navigation'
-import {Routes} from '../../components/Routes'
+import {Factory} from 'rosie'
+import {UnauthenticatedAppFromStore} from '../UnauthenticatedApp'
+import {AuthenticatedAppFromStore} from '../AuthenticatedApp'
+
+const mockStore = configureMockStore([])
 
 describe('<App/>', () => {
 
-  let props = null
-  let wrapper = null
-  beforeEach(() => {
-    props = {
-      errors: [],
-      removeError: () => {}
-    }
+  it('renders authenticated app', () => {
+    const wrapper = mount(
+      <Provider store={mockStore(reducers)}>
+        <UserProvider user={Factory.build('user')}>
+          <App/>
+        </UserProvider>
+      </Provider>
+    )
+
+    expect(wrapper.find(UnauthenticatedAppFromStore)).to.have.lengthOf(0)
+    expect(wrapper.find(AuthenticatedAppFromStore)).to.have.lengthOf(1)
   })
 
-  it('renders', () => {
-    wrapper = shallow(<App {...props}/>)
-    expect(wrapper.find(Navigation)).to.have.lengthOf(1)
-    expect(wrapper.find(ErrorList).props().errors).to.have.lengthOf(props.errors.length)
-    expect(wrapper.find(Routes)).to.have.lengthOf(1)
-  })
+  it('renders unauthenticated app', () => {
+    const wrapper = mount(
+      <Provider store={mockStore(reducers)}>
+        <UserProvider>
+          <App/>
+        </UserProvider>
+      </Provider>
+    )
 
-  it('renders a list of errors', () => {
-    props = {
-      ...props,
-      errors: [faker.lorem.words(), faker.lorem.words()]
-    }
-    wrapper = shallow(<App {...props}/>)
-
-    expect(wrapper.find(Navigation)).to.have.lengthOf(1)
-    expect(wrapper.find(ErrorList).props().errors).to.have.lengthOf(props.errors.length)
-    expect(wrapper.find(ErrorList).props().handleRemoveError).to.be.equal(props.removeError)
-    expect(wrapper.find(Routes)).to.have.lengthOf(1)
+    expect(wrapper.find(UnauthenticatedAppFromStore)).to.have.lengthOf(1)
+    expect(wrapper.find(AuthenticatedAppFromStore)).to.have.lengthOf(0)
   })
 })

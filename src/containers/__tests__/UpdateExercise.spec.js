@@ -7,7 +7,7 @@ import {act} from 'react-dom/test-utils'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {UpdateExercise} from '../UpdateExercise'
 import {Loading} from '../../components/Loading'
-import {ExerciseForm} from '../../components/ExerciseForm'
+import {ExerciseForm} from '../../components/Exercise/Form/Form'
 
 describe('<UpdateExercise/>', () => {
 

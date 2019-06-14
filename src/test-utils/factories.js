@@ -32,6 +32,15 @@ function removeUnwantedAttrs(obj={}, unwantedAttrs=[]) {
   return obj
 }
 
+Factory.define('user')
+  .sequence('id')
+  .attr('name', () => faker.lorem.words())
+  .attr('email', () => faker.internet.email())
+  .attr('pictureUrl', () => faker.image.imageUrl())
+  .attr('createdAt', () => moment().valueOf())
+  .attr('updatedAt', () => moment().valueOf())
+  .after((attrs, opts) => (removeUnwantedAttrs(attrs, opts.except)))
+
 Factory.define('exercise')
   .sequence('id')
   .attr('name', () => faker.lorem.words())

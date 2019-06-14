@@ -5,7 +5,7 @@ import {updateExercise} from '../api/exercise'
 import {getExercise} from '../state/exercise/exercise-action-creators'
 import {getExercise as getExerciseSelector, isLoading} from '../state/exercise/exercise-selectors'
 import {Loading} from '../components/Loading'
-import {ExerciseForm} from '../components/ExerciseForm'
+import {ExerciseForm} from '../components/Exercise/Form/Form'
 
 export const UpdateExercise = ({
   history,

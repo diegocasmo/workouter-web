@@ -1,8 +1,8 @@
 import React from 'react'
 import {Prompt} from 'react-router-dom'
 import {Formik, Form} from 'formik'
-import {Input} from './UI/Input'
-import {ExerciseSchema} from '../api/exercise'
+import {Input} from '../../UI/Input'
+import {ExerciseSchema} from '../../../api/exercise'
 
 export const ExerciseForm = ({
   exercise,

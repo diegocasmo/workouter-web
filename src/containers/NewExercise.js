@@ -2,7 +2,7 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {createExercise} from '../api/exercise'
-import {ExerciseForm} from '../components/ExerciseForm'
+import {ExerciseForm} from '../components/Exercise/Form/Form'
 
 export const NewExercise = ({handleCreateExercise, history}) => (
   <div className='container pt-2'>
