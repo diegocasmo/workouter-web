@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateWorkout} from '../api/workout'
-import {fetchExercises} from '../api/exercise'
+import {fetchExercises, createExercise} from '../api/exercise'
 import {getWorkout} from '../state/workout/workout-action-creators'
 import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
 import {Loading} from '../components/Loading'
@@ -13,6 +13,7 @@ export const UpdateWorkout = ({
   workoutId,
   updateWorkout,
   fetchExercises,
+  createExercise,
   workout,
   isLoading,
   getWorkout
@@ -33,6 +34,7 @@ export const UpdateWorkout = ({
             history={history}
             redirectTo={`/workouts/${workoutId}`}
             fetchExercises={fetchExercises}
+            createExercise={createExercise}
             handleSubmit={updateWorkout}/>}
     </>
   )
@@ -45,6 +47,7 @@ const mapStateToProps = (state, {match, history}) => {
     workoutId,
     updateWorkout,
     fetchExercises,
+    createExercise,
     workout: getWorkoutSelector(state, workoutId),
     isLoading: isLoading(state),
   }

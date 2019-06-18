@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {FieldArray} from 'formik'
 import {MultistepWizard} from '../../UI/MultistepWizard'
 import {Input} from '../../UI/Input'
@@ -79,4 +80,14 @@ export const WorkoutForm = ({
       </MultistepWizard.Page>
     </MultistepWizard>
   )
+}
+
+WorkoutForm.propTypes = {
+  workout: PropTypes.object,
+  submitText: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
+  redirectTo: PropTypes.string.isRequired,
+  fetchExercises: PropTypes.func.isRequired,
+  createExercise: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }
