@@ -25,6 +25,10 @@ export const ExerciseForm = ({
           .catch((errors) => setErrors(errors))
       }
       render={({isSubmitting, values, errors, touched}) => {
+        // Note Formik has an `isValid` prop that is passed to the `render` method, but its behavior is
+        // quite awkward, so instead the errors object is used to determine whether the form is valid
+        // or not. See more: https://github.com/jaredpalmer/formik/issues/1133
+        const isValid = Object.keys(errors).length === 0
         return (
         <>
           <Prompt
@@ -46,7 +50,7 @@ export const ExerciseForm = ({
             <button
               className='btn btn-primary my-1'
               type='submit'
-              disabled={isSubmitting}>
+              disabled={isSubmitting || !isValid}>
               {submitText}
             </button>
           </Form>

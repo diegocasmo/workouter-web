@@ -21,7 +21,7 @@ export const UpdateExercise = ({
   )
 
   return (
-    <>
+    <div className='container pt-2'>
       <h1>Update Exercise</h1>
       {isLoading
         ? <Loading/>
@@ -31,7 +31,7 @@ export const UpdateExercise = ({
             redirectTo='/exercises'
             handleSubmit={(attrs) => updateExercise({...exercise, ...attrs})}
             exercise={exercise}/>}
-    </>
+    </div>
   )
 }
 

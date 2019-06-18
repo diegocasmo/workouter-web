@@ -17,6 +17,11 @@ p, a, button, span, input {
   color: #161616;
 }
 
+button[type='button']:disabled,
+button[type='submit']:disabled {
+  cursor: not-allowed;
+}
+
 a:hover,
 a:focus,
 a:active {
