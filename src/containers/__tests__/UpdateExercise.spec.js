@@ -7,6 +7,7 @@ import {act} from 'react-dom/test-utils'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {UpdateExercise} from '../UpdateExercise'
 import {Loading} from '../../components/Loading'
+import {Header} from '../../components/UI/Header'
 import {ExerciseForm} from '../../components/Exercise/Form/Form'
 
 describe('<UpdateExercise/>', () => {
@@ -27,7 +28,7 @@ describe('<UpdateExercise/>', () => {
 
   it('renders', () => {
     const wrapper = mount(<Router><UpdateExercise {...props}/></Router>)
-    expect(wrapper.find(UpdateExercise).length).to.be.equal(1)
+    expect(wrapper.find(Header)).to.have.lengthOf(1)
     expect(wrapper.find(Loading)).to.have.lengthOf(0)
     expect(wrapper.find(ExerciseForm)).to.have.lengthOf(1)
     expect(wrapper.find("button[type='submit']").text()).to.be.equal('Update')
@@ -78,4 +79,4 @@ describe('<UpdateExercise/>', () => {
   })
 })
 
-const tick = _ => (new Promise(resolve =>setTimeout(resolve, 0)))
+const tick = () => (new Promise(resolve =>setTimeout(resolve, 0)))

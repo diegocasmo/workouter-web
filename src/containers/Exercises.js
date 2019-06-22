@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchExercises, fetchClear, deleteExercise} from '../state/exercise/exercise-action-creators'
 import {getExercises, canLoadMore} from '../state/exercise/exercise-selectors'
 import {Loading} from '../components/Loading'
-import {ExerciseListHeader} from '../components/Exercise/List/Header'
+import {Header} from '../components/UI/Header'
 import {ExerciseList} from '../components/Exercise/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -22,7 +23,16 @@ export const Exercises = ({
 
   return (
     <div>
-      <ExerciseListHeader/>
+      <Header>
+        <div className='d-flex h-100'>
+          <p className='h2 align-self-center m-0 mr-auto'>Exercises</p>
+          <Link
+            to='/exercises/new'
+            className='btn btn-primary align-self-center'>
+            New Exercise
+          </Link>
+        </div>
+      </Header>
       <InfiniteScroll
         pageStart={-1}
         loadMore={fetchExercises}

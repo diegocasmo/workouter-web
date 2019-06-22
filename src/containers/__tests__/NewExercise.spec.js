@@ -5,6 +5,7 @@ import {expect} from 'chai'
 import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {NewExercise} from '../NewExercise'
+import {Header} from '../../components/UI/Header'
 import {ExerciseForm} from '../../components/Exercise/Form/Form'
 
 describe('<NewExercise/>', () => {
@@ -21,7 +22,7 @@ describe('<NewExercise/>', () => {
 
   it('renders', () => {
     const wrapper = mount(<Router><NewExercise {...props}/></Router>)
-    expect(wrapper.find(NewExercise).length).to.be.equal(1)
+    expect(wrapper.find(Header)).to.have.lengthOf(1)
     expect(wrapper.find(ExerciseForm)).to.have.lengthOf(1)
     expect(wrapper.find("button[type='submit']").text()).to.be.equal('Create')
   })
@@ -56,4 +57,4 @@ describe('<NewExercise/>', () => {
   })
 })
 
-const tick = _ => (new Promise(resolve => setTimeout(resolve, 0)))
+const tick = () => (new Promise(resolve => setTimeout(resolve, 0)))

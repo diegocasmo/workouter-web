@@ -6,7 +6,7 @@ import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Workouts} from '../Workouts'
 import {Loading} from '../../components/Loading'
-import {WorkoutListHeader} from '../../components/Workout/List/Header'
+import {Header} from '../../components/UI/Header'
 import {WorkoutList} from '../../components/Workout/List/List'
 import {WorkoutItem} from '../../components/Workout/List/Item'
 import InfiniteScroll from 'react-infinite-scroller'
@@ -30,7 +30,8 @@ describe('<Workouts/>', () => {
     expect(wrapper.find(Workouts).length).to.be.equal(1)
 
     // Workouts header
-    expect(wrapper.find(WorkoutListHeader)).to.have.lengthOf(1)
+    expect(wrapper.find(Header)).to.have.lengthOf(1)
+    expect(wrapper.find({to: '/workouts/new'}).text()).to.equal('New Workout')
 
     // Infinite scroll
     expect(wrapper.find(InfiniteScroll).props().pageStart).to.be.equal(-1)

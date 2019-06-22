@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchSessions, fetchClear} from '../state/session/session-action-creators'
 import {getSessions, canLoadMore} from '../state/session/session-selectors'
 import {Loading} from '../components/Loading'
-import {SessionListHeader} from '../components/Session/List/Header'
+import {Header} from '../components/UI/Header'
 import {SessionList} from '../components/Session/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
@@ -22,7 +22,11 @@ export const Sessions = ({
 
   return (
     <div>
-      <SessionListHeader/>
+      <Header>
+        <div className='d-flex h-100'>
+          <p className='h2 align-self-center m-0 mr-auto'>Sessions</p>
+        </div>
+      </Header>
       <InfiniteScroll
         pageStart={-1}
         loadMore={fetchSessions}

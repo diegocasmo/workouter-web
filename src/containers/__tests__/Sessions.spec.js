@@ -6,7 +6,7 @@ import {mount} from 'enzyme'
 import {BrowserRouter as Router} from 'react-router-dom'
 import {Sessions} from '../Sessions'
 import {Loading} from '../../components/Loading'
-import {SessionListHeader} from '../../components/Session/List/Header'
+import {Header} from '../../components/UI/Header'
 import {SessionList} from '../../components/Session/List/List'
 import {SessionItem} from '../../components/Session/List/Item'
 import InfiniteScroll from 'react-infinite-scroller'
@@ -30,7 +30,7 @@ describe('<Sessions/>', () => {
     expect(wrapper.find(Sessions).length).to.be.equal(1)
 
     // Sessions header
-    expect(wrapper.find(SessionListHeader)).to.have.lengthOf(1)
+    expect(wrapper.find(Header)).to.have.lengthOf(1)
 
     // Infinite scroll
     expect(wrapper.find(InfiniteScroll).props().pageStart).to.be.equal(-1)

@@ -1,0 +1,18 @@
+.wkr-header {
+  background-color: #FDFFFC;
+  border-bottom: 3px solid #BE182D;
+  height: 73px;
+  padding: 12px;
+}
+
+.wkr-header__content {
+  display: flex;
+}
+
+.wkr-header__content-logo {
+  flex: 0.5 0 0;
+}
+
+.wkr-header__content-page {
+  flex: 2 0 0;
+}
