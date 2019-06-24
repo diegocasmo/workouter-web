@@ -58,20 +58,20 @@ export async function fetchWorkouts(opts = {}) {
   const {name = null, pageNum = 0, perPage = 10, db = connection} = opts
 
   // Perform case-insensitive search if a name query is provided
-  const lowerCaseName = name ? name.toLowerCase() : null
-
-  // Sort workouts by case-insensitive name
-  const sortByCaseInsensitiveName = (a, b) =>
-    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  const caseInsensitiveName = name ? name.toLowerCase() : null
 
   // Return paginated results filtered by an optional name query
   // Note: Dexie doesn't support case-insensitive `orderBy`. As a result,
   // all workouts are retrieved using `toArray` in order to use native
   // Array methods
-  const workouts = await db.workouts.toArray()
+  let workouts = await db.workouts.toArray()
+  if (caseInsensitiveName) {
+    workouts = workouts.filter(x => x.name.toLowerCase().includes(caseInsensitiveName))
+  }
+
+  // Sort workouts by case-insensitive name
   return workouts
-    .sort(sortByCaseInsensitiveName)
-    .filter(x => name ? `${x.name}`.includes(lowerCaseName) : true)
+    .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
     .slice(pageNum * perPage, (pageNum + 1) * perPage)
 }
 
