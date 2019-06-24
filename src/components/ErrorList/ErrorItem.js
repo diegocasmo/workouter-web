@@ -1,11 +1,11 @@
 import React from 'react'
 
-export const ErrorItem = ({index, error, handleRemoveError}) => (
+export const ErrorItem = ({index, error, removeError}) => (
   <p>
     {error} <button type="button"
       onClick={(event) => {
         event.preventDefault()
-        handleRemoveError(index)
+        removeError(index)
       }}>X</button>
   </p>
 )

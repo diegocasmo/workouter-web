@@ -10,6 +10,7 @@ import {WorkoutList} from '../components/Workout/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
 export const Workouts = ({
+  hasMore,
   canLoadMore,
   workouts,
   fetchWorkouts,
@@ -39,13 +40,16 @@ export const Workouts = ({
         hasMore={canLoadMore}
         loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
                                       <InfiniteScroll/> warning about unique key prop */}
-        <WorkoutList workouts={workouts}/>
+        <WorkoutList
+          hasMore={hasMore}
+          workouts={workouts}/>
       </InfiniteScroll>
     </div>
   )
 }
 
 const mapStateToProps = state => ({
+  hasMore: state.workouts.hasMore,
   canLoadMore: canLoadMore(state),
   workouts: getWorkouts(state)
 })

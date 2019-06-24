@@ -19,6 +19,7 @@ describe('<Workouts/>', () => {
     const workouts = Factory.buildList('workout', 3)
     props = {
       workouts,
+      hasMore: true,
       canLoadMore: true,
       fetchWorkouts: sinon.spy(() => Promise.resolve(workouts)),
       fetchClear: sinon.spy()

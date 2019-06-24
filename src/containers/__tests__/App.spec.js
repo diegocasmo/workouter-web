@@ -7,8 +7,8 @@ import configureMockStore from 'redux-mock-store'
 import {reducers} from '../../test-utils/store-mock'
 import {App} from '../App'
 import {Factory} from 'rosie'
-import {UnauthenticatedAppFromStore} from '../UnauthenticatedApp'
-import {AuthenticatedAppFromStore} from '../AuthenticatedApp'
+import {UnauthenticatedApp} from '../UnauthenticatedApp'
+import {AuthenticatedApp} from '../AuthenticatedApp'
 
 const mockStore = configureMockStore([])
 
@@ -23,8 +23,8 @@ describe('<App/>', () => {
       </Provider>
     )
 
-    expect(wrapper.find(UnauthenticatedAppFromStore)).to.have.lengthOf(0)
-    expect(wrapper.find(AuthenticatedAppFromStore)).to.have.lengthOf(1)
+    expect(wrapper.find(UnauthenticatedApp)).to.have.lengthOf(0)
+    expect(wrapper.find(AuthenticatedApp)).to.have.lengthOf(1)
   })
 
   it('renders unauthenticated app', () => {
@@ -36,7 +36,7 @@ describe('<App/>', () => {
       </Provider>
     )
 
-    expect(wrapper.find(UnauthenticatedAppFromStore)).to.have.lengthOf(1)
-    expect(wrapper.find(AuthenticatedAppFromStore)).to.have.lengthOf(0)
+    expect(wrapper.find(UnauthenticatedApp)).to.have.lengthOf(1)
+    expect(wrapper.find(AuthenticatedApp)).to.have.lengthOf(0)
   })
 })

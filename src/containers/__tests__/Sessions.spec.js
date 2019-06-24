@@ -19,6 +19,7 @@ describe('<Sessions/>', () => {
     const sessions = Factory.buildList('session', 3)
     props = {
       sessions,
+      hasMore: true,
       canLoadMore: true,
       fetchSessions: sinon.spy(() => Promise.resolve(sessions)),
       fetchClear: sinon.spy()

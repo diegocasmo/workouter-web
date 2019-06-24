@@ -12,7 +12,7 @@ describe('<ErrorItem/>', () => {
     props = {
       index: 1,
       error: faker.lorem.words(),
-      handleRemoveError: sinon.spy()
+      removeError: sinon.spy()
     }
   })
 
@@ -22,11 +22,11 @@ describe('<ErrorItem/>', () => {
     expect(wrapper.find("button[type='button']").text()).to.be.equal('X')
   })
 
-  it('calls handleRemoveError() when clicked on the remove button', () => {
+  it('calls removeError() when clicked on the remove button', () => {
     const wrapper = shallow(<ErrorItem {...props}/>)
-    expect(props.handleRemoveError.called).to.be.false
+    expect(props.removeError.called).to.be.false
     wrapper.find("button[type='button']").simulate('click', {preventDefault: () => {}})
-    expect(props.handleRemoveError.calledOnce).to.be.true
-    expect(props.handleRemoveError.calledWith(props.index)).to.be.true
+    expect(props.removeError.calledOnce).to.be.true
+    expect(props.removeError.calledWith(props.index)).to.be.true
   })
 })

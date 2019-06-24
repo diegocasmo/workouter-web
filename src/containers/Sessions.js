@@ -9,6 +9,7 @@ import {SessionList} from '../components/Session/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
 export const Sessions = ({
+  hasMore,
   canLoadMore,
   sessions,
   fetchSessions,
@@ -33,13 +34,16 @@ export const Sessions = ({
         hasMore={canLoadMore}
         loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
                                       <InfiniteScroll/> warning about unique key prop */}
-        <SessionList sessions={sessions}/>
+        <SessionList
+          hasMore={hasMore}
+          sessions={sessions}/>
       </InfiniteScroll>
     </div>
   )
 }
 
 const mapStateToProps = state => ({
+  hasMore: state.sessions.hasMore,
   canLoadMore: canLoadMore(state),
   sessions: getSessions(state)
 })

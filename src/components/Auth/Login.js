@@ -1,22 +1,25 @@
 import React from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 import {GoogleLogin} from 'react-google-login'
 import {useUser} from '../../context/user-context'
+import {addError} from '../../state/error/error-action-creators'
 import './Login.css'
 
-export const Login = ({onFailure}) => {
+export const Login = ({addError}) => {
   const {login, logout} = useUser()
 
   const handleSucess = async (googleUser) => {
     try {
       await login(googleUser)
     } catch(err) {
-      onFailure(err.message)
+      addError(err.message)
     }
   }
 
   const handleFailure = (err) => {
     logout()
-    onFailure(err.message)
+    addError(err.message)
   }
 
   return (
@@ -33,3 +36,13 @@ export const Login = ({onFailure}) => {
     </div>
   )
 }
+
+const mapStateToProps = state => ({})
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({addError}, dispatch)
+)
+
+export const LoginFromStore = connect(
+  mapStateToProps, mapDispatchToProps
+)(Login)
