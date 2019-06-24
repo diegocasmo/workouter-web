@@ -1,4 +1,5 @@
 .wkr-exercise-item__name {
+  text-transform: capitalize;
   display: inline-block;
   max-width: 80%;
 }

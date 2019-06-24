@@ -4,6 +4,10 @@
   opacity: 0.8;
 }
 
+.wkr-workout-item__name {
+  text-transform: capitalize;
+}
+
 .wkr-workout-item__exercise-count {
   color: #FDFFFC;
   background-color: #011627;

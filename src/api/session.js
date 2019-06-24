@@ -49,6 +49,6 @@ export async function getSession(id, db = connection) {
 // Returns the id of the created session in DB if successful, a rejected Promise with a
 // Rails-like object of errors otherwise
 export async function createSession(attrs, db = connection) {
-  await validateSession(attrs)
-  return db.sessions.add(attrs)
+  const validAttrs = await validateSession(attrs)
+  return db.sessions.add(validAttrs)
 }

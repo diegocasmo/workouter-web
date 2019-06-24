@@ -1,11 +1,6 @@
 import faker from 'faker'
 import {expect} from 'chai'
-import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from '../error-message'
-
-it('trimmedMsg()', () => {
-  const attr = faker.lorem.word()
-  expect(trimmedMsg(attr)).to.be.equal(`${attr} must be a trimmed string`)
-})
+import {requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from '../error-message'
 
 it('requiredMsg()', () => {
   const attr = faker.lorem.word()

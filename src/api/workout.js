@@ -1,13 +1,13 @@
 import connection from './db'
 import {string, number, array, object, mixed} from 'yup'
 import {transformYupToFormikError} from './utils/error-transform'
-import {trimmedMsg, requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from './utils/error-message'
+import {requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from './utils/error-message'
 import {UNITS} from './unit'
 
 // Workout setup details schema
 export const WorkoutSetupSchema = object().shape({
   name: string()
-          .trim(trimmedMsg('Name')).strict()
+          .trim()
           .required(requiredMsg('Name')),
   rounds: number(numTypeMsg('Rounds'))
             .positive(positiveNumMsg('Rounds'))
@@ -26,14 +26,14 @@ export const WorkoutSchema = object()
   .shape({
     exercises: array().of(object().shape({
         name: string()
-                .trim(trimmedMsg('Exercise name')).strict()
+                .trim()
                 .required(requiredMsg('Exercise name')),
         quantity: number(numTypeMsg('Quantity'))
                     .typeError(numTypeMsg('Quantity'))
                     .positive(positiveNumMsg('Quantity'))
                     .required(requiredMsg('Quantity')),
         quantityUnit: string()
-                        .trim(trimmedMsg('Quantity unit')).strict()
+                        .trim()
                         .required(requiredMsg('Quantity unit')),
         weight: number(numTypeMsg('Weight'))
                   .typeError(numTypeMsg('Weight'))
@@ -56,16 +56,23 @@ export async function validateWorkout(attrs) {
 // workouts that have a name which includes the specified name query (case-insensitive)
 export async function fetchWorkouts(opts = {}) {
   const {name = null, pageNum = 0, perPage = 10, db = connection} = opts
+
   // Perform case-insensitive search if a name query is provided
   const lowerCaseName = name ? name.toLowerCase() : null
+
+  // Sort workouts by case-insensitive name
+  const sortByCaseInsensitiveName = (a, b) =>
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+
   // Return paginated results filtered by an optional name query
-  return db.workouts.orderBy('name')
-    .filter(x => name
-      ? `${x.name}`.toLowerCase().includes(lowerCaseName)
-      : true)
-    .offset(pageNum * perPage)
-    .limit(perPage)
-    .toArray()
+  // Note: Dexie doesn't support case-insensitive `orderBy`. As a result,
+  // all workouts are retrieved using `toArray` in order to use native
+  // Array methods
+  const workouts = await db.workouts.toArray()
+  return workouts
+    .sort(sortByCaseInsensitiveName)
+    .filter(x => name ? `${x.name}`.includes(lowerCaseName) : true)
+    .slice(pageNum * perPage, (pageNum + 1) * perPage)
 }
 
 // Return a workout from DB if it exists, otherwise reject with an error
@@ -78,7 +85,7 @@ export async function getWorkout(id, db = connection) {
 // object of errors otherwise
 export function createWorkout(attrs, db = connection) {
   return validateWorkout(attrs)
-    .then(() => db.workouts.add(attrs))
+    .then((validAttrs) => db.workouts.add(validAttrs))
     .then((id) => db.workouts.get(id))
 }
 

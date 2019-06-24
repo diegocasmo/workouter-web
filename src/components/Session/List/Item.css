@@ -4,6 +4,10 @@
   opacity: 0.8;
 }
 
+.wkr-session-item__name {
+  text-transform: capitalize;
+}
+
 .wkr-session-item__time-ago {
   color: #FDFFFC;
   background-color: #011627;

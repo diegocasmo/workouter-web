@@ -1,12 +1,12 @@
 import connection from './db'
 import {string, object} from 'yup'
 import {transformYupToFormikError} from './utils/error-transform'
-import {trimmedMsg, requiredMsg} from './utils/error-message'
+import {requiredMsg} from './utils/error-message'
 
 // An exercise schema
 export const ExerciseSchema = object().shape({
   name: string()
-          .trim(trimmedMsg('Name')).strict()
+          .trim()
           .required(requiredMsg('Name'))
 })
 
@@ -21,16 +21,23 @@ export function validateExercise(attrs) {
 // exercises that have a name which includes the specified name query (case-insensitive)
 export async function fetchExercises(opts = {}) {
   const {name = null, pageNum = 0, perPage = 10, db = connection} = opts
+
   // Perform case-insensitive search if a name query is provided
   const lowerCaseName = name ? name.toLowerCase() : null
+
+  // Sort exercises by case-insensitive name
+  const sortByCaseInsensitiveName = (a, b) =>
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+
   // Return paginated results filtered by an optional name query
-  return db.exercises.orderBy('name')
-    .filter(x => name
-      ? `${x.name}`.toLowerCase().includes(lowerCaseName)
-      : true)
-    .offset(pageNum * perPage)
-    .limit(perPage)
-    .toArray()
+  // Note: Dexie doesn't support case-insensitive `orderBy`. As a result,
+  // all exercises are retrieved using `toArray` in order to use native
+  // Array methods
+  const exercises = await db.exercises.toArray()
+  return exercises
+    .sort(sortByCaseInsensitiveName)
+    .filter(x => name ? `${x.name}`.includes(lowerCaseName) : true)
+    .slice(pageNum * perPage, (pageNum + 1) * perPage)
 }
 
 // Return an exercise from DB if it exists, otherwise reject with an error
@@ -43,7 +50,7 @@ export async function getExercise(id, db = connection) {
 // object of errors otherwise
 export function createExercise(attrs, db = connection) {
   return validateExercise(attrs)
-    .then(() => db.exercises.add(attrs))
+    .then((validAttrs) => db.exercises.add(validAttrs))
     .then((id) => db.exercises.get(id))
 }
 
