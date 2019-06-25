@@ -1,11 +1,12 @@
 .wkr-navigation {
+  min-width: 320px;
   position: fixed;
   right: 0px;
   bottom: 0px;
   left: 0px;
   z-index: 1020;
   width: 100%;
-  padding: 12px;
+  padding: 12px 0px;
   background-color: #FDFFFC;
   border-top: 3px solid #BE182D;
 }

@@ -1,1 +1,1 @@
-export const getErrors = ({errors}) => (errors)
+export const getErrors = ({errors}) => errors

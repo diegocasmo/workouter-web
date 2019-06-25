@@ -1,0 +1,8 @@
+.wkr-error-list__container {
+  min-width: 320px;
+  z-index: 9999;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
