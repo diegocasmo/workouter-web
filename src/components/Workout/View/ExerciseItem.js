@@ -9,7 +9,7 @@ export const WorkoutExerciseItem = ({
   weight,
   weightUnit
 }) => (
-  <span className={`wrk-workout-exercise-item__title ${className}`}>
+  <span className={`wkr-workout-exercise-item__title ${className}`}>
     {name} <span style={{textTransform: 'lowercase'}}>x{quantity} {getUnitFromUnitValue(quantityUnit).text} {weight > 0 ? `@${weight} ${weightUnit}` : null}</span>
   </span>
 )
