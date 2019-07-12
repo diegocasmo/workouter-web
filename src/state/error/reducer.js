@@ -1,4 +1,4 @@
-import {ERROR} from './error-actions'
+import {ERROR} from './actions'
 
 export const initialState = []
 

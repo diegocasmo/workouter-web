@@ -1,4 +1,4 @@
-import {ERROR} from './error-actions'
+import {ERROR} from './actions'
 
 // Add an error
 export function addError(err) {

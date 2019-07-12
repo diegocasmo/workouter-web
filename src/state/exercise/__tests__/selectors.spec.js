@@ -1,9 +1,9 @@
 import {expect} from 'chai'
 import {Factory} from 'rosie'
 import sinon from 'sinon'
-import {initialState} from '../exercise-reducer'
+import {initialState} from '../reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getExercises, isLoading, getExercise, canLoadMore} from '../exercise-selectors'
+import {getExercises, isLoading, getExercise, canLoadMore} from '../selectors'
 
 describe('Exercise Selectors', () => {
 

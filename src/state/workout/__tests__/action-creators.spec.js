@@ -5,9 +5,9 @@ import sinon from 'sinon'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 import * as workout from '../../../api/workout'
-import {WORKOUT} from '../workout-actions'
-import {ERROR} from '../../error/error-actions'
-import {fetchWorkouts, getWorkout, deleteWorkout} from '../workout-action-creators'
+import {WORKOUT} from '../actions'
+import {ERROR} from '../../error/actions'
+import {fetchWorkouts, getWorkout, deleteWorkout} from '../action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)

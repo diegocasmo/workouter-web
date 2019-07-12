@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 import {Factory} from 'rosie'
-import {sessionReducer, initialState} from '../session-reducer'
-import {SESSION} from '../session-actions'
+import {sessionReducer, initialState} from '../reducer'
+import {SESSION} from '../actions'
 import {REQUEST_STATUS} from '../../utils/request-status'
 
 describe('Session Reducer', () => {

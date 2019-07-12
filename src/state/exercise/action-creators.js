@@ -1,6 +1,6 @@
 import * as exercise from '../../api/exercise'
-import {EXERCISE} from './exercise-actions'
-import {addError} from '../error/error-action-creators'
+import {EXERCISE} from './actions'
+import {addError} from '../error/action-creators'
 
 // Fetch exercises from API
 export function fetchExercises(pageNum = 0) {

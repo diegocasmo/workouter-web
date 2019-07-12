@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getWorkout, deleteWorkout} from '../state/workout/workout-action-creators'
-import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
+import {getWorkout, deleteWorkout} from '../state/workout/action-creators'
+import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/selectors'
 import {Loading} from '../components/Loading'
 import {WorkoutView} from '../components/Workout/View/View'
 

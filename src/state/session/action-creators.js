@@ -1,6 +1,6 @@
 import * as session from '../../api/session'
-import {SESSION} from './session-actions'
-import {addError} from '../error/error-action-creators'
+import {SESSION} from './actions'
+import {addError} from '../error/action-creators'
 
 // Fetch sessions from API
 export function fetchSessions(pageNum = 0) {

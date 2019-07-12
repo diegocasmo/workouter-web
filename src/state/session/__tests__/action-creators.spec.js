@@ -5,9 +5,9 @@ import sinon from 'sinon'
 import thunk from 'redux-thunk'
 import configureMockStore from 'redux-mock-store'
 import * as session from '../../../api/session'
-import {SESSION} from '../session-actions'
-import {ERROR} from '../../error/error-actions'
-import {fetchSessions, fetchClear, getSession} from '../session-action-creators'
+import {SESSION} from '../actions'
+import {ERROR} from '../../error/actions'
+import {fetchSessions, fetchClear, getSession} from '../action-creators'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)

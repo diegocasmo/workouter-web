@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 import faker from 'faker'
-import {errorReducer, initialState} from '../error-reducer'
-import {ERROR} from '../error-actions'
+import {errorReducer, initialState} from '../reducer'
+import {ERROR} from '../actions'
 
 describe('Error Reducer', () => {
 

@@ -1,4 +1,4 @@
-import {EXERCISE} from './exercise-actions'
+import {EXERCISE} from './actions'
 import {REQUEST_STATUS} from '../utils/request-status'
 
 export const initialState = {

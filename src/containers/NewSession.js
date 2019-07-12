@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getWorkout} from '../state/workout/workout-action-creators'
-import {addError} from '../state/error/error-action-creators'
+import {getWorkout} from '../state/workout/action-creators'
+import {addError} from '../state/error/action-creators'
 import {createSession} from '../api/session'
-import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/workout-selectors'
+import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/selectors'
 import {Loading} from '../components/Loading'
 import {SessionForm} from '../components/Session/Form/Form'
 

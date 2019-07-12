@@ -1,8 +1,8 @@
 import {expect} from 'chai'
 import sinon from 'sinon'
 import faker from 'faker'
-import {initialState} from '../error-reducer'
-import {getErrors} from '../error-selectors'
+import {initialState} from '../reducer'
+import {getErrors} from '../selectors'
 
 describe('Error Selectors', () => {
 

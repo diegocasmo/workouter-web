@@ -1,6 +1,6 @@
 import * as workout from '../../api/workout'
-import {WORKOUT} from './workout-actions'
-import {addError} from '../error/error-action-creators'
+import {WORKOUT} from './actions'
+import {addError} from '../error/action-creators'
 
 // Fetch workouts from API
 export function fetchWorkouts(pageNum = 0) {

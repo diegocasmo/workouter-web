@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 import faker from 'faker'
-import {ERROR} from '../error-actions'
-import {addError, removeError} from '../error-action-creators'
+import {ERROR} from '../actions'
+import {addError, removeError} from '../action-creators'
 
 describe('Error Action Creators', () => {
 

@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import {ERROR} from '../error-actions'
+import {ERROR} from '../actions'
 
 describe('ERROR', () => {
 

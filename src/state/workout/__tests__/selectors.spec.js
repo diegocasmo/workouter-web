@@ -1,9 +1,9 @@
 import {expect} from 'chai'
 import {Factory} from 'rosie'
 import sinon from 'sinon'
-import {initialState} from '../workout-reducer'
+import {initialState} from '../reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getWorkouts, isLoading, getWorkout, canLoadMore} from '../workout-selectors'
+import {getWorkouts, isLoading, getWorkout, canLoadMore} from '../selectors'
 
 describe('Workout Selectors', () => {
 

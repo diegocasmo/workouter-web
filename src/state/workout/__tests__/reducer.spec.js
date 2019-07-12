@@ -1,7 +1,7 @@
 import {expect} from 'chai'
 import {Factory} from 'rosie'
-import {workoutReducer, initialState} from '../workout-reducer'
-import {WORKOUT} from '../workout-actions'
+import {workoutReducer, initialState} from '../reducer'
+import {WORKOUT} from '../actions'
 import {REQUEST_STATUS} from '../../utils/request-status'
 
 describe('Workout Reducer', () => {

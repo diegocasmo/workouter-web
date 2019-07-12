@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import {SESSION} from '../session-actions'
+import {SESSION} from '../actions'
 
 describe('SESSION', () => {
 

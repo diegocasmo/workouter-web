@@ -1,10 +1,10 @@
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
-import {sessionReducer} from './session/session-reducer'
-import {workoutReducer} from './workout/workout-reducer'
-import {exerciseReducer} from './exercise/exercise-reducer'
-import {errorReducer} from './error/error-reducer'
+import {sessionReducer} from './session/reducer'
+import {workoutReducer} from './workout/reducer'
+import {exerciseReducer} from './exercise/reducer'
+import {errorReducer} from './error/reducer'
 
 let middleware = [thunk]
 if (process.env.NODE_ENV === 'development') {

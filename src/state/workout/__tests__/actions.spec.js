@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import {WORKOUT} from '../workout-actions'
+import {WORKOUT} from '../actions'
 
 describe('WORKOUT', () => {
 

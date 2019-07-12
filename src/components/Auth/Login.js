@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {GoogleLogin} from 'react-google-login'
 import {useUser} from '../../context/user-context'
-import {addError} from '../../state/error/error-action-creators'
+import {addError} from '../../state/error/action-creators'
 import './Login.css'
 
 export const Login = ({addError}) => {

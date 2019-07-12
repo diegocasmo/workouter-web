@@ -1,8 +1,8 @@
 import {expect} from 'chai'
 import {Factory} from 'rosie'
-import {initialState} from '../session-reducer'
+import {initialState} from '../reducer'
 import {REQUEST_STATUS} from '../../utils/request-status'
-import {getSessions, getSession, isLoadingSessions, canLoadMore} from '../session-selectors'
+import {getSessions, getSession, isLoadingSessions, canLoadMore} from '../selectors'
 
 describe('Session Selectors', () => {
 
