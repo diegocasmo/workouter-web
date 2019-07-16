@@ -3,7 +3,7 @@ import {expect} from 'chai'
 import faker from 'faker'
 import sinon from 'sinon'
 import {mount} from 'enzyme'
-import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable'
+import AsyncCreatableSelect from 'react-select/async-creatable'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import {AsyncCreateSelect} from '../AsyncCreateSelect'
 
@@ -33,11 +33,10 @@ describe('<AsyncCreateSelect/>', () => {
   })
 
   it('renders', async () => {
-    const wrapper = mount(<Formik
-      initialValues={{[props.name]: ''}}
-      render={() => (
-        <Form><AsyncCreateSelect {...props}/></Form>
-      )}/>
+    const wrapper = mount(
+      <Formik initialValues={{ [props.name]: '' }}>
+        <AsyncCreateSelect {...props}/>
+      </Formik>
     )
 
     // It correctly renders component
@@ -48,15 +47,20 @@ describe('<AsyncCreateSelect/>', () => {
     expect(props.onLoadOptions.calledOnce).to.be.true
 
     // Simulate user will select an option
-    wrapper.find('.wkr-searchable-select__dropdown-indicator').simulate('mouseDown', {button: 0})
+    wrapper.find('.wkr-searchable-select__dropdown-indicator')
+      .hostNodes()
+      .simulate('mouseDown', { button: 0 })
     await tick()
     wrapper.update()
 
     // It renders asynchronously options returned by `onLoadOptions`
-    expect(wrapper.find('.wkr-searchable-select__option')).to.have.lengthOf(options.length)
-    wrapper.find('.wkr-searchable-select__option').forEach((x, i) => {
-      expect(x.text()).to.be.equal(options[i].label)
-    })
+    expect(wrapper.find('.wkr-searchable-select__option').hostNodes())
+      .to.have.lengthOf(options.length)
+    wrapper.find('.wkr-searchable-select__option')
+      .hostNodes()
+      .forEach((x, i) => {
+        expect(x.text()).to.be.equal(options[i].label)
+      })
 
     // Verify selecting an option correctly updates Formik field value
     expect(wrapper.state().values[props.name]).to.be.equal('')
@@ -70,21 +74,28 @@ describe('<AsyncCreateSelect/>', () => {
       defaultOptions: [makeOption()]
     }
 
-    const wrapper = mount(<Formik render={() => (
-      <Form><AsyncCreateSelect {...props}/></Form>
-    )}/>)
+    const wrapper = mount(
+      <Formik>
+        <Form>
+          <AsyncCreateSelect {...props}/>
+        </Form>
+      </Formik>
+    )
 
     // No need to fetch, there are default options
     expect(props.onLoadOptions.calledOnce).to.be.false
 
     // Simulate user will select an option
-    wrapper.find('.wkr-searchable-select__dropdown-indicator').simulate('mouseDown', {button: 0})
+    wrapper.find('.wkr-searchable-select__dropdown-indicator')
+      .hostNodes()
+      .simulate('mouseDown', { button: 0 })
     await tick()
     wrapper.update()
 
     // It should render default options (no fetch)
-    expect(wrapper.find('.wkr-searchable-select__option')).to.have.lengthOf(1)
-    expect(wrapper.find('.wkr-searchable-select__option').first().text()).to.be.equal(props.defaultOptions[0].label)
+    expect(wrapper.find('.wkr-searchable-select__option').hostNodes()).to.have.lengthOf(1)
+    expect(wrapper.find('.wkr-searchable-select__option').hostNodes().first().text())
+      .to.be.equal(props.defaultOptions[0].label)
   })
 
   it('renders currently selected option', () => {
@@ -95,13 +106,17 @@ describe('<AsyncCreateSelect/>', () => {
       defaultOptions: [{value, label}]
     }
 
-    const wrapper = mount(<Formik render={() => (
-      <Form><AsyncCreateSelect {...props}/></Form>
-    )}/>)
+    const wrapper = mount(
+      <Formik>
+        <Form>
+          <AsyncCreateSelect {...props}/>
+        </Form>
+      </Formik>
+    )
 
     // Verify currently selected option is equal to `value` prop passed to it
     expect(wrapper.find(AsyncCreatableSelect).props().value).to.be.eql({value, label: value})
   })
 })
 
-const tick = () => ((new Promise(resolve => setTimeout(resolve, 0))))
+const tick = () => new Promise(resolve => setTimeout(resolve, 0))

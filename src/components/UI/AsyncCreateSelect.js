@@ -1,6 +1,6 @@
 import React from 'react'
 import {Field, ErrorMessage} from 'formik'
-import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable'
+import AsyncCreatableSelect from 'react-select/async-creatable'
 
 export const AsyncCreateSelect = ({
   name,
