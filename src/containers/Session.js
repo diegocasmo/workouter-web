@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {getSession} from '../state/session/action-creators'
 import {getSession as getSessionSelector, isLoadingSessions} from '../state/session/selectors'
@@ -30,9 +29,7 @@ const mapStateToProps = (state, {match}) => {
   }
 }
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({getSession}, dispatch)
-)
+const mapDispatchToProps = {getSession}
 
 export const SessionFromStore = connect(
   mapStateToProps, mapDispatchToProps

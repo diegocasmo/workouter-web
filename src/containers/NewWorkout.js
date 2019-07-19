@@ -1,5 +1,4 @@
 import React from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {createWorkout} from '../api/workout'
 import {fetchExercises, createExercise} from '../api/exercise'
@@ -30,10 +29,6 @@ const mapStateToProps = (state, {history}) => ({
   createExercise
 })
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({}, dispatch)
-)
-
 export const NewWorkoutFromStore = connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps, null
 )(NewWorkout)

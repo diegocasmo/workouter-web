@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {fetchSessions, fetchClear} from '../state/session/action-creators'
 import {getSessions, canLoadMore} from '../state/session/selectors'
@@ -48,9 +47,7 @@ const mapStateToProps = state => ({
   sessions: getSessions(state)
 })
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({fetchSessions, fetchClear}, dispatch)
-)
+const mapDispatchToProps = {fetchSessions, fetchClear}
 
 export const SessionsFromStore = connect(
   mapStateToProps, mapDispatchToProps

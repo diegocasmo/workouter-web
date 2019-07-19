@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {getWorkout} from '../state/workout/action-creators'
 import {addError} from '../state/error/action-creators'
@@ -46,9 +45,7 @@ const mapStateToProps = (state, {match, history}) => {
   }
 }
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({getWorkout, addError}, dispatch)
-)
+const mapDispatchToProps = {getWorkout, addError}
 
 export const NewSessionFromStore = connect(
   mapStateToProps, mapDispatchToProps

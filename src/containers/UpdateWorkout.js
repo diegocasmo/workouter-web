@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {updateWorkout} from '../api/workout'
 import {fetchExercises, createExercise} from '../api/exercise'
@@ -53,9 +52,7 @@ const mapStateToProps = (state, {match, history}) => {
   }
 }
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({getWorkout}, dispatch)
-)
+const mapDispatchToProps = {getWorkout}
 
 export const UpdateWorkoutFromStore = connect(
   mapStateToProps, mapDispatchToProps

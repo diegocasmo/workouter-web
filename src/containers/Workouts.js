@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fetchWorkouts, fetchClear} from '../state/workout/action-creators'
@@ -54,9 +53,7 @@ const mapStateToProps = state => ({
   workouts: getWorkouts(state)
 })
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({fetchWorkouts, fetchClear}, dispatch)
-)
+const mapDispatchToProps = {fetchWorkouts, fetchClear}
 
 export const WorkoutsFromStore = connect(
   mapStateToProps, mapDispatchToProps
