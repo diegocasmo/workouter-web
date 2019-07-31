@@ -6,7 +6,6 @@ import {Input} from '../../UI/Input'
 import {WorkoutSetupSchema, WorkoutSchema} from '../../../api/workout'
 import {UNITS} from '../../../api/unit'
 import {WorkoutExerciseForm} from './Exercise'
-import {SortableItem} from '../../UI/SortableItem'
 
 export const WorkoutForm = ({
   workout,
@@ -59,20 +58,15 @@ export const WorkoutForm = ({
           render={({remove, push, swap, form}) => (
             <>
               {form.values.exercises.map((_, index) =>
-                <SortableItem
-                  type='WorkoutExerciseForm'
+                <WorkoutExerciseForm
                   key={index}
                   index={index}
-                  onSortableItemMoved={swap}>
-                  <WorkoutExerciseForm
-                    index={index}
-                    exerciseName={form.values.exercises[index].name}
-                    onRemove={() => remove(index)}
-                    push={push}
-                    fetchExercises={fetchExercises}
-                    createExercise={createExercise}
-                    canRemove={form.values.exercises.length > 1}/>
-                </SortableItem>
+                  exerciseName={form.values.exercises[index].name}
+                  onRemove={() => remove(index)}
+                  push={push}
+                  fetchExercises={fetchExercises}
+                  createExercise={createExercise}
+                  canRemove={form.values.exercises.length > 1}/>
               )}
               <button type='button' onClick={() => push(emptyWorkout.exercises[0])}>Add</button>
             </>
