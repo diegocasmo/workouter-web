@@ -1,4 +1,4 @@
-# [Workouter](https://workouterapp.herokuapp.com/)
+# [Workouter](https://workouterweb.herokuapp.com/)
 
 Create and execute custom interval training style workouts.
 
@@ -14,9 +14,9 @@ Create and execute custom interval training style workouts.
 
 ### Heroku deployment
   - Run the following commands to deploy the app to Heroku:
-    - These commands assume you have added the Heroku app remote (i.e., `heroku git:remote -a workouterapp`)
+    - These commands assume you have added the Heroku app remote (i.e., `heroku git:remote -a workouterweb`)
 ``` bash
-heroku maintenance:on -a workouterapp
+heroku maintenance:on -a workouterweb
 git push heroku master
-heroku maintenance:off -a workouterapp
+heroku maintenance:off -a workouterweb
 ```
