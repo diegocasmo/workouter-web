@@ -2,8 +2,6 @@
 
 Create and execute custom interval training style workouts.
 
-*Note: This is still work in progress. More documentation is on its way :).*
-
 ### Installation
   - Run `yarn install` to install dependencies
   - Run `yarn start` to start the app in development mode
