@@ -1,11 +1,11 @@
-import {WORKOUT} from './actions'
-import {REQUEST_STATUS} from '../utils/request-status'
+import { WORKOUT } from './actions'
+import { REQUEST_STATUS } from '../utils/request-status'
 
 export const initialState = {
   perPage: 12,
   hasMore: true,
-  items : {},
-  status: REQUEST_STATUS.NONE
+  items: {},
+  status: REQUEST_STATUS.NONE,
 }
 
 export function workoutReducer(state = initialState, action) {
@@ -14,22 +14,25 @@ export function workoutReducer(state = initialState, action) {
     case WORKOUT.FETCH_INIT: {
       return {
         ...state,
-        status: REQUEST_STATUS.GET
+        status: REQUEST_STATUS.GET,
       }
     }
     case WORKOUT.FETCH_SUCCESS: {
-      const items = action.items.reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      const items = action.items.reduce(
+        (acc, x) => ({ ...acc, [x.id]: x }),
+        state.items
+      )
       return {
         ...state,
         hasMore: action.items.length >= state.perPage,
         items,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case WORKOUT.FETCH_FAILURE: {
       return {
         ...state,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case WORKOUT.FETCH_CLEAR: {
@@ -40,21 +43,24 @@ export function workoutReducer(state = initialState, action) {
     case WORKOUT.GET_INIT: {
       return {
         ...state,
-        status: REQUEST_STATUS.GET
+        status: REQUEST_STATUS.GET,
       }
     }
     case WORKOUT.GET_SUCCESS: {
-      const items = [action.item].reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      const items = [action.item].reduce(
+        (acc, x) => ({ ...acc, [x.id]: x }),
+        state.items
+      )
       return {
         ...state,
         items,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case WORKOUT.GET_FAILURE: {
       return {
         ...state,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
 
@@ -62,24 +68,24 @@ export function workoutReducer(state = initialState, action) {
     case WORKOUT.DELETE_INIT: {
       return {
         ...state,
-        status: REQUEST_STATUS.DELETE
+        status: REQUEST_STATUS.DELETE,
       }
     }
     case WORKOUT.DELETE_SUCCESS: {
       // Delete workout from items
       const items = Object.entries(state.items)
-                      .filter(([_, x]) => x.id !== action.id)
-                      .reduce((acc, [_, x]) => ({...acc, [x.id]: x}), {})
+        .filter(([_, x]) => x.id !== action.id)
+        .reduce((acc, [_, x]) => ({ ...acc, [x.id]: x }), {})
       return {
         ...state,
         items,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case WORKOUT.DELETE_FAILURE: {
       return {
         ...state,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
 

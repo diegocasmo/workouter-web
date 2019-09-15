@@ -1,11 +1,11 @@
-import {EXERCISE} from './actions'
-import {REQUEST_STATUS} from '../utils/request-status'
+import { EXERCISE } from './actions'
+import { REQUEST_STATUS } from '../utils/request-status'
 
 export const initialState = {
   perPage: 12,
   hasMore: true,
-  items : {},
-  status: REQUEST_STATUS.NONE
+  items: {},
+  status: REQUEST_STATUS.NONE,
 }
 
 export function exerciseReducer(state = initialState, action) {
@@ -14,22 +14,25 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.FETCH_INIT: {
       return {
         ...state,
-        status: REQUEST_STATUS.GET
+        status: REQUEST_STATUS.GET,
       }
     }
     case EXERCISE.FETCH_SUCCESS: {
-      const items = action.items.reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      const items = action.items.reduce(
+        (acc, x) => ({ ...acc, [x.id]: x }),
+        state.items
+      )
       return {
         ...state,
         hasMore: action.items.length >= state.perPage,
         items,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case EXERCISE.FETCH_FAILURE: {
       return {
         ...state,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case EXERCISE.FETCH_CLEAR: {
@@ -40,21 +43,24 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.GET_INIT: {
       return {
         ...state,
-        status: REQUEST_STATUS.GET
+        status: REQUEST_STATUS.GET,
       }
     }
     case EXERCISE.GET_SUCCESS: {
-      const items = [action.item].reduce((acc, x) => ({...acc, [x.id]: x}), state.items)
+      const items = [action.item].reduce(
+        (acc, x) => ({ ...acc, [x.id]: x }),
+        state.items
+      )
       return {
         ...state,
         items,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case EXERCISE.GET_FAILURE: {
       return {
         ...state,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
 
@@ -62,24 +68,24 @@ export function exerciseReducer(state = initialState, action) {
     case EXERCISE.DELETE_INIT: {
       return {
         ...state,
-        status: REQUEST_STATUS.DELETE
+        status: REQUEST_STATUS.DELETE,
       }
     }
     case EXERCISE.DELETE_SUCCESS: {
       // Delete exercise from items
       const items = Object.entries(state.items)
-                      .filter(([_, x]) => x.id !== action.id)
-                      .reduce((acc, [_, x]) => ({...acc, [x.id]: x}), {})
+        .filter(([_, x]) => x.id !== action.id)
+        .reduce((acc, [_, x]) => ({ ...acc, [x.id]: x }), {})
       return {
         ...state,
         items,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
     case EXERCISE.DELETE_FAILURE: {
       return {
         ...state,
-        status: REQUEST_STATUS.NONE
+        status: REQUEST_STATUS.NONE,
       }
     }
 

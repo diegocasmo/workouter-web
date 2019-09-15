@@ -1,41 +1,50 @@
-import React, {useReducer, useState} from 'react'
-import {Prompt} from 'react-router-dom'
+import React, { useReducer, useState } from 'react'
+import { Prompt } from 'react-router-dom'
 import {
-  newSessionReducer, initializeState, SESSION_STATUS, ACTIONS
+  newSessionReducer,
+  initializeState,
+  SESSION_STATUS,
+  ACTIONS,
 } from '../../../hooks/reducers/new-session-reducer'
-import {SessionExercise} from './Exercise'
-import {SessionExerciseRest} from './ExerciseRest'
-import {SessionRoundRest} from './RoundRest'
-import {SessionCompleted} from './Completed'
-import {SessionStartup} from './Startup'
+import { SessionExercise } from './Exercise'
+import { SessionExerciseRest } from './ExerciseRest'
+import { SessionRoundRest } from './RoundRest'
+import { SessionCompleted } from './Completed'
+import { SessionStartup } from './Startup'
 import './Form.css'
 const moment = require('moment')
 
-export function SessionForm ({
+export function SessionForm({
   onCreateSession,
   onCreateSessionSuccess,
   onCreateSessionFailure,
   workout,
-  init = initializeState
+  init = initializeState,
 }) {
   const [state, dispatch] = useReducer(newSessionReducer, workout, init)
   const [showPrompt, setShowPrompt] = useState(true)
-  const {status, currExercise, ...session} = state
+  const { status, currExercise, ...session } = state
   const getSessionStatusForm = () => {
-    switch(status) {
+    switch (status) {
       case SESSION_STATUS.EXERCISE:
         return (
           <SessionExercise
             startedAt={session.startedAt}
             exercise={workout.exercises[currExercise]}
-            onExerciseCompleted={() => dispatch({type: ACTIONS.EXERCISE_COMPLETED})}/>
+            onExerciseCompleted={() =>
+              dispatch({ type: ACTIONS.EXERCISE_COMPLETED })
+            }
+          />
         )
       case SESSION_STATUS.EXERCISE_REST:
         return (
           <SessionExerciseRest
             nextExercise={session.exercises[currExercise]}
             finishAt={moment().add(workout.restTimePerExercise, 'seconds')}
-            onExerciseRestCompleted={() => dispatch({type: ACTIONS.EXERCISE_REST_COMPETED})}/>
+            onExerciseRestCompleted={() =>
+              dispatch({ type: ACTIONS.EXERCISE_REST_COMPETED })
+            }
+          />
         )
       case SESSION_STATUS.ROUND_REST:
         return (
@@ -44,7 +53,10 @@ export function SessionForm ({
             roundsCompleted={session.roundsCompleted}
             nextExercise={session.exercises[0]}
             finishAt={moment().add(workout.restTimePerRound, 'seconds')}
-            onRoundRestCompleted={() => dispatch({type: ACTIONS.ROUND_REST_COMPETED})}/>
+            onRoundRestCompleted={() =>
+              dispatch({ type: ACTIONS.ROUND_REST_COMPETED })
+            }
+          />
         )
       case SESSION_STATUS.COMPLETED:
         return (
@@ -56,20 +68,25 @@ export function SessionForm ({
               setShowPrompt(false)
               onCreateSessionSuccess()
             }}
-            onSubmitFailure={onCreateSessionFailure}/>
+            onSubmitFailure={onCreateSessionFailure}
+          />
         )
       default:
         return (
           <SessionStartup
             nextExercise={session.exercises[0]}
             finishAt={moment().add(10, 'seconds')}
-            onSessionStartupCompleted={() => dispatch({type: ACTIONS.START})}/>
+            onSessionStartupCompleted={() => dispatch({ type: ACTIONS.START })}
+          />
         )
     }
   }
   return (
-    <div className='wkr-session-form'>
-      <Prompt when={showPrompt} message='Are you sure you want to quit this session?'/>
+    <div className="wkr-session-form">
+      <Prompt
+        when={showPrompt}
+        message="Are you sure you want to quit this session?"
+      />
       {getSessionStatusForm()}
     </div>
   )

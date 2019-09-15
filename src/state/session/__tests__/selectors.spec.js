@@ -1,18 +1,21 @@
-import {expect} from 'chai'
-import {Factory} from 'rosie'
-import {initialState} from '../reducer'
-import {REQUEST_STATUS} from '../../utils/request-status'
-import {getSessions, getSession, isLoadingSessions, canLoadMore} from '../selectors'
+import { expect } from 'chai'
+import { Factory } from 'rosie'
+import { initialState } from '../reducer'
+import { REQUEST_STATUS } from '../../utils/request-status'
+import {
+  getSessions,
+  getSession,
+  isLoadingSessions,
+  canLoadMore,
+} from '../selectors'
 
 describe('Session Selectors', () => {
-
   let state
   beforeEach(() => {
-    state = {sessions: initialState}
+    state = { sessions: initialState }
   })
 
   describe('getSessions()', () => {
-
     it('returns a list of sessions', () => {
       const sessions = Factory.buildList('session', 3)
 
@@ -29,7 +32,6 @@ describe('Session Selectors', () => {
   })
 
   describe('getSession()', () => {
-
     it('returns a session', () => {
       const sessions = Factory.buildList('session', 3)
 
@@ -43,7 +45,6 @@ describe('Session Selectors', () => {
   })
 
   describe('isLoadingSessions()', () => {
-
     it('returns true if sessions are being loaded', () => {
       state.sessions.status = REQUEST_STATUS.GET
       expect(isLoadingSessions(state)).to.be.true
@@ -58,14 +59,13 @@ describe('Session Selectors', () => {
   })
 
   describe('canLoadMore', () => {
-
     it('returns true if there are more sessions to load and no sessions are being fetched', () => {
       const state = {
         sessions: {
           ...initialState,
           hasMore: true,
-          status: REQUEST_STATUS.NONE
-        }
+          status: REQUEST_STATUS.NONE,
+        },
       }
       expect(canLoadMore(state)).to.be.true
     })
@@ -74,8 +74,8 @@ describe('Session Selectors', () => {
       const state = {
         sessions: {
           ...initialState,
-          hasMore: false
-        }
+          hasMore: false,
+        },
       }
       expect(canLoadMore(state)).to.be.false
     })
@@ -84,8 +84,8 @@ describe('Session Selectors', () => {
       const state = {
         sessions: {
           ...initialState,
-          status: REQUEST_STATUS.GET
-        }
+          status: REQUEST_STATUS.GET,
+        },
       }
       expect(canLoadMore(state)).to.be.false
     })

@@ -1,10 +1,15 @@
-import React, {useState} from 'react'
-import {SessionStatistics} from '../View/Statistics'
+import React, { useState } from 'react'
+import { SessionStatistics } from '../View/Statistics'
 import './Completed.css'
 
-export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFailure}) => {
+export const SessionCompleted = ({
+  session,
+  onSubmit,
+  onSubmitSuccess,
+  onSubmitFailure,
+}) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     setIsSubmitting(true)
     try {
@@ -17,14 +22,17 @@ export const SessionCompleted = ({session, onSubmit, onSubmitSuccess, onSubmitFa
     }
   }
   return (
-    <div className='wkr-session-completed text-center'>
-      <p className='h1 text-center'>{session.name}</p>
-      <SessionStatistics session={session}/>
+    <div className="wkr-session-completed text-center">
+      <p className="h1 text-center">{session.name}</p>
+      <SessionStatistics session={session} />
       <button
-        className='btn btn-success btn-lg'
-        type='submit'
+        className="btn btn-success btn-lg"
+        type="submit"
         disabled={isSubmitting}
-        onClick={handleSubmit}>Save</button>
+        onClick={handleSubmit}
+      >
+        Save
+      </button>
     </div>
   )
 }

@@ -1,13 +1,11 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import faker from 'faker'
-import {errorReducer, initialState} from '../reducer'
-import {ERROR} from '../actions'
+import { errorReducer, initialState } from '../reducer'
+import { ERROR } from '../actions'
 
 describe('Error Reducer', () => {
-
   it('should return the initial state', () => {
-    expect(errorReducer(undefined, {}))
-      .to.be.eql([])
+    expect(errorReducer(undefined, {})).to.be.eql([])
   })
 
   it('ADD', () => {
@@ -19,9 +17,13 @@ describe('Error Reducer', () => {
 
     // Add a new error message
     const errorMsg = faker.lorem.words()
-    const action = {type: ERROR.ADD, errorMsg}
-    expect(errorReducer(state, action))
-      .to.be.eql([errorMsg1, errorMsg2, errorMsg3, errorMsg])
+    const action = { type: ERROR.ADD, errorMsg }
+    expect(errorReducer(state, action)).to.be.eql([
+      errorMsg1,
+      errorMsg2,
+      errorMsg3,
+      errorMsg,
+    ])
   })
 
   it('REMOVE', () => {
@@ -33,8 +35,7 @@ describe('Error Reducer', () => {
 
     // Remove the second error message
     const index = state.indexOf(errorMsg2)
-    const action = {type: ERROR.REMOVE, index}
-    expect(errorReducer(state, action))
-      .to.be.eql([errorMsg1, errorMsg3])
+    const action = { type: ERROR.REMOVE, index }
+    expect(errorReducer(state, action)).to.be.eql([errorMsg1, errorMsg3])
   })
 })

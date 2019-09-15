@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react'
-import {connect} from 'react-redux'
-import {updateWorkout} from '../api/workout'
-import {fetchExercises, createExercise} from '../api/exercise'
-import {getWorkout} from '../state/workout/action-creators'
-import {getWorkout as getWorkoutSelector, isLoading} from '../state/workout/selectors'
-import {Loading} from '../components/Loading'
-import {WorkoutForm} from '../components/Workout/Form/Form'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { updateWorkout } from '../api/workout'
+import { fetchExercises, createExercise } from '../api/exercise'
+import { getWorkout } from '../state/workout/action-creators'
+import {
+  getWorkout as getWorkoutSelector,
+  isLoading,
+} from '../state/workout/selectors'
+import { Loading } from '../components/Loading'
+import { WorkoutForm } from '../components/Workout/Form/Form'
 
 export const UpdateWorkout = ({
   history,
@@ -15,31 +18,35 @@ export const UpdateWorkout = ({
   createExercise,
   workout,
   isLoading,
-  getWorkout
+  getWorkout,
 }) => {
-  useEffect(
-    () => { getWorkout(workoutId) },
-    [getWorkout, workoutId]
-  )
+  useEffect(() => {
+    getWorkout(workoutId)
+  }, [getWorkout, workoutId])
 
   return (
     <>
       <h1>Update Workout</h1>
-      {isLoading
-        ? <Loading/>
-        : workout && <WorkoutForm
+      {isLoading ? (
+        <Loading />
+      ) : (
+        workout && (
+          <WorkoutForm
             workout={workout}
-            submitText='Update Workout'
+            submitText="Update Workout"
             history={history}
             redirectTo={`/workouts/${workoutId}`}
             fetchExercises={fetchExercises}
             createExercise={createExercise}
-            handleSubmit={updateWorkout}/>}
+            handleSubmit={updateWorkout}
+          />
+        )
+      )}
     </>
   )
 }
 
-const mapStateToProps = (state, {match, history}) => {
+const mapStateToProps = (state, { match, history }) => {
   const workoutId = Number(match.params.workoutId)
   return {
     history,
@@ -52,8 +59,9 @@ const mapStateToProps = (state, {match, history}) => {
   }
 }
 
-const mapDispatchToProps = {getWorkout}
+const mapDispatchToProps = { getWorkout }
 
 export const UpdateWorkoutFromStore = connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(UpdateWorkout)

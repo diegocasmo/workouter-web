@@ -1,19 +1,17 @@
-import {expect} from 'chai'
-import {Factory} from 'rosie'
+import { expect } from 'chai'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
-import {initialState} from '../reducer'
-import {REQUEST_STATUS} from '../../utils/request-status'
-import {getWorkouts, isLoading, getWorkout, canLoadMore} from '../selectors'
+import { initialState } from '../reducer'
+import { REQUEST_STATUS } from '../../utils/request-status'
+import { getWorkouts, isLoading, getWorkout, canLoadMore } from '../selectors'
 
 describe('Workout Selectors', () => {
-
   let state
   beforeEach(() => {
-    state = {workouts: initialState}
+    state = { workouts: initialState }
   })
 
   describe('getWorkouts()', () => {
-
     it('returns a list of workouts', () => {
       const workouts = Factory.buildList('workout', 3)
 
@@ -23,14 +21,15 @@ describe('Workout Selectors', () => {
       }, {})
 
       // Make sure workouts are sorted by their name in ascending order
-      const expected = [...workouts].sort((a, b) => a.name.localeCompare(b.name))
+      const expected = [...workouts].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      )
       const actual = getWorkouts(state)
       expect(actual).to.be.eql(expected)
     })
   })
 
   describe('getWorkout()', () => {
-
     it('returns a workout', () => {
       const workouts = Factory.buildList('workout', 3)
 
@@ -44,7 +43,6 @@ describe('Workout Selectors', () => {
   })
 
   describe('isLoading()', () => {
-
     it('returns true if workouts are being loaded', () => {
       state.workouts.status = REQUEST_STATUS.GET
       expect(isLoading(state)).to.be.true
@@ -59,14 +57,13 @@ describe('Workout Selectors', () => {
   })
 
   describe('canLoadMore', () => {
-
     it('returns true if there are more workouts to load and no workouts are being fetched', () => {
       const state = {
         workouts: {
           ...initialState,
           hasMore: true,
-          status: REQUEST_STATUS.NONE
-        }
+          status: REQUEST_STATUS.NONE,
+        },
       }
       expect(canLoadMore(state)).to.be.true
     })
@@ -75,8 +72,8 @@ describe('Workout Selectors', () => {
       const state = {
         workouts: {
           ...initialState,
-          hasMore: false
-        }
+          hasMore: false,
+        },
       }
       expect(canLoadMore(state)).to.be.false
     })
@@ -85,8 +82,8 @@ describe('Workout Selectors', () => {
       const state = {
         workouts: {
           ...initialState,
-          status: REQUEST_STATUS.GET
-        }
+          status: REQUEST_STATUS.GET,
+        },
       }
       expect(canLoadMore(state)).to.be.false
     })

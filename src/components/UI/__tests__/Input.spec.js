@@ -1,12 +1,11 @@
 import React from 'react'
-import {expect} from 'chai'
-import {mount} from 'enzyme'
-import {Formik, Form, Field, ErrorMessage} from 'formik'
-import {string, object} from 'yup'
-import {Input} from '../Input'
+import { expect } from 'chai'
+import { mount } from 'enzyme'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { string, object } from 'yup'
+import { Input } from '../Input'
 
 describe('<Input/>', () => {
-
   let props = null
   beforeEach(() => {
     props = {
@@ -15,17 +14,15 @@ describe('<Input/>', () => {
       placeholder: 'at',
       type: 'text',
       errors: {},
-      touched: false
+      touched: false,
     }
   })
 
   it('renders', () => {
     const wrapper = mount(
-      <Formik
-        initialValues={{}}
-        validationSchema={{}}>
+      <Formik initialValues={{}} validationSchema={{}}>
         <Form>
-          <Input {...props}/>
+          <Input {...props} />
         </Form>
       </Formik>
     )
@@ -35,7 +32,9 @@ describe('<Input/>', () => {
     expect(wrapper.find('label').props().htmlFor).to.be.equal(props.name)
     // Field component
     expect(wrapper.find(Field).props().name).to.be.equal(props.name)
-    expect(wrapper.find(Field).props().placeholder).to.be.equal(props.placeholder)
+    expect(wrapper.find(Field).props().placeholder).to.be.equal(
+      props.placeholder
+    )
     expect(wrapper.find(Field).props().type).to.be.equal(props.type)
   })
 
@@ -43,15 +42,13 @@ describe('<Input/>', () => {
     props = {
       ...props,
       readOnly: true,
-      disabled: true
+      disabled: true,
     }
 
     const wrapper = mount(
-      <Formik
-        initialValues={{}}
-        validationSchema={{}}>
+      <Formik initialValues={{}} validationSchema={{}}>
         <Form>
-          <Input {...props}/>
+          <Input {...props} />
         </Form>
       </Formik>
     )
@@ -70,47 +67,54 @@ describe('<Input/>', () => {
 
     const wrapper = mount(
       <Formik
-        initialValues={{username: ''}}
+        initialValues={{ username: '' }}
         validationSchema={object().shape({
-          username: string().trim().required()
-        })}>
+          username: string()
+            .trim()
+            .required(),
+        })}
+      >
         <Form>
-          <Input {...props}/>
+          <Input {...props} />
         </Form>
       </Formik>
-      )
+    )
 
     expect(wrapper.find(ErrorMessage).text()).to.be.equal('')
 
     // Simulate an invalid username has been set
-    wrapper.find("input[name='username']").simulate('change', {target: {id: 'username', value: ''}})
+    wrapper
+      .find("input[name='username']")
+      .simulate('change', { target: { id: 'username', value: '' } })
     wrapper.find('form').simulate('submit')
     await tick()
     wrapper.update()
 
     // Expect an error message to be rendered
-    expect(wrapper.find(ErrorMessage).text()).to.be.equal('username is a required field')
+    expect(wrapper.find(ErrorMessage).text()).to.be.equal(
+      'username is a required field'
+    )
   })
 
   it('renders invalid input validation classes correctly', () => {
     props = {
       ...props,
       touched: true,
-      errors: { [props.name]: 'error message' }
+      errors: { [props.name]: 'error message' },
     }
 
     const wrapper = mount(
-      <Formik
-        initialValues={{}}
-        validationSchema={{}}>
+      <Formik initialValues={{}} validationSchema={{}}>
         <Form>
-          <Input {...props}/>
+          <Input {...props} />
         </Form>
       </Formik>
     )
 
     expect(wrapper.find(Field).props().className).to.include('is-invalid')
-    expect(wrapper.find(ErrorMessage).props().className).to.include('invalid-feedback')
+    expect(wrapper.find(ErrorMessage).props().className).to.include(
+      'invalid-feedback'
+    )
   })
 })
 

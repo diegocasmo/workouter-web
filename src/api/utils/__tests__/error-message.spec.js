@@ -1,6 +1,11 @@
 import faker from 'faker'
-import {expect} from 'chai'
-import {requiredMsg, numTypeMsg, positiveNumMsg, atLeastNumMsg} from '../error-message'
+import { expect } from 'chai'
+import {
+  requiredMsg,
+  numTypeMsg,
+  positiveNumMsg,
+  atLeastNumMsg,
+} from '../error-message'
 
 it('requiredMsg()', () => {
   const attr = faker.lorem.word()
@@ -20,5 +25,7 @@ it('positiveNumMsg()', () => {
 it('atLeastNumMsg()', () => {
   const attr = faker.lorem.word()
   const num = 0
-  expect(atLeastNumMsg(attr, num)).to.be.equal(`${attr} must be at least ${num}`)
+  expect(atLeastNumMsg(attr, num)).to.be.equal(
+    `${attr} must be at least ${num}`
+  )
 })

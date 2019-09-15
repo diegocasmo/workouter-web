@@ -1,23 +1,22 @@
 import React from 'react'
-import {Factory} from 'rosie'
-import {expect} from 'chai'
-import {shallow} from 'enzyme'
-import {ExerciseList} from '../List'
-import {ExerciseItem} from '../Item'
+import { Factory } from 'rosie'
+import { expect } from 'chai'
+import { shallow } from 'enzyme'
+import { ExerciseList } from '../List'
+import { ExerciseItem } from '../Item'
 
 describe('<ExerciseList/>', () => {
-
   let props = null
   beforeEach(() => {
     props = {
       hasMore: false,
       exercises: Factory.buildList('exercise', 2),
-      handleDeleteExercise: () => {}
+      handleDeleteExercise: () => {},
     }
   })
 
   it('renders', () => {
-    const wrapper = shallow(<ExerciseList {...props}/>)
+    const wrapper = shallow(<ExerciseList {...props} />)
     expect(wrapper.find(ExerciseItem)).to.have.lengthOf(props.exercises.length)
   })
 
@@ -25,9 +24,9 @@ describe('<ExerciseList/>', () => {
     props = {
       ...props,
       hasMore: true,
-      exercises: []
+      exercises: [],
     }
-    const wrapper = shallow(<ExerciseList {...props}/>)
+    const wrapper = shallow(<ExerciseList {...props} />)
     expect(wrapper.find('p')).to.have.lengthOf(0)
     expect(wrapper.find(ExerciseItem)).to.have.lengthOf(0)
   })
@@ -36,10 +35,12 @@ describe('<ExerciseList/>', () => {
     props = {
       ...props,
       hasMore: false,
-      exercises: []
+      exercises: [],
     }
-    const wrapper = shallow(<ExerciseList {...props}/>)
+    const wrapper = shallow(<ExerciseList {...props} />)
     expect(wrapper.find(ExerciseItem)).to.have.lengthOf(0)
-    expect(wrapper.find('p').text()).to.be.equal('There are no exercises to show')
+    expect(wrapper.find('p').text()).to.be.equal(
+      'There are no exercises to show'
+    )
   })
 })

@@ -18,8 +18,8 @@ export const UserProvider = ({ user = null, isLoading = false, ...props }) => {
       setState({ isLoading: true })
       const client = new GraphQLClient(GraphQLUrl, {
         headers: {
-          authorization: googleUser.getAuthResponse().id_token
-        }
+          authorization: googleUser.getAuthResponse().id_token,
+        },
       })
 
       const { currentUser } = await client.request(CURRENT_USER_QUERY)
@@ -30,13 +30,18 @@ export const UserProvider = ({ user = null, isLoading = false, ...props }) => {
     }
   }
 
-  const logout = () => { setState({ isLoading: false, user: null }) }
+  const logout = () => {
+    setState({ isLoading: false, user: null })
+  }
 
-  return state.isLoading
-    ? <FullPageSpinner text='Loading profile...'/>
-    : <UserContext.Provider
-        value={{ user: state.user, login, logout }}
-        { ...props }/>
+  return state.isLoading ? (
+    <FullPageSpinner text="Loading profile..." />
+  ) : (
+    <UserContext.Provider
+      value={{ user: state.user, login, logout }}
+      {...props}
+    />
+  )
 }
 
 export const useUser = () => {

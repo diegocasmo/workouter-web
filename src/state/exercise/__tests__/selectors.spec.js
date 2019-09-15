@@ -1,19 +1,17 @@
-import {expect} from 'chai'
-import {Factory} from 'rosie'
+import { expect } from 'chai'
+import { Factory } from 'rosie'
 import sinon from 'sinon'
-import {initialState} from '../reducer'
-import {REQUEST_STATUS} from '../../utils/request-status'
-import {getExercises, isLoading, getExercise, canLoadMore} from '../selectors'
+import { initialState } from '../reducer'
+import { REQUEST_STATUS } from '../../utils/request-status'
+import { getExercises, isLoading, getExercise, canLoadMore } from '../selectors'
 
 describe('Exercise Selectors', () => {
-
   let state
   beforeEach(() => {
-    state = {exercises: initialState}
+    state = { exercises: initialState }
   })
 
   describe('getExercises()', () => {
-
     it('returns a list of exercises', () => {
       const exercises = Factory.buildList('exercise', 3)
 
@@ -23,14 +21,15 @@ describe('Exercise Selectors', () => {
       }, {})
 
       // Make sure exercises are sorted by their name in ascending order
-      const expected = [...exercises].sort((a, b) => a.name.localeCompare(b.name))
+      const expected = [...exercises].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      )
       const actual = getExercises(state)
       expect(actual).to.be.eql(expected)
     })
   })
 
   describe('getExercise()', () => {
-
     it('returns an exercise', () => {
       const exercises = Factory.buildList('exercise', 3)
 
@@ -44,7 +43,6 @@ describe('Exercise Selectors', () => {
   })
 
   describe('isLoading()', () => {
-
     it('returns true if exercises are being loaded', () => {
       state.exercises.status = REQUEST_STATUS.GET
       expect(isLoading(state)).to.be.true
@@ -59,14 +57,13 @@ describe('Exercise Selectors', () => {
   })
 
   describe('canLoadMore', () => {
-
     it('returns true if there are more exercises to load and no exercises are being fetched', () => {
       const state = {
         exercises: {
           ...initialState,
           hasMore: true,
-          status: REQUEST_STATUS.NONE
-        }
+          status: REQUEST_STATUS.NONE,
+        },
       }
       expect(canLoadMore(state)).to.be.true
     })
@@ -75,8 +72,8 @@ describe('Exercise Selectors', () => {
       const state = {
         exercises: {
           ...initialState,
-          hasMore: false
-        }
+          hasMore: false,
+        },
       }
       expect(canLoadMore(state)).to.be.false
     })
@@ -85,8 +82,8 @@ describe('Exercise Selectors', () => {
       const state = {
         exercises: {
           ...initialState,
-          status: REQUEST_STATUS.GET
-        }
+          status: REQUEST_STATUS.GET,
+        },
       }
       expect(canLoadMore(state)).to.be.false
     })

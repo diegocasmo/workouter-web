@@ -1,23 +1,21 @@
-import {expect} from 'chai'
-import {UNITS, getUnits, getUnitFromUnitValue} from '../unit'
+import { expect } from 'chai'
+import { UNITS, getUnits, getUnitFromUnitValue } from '../unit'
 
 describe('Unit', () => {
-
   it('UNITS', () => {
-    expect(UNITS.REPS).to.be.eql({text: 'Repetition(s)', value: 'repetition'})
-    expect(UNITS.SECONDS).to.be.eql({text: 'Second(s)', value: 'second'})
-    expect(UNITS.KM).to.be.eql({text: 'Km', value: 'Km'})
-    expect(UNITS.KG).to.be.eql({text: 'Kg', value: 'Kg'})
+    expect(UNITS.REPS).to.be.eql({ text: 'Repetition(s)', value: 'repetition' })
+    expect(UNITS.SECONDS).to.be.eql({ text: 'Second(s)', value: 'second' })
+    expect(UNITS.KM).to.be.eql({ text: 'Km', value: 'Km' })
+    expect(UNITS.KG).to.be.eql({ text: 'Kg', value: 'Kg' })
   })
 
   it('getUnits()', () => {
-    expect(getUnits())
-      .to.be.eql([
-        {text: 'Repetition(s)', value: 'repetition'},
-        {text: 'Second(s)', value: 'second'},
-        {text: 'Km', value: 'Km'},
-        {text: 'Kg', value: 'Kg'}
-      ])
+    expect(getUnits()).to.be.eql([
+      { text: 'Repetition(s)', value: 'repetition' },
+      { text: 'Second(s)', value: 'second' },
+      { text: 'Km', value: 'Km' },
+      { text: 'Kg', value: 'Kg' },
+    ])
   })
 
   it('getUnitFromUnitValue()', () => {

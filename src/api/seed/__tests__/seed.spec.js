@@ -1,19 +1,18 @@
-import db, {clearDb} from '../../../test-utils/db-mock'
-import {expect} from 'chai'
-import {seedDatabase, createExercises, createWorkouts} from '../seed'
-import {exercises} from '../exercises.json'
-import {workouts} from '../workouts.json'
+import db, { clearDb } from '../../../test-utils/db-mock'
+import { expect } from 'chai'
+import { seedDatabase, createExercises, createWorkouts } from '../seed'
+import { exercises } from '../exercises.json'
+import { workouts } from '../workouts.json'
 const moment = require('moment')
 
 describe('Seed', () => {
-
   afterEach(() => clearDb(db))
 
   it('seedDatabase()', async () => {
     await seedDatabase(db)
     const [dbExercises, dbWorkouts] = await Promise.all([
       db.exercises.toArray(),
-      db.workouts.toArray()
+      db.workouts.toArray(),
     ])
     expect(dbExercises.length).to.be.equal(exercises.length)
     expect(dbWorkouts.length).to.be.equal(workouts.length)
@@ -25,7 +24,7 @@ describe('Seed', () => {
     // Check all exercises were created
     expect(res.length).to.be.equal(exercises.length)
     // Check each defines 'createdAt' and 'updatedAt'
-    res.forEach((x) => {
+    res.forEach(x => {
       expect(moment(x.createdAt).isValid()).to.be.true
       expect(x.updatedAt).to.be.null
     })
@@ -37,7 +36,7 @@ describe('Seed', () => {
     // Check all workouts were created
     expect(res.length).to.be.equal(workouts.length)
     // Check each defines 'createdAt' and 'updatedAt'
-    res.forEach((x) => {
+    res.forEach(x => {
       expect(moment(x.createdAt).isValid()).to.be.true
       expect(x.updatedAt).to.be.null
     })

@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
-import {connect} from 'react-redux'
-import {fetchSessions, fetchClear} from '../state/session/action-creators'
-import {getSessions, canLoadMore} from '../state/session/selectors'
-import {Loading} from '../components/Loading'
-import {Header} from '../components/UI/Header'
-import {SessionList} from '../components/Session/List/List'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchSessions, fetchClear } from '../state/session/action-creators'
+import { getSessions, canLoadMore } from '../state/session/selectors'
+import { Loading } from '../components/Loading'
+import { Header } from '../components/UI/Header'
+import { SessionList } from '../components/Session/List/List'
 import InfiniteScroll from 'react-infinite-scroller'
 
 export const Sessions = ({
@@ -12,30 +12,32 @@ export const Sessions = ({
   canLoadMore,
   sessions,
   fetchSessions,
-  fetchClear
+  fetchClear,
 }) => {
-
   // Clear fetched sessions on component unmount
   useEffect(() => {
-    return () => { fetchClear() }
+    return () => {
+      fetchClear()
+    }
   }, [fetchClear])
 
   return (
     <div>
       <Header>
-        <div className='d-flex h-100'>
-          <p className='h2 align-self-center m-0 mr-auto'>Sessions</p>
+        <div className="d-flex h-100">
+          <p className="h2 align-self-center m-0 mr-auto">Sessions</p>
         </div>
       </Header>
       <InfiniteScroll
         pageStart={-1}
         loadMore={fetchSessions}
         hasMore={canLoadMore}
-        loader={<Loading key={0}/>}> {/* Must include a key in the loader component to avoid
+        loader={<Loading key={0} />}
+      >
+        {' '}
+        {/* Must include a key in the loader component to avoid
                                       <InfiniteScroll/> warning about unique key prop */}
-        <SessionList
-          hasMore={hasMore}
-          sessions={sessions}/>
+        <SessionList hasMore={hasMore} sessions={sessions} />
       </InfiniteScroll>
     </div>
   )
@@ -44,11 +46,12 @@ export const Sessions = ({
 const mapStateToProps = state => ({
   hasMore: state.sessions.hasMore,
   canLoadMore: canLoadMore(state),
-  sessions: getSessions(state)
+  sessions: getSessions(state),
 })
 
-const mapDispatchToProps = {fetchSessions, fetchClear}
+const mapDispatchToProps = { fetchSessions, fetchClear }
 
 export const SessionsFromStore = connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Sessions)

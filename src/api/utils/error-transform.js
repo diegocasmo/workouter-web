@@ -6,7 +6,7 @@ export function transformYupToFormikError(yupError) {
   if (yupError.inner.length === 0) {
     errors[yupError.path] = yupError.message
   } else {
-    yupError.inner.forEach((err) => {
+    yupError.inner.forEach(err => {
       if (!errors[err.path]) {
         errors[err.path] = err.message
       }

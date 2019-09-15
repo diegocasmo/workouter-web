@@ -1,5 +1,5 @@
 import React from 'react'
-import {Field, ErrorMessage} from 'formik'
+import { Field, ErrorMessage } from 'formik'
 import AsyncCreatableSelect from 'react-select/async-creatable'
 
 export const AsyncCreateSelect = ({
@@ -8,16 +8,16 @@ export const AsyncCreateSelect = ({
   value,
   defaultOptions,
   onLoadOptions,
-  onCreateOption
+  onCreateOption,
 }) => (
   <div>
     <label htmlFor={name}>{label}</label>
     <Field
       name={name}
-      render={({form}) => (
+      render={({ form }) => (
         <AsyncCreatableSelect
-          classNamePrefix='wkr-searchable-select'
-          value={value ? {value, label: value} : null}
+          classNamePrefix="wkr-searchable-select"
+          value={value ? { value, label: value } : null}
           defaultOptions={defaultOptions}
           onCreateOption={value => {
             // `onChange` is not called when `onCreateOption` is executed, thus
@@ -26,8 +26,10 @@ export const AsyncCreateSelect = ({
             onCreateOption(value)
           }}
           loadOptions={onLoadOptions}
-          onChange={({value}) => form.setFieldValue(name, value)}/>
-      )}/>
-    <ErrorMessage name={name} component='p'/>
+          onChange={({ value }) => form.setFieldValue(name, value)}
+        />
+      )}
+    />
+    <ErrorMessage name={name} component="p" />
   </div>
 )

@@ -1,22 +1,21 @@
 import React from 'react'
-import {Factory} from 'rosie'
-import {expect} from 'chai'
-import {shallow} from 'enzyme'
-import {SessionList} from '../List'
-import {SessionItem} from '../Item'
+import { Factory } from 'rosie'
+import { expect } from 'chai'
+import { shallow } from 'enzyme'
+import { SessionList } from '../List'
+import { SessionItem } from '../Item'
 
 describe('<SessionList/>', () => {
-
   let props = null
   beforeEach(() => {
     props = {
       hasMore: false,
-      sessions: Factory.buildList('session', 3)
+      sessions: Factory.buildList('session', 3),
     }
   })
 
   it('renders', () => {
-    const wrapper = shallow(<SessionList {...props}/>)
+    const wrapper = shallow(<SessionList {...props} />)
     expect(wrapper.find(SessionItem)).to.have.lengthOf(props.sessions.length)
   })
 
@@ -24,9 +23,9 @@ describe('<SessionList/>', () => {
     props = {
       ...props,
       hasMore: true,
-      sessions: []
+      sessions: [],
     }
-    const wrapper = shallow(<SessionList {...props}/>)
+    const wrapper = shallow(<SessionList {...props} />)
     expect(wrapper.find('p')).to.have.lengthOf(0)
     expect(wrapper.find(SessionItem)).to.have.lengthOf(0)
   })
@@ -35,10 +34,12 @@ describe('<SessionList/>', () => {
     props = {
       ...props,
       hasMore: false,
-      sessions: []
+      sessions: [],
     }
-    const wrapper = shallow(<SessionList {...props}/>)
+    const wrapper = shallow(<SessionList {...props} />)
     expect(wrapper.find(SessionItem)).to.have.lengthOf(0)
-    expect(wrapper.find('p').text()).to.be.equal('There are no sessions to show')
+    expect(wrapper.find('p').text()).to.be.equal(
+      'There are no sessions to show'
+    )
   })
 })

@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 
 export const useCountdownSpeakEffect = (finishAt, now) => {
   const seconds = finishAt.diff(now, 'seconds')

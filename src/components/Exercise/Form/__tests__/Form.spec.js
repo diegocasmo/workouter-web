@@ -1,50 +1,67 @@
 import React from 'react'
-import {Factory} from 'rosie'
-import {expect} from 'chai'
+import { Factory } from 'rosie'
+import { expect } from 'chai'
 import sinon from 'sinon'
-import {mount} from 'enzyme'
-import {BrowserRouter as Router, Prompt} from 'react-router-dom'
-import {ExerciseForm} from '../Form'
-import {Formik, Form, ErrorMessage} from 'formik'
+import { mount } from 'enzyme'
+import { BrowserRouter as Router, Prompt } from 'react-router-dom'
+import { ExerciseForm } from '../Form'
+import { Formik, Form, ErrorMessage } from 'formik'
 
 describe('<ExerciseForm/>', () => {
-
   let props
   beforeEach(() => {
     props = {
       exercise: Factory.build('exercise'),
       submitText: 'Foo',
       history: {
-        push: sinon.spy()
+        push: sinon.spy(),
       },
       redirectTo: '/foo/bar',
-      handleSubmit: sinon.spy(() => Promise.resolve())
+      handleSubmit: sinon.spy(() => Promise.resolve()),
     }
   })
 
   it('renders', () => {
     props.exercise = null
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
     expect(wrapper.find(Prompt).props().when).to.be.false
-    expect(wrapper.find(Prompt).props().message).to.be.equal('You have unsaved changes. Are you sure you want to leave?')
+    expect(wrapper.find(Prompt).props().message).to.be.equal(
+      'You have unsaved changes. Are you sure you want to leave?'
+    )
     expect(wrapper.find('form')).to.have.lengthOf(1)
     expect(wrapper.find("input[name='name']")).to.have.lengthOf(1)
     expect(wrapper.find("button[type='submit']").props().disabled).to.be.false
-    expect(wrapper.find("button[type='submit']").text()).to.be.equal(props.submitText)
+    expect(wrapper.find("button[type='submit']").text()).to.be.equal(
+      props.submitText
+    )
   })
 
   it('enables <Prompt/> when form values change', () => {
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
 
     // Modify form
-    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: 'foo bar'}})
+    wrapper
+      .find("input[name='name']")
+      .simulate('change', { target: { id: 'name', value: 'foo bar' } })
 
     // Expect <Prompt/> to be truthy
     expect(wrapper.find(Prompt).props().when).to.be.true
   })
 
   it('disables submit button when form is being submitted', async () => {
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
     expect(wrapper.find("button[type='submit']").props().disabled).to.be.false
     wrapper.find('form').simulate('submit')
     await tick()
@@ -52,39 +69,73 @@ describe('<ExerciseForm/>', () => {
   })
 
   it('renders a pre-filled form with an exercise', () => {
-    const {exercise} = props
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
-    expect(wrapper.find("input[name='name']").props().value).to.be.equal(exercise.name)
+    const { exercise } = props
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
+    expect(wrapper.find("input[name='name']").props().value).to.be.equal(
+      exercise.name
+    )
   })
 
   it('renders an exercise validation errors', async () => {
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
-    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: ''}})
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
+    wrapper
+      .find("input[name='name']")
+      .simulate('change', { target: { id: 'name', value: '' } })
     wrapper.find('form').simulate('submit')
     await tick()
     wrapper.update()
-    expect(wrapper.find("p").first().text()).to.be.equal('Name is required')
+    expect(
+      wrapper
+        .find('p')
+        .first()
+        .text()
+    ).to.be.equal('Name is required')
   })
 
   it('renders API validation errors', async () => {
     const apiErrorMsg = 'API error msg'
     props.validationSchema = {}
-    props.handleSubmit = sinon.spy(() => Promise.reject({name: apiErrorMsg}))
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
+    props.handleSubmit = sinon.spy(() => Promise.reject({ name: apiErrorMsg }))
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
 
-    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: ''}})
+    wrapper
+      .find("input[name='name']")
+      .simulate('change', { target: { id: 'name', value: '' } })
     wrapper.find('form').simulate('submit')
     await tick()
 
     wrapper.update()
-    expect(wrapper.find("p").first().text()).to.be.equal(apiErrorMsg)
+    expect(
+      wrapper
+        .find('p')
+        .first()
+        .text()
+    ).to.be.equal(apiErrorMsg)
   })
 
   it("calls 'handleSubmit' when user submits a valid exercise", async () => {
-    const attrs = Factory.build('exercise', {}, {except: ['id']})
+    const attrs = Factory.build('exercise', {}, { except: ['id'] })
     expect(props.handleSubmit.calledOnce).to.be.false
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
-    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
+    wrapper
+      .find("input[name='name']")
+      .simulate('change', { target: { id: 'name', value: attrs.name } })
     wrapper.find('form').simulate('submit')
     await tick()
     expect(props.handleSubmit.calledOnce).to.be.true
@@ -94,12 +145,18 @@ describe('<ExerciseForm/>', () => {
   })
 
   it("redirects if 'history' and 'redirectTo' are defined", async () => {
-    const attrs = Factory.build('exercise', {}, {except: ['id']})
+    const attrs = Factory.build('exercise', {}, { except: ['id'] })
     expect(props.history.push.called).to.be.false
 
     // Submit a valid exercise
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
-    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
+    wrapper
+      .find("input[name='name']")
+      .simulate('change', { target: { id: 'name', value: attrs.name } })
     wrapper.find('form').simulate('submit')
     await tick()
 
@@ -110,12 +167,18 @@ describe('<ExerciseForm/>', () => {
 
   it("does not redirect if 'redirectTo' is undefined", async () => {
     props.redirectTo = null
-    const attrs = Factory.build('exercise', {}, {except: ['id']})
+    const attrs = Factory.build('exercise', {}, { except: ['id'] })
     expect(props.history.push.called).to.be.false
 
     // Submit a valid exercise
-    const wrapper = mount(<Router><ExerciseForm {...props}/></Router>)
-    wrapper.find("input[name='name']").simulate('change', {target: {id: 'name', value: attrs.name}})
+    const wrapper = mount(
+      <Router>
+        <ExerciseForm {...props} />
+      </Router>
+    )
+    wrapper
+      .find("input[name='name']")
+      .simulate('change', { target: { id: 'name', value: attrs.name } })
     wrapper.find('form').simulate('submit')
     await tick()
 
@@ -124,4 +187,4 @@ describe('<ExerciseForm/>', () => {
   })
 })
 
-const tick = _ => (new Promise(resolve => setTimeout(resolve, 0)))
+const tick = _ => new Promise(resolve => setTimeout(resolve, 0))

@@ -1,6 +1,6 @@
 import connection from '../db'
-import {exercises} from './exercises.json'
-import {workouts} from './workouts.json'
+import { exercises } from './exercises.json'
+import { workouts } from './workouts.json'
 
 // Seed the database with sample workouts and exercises
 export async function seedDatabase(db = connection) {
@@ -13,7 +13,7 @@ export async function seedDatabase(db = connection) {
 
 // Insert a bulk of sample exercises in DB. Return the number of inserted exercises if successful
 export async function createExercises(db = connection) {
-  return db.exercises.bulkAdd(exercises.map(x => ({name: x})))
+  return db.exercises.bulkAdd(exercises.map(x => ({ name: x })))
 }
 
 // Insert a bulk of sample workouts in DB. Return the number of inserted workouts if successful
