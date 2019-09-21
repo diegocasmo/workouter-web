@@ -3,4 +3,5 @@ export const REQUEST_STATUS = {
   NONE: 'NONE',
   GET: 'GET',
   DELETE: 'DELETE',
+  POST: 'POST',
 }

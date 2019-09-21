@@ -1,17 +1,12 @@
 import React from 'react'
 import { expect } from 'chai'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { Login } from '../Login'
-import { UserProvider } from '../../../context/user-context'
 import { GoogleLogin } from 'react-google-login'
 
 describe('<Login/>', () => {
   it('renders', () => {
-    const wrapper = mount(
-      <UserProvider>
-        <Login />
-      </UserProvider>
-    )
+    const wrapper = shallow(<Login />)
 
     const { isSignedIn, buttonText, clientId } = wrapper
       .find(GoogleLogin)

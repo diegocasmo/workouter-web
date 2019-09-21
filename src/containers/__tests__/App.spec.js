@@ -1,7 +1,6 @@
 import React from 'react'
 import { expect } from 'chai'
 import { mount } from 'enzyme'
-import { UserProvider } from '../../context/user-context'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { reducers } from '../../test-utils/store-mock'
@@ -16,9 +15,7 @@ describe('<App/>', () => {
   it('renders authenticated app', () => {
     const wrapper = mount(
       <Provider store={mockStore(reducers)}>
-        <UserProvider user={Factory.build('user')}>
-          <App />
-        </UserProvider>
+        <App user={Factory.build('user')} />
       </Provider>
     )
 
@@ -29,9 +26,7 @@ describe('<App/>', () => {
   it('renders unauthenticated app', () => {
     const wrapper = mount(
       <Provider store={mockStore(reducers)}>
-        <UserProvider>
-          <App />
-        </UserProvider>
+        <App />
       </Provider>
     )
 

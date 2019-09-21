@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { removeError } from '../../state/error/action-creators'
 import { getErrors } from '../../state/error/selectors'
@@ -30,8 +29,7 @@ const mapStateToProps = state => ({
   errors: getErrors(state),
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ removeError }, dispatch)
+const mapDispatchToProps = { removeError }
 
 export const ErrorListFromStore = connect(
   mapStateToProps,
