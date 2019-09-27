@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-import sinon from 'sinon'
 import faker from 'faker'
 import { initialState } from '../reducer'
 import { getErrors } from '../selectors'
