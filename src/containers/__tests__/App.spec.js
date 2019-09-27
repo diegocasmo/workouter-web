@@ -8,17 +8,29 @@ import { App } from '../App'
 import { Factory } from 'rosie'
 import { UnauthenticatedApp } from '../UnauthenticatedApp'
 import { AuthenticatedApp } from '../AuthenticatedApp'
+import { FullPageSpinner } from '../../components/UI/FullPageSpinner'
 
 const mockStore = configureMockStore([])
 
 describe('<App/>', () => {
+  it('renders <FullPageSpinner/> when loading', () => {
+    const wrapper = mount(
+      <Provider store={mockStore(reducers)}>
+        <App user={null} isLoading />
+      </Provider>
+    )
+    expect(wrapper.find(FullPageSpinner)).to.have.lengthOf(1)
+    expect(wrapper.find(UnauthenticatedApp)).to.have.lengthOf(0)
+    expect(wrapper.find(AuthenticatedApp)).to.have.lengthOf(0)
+  })
+
   it('renders authenticated app', () => {
     const wrapper = mount(
       <Provider store={mockStore(reducers)}>
         <App user={Factory.build('user')} />
       </Provider>
     )
-
+    expect(wrapper.find(FullPageSpinner)).to.have.lengthOf(0)
     expect(wrapper.find(UnauthenticatedApp)).to.have.lengthOf(0)
     expect(wrapper.find(AuthenticatedApp)).to.have.lengthOf(1)
   })
@@ -29,7 +41,7 @@ describe('<App/>', () => {
         <App />
       </Provider>
     )
-
+    expect(wrapper.find(FullPageSpinner)).to.have.lengthOf(0)
     expect(wrapper.find(UnauthenticatedApp)).to.have.lengthOf(1)
     expect(wrapper.find(AuthenticatedApp)).to.have.lengthOf(0)
   })
