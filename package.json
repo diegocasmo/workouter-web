@@ -29,7 +29,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "fake-indexeddb": "^2.1.1",
     "faker": "^4.1.0",
     "husky": "^3.0.8",
